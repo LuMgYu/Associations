@@ -1,23 +1,34 @@
 package com.zhiyisoft.associations.cache.base;
+
 /***********************************************************************
  * Module:  Cache.java
  * Author:  Administrator
  * Purpose: Defines the Interface Cache
  ***********************************************************************/
 
-import java.util.*;
+import java.util.List;
 
-/** @pdOid e2ab1f70-94ef-48da-b351-f8f9d887a91c */
+import com.zhiyisoft.associations.model.ModelItem;
+
+/** 所有缓存的接口，用单例模式管理缓存，这样比较好 */
 public interface Cache {
-   /** @param cacheType
-    * @pdOid 05b7c5e9-a22f-4a18-b039-7a76fbd1724b */
-   Object getTheData(int cacheType);
-   /** @param cacheType
-    * @pdOid 0e11a933-60d9-4a07-9eeb-f6361c45d3e3 */
-   boolean deleteTheData(int cacheType);
-   /** @param list 
-    * @param cacheType
-    * @pdOid c1b5b327-4513-4a6e-8451-cb958dabc0ab */
-   boolean addTheData(ArrayList list, int cacheType);
+	/**
+	 * @param cacheType
+	 *            缓存类型 獲取緩存
+	 */
+	List<ModelItem> getTheData(int cacheType);
+
+	/**
+	 * @param cacheType
+	 *            缓存类型 删掉缓存
+	 */
+	boolean deleteTheData(int cacheType);
+
+	/**
+	 * @param list
+	 * @param cacheType
+	 *            缓存类型 添加缓存类型
+	 */
+	boolean addTheData(List<ModelItem> list, int cacheType);
 
 }

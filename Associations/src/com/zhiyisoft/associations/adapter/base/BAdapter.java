@@ -9,11 +9,10 @@ package com.zhiyisoft.associations.adapter.base;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.cache.base.Cache;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelItem;
@@ -26,19 +25,31 @@ public abstract class BAdapter extends BaseAdapter {
 	/** 存入activity，必要时用来调用里面的东西 */
 	private BaseActivity mBaseActivity;
 	/** app全局应用 */
-	private BAdapter mApp;
+	private Association mApp;
 	/** 創建item需要传入的list */
 	private List<ModelItem> mList;
-	/** mlist的最后的位置 */
-	private int mLastPosition;
-	/** mlist的第一个位置 */
-	private int mFirstPosition;
 	/** 需要传入的fragment */
 	private BaseFragment mBaseFragment;
 	/** 缓存 */
 	private Cache mCache;
 	/** 需要刷新的条数 */
 	private final static int REFRESH_COUNT = 20;
+
+	public BAdapter(BaseActivity activity, List<ModelItem> list) {
+		mBaseActivity = activity;
+		mApp = (Association) activity.getApplication();
+		mList = list;
+		mHolder = new ViewHolder();
+		doRefreshNew();
+	}
+
+	public BAdapter(BaseFragment fragment, List<ModelItem> list) {
+		this.mBaseFragment = fragment;
+		mApp = (Association) mBaseFragment.getActivity().getApplication();
+		mList = list;
+		mHolder = new ViewHolder();
+		doRefreshNew();
+	}
 
 	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshHeader */
 	public abstract List<ModelItem> refreshNew();
@@ -54,87 +65,151 @@ public abstract class BAdapter extends BaseAdapter {
 
 	/**
 	 * @param item
+	 *            需要獲取的對象
 	 * @param count
-	 * @pdOid 41d6c9bb-67ea-474c-80f3-fc3509e5fd4e
+	 *            數量
+	 * @pdOid 下拉加载更多
 	 */
 	public abstract List<ModelItem> refreshFooter(ModelItem item, int count);
 
+	/** 真正的獲取數據，先查看是否存在缓存，如果存在就调用缓存的，
+	 * 如果不存在就調用refreshnew（）獲取的數據加載到adapter里面
+	 *  */
+	public void doRefreshNew() {
+		// 先获取缓存
+		mCache = getCache();
+		if (mCache != null) {
+			mList = mCache.getTheData(0);
+		}
+		if (mList == null || !(mList.size() > 0)) {
+			// TODO 这里要先检查网络是否有，如果没有的话 就return；
+			mList = refreshNew();
+			addHeadList(mList);
+		}
+
+	}
+
+	/** 真正的刷新数据數據，即調用RefreshHeader() 獲取的數據加載到adapter里面 */
+	public void doRefreshHeader() {
+		// TODO 这里要先检查网络是否有，如果没有的话 就return；
+		if (mList == null)
+			mList = new ArrayList<ModelItem>();
+		if (!mList.isEmpty()) {
+			addHeadList(refreshHeader(mList.get(0), REFRESH_COUNT));
+		}
+
+	}
+
+	/** 真正的獲取數據，即調用RefreshFooter() 獲取的數據加載到adapter里面 */
+	public void doRefreshFooter() {
+		// TODO 这里要先检查网络是否有，如果没有的话 就return；
+		if (mList == null)
+			mList = new ArrayList<ModelItem>();
+		if (!mList.isEmpty()) {
+			addFooterList(refreshFooter(mList.get(mList.size() - 1),
+					REFRESH_COUNT));
+		}
+
+	}
+
 	/**
 	 * @param list
-	 * @pdOid d4990472-8df3-407f-b567-3b44077a9bc3
+	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
 	private void addHeadList(List<ModelItem> list) {
-		// TODO: implement
-	}
-
-	/** @pdOid e9ac2811-6287-4d6b-a186-b8449ef15875 */
-	public void doRefreshNew() {
-		// TODO: implement
-	}
-
-	/** @pdOid 93ac9c89-f599-4672-9665-16fa1477cc35 */
-	public void doRefreshHeader() {
-		// TODO: implement
-	}
-
-	/** @pdOid 97932285-9108-41e2-88c9-e7242822e901 */
-	public void doRefreshFooter() {
-		// TODO: implement
+		if (mList != null && list.size() > 0) {
+			List<ModelItem> cacheList = new ArrayList<ModelItem>();
+			for (int i = 0; i < cacheList.size(); i++) {
+				cacheList.add(mList.remove(i));
+			}
+			mList.addAll(list);
+			mList.addAll(cacheList);
+			// 加了数据后就要通知adapter 更新list
+			this.notifyDataSetChanged();
+		}
 	}
 
 	/**
 	 * @param list
-	 * @pdOid a6fa103d-0db2-4645-946d-2ca44077b7e4
+	 * @pdOid 把数据加载到底部
 	 */
-	public void addFooterList(ArrayList list) {
-		// TODO: implement
+	private void addFooterList(List<ModelItem> list) {
+		if (mList != null && list.size() > 0) {
+			mList.addAll(list);
+			// 加了数据后就要通知adapter 更新list
+			this.notifyDataSetChanged();
+		}
 	}
 
-	/** @pdOid 78936163-86f4-438f-8120-26288da8362e */
-	public Cache getCache() {
+	/** 獲取緩存，通常是調用mapp里面的緩存 */
+	private Cache getCache() {
 		return null;
 	}
 
 	/**
 	 * @param cacheType
-	 * @pdOid e7d2628a-dc02-4de3-ab78-b18d14fdaace
+	 *            获取缓存的类型，因为每一个下拉框的item是不一样的，所以必须要标明获取哪一种缓存 獲取緩存類型
 	 */
 	public abstract int getTheCacheType();
 
-	/** @pdOid 1a56b5bf-f558-40a7-a4e3-94bc295037fd */
-	public java.lang.Object getFirstItem() {
-		// TODO: implement
+	/** 获取list 的第一个item */
+	public ModelItem getFirstItem() {
+		if (mList.size() > 0) {
+			return mList.get(0);
+		}
 		return null;
 	}
 
-	/** @pdOid e8fc8a00-e003-4213-9003-76552ccd682f */
-	public java.lang.Object getLastItem() {
-		// TODO: implement
+	/** 获取list的最有一个item */
+	public ModelItem getLastItem() {
+		if (mList.size() > 0) {
+			return mList.get(mList.size() - 1);
+		}
 		return null;
 	}
 
-	/** @pdOid 27f312a2-0d4d-4fd1-bf1f-5bab9f6a7d87 */
-	public int deleteAlltheItem() {
-		// TODO: implement
-		return 0;
+	/** 刪掉所以的list，估計這個用不到，不過先寫好，萬一要用呢 */
+	public void deleteAlltheItem() {
+		if (mList.size() > 0) {
+			mList.removeAll(mList);
+		}
 	}
 
+	
+	/**
+	 * @return 返回mlist最后一个modelitem
+	 */
+	public ModelItem getLastPositionItem() {
+		if (mList != null && !mList.isEmpty()) {
+			return mList.get(mList.size() - 1);
+		}
+		return null;
+	}
+
+	/**
+	 * @return 返回mlist第一个modelitem
+	 */
+	public ModelItem getFirstPositionItem() {
+		if (mList != null && !mList.isEmpty()) {
+			return mList.get(0);
+		}
+		return null;
+	}
+
+	// --------------------------------------------------------------------------------------------
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return null;
+		return mList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 }

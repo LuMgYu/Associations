@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.db;
+package com.zhiyisoft.associations.db.base;
 /***********************************************************************
  * Module:  SqliteHelper.java
  * Author:  Administrator
