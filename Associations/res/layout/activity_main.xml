@@ -8,4 +8,9 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
+    <com.zhiyisoft.associations.listview.testListview
+        android:id="@+id/testlv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </LinearLayout>

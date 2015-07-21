@@ -18,6 +18,9 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.application.Association;
+import com.zhiyisoft.associations.impl.RefreshListener;
+import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**
  * activity的基类，任何activity都要继承它，并且实现里面的方法 一般不要轻易修改它
@@ -43,14 +46,19 @@ public abstract class BaseActivity extends FragmentActivity {
 	private View mBodyLayout;
 
 	private LayoutInflater mInflater;
+	// 全局应用
+	private Association mApp;
 
 	// adapter的基类
 	private BAdapter mAdapter;
+	private BaseListView mListView;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		mApp = (Association) getApplication();
+		mApp.setActivity(this);
 		mInflater = LayoutInflater.from(getApplicationContext());
 		// 把内容和title结合
 		setContentView(combineTheLayout());
@@ -135,6 +143,18 @@ public abstract class BaseActivity extends FragmentActivity {
 	 */
 	public void setAdapter(BAdapter adapter) {
 		this.mAdapter = adapter;
+	}
+
+	/**
+	 * @param listView
+	 *            需要设置的listView
+	 */
+	public void setListView(BaseListView listView) {
+		this.mListView = listView;
+	}
+
+	public RefreshListener getListView() {
+		return mListView;
 	}
 
 }

@@ -9,13 +9,16 @@ package com.zhiyisoft.associations.adapter.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.cache.base.Cache;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /** adapter的基類，不要輕易修改這個類 */
@@ -34,17 +37,21 @@ public abstract class BAdapter extends BaseAdapter {
 	private Cache mCache;
 	/** 需要刷新的条数 */
 	private final static int REFRESH_COUNT = 20;
+	public LayoutInflater mInflater;
 
 	public BAdapter(BaseActivity activity, List<ModelItem> list) {
 		mBaseActivity = activity;
+		mBaseActivity.setAdapter(this);
 		mApp = (Association) activity.getApplication();
 		mList = list;
 		mHolder = new ViewHolder();
+		mInflater = LayoutInflater.from(activity);
 		doRefreshNew();
 	}
 
 	public BAdapter(BaseFragment fragment, List<ModelItem> list) {
 		this.mBaseFragment = fragment;
+		mBaseActivity = (BaseActivity) mBaseFragment.getActivity();
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
 		mList = list;
 		mHolder = new ViewHolder();
@@ -72,9 +79,9 @@ public abstract class BAdapter extends BaseAdapter {
 	 */
 	public abstract List<ModelItem> refreshFooter(ModelItem item, int count);
 
-	/** 真正的獲取數據，先查看是否存在缓存，如果存在就调用缓存的，
-	 * 如果不存在就調用refreshnew（）獲取的數據加載到adapter里面
-	 *  */
+	/**
+	 * 真正的獲取數據，先查看是否存在缓存，如果存在就调用缓存的， 如果不存在就調用refreshnew（）獲取的數據加載到adapter里面
+	 * */
 	public void doRefreshNew() {
 		// 先获取缓存
 		mCache = getCache();
@@ -83,7 +90,10 @@ public abstract class BAdapter extends BaseAdapter {
 		}
 		if (mList == null || !(mList.size() > 0)) {
 			// TODO 这里要先检查网络是否有，如果没有的话 就return；
-			mList = refreshNew();
+			List<ModelItem> list = refreshNew();
+			if (list == null)
+				list = new ArrayList<ModelItem>();
+			mList = list;
 			addHeadList(mList);
 		}
 
@@ -91,11 +101,14 @@ public abstract class BAdapter extends BaseAdapter {
 
 	/** 真正的刷新数据數據，即調用RefreshHeader() 獲取的數據加載到adapter里面 */
 	public void doRefreshHeader() {
+		this.mBaseActivity.getListView().headerRefresh();
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
 			mList = new ArrayList<ModelItem>();
-		if (!mList.isEmpty()) {
+		if (mList.size() > 0) {
 			addHeadList(refreshHeader(mList.get(0), REFRESH_COUNT));
+		} else {
+			doRefreshNew();
 		}
 
 	}
@@ -119,14 +132,18 @@ public abstract class BAdapter extends BaseAdapter {
 	private void addHeadList(List<ModelItem> list) {
 		if (mList != null && list.size() > 0) {
 			List<ModelItem> cacheList = new ArrayList<ModelItem>();
-			for (int i = 0; i < cacheList.size(); i++) {
-				cacheList.add(mList.remove(i));
+			if (mList.size() > 0) {
+				for (int i = 0; i < cacheList.size(); i++) {
+					cacheList.add(mList.remove(i));
+				}
 			}
 			mList.addAll(list);
 			mList.addAll(cacheList);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
+		// 通知更新后就应该隐藏headview了
+		this.mBaseActivity.getListView().headerHiden();
 	}
 
 	/**
@@ -175,7 +192,6 @@ public abstract class BAdapter extends BaseAdapter {
 		}
 	}
 
-	
 	/**
 	 * @return 返回mlist最后一个modelitem
 	 */
@@ -210,6 +226,10 @@ public abstract class BAdapter extends BaseAdapter {
 	@Override
 	public long getItemId(int position) {
 		return position;
+	}
+
+	public List<ModelItem> getList() {
+		return mList;
 	}
 
 }

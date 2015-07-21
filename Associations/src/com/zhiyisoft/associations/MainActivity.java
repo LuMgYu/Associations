@@ -1,12 +1,20 @@
 package com.zhiyisoft.associations;
 
-import com.zhiyisoft.associations.activity.base.BaseActivity;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.util.Log;
+
+import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.adapter.testAdapter;
+import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.listview.testListview;
+import com.zhiyisoft.associations.model.ModelItem;
 
 public class MainActivity extends BaseActivity {
+	private testListview mListView;
+	private BAdapter mAdapter;
+	private List<ModelItem> mlist = new ArrayList<ModelItem>();
 
 	@Override
 	public String setCenterTitle() {
@@ -22,14 +30,19 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public int getLayoutId() {
-		// TODO Auto-generated method stub
 		return R.layout.activity_main;
 	}
 
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
-
+		mListView = (testListview) findViewById(R.id.testlv);
+//		mlist.add(new ModelItem());
+//		mlist.add(new ModelItem());
+//		mlist.add(new ModelItem());
+		Log.i("hhh", "---------------");
+		mAdapter = new testAdapter(this, mlist);
+		Log.i("hhh", "---------------end");
+		mListView.setAdapter(mAdapter);
 	}
 
 	@Override

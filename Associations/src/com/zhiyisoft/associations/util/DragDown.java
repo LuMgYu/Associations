@@ -20,8 +20,11 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.application.Association;
+import com.zhiyisoft.associations.impl.RefreshListener;
 
-public class DragDown implements OnTouchListener, OnGestureListener {
+public class DragDown implements OnTouchListener, OnGestureListener,
+		RefreshListener {
 	private GestureDetector mGestureDetector;
 	private static final int CONTENT_TEXT_ID = 0;
 	private static final int CONTENT_TIME_ID = 1;
@@ -119,8 +122,6 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 		header.setOrientation(LinearLayout.HORIZONTAL);
 		header.setGravity(Gravity.CENTER_HORIZONTAL);
 
-		// header.addView(child)
-
 		headerContent = new LinearLayout(getContext());
 		headerContent.setId(CONTENT_LAYOUT_ID);
 		headerContent.setOrientation(LinearLayout.VERTICAL);
@@ -216,28 +217,31 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 		return this.context;
 	}
 
-	/* (non-Javadoc)  下拉刷新的核心方法
-	 * @see android.view.View.OnTouchListener#onTouch(android.view.View, android.view.MotionEvent)
+	/*
+	 * (non-Javadoc) 下拉刷新的核心方法
+	 * 
+	 * @see android.view.View.OnTouchListener#onTouch(android.view.View,
+	 * android.view.MotionEvent)
 	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (null != headerContent) {// 头部不空
 			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
 					.getLayoutParams();
-			// Log.v(TAG,
-			// "onTouch1-->refreshing="+refreshing+"  event.getAction"
-			// +(event.getAction() == MotionEvent.ACTION_UP));
+			Log.v(TAG, "onTouch1-->refreshing=" + refreshing
+					+ "  event.getAction"
+					+ (event.getAction() == MotionEvent.ACTION_UP));
 			if (!refreshing && event.getAction() == MotionEvent.ACTION_UP) {
 				BaseActivity activity = getActivityObj();
-//				View right = null;
-//				if (activity.getCustomTitle() != null)
-//					right = activity.getCustomTitle().getRight();
-//				boolean canRefresh = false;
-//				if (right == null) {
-//					canRefresh = true;
-//				} else {
-//					canRefresh = right.isClickable();
-//				}
+				// View right = null;
+				// if (activity.getCustomTitle() != null)
+				// right = activity.getCustomTitle().getRight();
+				// boolean canRefresh = false;
+				// if (right == null) {
+				// canRefresh = true;
+				// } else {
+				// canRefresh = right.isClickable();
+				// }
 				// Log.v(TAG,
 				// "onTouch2-->right=null:"+(right==null)+" canRefresh="+canRefresh+" lpCenter.topMargin "
 				// +lpCenter.topMargin);
@@ -272,8 +276,12 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 		return false;
 	}
 
-	/* (non-Javadoc) 刷新的核心方法
-	 * @see android.view.GestureDetector.OnGestureListener#onScroll(android.view.MotionEvent, android.view.MotionEvent, float, float)
+	/*
+	 * (non-Javadoc) 刷新的核心方法
+	 * 
+	 * @see
+	 * android.view.GestureDetector.OnGestureListener#onScroll(android.view.
+	 * MotionEvent, android.view.MotionEvent, float, float)
 	 */
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
@@ -297,10 +305,11 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 			if (distanceY < 0 && e1.getY() >= e2.getY()) {
 				int height = (int) Math.ceil(Math.abs((int) (e1.getY() - e2
 						.getY())) * 0.5);
+
 				lpCenter.topMargin = height - Math.abs(OFFSET);
 				headerContent.setLayoutParams(lpCenter);
-				// Log.v(TAG, "onScrol--> lpCenter.topMargin1 "
-				// +lpCenter.topMargin);
+				Log.v(TAG, "onScrol--> lpCenter.topMargin1 "
+						+ lpCenter.topMargin);
 				hasTouch = true;
 			} else {
 				if (e2.getY() >= e1.getY()) {
@@ -322,14 +331,14 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 				contentImage.startAnimation(anim_down);
 				hasReverse = false;
 			}
-			contentText.setText("请拉下来");
+			contentText.setText("下拉可以刷新");
 			contentText.setPadding(0, 7, 0, 0);
 		} else {
 			if (!hasReverse) {
 				contentImage.startAnimation(anim);
 				hasReverse = true;
 			}
-			contentText.setText("请提上去");
+			contentText.setText("松开可以刷新");
 			contentText.setPadding(0, 7, 0, 0);
 		}
 		if (refreshing) {
@@ -351,6 +360,7 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 	/**
 	 * 顯示頭部
 	 */
+	@Override
 	public void headerShow() {
 		if (headerContent == null) {
 			return;
@@ -365,6 +375,7 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 	/**
 	 * 隐藏头部
 	 */
+	@Override
 	public void headerHiden() {
 		try {
 			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
@@ -391,11 +402,14 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 	/**
 	 * 头部刷新
 	 */
+	@Override
 	public void headerRefresh() {
 		this.setTime();
 		if (header == null) {
 			return;
 		}
+		
+		Log.i("headerRefresh()", "调用了这个方法headerRefresh()");
 		TextView contentText = (TextView) header.findViewById(CONTENT_TEXT_ID);
 		ImageView contentImage = (ImageView) header
 				.findViewById(CONTENT_IMAGE_ID);
@@ -415,7 +429,8 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 	}
 
 	/**
-	 * @param lastRefresh 最后刷新的时间
+	 * @param lastRefresh
+	 *            最后刷新的时间
 	 */
 	public void setLastRefresh(long lastRefresh) {
 		this.lastRefresh = lastRefresh;
@@ -433,6 +448,7 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 	/**
 	 * 显示底部
 	 */
+	@Override
 	public void footerShow() {
 		if (footerContent != null) {
 			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) footerContent
@@ -448,6 +464,7 @@ public class DragDown implements OnTouchListener, OnGestureListener {
 	/**
 	 * 底部设置为不可见
 	 */
+	@Override
 	public void footerHiden() {
 		try {
 			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) footer
