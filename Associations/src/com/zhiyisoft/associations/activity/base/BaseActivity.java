@@ -6,8 +6,6 @@ package com.zhiyisoft.associations.activity.base;
  * Purpose: Defines the Class BaseActivity
  ***********************************************************************/
 
-import com.zhiyisoft.associations.R;
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -17,6 +15,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.adapter.base.BAdapter;
 
 /**
  * activity的基类，任何activity都要继承它，并且实现里面的方法 一般不要轻易修改它
@@ -42,6 +43,9 @@ public abstract class BaseActivity extends FragmentActivity {
 	private View mBodyLayout;
 
 	private LayoutInflater mInflater;
+
+	// adapter的基类
+	private BAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -97,12 +101,12 @@ public abstract class BaseActivity extends FragmentActivity {
 	/** 設置中間的title */
 	public abstract String setCenterTitle();
 
-	/** 設置title左邊的圖片的id 需要改变图片就在子类中重新这个方法*/
+	/** 設置title左邊的圖片的id 需要改变图片就在子类中重新这个方法 */
 	public int setTitleLeftImageId() {
 		return 0;
 	}
 
-	/** 设置title右边的的图片id 需要改变图片就在子类中重新这个方法*/
+	/** 设置title右边的的图片id 需要改变图片就在子类中重新这个方法 */
 	public int setTitleRightImageId() {
 		return 0;
 	}
@@ -118,5 +122,19 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	/** 初始化设置各个控件的监听器 */
 	public abstract void initListener();
+
+	public void refreshHeader() {
+		if (mAdapter != null) {
+			mAdapter.doRefreshHeader();
+		}
+	}
+
+	/**
+	 * @param adapter
+	 *            需要设置的adapter
+	 */
+	public void setAdapter(BAdapter adapter) {
+		this.mAdapter = adapter;
+	}
 
 }
