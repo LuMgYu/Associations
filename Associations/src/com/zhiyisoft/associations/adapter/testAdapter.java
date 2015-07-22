@@ -44,24 +44,10 @@ public class testAdapter extends BAdapter {
 
 	@Override
 	public List<ModelItem> refreshHeader(ModelItem item, int count) {
-		final List<ModelItem> items = new ArrayList<ModelItem>();
-//		private Handler handler=new Handler(){
-//			public void handleMessage(android.os.Message msg) {
-//				mag
-//			};
-//		}
-		new Thread() {
-			public void run() {
-				try {
-					sleep(3000);
-					items.add(new ModelItem());
-					items.add(new ModelItem());
-					items.add(new ModelItem());
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			};
-		}.start();
+	    List<ModelItem> items = new ArrayList<ModelItem>();
+		items.add(new ModelItem());
+		items.add(new ModelItem());
+		items.add(new ModelItem());
 		return items;
 	}
 

@@ -246,6 +246,7 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 				// "onTouch2-->right=null:"+(right==null)+" canRefresh="+canRefresh+" lpCenter.topMargin "
 				// +lpCenter.topMargin);
 				if (lpCenter.topMargin >= MIN_OFFSET) {
+					// 设置最后刷新时间
 					activity.refreshHeader();
 				} else {
 					lpCenter.topMargin = OFFSET;
@@ -394,6 +395,7 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 					.getLayoutParams();
 			lpImage.bottomMargin = BOTTON_MARIGN;
 			contentImage.setBackgroundResource(R.drawable.arrow_down);
+			setTime();
 		} catch (Exception ex) {
 			return;
 		}
@@ -408,7 +410,7 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 		if (header == null) {
 			return;
 		}
-		
+
 		Log.i("headerRefresh()", "调用了这个方法headerRefresh()");
 		TextView contentText = (TextView) header.findViewById(CONTENT_TEXT_ID);
 		ImageView contentImage = (ImageView) header
@@ -419,6 +421,7 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 				.getLayoutParams();
 		lpImage.bottomMargin += 10;
 		Anim.refresh(getContext(), contentImage);
+		this.lastRefresh = System.currentTimeMillis();
 	}
 
 	/**
