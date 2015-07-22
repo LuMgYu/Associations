@@ -3,14 +3,16 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.api.Api.Login;
 import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.ModelUser;
 
 /**
  * author：qiuchunjia time：上午10:47:11 类描述：这个类是实现
@@ -44,10 +46,12 @@ public class testAdapter extends BAdapter {
 
 	@Override
 	public List<ModelItem> refreshHeader(ModelItem item, int count) {
-	    List<ModelItem> items = new ArrayList<ModelItem>();
+		List<ModelItem> items = new ArrayList<ModelItem>();
 		items.add(new ModelItem());
 		items.add(new ModelItem());
 		items.add(new ModelItem());
+		Login login = new Login();
+		login.registerMem(new ModelUser());
 		return items;
 	}
 

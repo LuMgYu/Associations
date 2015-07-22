@@ -3,6 +3,9 @@ package com.zhiyisoft.associations.application;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
@@ -20,6 +23,7 @@ public class Association extends Application {
 	private static Association mApp;
 	/** 定义一个线程池，整個app都用它 */
 	private ExecutorService mExecutor;
+	public static HttpClient mHttpClient;
 
 	@Override
 	public void onCreate() {
@@ -55,9 +59,23 @@ public class Association extends Application {
 	 * 关闭线程
 	 */
 	public void shutDownExecutor() {
-		if(mExecutor!=null){
+		if (mExecutor != null) {
 			mExecutor.shutdownNow();
 		}
 	}
-	
+
+	/**
+	 * @return 获取主机地址
+	 */
+	public static String getHostUrl() {
+		// TODO 以后把地址写到xml里面
+		return "http://daxs.zhiyicx.com/api?";
+	}
+
+	public static HttpClient getHttpClient() {
+		if (mHttpClient == null) {
+			mHttpClient = new DefaultHttpClient();
+		}
+		return mHttpClient;
+	}
 }

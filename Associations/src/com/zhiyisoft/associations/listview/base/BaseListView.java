@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -115,7 +114,6 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 
 			}
 		});
-		Log.i("hhh", "---------------setadapter 结束了得得得、");
 	}
 
 	/** 设置加载更多的布局 */
