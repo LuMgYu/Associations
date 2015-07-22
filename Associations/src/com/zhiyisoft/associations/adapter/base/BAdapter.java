@@ -128,6 +128,7 @@ public abstract class BAdapter extends BaseAdapter {
 
 	/** 真正的刷新数据數據，即調用RefreshHeader() 獲取的數據加載到adapter里面 */
 	public void doRefreshHeader() {
+		this.mBaseActivity.getListView().headerShow();
 		this.mBaseActivity.getListView().headerRefresh();
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
