@@ -30,14 +30,13 @@ public abstract class Request {
 	public String mHostUrl;
 	public List<NameValuePair> mParams;
 	public HashMap<String, Object> mHeadMap;
-	public String mHeadName = "";
-	public Object mHeadValue = "";
+	public String mBodyParams = "";
 
 	public Request() {
-		mParams = new ArrayList<NameValuePair>();
-		mHostUrl = getTheHostUrl();
 		mClient = getHttpClient();
-		// mHeadMap = new HashMap<String, Object>();
+		mHostUrl = getTheHostUrl();
+		mParams = new ArrayList<NameValuePair>();
+		mHeadMap = new HashMap<String, Object>();
 	}
 
 	/**
@@ -76,6 +75,7 @@ public abstract class Request {
 					Log.i("request", "result=" + result.toString());
 					return result;
 				}
+				Log.i("request", "status=" + status);
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

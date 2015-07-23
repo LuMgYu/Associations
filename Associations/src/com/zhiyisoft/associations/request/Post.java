@@ -1,6 +1,8 @@
 package com.zhiyisoft.associations.request;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -9,7 +11,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import android.content.Entity;
 import android.util.Log;
 
 import com.zhiyisoft.associations.request.base.Request;
@@ -29,19 +30,21 @@ public class Post extends Request {
 
 	@Override
 	public Request addHeaderParam(String name, Object value) {
-		mHeadName = name;
-		mHeadValue = value;
+		mHeadMap.put(name, value);
 		return this;
 	}
 
 	@Override
 	public HttpRequestBase GetRequestObject() {
 		HttpPost post = new HttpPost(mHostUrl);
-		post.setHeader(mHeadName, mHeadValue.toString());
+		Set<Entry<String, Object>> set = mHeadMap.entrySet();
+		// 通过循环把头部全部添加进去
+		for (Entry<String, Object> entry : set) {
+			post.addHeader(entry.getKey(), entry.getValue().toString());
+			Log.i("request", "entry.getKey()=" + entry.getKey()
+					+ " entry.getValue()=" + entry.getValue().toString());
+		}
 		try {
-			for (int i = 0; i < mParams.size(); i++) {
-				Log.i("request", mParams.get(i).toString()+"");
-			}
 			HttpEntity entity = new UrlEncodedFormEntity(mParams, HTTP.UTF_8);
 			post.setEntity(entity);
 		} catch (UnsupportedEncodingException e) {

@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.impl;
+package com.zhiyisoft.associations.api;
 
 import com.zhiyisoft.associations.model.ModelUser;
 
@@ -7,9 +7,10 @@ import com.zhiyisoft.associations.model.ModelUser;
  *
  */
 
-public interface LoginImpl {
-	public static final String MOD = "login";
-	public static final String ACT = "reg";
+public interface LoginIm {
+	public static final String LOGIN = "login";
+	public static final String REG = "reg";
+	public static final String INDEX = "index";
 
 	/**
 	 * @param User

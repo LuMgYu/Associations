@@ -10,9 +10,11 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
-import com.zhiyisoft.associations.api.Api.Login;
+import com.zhiyisoft.associations.api.BaseSettingIm;
+import com.zhiyisoft.associations.api.LeagueIm;
+import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.api.SchoolIm;
 import com.zhiyisoft.associations.model.ModelItem;
-import com.zhiyisoft.associations.model.ModelUser;
 
 /**
  * author：qiuchunjia time：上午10:47:11 类描述：这个类是实现
@@ -50,8 +52,17 @@ public class testAdapter extends BAdapter {
 		items.add(new ModelItem());
 		items.add(new ModelItem());
 		items.add(new ModelItem());
-		Login login = new Login();
-		login.registerMem(new ModelUser());
+		// SchoolIm school = new Api.SchoolImpl();
+		// school.getSchools("四川");
+		// LoginIm loginIm = new Api.LoginImpl();
+		// loginIm.Login(null);
+		// LeagueIm leagueIm = new Api.LeagueImpl();
+		// // leagueIm.createLeague(new ModelItem());
+		// leagueIm.getGroupCommonList(new ModelItem());
+		BaseSettingIm settingIm = new Api.BaseSettingImpl();
+		// settingIm.updateMask(new ModelItem());
+		// settingIm.getUserActiveMaskInfo(new ModelItem());
+		settingIm.setFaceImg(new ModelItem());
 		return items;
 	}
 
