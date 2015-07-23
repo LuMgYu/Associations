@@ -8,13 +8,17 @@ import org.json.JSONObject;
  *
  */
 
-public class ModelSchool extends ModelItem {
+public class ModelSchool extends Model {
 	/*
 	 * "id": "2978", "area": "四川", "name": "四川师范大学成都学院"
 	 */
 	private String id;
 	private String area;
 	private String name;
+
+	public ModelSchool() {
+
+	}
 
 	public ModelSchool(JSONObject jsonObject) {
 		try {

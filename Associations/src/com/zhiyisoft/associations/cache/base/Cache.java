@@ -8,7 +8,7 @@ package com.zhiyisoft.associations.cache.base;
 
 import java.util.List;
 
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 
 /** 所有缓存的接口，用单例模式管理缓存，这样比较好 */
 public interface Cache {
@@ -16,7 +16,7 @@ public interface Cache {
 	 * @param cacheType
 	 *            缓存类型 獲取緩存
 	 */
-	List<ModelItem> getTheData(int cacheType);
+	List<Model> getTheData(int cacheType);
 
 	/**
 	 * @param cacheType
@@ -29,6 +29,6 @@ public interface Cache {
 	 * @param cacheType
 	 *            缓存类型 添加缓存类型
 	 */
-	boolean addTheData(List<ModelItem> list, int cacheType);
+	boolean addTheData(List<Model> list, int cacheType);
 
 }

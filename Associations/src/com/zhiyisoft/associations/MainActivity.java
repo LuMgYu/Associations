@@ -9,12 +9,12 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.testAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.listview.testListview;
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 
 public class MainActivity extends BaseActivity {
 	private testListview mListView;
 	private BAdapter mAdapter;
-	private List<ModelItem> mlist = new ArrayList<ModelItem>();
+	private List<Model> mlist = new ArrayList<Model>();
 
 	@Override
 	public String setCenterTitle() {

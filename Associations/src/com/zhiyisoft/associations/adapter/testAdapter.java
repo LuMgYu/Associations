@@ -14,7 +14,7 @@ import com.zhiyisoft.associations.api.BaseSettingIm;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.api.SchoolIm;
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 
 /**
  * author：qiuchunjia time：上午10:47:11 类描述：这个类是实现
@@ -23,7 +23,7 @@ import com.zhiyisoft.associations.model.ModelItem;
 
 public class testAdapter extends BAdapter {
 
-	public testAdapter(BaseActivity activity, List<ModelItem> list) {
+	public testAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
 
@@ -34,9 +34,9 @@ public class testAdapter extends BAdapter {
 	}
 
 	@Override
-	public List<ModelItem> refreshNew() {
-		List<ModelItem> items = new ArrayList<ModelItem>();
-		items.add(new ModelItem());
+	public List<Model> refreshNew() {
+		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -47,27 +47,27 @@ public class testAdapter extends BAdapter {
 	}
 
 	@Override
-	public List<ModelItem> refreshHeader(ModelItem item, int count) {
-		List<ModelItem> items = new ArrayList<ModelItem>();
-		items.add(new ModelItem());
-		items.add(new ModelItem());
-		items.add(new ModelItem());
+	public List<Model> refreshHeader(Model item, int count) {
+		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
 		// SchoolIm school = new Api.SchoolImpl();
 		// school.getSchools("四川");
 		// LoginIm loginIm = new Api.LoginImpl();
 		// loginIm.Login(null);
-		// LeagueIm leagueIm = new Api.LeagueImpl();
+		LeagueIm leagueIm = new Api.LeagueImpl();
 		// // leagueIm.createLeague(new ModelItem());
-		// leagueIm.getGroupCommonList(new ModelItem());
-		BaseSettingIm settingIm = new Api.BaseSettingImpl();
+		leagueIm.getGroupCommonList(new Model());
+		// BaseSettingIm settingIm = new Api.BaseSettingImpl();
 		// settingIm.updateMask(new ModelItem());
-		// settingIm.getUserActiveMaskInfo(new ModelItem());
-		settingIm.setFaceImg(new ModelItem());
+		// settingIm.getUserActiveMaskInfo(new Model());
+		// settingIm.setFaceImg(new ModelItem());
 		return items;
 	}
 
 	@Override
-	public List<ModelItem> refreshFooter(ModelItem item, int count) {
+	public List<Model> refreshFooter(Model item, int count) {
 		// TODO Auto-generated method stub
 		return null;
 	}

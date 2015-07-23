@@ -6,7 +6,7 @@ package com.zhiyisoft.associations.model;
  *
  */
 
-public class ModelItem {
+public class Model {
 
 }
 

@@ -2,7 +2,7 @@ package com.zhiyisoft.associations.api;
 
 import java.util.List;
 
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 
 /**
  * author：qiuchunjia time：上午10:43:07
@@ -24,5 +24,5 @@ public interface SchoolIm {
 	 *            省名
 	 * @return 返回学校的集合
 	 */
-	List<ModelItem> getSchools(String province);
+	List<Model> getSchools(String province);
 }

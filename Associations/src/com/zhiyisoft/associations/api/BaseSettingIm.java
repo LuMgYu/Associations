@@ -1,6 +1,6 @@
 package com.zhiyisoft.associations.api;
 
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 
 /**
  * author：qiuchunjia time：下午3:42:08 接口描述：基本的设置的接口
@@ -19,7 +19,7 @@ public interface BaseSettingIm {
 	 * @param item
 	 * @return
 	 */
-	Object updateMask(ModelItem item);
+	Object updateMask(Model item);
 
 	/**
 	 * 获取当前激活昵称信息
@@ -27,7 +27,7 @@ public interface BaseSettingIm {
 	 * @param item
 	 * @return
 	 */
-	Object getUserActiveMaskInfo(ModelItem item);
+	Object getUserActiveMaskInfo(Model item);
 
 	/**
 	 * 更新头像
@@ -35,5 +35,5 @@ public interface BaseSettingIm {
 	 * @param item
 	 * @return
 	 */
-	Object setFaceImg(ModelItem item);
+	Object setFaceImg(Model item);
 }

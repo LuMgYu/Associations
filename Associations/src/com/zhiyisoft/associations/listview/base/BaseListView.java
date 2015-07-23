@@ -23,7 +23,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.impl.RefreshListener;
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 import com.zhiyisoft.associations.util.DragDown;
 
 /** listview的基类 ，任何listview都可以继承它，减少代码的冗余 */
@@ -43,7 +43,7 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 	private Context mContext;
 
 	// /** mlist數據 */
-	private List<ModelItem> mList;
+	private List<Model> mList;
 	/** 下拉刷新的工具类 */
 	private DragDown mDragDown;
 	/** activity */

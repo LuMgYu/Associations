@@ -19,7 +19,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.cache.base.Cache;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /** adapter的基類，不要輕易修改這個類 */
@@ -31,7 +31,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/** app全局应用 */
 	private Association mApp;
 	/** 創建item需要传入的list */
-	private List<ModelItem> mList;
+	private List<Model> mList;
 	/** 需要传入的fragment */
 	private BaseFragment mBaseFragment;
 	/** 缓存 */
@@ -49,7 +49,7 @@ public abstract class BAdapter extends BaseAdapter {
 
 	public LayoutInflater mInflater;
 
-	public BAdapter(BaseActivity activity, List<ModelItem> list) {
+	public BAdapter(BaseActivity activity, List<Model> list) {
 		mBaseActivity = activity;
 		mBaseActivity.setAdapter(this);
 		mApp = (Association) activity.getApplication();
@@ -60,7 +60,7 @@ public abstract class BAdapter extends BaseAdapter {
 		doRefreshNew();
 	}
 
-	public BAdapter(BaseFragment fragment, List<ModelItem> list) {
+	public BAdapter(BaseFragment fragment, List<Model> list) {
 		this.mBaseFragment = fragment;
 		mBaseActivity = (BaseActivity) mBaseFragment.getActivity();
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
@@ -71,7 +71,7 @@ public abstract class BAdapter extends BaseAdapter {
 	}
 
 	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshHeader */
-	public abstract List<ModelItem> refreshNew();
+	public abstract List<Model> refreshNew();
 
 	/**
 	 * @param item
@@ -80,7 +80,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 *            获取刷新数据的多少 默認為20條，考虑的扩展性，可以修改它
 	 * @pdOid 上拉刷新數據
 	 */
-	public abstract List<ModelItem> refreshHeader(ModelItem item, int count);
+	public abstract List<Model> refreshHeader(Model item, int count);
 
 	/**
 	 * @param item
@@ -89,7 +89,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 *            數量
 	 * @pdOid 下拉加载更多
 	 */
-	public abstract List<ModelItem> refreshFooter(ModelItem item, int count);
+	public abstract List<Model> refreshFooter(Model item, int count);
 
 	/**
 	 * 用来处理线程发送来的数据，然后处理数据加载到mlist里面
@@ -100,16 +100,16 @@ public abstract class BAdapter extends BaseAdapter {
 			// TODO
 			switch (msg.what) {
 			case REFRESH_NEW:
-				List<ModelItem> refreshData = (List<ModelItem>) msg.obj;
+				List<Model> refreshData = (List<Model>) msg.obj;
 				addHeadList(refreshData);
 				break;
 
 			case REFRESH_HEADER:
-				List<ModelItem> items = (List<ModelItem>) msg.obj;
+				List<Model> items = (List<Model>) msg.obj;
 				addHeadList(items);
 				break;
 			case REFRESH_FOOTER:
-				List<ModelItem> footerItems = (List<ModelItem>) msg.obj;
+				List<Model> footerItems = (List<Model>) msg.obj;
 				addFooterList(footerItems);
 				break;
 			}
@@ -132,7 +132,7 @@ public abstract class BAdapter extends BaseAdapter {
 		this.mBaseActivity.getListView().headerRefresh();
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
-			mList = new ArrayList<ModelItem>();
+			mList = new ArrayList<Model>();
 		if (mList.size() > 0) {
 			mExecutor.execute(new WorkThread(REFRESH_HEADER));
 		} else {
@@ -145,7 +145,7 @@ public abstract class BAdapter extends BaseAdapter {
 	public void doRefreshFooter() {
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
-			mList = new ArrayList<ModelItem>();
+			mList = new ArrayList<Model>();
 		if (!mList.isEmpty()) {
 			mExecutor.execute(new WorkThread(REFRESH_FOOTER));
 		}
@@ -156,9 +156,9 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
-	private void addHeadList(List<ModelItem> list) {
+	private void addHeadList(List<Model> list) {
 		if (mList != null && list.size() > 0) {
-			List<ModelItem> cacheList = new ArrayList<ModelItem>();
+			List<Model> cacheList = new ArrayList<Model>();
 			if (mList.size() > 0) {
 				for (int i = 0; i < cacheList.size(); i++) {
 					cacheList.add(mList.remove(i));
@@ -177,7 +177,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 把数据加载到底部
 	 */
-	private void addFooterList(List<ModelItem> list) {
+	private void addFooterList(List<Model> list) {
 		if (mList != null && list.size() > 0) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list
@@ -197,7 +197,7 @@ public abstract class BAdapter extends BaseAdapter {
 	public abstract int getTheCacheType();
 
 	/** 获取list 的第一个item */
-	public ModelItem getFirstItem() {
+	public Model getFirstItem() {
 		if (mList.size() > 0) {
 			return mList.get(0);
 		}
@@ -205,7 +205,7 @@ public abstract class BAdapter extends BaseAdapter {
 	}
 
 	/** 获取list的最有一个item */
-	public ModelItem getLastItem() {
+	public Model getLastItem() {
 		if (mList.size() > 0) {
 			return mList.get(mList.size() - 1);
 		}
@@ -222,7 +222,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/**
 	 * @return 返回mlist最后一个modelitem
 	 */
-	public ModelItem getLastPositionItem() {
+	public Model getLastPositionItem() {
 		if (mList != null && !mList.isEmpty()) {
 			return mList.get(mList.size() - 1);
 		}
@@ -232,7 +232,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/**
 	 * @return 返回mlist第一个modelitem
 	 */
-	public ModelItem getFirstPositionItem() {
+	public Model getFirstPositionItem() {
 		if (mList != null && !mList.isEmpty()) {
 			return mList.get(0);
 		}
@@ -285,9 +285,9 @@ public abstract class BAdapter extends BaseAdapter {
 			}
 			if (mList == null || !(mList.size() > 0)) {
 				// TODO 这里要先检查网络是否有，如果没有的话 就return；
-				List<ModelItem> list = refreshNew();
+				List<Model> list = refreshNew();
 				if (list == null)
-					list = new ArrayList<ModelItem>();
+					list = new ArrayList<Model>();
 				mList = list;
 			}
 		}
@@ -301,7 +301,7 @@ public abstract class BAdapter extends BaseAdapter {
 		 *            傳遞的數據items 类型为list
 		 * 
 		 */
-		private void sendMessage(int type, List<ModelItem> items) {
+		private void sendMessage(int type, List<Model> items) {
 			Message message = Message.obtain();
 			message.what = type;
 			message.obj = items;
@@ -325,7 +325,7 @@ public abstract class BAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public List<ModelItem> getList() {
+	public List<Model> getList() {
 		return mList;
 	}
 

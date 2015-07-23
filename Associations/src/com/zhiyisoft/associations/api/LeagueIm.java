@@ -1,6 +1,6 @@
 package com.zhiyisoft.associations.api;
 
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 
 /**
  * author：qiuchunjia time：上午11:34:57 接口描述：实现创建社团
@@ -19,7 +19,7 @@ public interface LeagueIm {
 	 *            需要传递的社团model
 	 * @return
 	 */
-	Object createLeague(ModelItem modelItem);
+	Object createLeague(Model modelItem);
 
 	/**
 	 * 获取社团的分类
@@ -27,5 +27,5 @@ public interface LeagueIm {
 	 * @param mItem
 	 * @return
 	 */
-	Object getGroupCommonList(ModelItem mItem);
+	Object getGroupCommonList(Model mItem);
 }

@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.zhiyisoft.associations.model.ModelItem;
+import com.zhiyisoft.associations.model.Model;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.request.Get;
@@ -66,7 +66,7 @@ public class Api {
 	public static final class SchoolImpl implements SchoolIm {
 
 		@Override
-		public List<ModelItem> getSchools(String province) {
+		public List<Model> getSchools(String province) {
 			Request get = new Get();
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
@@ -77,7 +77,7 @@ public class Api {
 				try {
 					jsonObject = new JSONObject(object.toString());
 					if (jsonObject.has("data")) {
-						List<ModelItem> items = new ArrayList<ModelItem>();
+						List<Model> items = new ArrayList<Model>();
 						JSONArray array = jsonObject.getJSONArray("data");
 						int num = array.length();
 						for (int i = 0; i < num; i++) {
@@ -107,7 +107,7 @@ public class Api {
 		 * 
 		 * */
 		@Override
-		public Object createLeague(ModelItem modelItem) {
+		public Object createLeague(Model modelItem) {
 			Request post = new Post();
 			post.addHeaderParam("client_id", "1");
 			post.addHeaderParam("uid", "6309289");
@@ -121,7 +121,7 @@ public class Api {
 		}
 
 		@Override
-		public Object getGroupCommonList(ModelItem mItem) {
+		public Object getGroupCommonList(Model mItem) {
 			Request get = new Get();
 			get.addHeaderParam("client_id", "1");
 			get.addHeaderParam("uid", "6309289");
@@ -137,7 +137,7 @@ public class Api {
 	public static final class BaseSettingImpl implements BaseSettingIm {
 
 		@Override
-		public Object updateMask(ModelItem item) {
+		public Object updateMask(Model item) {
 			Request get = new Get();
 			get.addHeaderParam("client_id", "1");
 			get.addHeaderParam("uid", "6309289");
@@ -151,7 +151,7 @@ public class Api {
 		}
 
 		@Override
-		public Object getUserActiveMaskInfo(ModelItem item) {
+		public Object getUserActiveMaskInfo(Model item) {
 			Request get = new Get();
 			get.addHeaderParam("client_id", "1");
 			get.addHeaderParam("uid", "6309289");
@@ -164,7 +164,7 @@ public class Api {
 		}
 
 		@Override
-		public Object setFaceImg(ModelItem item) {
+		public Object setFaceImg(Model item) {
 			Request post = new Post();
 			post.addHeaderParam("client_id", "1");
 			post.addHeaderParam("uid", "6309289");
@@ -212,8 +212,8 @@ public class Api {
 	 *            需要解析为model的類型
 	 * @return
 	 */
-	private List<ModelItem> parseJsonArray(JSONArray array, ModelItem typeItem) {
-		List<ModelItem> list = new ArrayList<ModelItem>();
+	private List<Model> parseJsonArray(JSONArray array, Model typeItem) {
+		List<Model> list = new ArrayList<Model>();
 		if (array != null && array.length() > 0) {
 			int num = array.length();
 			for (int i = 0; i < num; i++) {
