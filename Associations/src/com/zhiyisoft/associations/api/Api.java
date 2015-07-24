@@ -74,7 +74,7 @@ public class Api {
 			Request get = new Get();
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
-			get.addBodyParam("name", "四川");
+			get.addBodyParam("name", "上海");
 			Object object = get.run();
 			return parseOriginalJsonArray(object.toString(), new ModelSchool());
 		}
@@ -236,7 +236,6 @@ public class Api {
 					return list;
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -289,30 +288,15 @@ public class Api {
 	 *            需要解析为model的類型
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
 	private static List<Model> parseJsonArray(JSONArray array, Model typeItem) {
 		List<Model> list = new ArrayList<Model>();
 		if (array != null && array.length() > 0) {
 			int num = array.length();
 			for (int i = 0; i < num; i++) {
-				Class classType = typeItem.getClass();
 				try {
-					@SuppressWarnings("unchecked")
-					Constructor<Model> constructor = classType
-							.getConstructor(JSONObject.class);
-					Model model = constructor.newInstance(array.get(i));
-					Log.i("reflect", "------=" + model.toString() + "");
+					Model model = new Model();
+					model = parseJsonObject(array.getJSONObject(i), typeItem);
 					list.add(model);
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -322,5 +306,4 @@ public class Api {
 
 		return null;
 	}
-
 }

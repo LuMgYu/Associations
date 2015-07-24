@@ -3,7 +3,9 @@ package com.zhiyisoft.associations;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.testAdapter;
@@ -15,6 +17,16 @@ public class MainActivity extends BaseActivity {
 	private testListview mListView;
 	private BAdapter mAdapter;
 	private List<Model> mlist = new ArrayList<Model>();
+
+	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+	}
+
+	@Override
+	public int getBottomLayoutId() {
+		return R.layout.bottom_layout;
+	}
 
 	@Override
 	public String setCenterTitle() {
@@ -36,9 +48,9 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		mListView = (testListview) findViewById(R.id.testlv);
-//		mlist.add(new ModelItem());
-//		mlist.add(new ModelItem());
-//		mlist.add(new ModelItem());
+		// mlist.add(new ModelItem());
+		// mlist.add(new ModelItem());
+		// mlist.add(new ModelItem());
 		Log.i("hhh", "---------------");
 		mAdapter = new testAdapter(this, mlist);
 		Log.i("hhh", "---------------end");

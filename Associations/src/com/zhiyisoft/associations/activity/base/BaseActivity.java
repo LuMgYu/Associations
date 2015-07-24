@@ -8,12 +8,14 @@ package com.zhiyisoft.associations.activity.base;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
@@ -33,7 +35,13 @@ public abstract class BaseActivity extends FragmentActivity {
 	 * 
 	 * 
 	 */
-	private LinearLayout mLayout;
+	private RelativeLayout mLayout;
+	/** title 容器 */
+	private LinearLayout mTitlell;
+	/** 内容容器 */
+	private LinearLayout mContentll;
+	/** 底部容器 */
+	public LinearLayout mBottomll; //
 	/** bundle数据 */
 	private Bundle mBundle;
 	/** title左边的图片id */
@@ -44,8 +52,10 @@ public abstract class BaseActivity extends FragmentActivity {
 	private View mTitleLayout;
 	/** 內容的布局 */
 	private View mBodyLayout;
+	/** 底部的布局 */
+	private View mBottomLayout;
 
-	private LayoutInflater mInflater;
+	public LayoutInflater mInflater;
 	// 全局应用
 	private Association mApp;
 
@@ -60,11 +70,21 @@ public abstract class BaseActivity extends FragmentActivity {
 		mApp = (Association) getApplication();
 		mApp.setActivity(this);
 		mInflater = LayoutInflater.from(getApplicationContext());
+		initTheCommonLayout();
 		// 把内容和title结合
 		setContentView(combineTheLayout());
 		initIntent();
 		initView();
 		initIntent();
+	}
+
+	/** 初始化公共布局 */
+	private void initTheCommonLayout() {
+		mLayout = (RelativeLayout) mInflater.inflate(R.layout.comom_layout,
+				null);
+		mTitlell = (LinearLayout) mLayout.findViewById(R.id.ll_Title);
+		mContentll = (LinearLayout) mLayout.findViewById(R.id.ll_content);
+		mBottomll = (LinearLayout) mLayout.findViewById(R.id.ll_bottom);
 	}
 
 	/** 设置title的布局 */
@@ -92,17 +112,39 @@ public abstract class BaseActivity extends FragmentActivity {
 		}
 	}
 
+	/**
+	 * 设置底部布局
+	 */
+	private void setBottomlayout() {
+		int id = getBottomLayoutId();
+		if (id != 0) {
+			mBottomll.setVisibility(View.VISIBLE);
+			mBodyLayout = mInflater.inflate(R.layout.bottom_layout, mBottomll);
+			Log.i("bottom", "--------------------->mBodyLayout");
+		}
+	}
+
+	/**
+	 * 默认不实现底部布局，如果要实现的话就重新這個方法，增加其扩张性
+	 * 
+	 * @return 返回底部布局id
+	 */
+	public int getBottomLayoutId() {
+		return 0;
+	}
+
 	/** 把内容和title全部加载到这个总布局里面 */
 	public View combineTheLayout() {
 		setTitleLayout();
-		mLayout = new LinearLayout(getApplicationContext());
-		mLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT));
-		mLayout.setOrientation(LinearLayout.VERTICAL);
+		setBottomlayout();
 		mBodyLayout = mInflater.inflate(getLayoutId(), null);
 		if (mTitleLayout != null)
-			mLayout.addView(mTitleLayout);
-		mLayout.addView(mBodyLayout);
+			mTitlell.addView(mTitleLayout);
+		mContentll.addView(mBodyLayout);
+		if (mBottomLayout != null) {
+			mBottomll.addView(mBottomLayout);
+			Log.i("bottom", "--------------------->");
+		}
 		return mLayout;
 	}
 
@@ -155,6 +197,20 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	public RefreshListener getListView() {
 		return mListView;
+	}
+
+	/**
+	 * 设置底部可见
+	 */
+	public void setBottomVisible() {
+		mBottomll.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 设置底部不可见
+	 */
+	public void setBottomGone() {
+		mBottomll.setVisibility(View.GONE);
 	}
 
 }
