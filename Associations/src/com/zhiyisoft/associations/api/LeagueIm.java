@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.api;
 
+import java.util.List;
+
 import com.zhiyisoft.associations.model.Model;
 
 /**
@@ -27,5 +29,5 @@ public interface LeagueIm {
 	 * @param mItem
 	 * @return
 	 */
-	Object getGroupCommonList(Model mItem);
+	List<Model> getGroupCommonList(Model mItem);
 }

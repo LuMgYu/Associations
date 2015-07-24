@@ -127,4 +127,12 @@ public class ModelUser extends Model {
 		this.sex = sex;
 	}
 
+	@Override
+	public String toString() {
+		return "ModelUser [uid=" + uid + ", client_id=" + client_id
+				+ ", token=" + token + ", pic=" + pic + ", name=" + name
+				+ ", uname=" + uname + ", email=" + email + ", sex=" + sex
+				+ "]";
+	}
+
 }

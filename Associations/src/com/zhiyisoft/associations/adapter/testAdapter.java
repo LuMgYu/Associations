@@ -52,17 +52,17 @@ public class testAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());
-		// SchoolIm school = new Api.SchoolImpl();
-		// school.getSchools("四川");
-		// LoginIm loginIm = new Api.LoginImpl();
-		// loginIm.Login(null);
-		LeagueIm leagueIm = new Api.LeagueImpl();
-		// // leagueIm.createLeague(new ModelItem());
-		leagueIm.getGroupCommonList(new Model());
-		// BaseSettingIm settingIm = new Api.BaseSettingImpl();
-		// settingIm.updateMask(new ModelItem());
-		// settingIm.getUserActiveMaskInfo(new Model());
-		// settingIm.setFaceImg(new ModelItem());
+//		SchoolIm school = new Api.SchoolImpl();
+//		school.getSchools("四川");
+//		LoginIm loginIm = new Api.LoginImpl();
+//		loginIm.Login(null);
+//		LeagueIm leagueIm = new Api.LeagueImpl();
+//		leagueIm.createLeague(new Model());
+//		leagueIm.getGroupCommonList(new Model());
+		BaseSettingIm settingIm = new Api.BaseSettingImpl();
+//		settingIm.updateMask(new Model());
+//		settingIm.getUserActiveMaskInfo(new Model());
+		settingIm.setFaceImg(new Model());
 		return items;
 	}
 

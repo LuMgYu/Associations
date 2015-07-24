@@ -8,7 +8,7 @@ import org.json.JSONObject;
  *
  */
 
-public class ModelLeague {
+public class ModelLeague extends Model {
 	/*
 	 * "id": "30066", "name": "志愿公益" 社团类型返回的值
 	 * 
@@ -132,5 +132,14 @@ public class ModelLeague {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
+
+	@Override
+	public String toString() {
+		return "ModelLeague [id=" + id + ", name=" + name + ", categoryid="
+				+ categoryid + ", logo=" + logo + ", description="
+				+ description + ", school=" + school + ", mPrivate=" + mPrivate
+				+ ", tags=" + tags + ", contact=" + contact + "]";
+	}
+	
 
 }

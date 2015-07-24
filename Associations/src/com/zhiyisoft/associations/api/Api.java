@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.api;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,8 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.request.Get;
@@ -45,7 +49,7 @@ public class Api {
 		}
 
 		@Override
-		public Object Login(ModelUser user) {
+		public Model Login(ModelUser user) {
 			Request post = new Post();
 			post.addHeaderParam("client_id", "1");
 			post.addBodyParam(MOD, LoginIm.LOGIN);
@@ -54,7 +58,7 @@ public class Api {
 			post.addBodyParam("password", "13445555");
 			Object object = post.run();
 			Log.i("request", "object=" + object);
-			return null;
+			return parseOriginalJsonObject(object.toString(), new ModelUser());
 		}
 
 	}
@@ -72,28 +76,7 @@ public class Api {
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
 			get.addBodyParam("name", "四川");
 			Object object = get.run();
-			if (isCodeOk(object.toString())) {
-				JSONObject jsonObject;
-				try {
-					jsonObject = new JSONObject(object.toString());
-					if (jsonObject.has("data")) {
-						List<Model> items = new ArrayList<Model>();
-						JSONArray array = jsonObject.getJSONArray("data");
-						int num = array.length();
-						for (int i = 0; i < num; i++) {
-							ModelSchool school = new ModelSchool(
-									array.getJSONObject(i));
-							items.add(school);
-						}
-						return items;
-					}
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			return null;
+			return parseOriginalJsonArray(object.toString(), new ModelSchool());
 		}
 	}
 
@@ -121,7 +104,7 @@ public class Api {
 		}
 
 		@Override
-		public Object getGroupCommonList(Model mItem) {
+		public List<Model> getGroupCommonList(Model mItem) {
 			Request get = new Get();
 			get.addHeaderParam("client_id", "1");
 			get.addHeaderParam("uid", "6309289");
@@ -129,8 +112,8 @@ public class Api {
 					"34975aeea94b0e71311c21215daf117a");
 			get.addBodyParam(MOD, LeagueIm.GROUP);
 			get.addBodyParam(ACT, LeagueIm.GETGROUPCOMMONLIST);
-			get.run();
-			return null;
+			Object object = get.run();
+			return parseOriginalJsonArray(object.toString(), new ModelLeague());
 		}
 	}
 
@@ -151,7 +134,7 @@ public class Api {
 		}
 
 		@Override
-		public Object getUserActiveMaskInfo(Model item) {
+		public Model getUserActiveMaskInfo(Model item) {
 			Request get = new Get();
 			get.addHeaderParam("client_id", "1");
 			get.addHeaderParam("uid", "6309289");
@@ -159,12 +142,12 @@ public class Api {
 					"34975aeea94b0e71311c21215daf117a");
 			get.addBodyParam(MOD, BaseSettingIm.USER);
 			get.addBodyParam(ACT, BaseSettingIm.GETUSERACTIVITEMASKINFO);
-			get.run();
-			return null;
+			Object object = get.run();
+			return parseOriginalJsonObject(object.toString(), new ModelMask());
 		}
 
 		@Override
-		public Object setFaceImg(Model item) {
+		public Model setFaceImg(Model item) {
 			Request post = new Post();
 			post.addHeaderParam("client_id", "1");
 			post.addHeaderParam("uid", "6309289");
@@ -174,8 +157,8 @@ public class Api {
 			post.addBodyParam(ACT, BaseSettingIm.SETFACEIMG);
 			post.addBodyParam("url", "https://www.baidu.com/img/bd_logo1.png");
 			post.addBodyParam("domain", "https://www.baidu.com");
-			post.run();
-			return null;
+			Object object = post.run();
+			return parseOriginalJsonObject(object.toString(), new ModelMask());
 		}
 	}
 
@@ -197,30 +180,147 @@ public class Api {
 				return false;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
 
 	/**
-	 * 把jsonarray解析成list<ModelItem>
+	 * 解析网络最原始的json数据
 	 * 
-	 * @param array
-	 *            需要解析的jsonarray
-	 * @param typeItem
-	 *            需要解析为model的類型
+	 * @param jsonObject
+	 *            网络上最原始的json字符串，必须经过判断是否存在实际的数据后再解析
+	 * @param ModelType
+	 *            需要解析成model类型，一般是model的子類
 	 * @return
 	 */
-	private List<Model> parseJsonArray(JSONArray array, Model typeItem) {
-		List<Model> list = new ArrayList<Model>();
-		if (array != null && array.length() > 0) {
-			int num = array.length();
-			for (int i = 0; i < num; i++) {
-				// ModelItem item = typeItem.getClass().newInstance();
+	public static Model parseOriginalJsonObject(String jsonObject,
+			Model ModelType) {
+		Model model = null;
+		try {
+			if (isCodeOk(jsonObject.toString())) {
+				JSONObject json = new JSONObject(jsonObject.toString());
+				if (json.has("data")) {
+					JSONObject modelData = json.getJSONObject("data");
+					model = parseJsonObject(modelData, new ModelMask());
+					Log.i("model", "model=" + model.toString());
+					return model;
+				}
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return model;
+
+	}
+
+	/**
+	 * 返回解析后的model對象list
+	 * 
+	 * @param jsonObject
+	 *            网络上最原始的json字符串，必须经过判断是否存在实际的数据后再解析
+	 * @param ModelType
+	 *            需啊解析成model 类型
+	 * @return
+	 */
+	public static List<Model> parseOriginalJsonArray(String jsonObject,
+			Model ModelType) {
+		List<Model> list = null;
+		if (isCodeOk(jsonObject.toString())) {
+			JSONObject json;
+			try {
+				json = new JSONObject(jsonObject.toString());
+				if (json.has("data")) {
+					JSONArray array = json.getJSONArray("data");
+					list = parseJsonArray(array, new ModelSchool());
+					return list;
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+
+	}
+
+	/**
+	 * json 并返回 一個model對象 利用反射机制解析
+	 * 
+	 * @param jsonObject
+	 *            需要解析的json对象 必須是純數據
+	 * @param typeItem
+	 *            需要解析成model的對象，只要是繼承model或者是其子類的都行
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	private static Model parseJsonObject(JSONObject jsonObject, Model typeItem) {
+		Class classType = typeItem.getClass();
+		if (jsonObject != null) {
+			try {
+				@SuppressWarnings("unchecked")
+				Constructor<Model> constructor = classType
+						.getConstructor(JSONObject.class);
+				Model model = constructor.newInstance(jsonObject);
+				Log.i("reflect", "------=" + model.toString() + "");
+				return model;
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
 			}
 		}
 
 		return null;
 	}
+
+	/**
+	 * 把jsonarray解析成list<ModelItem> 利用反射机制解析
+	 * 
+	 * @param array
+	 *            需要解析的jsonarray 必须是纯数据
+	 * @param typeItem
+	 *            需要解析为model的類型
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	private static List<Model> parseJsonArray(JSONArray array, Model typeItem) {
+		List<Model> list = new ArrayList<Model>();
+		if (array != null && array.length() > 0) {
+			int num = array.length();
+			for (int i = 0; i < num; i++) {
+				Class classType = typeItem.getClass();
+				try {
+					@SuppressWarnings("unchecked")
+					Constructor<Model> constructor = classType
+							.getConstructor(JSONObject.class);
+					Model model = constructor.newInstance(array.get(i));
+					Log.i("reflect", "------=" + model.toString() + "");
+					list.add(model);
+				} catch (NoSuchMethodException e) {
+					e.printStackTrace();
+				} catch (InstantiationException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+
+		return null;
+	}
+
 }

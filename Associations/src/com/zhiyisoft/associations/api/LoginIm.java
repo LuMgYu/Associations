@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.api;
 
+import com.zhiyisoft.associations.model.Model;
 import com.zhiyisoft.associations.model.ModelUser;
 
 /**
@@ -24,5 +25,5 @@ public interface LoginIm {
 	 *            需要登陸的用戶
 	 * @return
 	 */
-	Object Login(ModelUser user);
+	Model Login(ModelUser user);
 }

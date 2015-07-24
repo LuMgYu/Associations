@@ -35,5 +35,5 @@ public interface BaseSettingIm {
 	 * @param item
 	 * @return
 	 */
-	Object setFaceImg(Model item);
+	Model setFaceImg(Model item);
 }

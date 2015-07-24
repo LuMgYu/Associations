@@ -26,11 +26,14 @@ public class ModelMask extends Model {
 	 * url:图片路径； domain：域名（本站传0，其他站，传域名）
 	 */
 
-	private String url; //当设置图片途径的时候用到
-	private String domain; 
+	private String url; // 当设置图片途径的时候用到
+	private String domain;
+	// ------------------------------------------------------
+	// 返回的图片路径
+	private String face_img;
 
 	// -----------------------------------------
-     //返回的值段
+	// 返回的值段
 	private String maskId;
 	private String uid;
 	private String name;
@@ -91,6 +94,9 @@ public class ModelMask extends Model {
 			}
 			if (jsonObject.has("spaceSize")) {
 				this.setSpaceSize(jsonObject.getString("spaceSize"));
+			}
+			if (jsonObject.has("face_img")) {
+				this.setFace_img(jsonObject.getString("face_img"));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -219,5 +225,35 @@ public class ModelMask extends Model {
 		this.domain = domain;
 	}
 
+	public String getFace_img() {
+		return face_img;
+	}
+
+	public void setFace_img(String face_img) {
+		this.face_img = face_img;
+	}
+
 	
+	@Override
+	public String toString() {
+		return "ModelMask [mask=" + mask + ", url=" + url + ", domain="
+				+ domain + ", face_img=" + face_img + ", maskId=" + maskId
+				+ ", uid=" + uid + ", name=" + name + ", status=" + status
+				+ ", faceid=" + faceid + ", isTrueName=" + isTrueName
+				+ ", sort=" + sort + ", isdel=" + isdel + ", cTime=" + cTime
+				+ ", credit_exp=" + credit_exp + ", credit_score="
+				+ credit_score + ", spaceSize=" + spaceSize + ", getMaskId()="
+				+ getMaskId() + ", getUid()=" + getUid() + ", getName()="
+				+ getName() + ", getStatus()=" + getStatus() + ", getFaceid()="
+				+ getFaceid() + ", getIsTrueName()=" + getIsTrueName()
+				+ ", getSort()=" + getSort() + ", getIsdel()=" + getIsdel()
+				+ ", getcTime()=" + getcTime() + ", getCredit_exp()="
+				+ getCredit_exp() + ", getCredit_score()=" + getCredit_score()
+				+ ", getSpaceSize()=" + getSpaceSize() + ", getMask()="
+				+ getMask() + ", getUrl()=" + getUrl() + ", getDomain()="
+				+ getDomain() + ", getFace_img()=" + getFace_img()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
+
 }
