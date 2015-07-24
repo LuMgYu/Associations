@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="bottom_tv_color">#888</color>
+    <color name="bottom_tv_color_change">#4d4</color>
+
 </resources>

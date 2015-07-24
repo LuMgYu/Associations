@@ -37,12 +37,6 @@ public class testAdapter extends BAdapter {
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
 		items.add(new Model());
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return items;
 	}
 
@@ -52,12 +46,12 @@ public class testAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());
-//		SchoolIm school = new Api.SchoolImpl();
-//		school.getSchools("四川");
+		SchoolIm school = new Api.SchoolImpl();
+		school.getSchools("四川");
 		// LoginIm loginIm = new Api.LoginImpl();
 		// loginIm.Login(null);
-		 LeagueIm leagueIm = new Api.LeagueImpl();
-		 leagueIm.createLeague(new Model());
+		// LeagueIm leagueIm = new Api.LeagueImpl();
+		// leagueIm.createLeague(new Model());
 		// leagueIm.getGroupCommonList(new Model());
 		// BaseSettingIm settingIm = new Api.BaseSettingImpl();
 		// settingIm.updateMask(new Model());

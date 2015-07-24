@@ -74,8 +74,9 @@ public abstract class BaseActivity extends FragmentActivity {
 		// 把内容和title结合
 		setContentView(combineTheLayout());
 		initIntent();
-		initView();
 		initIntent();
+		initView();
+		initListener();
 	}
 
 	/** 初始化公共布局 */
