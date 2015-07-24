@@ -1,6 +1,6 @@
 package com.zhiyisoft.associations.api;
 
-import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：下午3:42:08 接口描述：基本的设置的接口

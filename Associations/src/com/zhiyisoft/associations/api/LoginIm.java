@@ -1,7 +1,7 @@
 package com.zhiyisoft.associations.api;
 
-import com.zhiyisoft.associations.model.Model;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：下午2:27:27 类描述：这个接口是实现登陆和注册。

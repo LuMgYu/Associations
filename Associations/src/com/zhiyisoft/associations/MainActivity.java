@@ -9,7 +9,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.testAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.listview.testListview;
-import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.base.Model;
 
 public class MainActivity extends BaseActivity {
 	private testListview mListView;

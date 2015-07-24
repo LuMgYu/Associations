@@ -2,7 +2,7 @@ package com.zhiyisoft.associations.api;
 
 import java.util.List;
 
-import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：上午10:43:07

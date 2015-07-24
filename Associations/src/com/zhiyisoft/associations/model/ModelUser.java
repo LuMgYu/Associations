@@ -3,6 +3,8 @@ package com.zhiyisoft.associations.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.zhiyisoft.associations.model.base.Model;
+
 /**
  * author：qiuchunjia time：下午2:21:50 类描述：这个类是实现用户model uid:
  * 

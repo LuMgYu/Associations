@@ -11,11 +11,11 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.zhiyisoft.associations.model.Model;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.request.Get;
 import com.zhiyisoft.associations.request.Post;
 import com.zhiyisoft.associations.request.base.Request;

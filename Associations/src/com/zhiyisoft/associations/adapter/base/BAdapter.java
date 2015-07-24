@@ -19,7 +19,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.cache.base.Cache;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /** adapter的基類，不要輕易修改這個類 */

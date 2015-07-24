@@ -14,7 +14,7 @@ import com.zhiyisoft.associations.api.BaseSettingIm;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.api.SchoolIm;
-import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：上午10:47:11 类描述：这个类是实现

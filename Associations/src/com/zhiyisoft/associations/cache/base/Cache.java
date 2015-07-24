@@ -8,7 +8,7 @@ package com.zhiyisoft.associations.cache.base;
 
 import java.util.List;
 
-import com.zhiyisoft.associations.model.Model;
+import com.zhiyisoft.associations.model.base.Model;
 
 /** 所有缓存的接口，用单例模式管理缓存，这样比较好 */
 public interface Cache {
