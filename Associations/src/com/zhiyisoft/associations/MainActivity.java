@@ -139,7 +139,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mMeFragment = new FragmentMe();
 		}
 		replaceFragment(mMeFragment);
+		changeTheTitle("个人");
 	}
+
 	/**
 	 * 初始化FragmentNotify()
 	 */
@@ -149,7 +151,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mNotifyFragment = new FragmentNotify();
 		}
 		replaceFragment(mNotifyFragment);
+		changeTheTitle("通知");
 	}
+
 	/**
 	 * 初始化FragmentAssociation()
 	 */
@@ -158,7 +162,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mAssociationFragment = new FragmentAssociation();
 		}
 		replaceFragment(mAssociationFragment);
+		changeTheTitle("社团");
 	}
+
 	/**
 	 * 初始化FragmentMove()
 	 */
@@ -167,7 +173,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mMoveFragment = new FragmentMove();
 		}
 		replaceFragment(mMoveFragment);
+		changeTheTitle("运动");
 	}
+
 	/**
 	 * 初始化FragmentHome()
 	 */
@@ -176,6 +184,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mHomeFragment = new FragmentHome();
 		}
 		replaceFragment(mHomeFragment);
+		changeTheTitle("主页");
 	}
 
 	private void replaceFragment(BaseFragment fragment) {

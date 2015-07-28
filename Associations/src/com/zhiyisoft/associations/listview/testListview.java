@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**

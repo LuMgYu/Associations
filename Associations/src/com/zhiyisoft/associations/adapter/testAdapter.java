@@ -10,10 +10,8 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
-import com.zhiyisoft.associations.api.BaseSettingIm;
-import com.zhiyisoft.associations.api.LeagueIm;
-import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.api.SchoolIm;
+import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -27,10 +25,13 @@ public class testAdapter extends BAdapter {
 		super(activity, list);
 	}
 
+	public testAdapter(BaseFragment fragment, List<Model> list) {
+		super(fragment, list);
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return mInflater.inflate(R.layout.title, null);
+		return mInflater.inflate(R.layout.fragment_notify_msg_iem, null);
 	}
 
 	@Override

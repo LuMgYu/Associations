@@ -17,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
@@ -64,6 +63,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	// adapter的基类
 	private BAdapter mAdapter;
 	private BaseListView mListView;
+	private TextView tv_title;
 
 	/**
 	 * 方便子类替换content部分
@@ -107,8 +107,7 @@ public abstract class BaseActivity extends FragmentActivity {
 					.findViewById(R.id.iv_title_left);
 			ImageView iv_right = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_right);
-			TextView tv_title = (TextView) mTitleLayout
-					.findViewById(R.id.tv_title);
+			tv_title = (TextView) mTitleLayout.findViewById(R.id.tv_title);
 			if (mTitleLeftImageId != 0) {
 				iv_left.setImageResource(mTitleLeftImageId);
 			}
@@ -157,6 +156,18 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	/** 設置中間的title */
 	public abstract String setCenterTitle();
+
+	/**
+	 * 改变title
+	 * 
+	 * @param str
+	 *            需要改变的title文字
+	 */
+	public void changeTheTitle(String str) {
+		if (tv_title != null) {
+			tv_title.setText(str + "");
+		}
+	}
 
 	/** 設置title左邊的圖片的id 需要改变图片就在子类中重新这个方法 */
 	public int setTitleLeftImageId() {

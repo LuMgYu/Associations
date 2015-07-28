@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 
@@ -63,6 +64,8 @@ public abstract class BAdapter extends BaseAdapter {
 	public BAdapter(BaseFragment fragment, List<Model> list) {
 		this.mBaseFragment = fragment;
 		mBaseActivity = (BaseActivity) mBaseFragment.getActivity();
+		mBaseActivity.setAdapter(this);
+		mInflater = LayoutInflater.from(mBaseActivity);
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
 		mExecutor = mApp.getExecutor();
 		mList = list;
@@ -105,6 +108,7 @@ public abstract class BAdapter extends BaseAdapter {
 				break;
 
 			case REFRESH_HEADER:
+				Log.i("refresh", "case REFRESH_HEADER:");
 				List<Model> items = (List<Model>) msg.obj;
 				addHeadList(items);
 				break;
