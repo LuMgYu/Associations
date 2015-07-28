@@ -8,10 +8,12 @@ package com.zhiyisoft.associations.activity.base;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -39,7 +41,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	/** title 容器 */
 	private LinearLayout mTitlell;
 	/** 内容容器 */
-	private LinearLayout mContentll;
+	public FrameLayout mContentll;
 	/** 底部容器 */
 	public LinearLayout mBottomll; //
 	/** bundle数据 */
@@ -63,6 +65,11 @@ public abstract class BaseActivity extends FragmentActivity {
 	private BAdapter mAdapter;
 	private BaseListView mListView;
 
+	/**
+	 * 方便子类替换content部分
+	 */
+	public FragmentManager mFManager = getSupportFragmentManager();
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -81,10 +88,9 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	/** 初始化公共布局 */
 	private void initTheCommonLayout() {
-		mLayout = (RelativeLayout) mInflater.inflate(R.layout.comom_layout,
-				null);
+		mLayout = (RelativeLayout) mInflater.inflate(getLayoutId(), null);
 		mTitlell = (LinearLayout) mLayout.findViewById(R.id.ll_Title);
-		mContentll = (LinearLayout) mLayout.findViewById(R.id.ll_content);
+		mContentll = (FrameLayout) mLayout.findViewById(R.id.ll_content);
 		mBottomll = (LinearLayout) mLayout.findViewById(R.id.ll_bottom);
 	}
 
@@ -138,10 +144,10 @@ public abstract class BaseActivity extends FragmentActivity {
 	public View combineTheLayout() {
 		setTitleLayout();
 		setBottomlayout();
-		mBodyLayout = mInflater.inflate(getLayoutId(), null);
+		// mBodyLayout = mInflater.inflate(getLayoutId(), null);
 		if (mTitleLayout != null)
 			mTitlell.addView(mTitleLayout);
-		mContentll.addView(mBodyLayout);
+		// mContentll.addView(mBodyLayout);
 		if (mBottomLayout != null) {
 			mBottomll.addView(mBottomLayout);
 			Log.i("bottom", "--------------------->");

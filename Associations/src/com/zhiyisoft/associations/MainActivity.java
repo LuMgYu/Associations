@@ -1,9 +1,6 @@
 package com.zhiyisoft.associations;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -11,15 +8,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.testAdapter;
-import com.zhiyisoft.associations.adapter.base.BAdapter;
-import com.zhiyisoft.associations.listview.testListview;
-import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.fragment.FragmentAssociation;
+import com.zhiyisoft.associations.fragment.FragmentHome;
+import com.zhiyisoft.associations.fragment.FragmentMe;
+import com.zhiyisoft.associations.fragment.FragmentMove;
+import com.zhiyisoft.associations.fragment.FragmentNotify;
+import com.zhiyisoft.associations.fragment.base.BaseFragment;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
-	private testListview mListView;
-	private BAdapter mAdapter;
-	private List<Model> mlist = new ArrayList<Model>();
+	// private testListview mListView;
+	// private BAdapter mAdapter;
+	// private List<Model> mlist = new ArrayList<Model>();
 	private LinearLayout ll_home;
 	private LinearLayout ll_move;
 	private LinearLayout ll_association;
@@ -38,6 +37,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	private TextView tv_notify;
 	private TextView tv_me;
 
+	private FragmentHome mHomeFragment;
+	private FragmentMove mMoveFragment;
+	private FragmentAssociation mAssociationFragment;
+	private FragmentNotify mNotifyFragment;
+	private FragmentMe mMeFragment;
+
 	@Override
 	public String setCenterTitle() {
 		return "首页";
@@ -45,7 +50,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public int getBottomLayoutId() {
-		return R.layout.bottom_layout;
+		return R.layout.comom_layout;
 	}
 
 	@Override
@@ -56,14 +61,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.activity_main;
+		return R.layout.comom_layout;
 	}
 
 	@Override
 	public void initView() {
-		mListView = (testListview) findViewById(R.id.testlv);
-		mAdapter = new testAdapter(this, mlist);
-		mListView.setAdapter(mAdapter);
+		// mListView = (testListview) findViewById(R.id.testlv);
+		// mAdapter = new testAdapter(this, mlist);
+		// mListView.setAdapter(mAdapter);
 
 		ll_home = (LinearLayout) findViewById(R.id.ll_home);
 		ll_move = (LinearLayout) findViewById(R.id.ll_move);
@@ -100,25 +105,82 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		case R.id.ll_home:
 			resetTheColor();
 			changeTheColor(iv_home, tv_home);
+			initFragmentHome();
 			break;
 
 		case R.id.ll_move:
 			resetTheColor();
 			changeTheColor(iv_move, tv_move);
+			initFragmentMove();
 			break;
 		case R.id.ll_association:
 			resetTheColor();
 			changeTheColor(iv_association, tv_association);
+			initFragmentAssociation();
 			break;
 		case R.id.ll_notify:
 			resetTheColor();
 			changeTheColor(iv_notify, tv_notify);
+			initFragmentNotify();
 			break;
 		case R.id.ll_me:
 			resetTheColor();
 			changeTheColor(iv_me, tv_me);
+			initFragmentMe();
 			break;
 		}
+	}
+
+	/**
+	 * 初始化FragmentMe()
+	 */
+	private void initFragmentMe() {
+		if (mMeFragment == null) {
+			mMeFragment = new FragmentMe();
+		}
+		replaceFragment(mMeFragment);
+	}
+	/**
+	 * 初始化FragmentNotify()
+	 */
+
+	private void initFragmentNotify() {
+		if (mNotifyFragment == null) {
+			mNotifyFragment = new FragmentNotify();
+		}
+		replaceFragment(mNotifyFragment);
+	}
+	/**
+	 * 初始化FragmentAssociation()
+	 */
+	private void initFragmentAssociation() {
+		if (mAssociationFragment == null) {
+			mAssociationFragment = new FragmentAssociation();
+		}
+		replaceFragment(mAssociationFragment);
+	}
+	/**
+	 * 初始化FragmentMove()
+	 */
+	private void initFragmentMove() {
+		if (mMoveFragment == null) {
+			mMoveFragment = new FragmentMove();
+		}
+		replaceFragment(mMoveFragment);
+	}
+	/**
+	 * 初始化FragmentHome()
+	 */
+	private void initFragmentHome() {
+		if (mHomeFragment == null) {
+			mHomeFragment = new FragmentHome();
+		}
+		replaceFragment(mHomeFragment);
+	}
+
+	private void replaceFragment(BaseFragment fragment) {
+		FragmentTransaction mFTransaction = mFManager.beginTransaction();
+		mFTransaction.replace(R.id.ll_content, fragment).commit();
 	}
 
 	/**

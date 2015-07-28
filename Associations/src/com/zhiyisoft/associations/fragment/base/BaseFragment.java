@@ -44,6 +44,14 @@ public abstract class BaseFragment extends Fragment {
 			Bundle savedInstanceState) {
 		if (mView == null) {
 			mView = inflater.inflate(getLayoutId(), null);
+
+		} else {
+			// 当存在mview的时候就调用清零
+			ViewGroup parent = (ViewGroup) mView.getParent();
+			if (parent != null) {
+				parent.removeAllViews();
+			}
+			return mView;
 		}
 		return mView;
 	}
