@@ -20,9 +20,6 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
  */
 
 public class FragmentNotify extends BaseFragment implements OnClickListener {
-	// private testListview mListView;
-	// private BAdapter mAdapter;
-	// private List<Model> mlist = new ArrayList<Model>();
 	private TextView notify_tv_msg;
 	private TextView notify_tv_notify;
 	private TextView mTextBottemLine;
@@ -42,13 +39,6 @@ public class FragmentNotify extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void initView() {
-		// mListView = (testListview) findViewById(R.id.notify_lv);
-		// mAdapter = new testAdapter(this, mlist);
-		// mListView.setAdapter(mAdapter);
-		// private TextView notify_tv_msg;
-		// private TextView notify_tv_notify;
-		// private TextView notify_tv_progress;
-		// private ViewPager mViewPager;
 		notify_tv_msg = (TextView) findViewById(R.id.notify_tv_msg);
 		notify_tv_notify = (TextView) findViewById(R.id.notify_tv_notify);
 		mTextBottemLine = (TextView) findViewById(R.id.notify_tv_progress);
@@ -98,7 +88,8 @@ public class FragmentNotify extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void initListener() {
-
+		notify_tv_msg.setOnClickListener(this);
+		notify_tv_notify.setOnClickListener(this);
 	}
 
 	@Override
