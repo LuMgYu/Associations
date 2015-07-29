@@ -88,7 +88,7 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 				if (mDragDown.isUnClickable()) {
 					return;
 				}
-				//点击加载更多
+				// 点击加载更多
 				if (view.getId() == R.id.footer_content) {
 					Toast.makeText(mContext, "点击了加載更多", Toast.LENGTH_LONG)
 							.show();
@@ -137,6 +137,7 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 
 	@Override
 	public void headerHiden() {
+		Log.i("refresh", " listview =public void headerHiden() {");
 		mDragDown.headerHiden();
 	}
 

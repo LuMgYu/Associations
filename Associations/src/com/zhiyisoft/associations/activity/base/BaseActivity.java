@@ -193,6 +193,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	public void refreshHeader() {
 		if (mAdapter != null) {
+			Log.i("refresh", "if (mAdapter != null)");
 			mAdapter.doRefreshHeader();
 		}
 	}

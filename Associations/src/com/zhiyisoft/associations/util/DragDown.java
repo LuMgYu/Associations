@@ -379,24 +379,28 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	@Override
 	public void headerHiden() {
 		try {
+			Log.i("refresh", "dragdown headerHiden()  {");
 			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
 					.getLayoutParams();
 
 			Animation anima = AnimationUtils.loadAnimation(getContext(),
 					R.anim.activity_upoword_out);
 			// header.startAnimation(anima);
-
+			Log.i("refresh", "// header.startAnimation(anima);");
 			lpCenter.topMargin = OFFSET;
 			headerContent.setLayoutParams(lpCenter);
 			refreshing = false;
 			ImageView contentImage = (ImageView) header
 					.findViewById(CONTENT_IMAGE_ID);
+			Log.i("refresh", "// header.startAnimation(anima);");
 			LinearLayout.LayoutParams lpImage = (android.widget.LinearLayout.LayoutParams) contentImage
 					.getLayoutParams();
 			lpImage.bottomMargin = BOTTON_MARIGN;
 			contentImage.setBackgroundResource(R.drawable.arrow_down);
+			Log.i("refresh", "setTime();-----");
 			setTime();
 		} catch (Exception ex) {
+			Log.i("refresh", "dragdown headerHiden() catch  {");
 			return;
 		}
 	}

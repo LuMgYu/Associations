@@ -21,13 +21,13 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class testAdapter extends BAdapter {
+public class NotifyMsgAdapter extends BAdapter {
 
-	public testAdapter(BaseActivity activity, List<Model> list) {
+	public NotifyMsgAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
 
-	public testAdapter(BaseFragment fragment, List<Model> list) {
+	public NotifyMsgAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
 	}
 

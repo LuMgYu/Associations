@@ -5,5 +5,17 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="title_height">48dp</dimen>
     <dimen name="bottom_height">48dp</dimen>
+    <!-- 定义字体大小 -->
+    <dimen name="text_big">16sp</dimen>
+    <dimen name="text_common">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_verysmall">10sp</dimen>
+    <!-- 定义左边距，右边距，上边距，下边距，以及條目的高度 -->
+    <dimen name="margin_left">20dp</dimen>
+    <dimen name="margin_right">20dp</dimen>
+    <dimen name="margin_top">10dp</dimen>
+    <dimen name="margin_bottom">10dp</dimen>
+    <dimen name="item_height">40dp</dimen>
+    <dimen name="line_height">0.5dp</dimen>
 
 </resources>

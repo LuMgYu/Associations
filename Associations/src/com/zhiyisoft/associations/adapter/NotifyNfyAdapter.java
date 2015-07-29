@@ -21,19 +21,20 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class testAdapter extends BAdapter {
+public class NotifyNfyAdapter extends BAdapter {
 
-	public testAdapter(BaseActivity activity, List<Model> list) {
+	public NotifyNfyAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
 
-	public testAdapter(BaseFragment fragment, List<Model> list) {
+	public NotifyNfyAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.fragment_notify_msg_iem, null);
+		return mInflater
+				.inflate(R.layout.fragment_notify_notify_fragment, null);
 	}
 
 	@Override

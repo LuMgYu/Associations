@@ -18,7 +18,7 @@ public class FragmentMe extends BaseFragment {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.fragment_me;
+		return R.layout.fragment_fill_information;
 	}
 
 	@Override

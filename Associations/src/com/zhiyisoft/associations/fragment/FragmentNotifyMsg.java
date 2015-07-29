@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.adapter.testAdapter;
+import com.zhiyisoft.associations.adapter.NotifyMsgAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.listview.testListview;
+import com.zhiyisoft.associations.listview.NotifyMsgListview;
+import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -16,7 +17,7 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class FragmentNotifyMsg extends BaseFragment {
-	private testListview mListView;
+	private BaseListView mListView;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
 
@@ -32,8 +33,8 @@ public class FragmentNotifyMsg extends BaseFragment {
 
 	@Override
 	public void initView() {
-		mListView = (testListview) findViewById(R.id.msg_lv);
-		mAdapter = new testAdapter(this, mlist);
+		mListView = (NotifyMsgListview) findViewById(R.id.msg_lv);
+		mAdapter = new NotifyMsgAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 
 	}

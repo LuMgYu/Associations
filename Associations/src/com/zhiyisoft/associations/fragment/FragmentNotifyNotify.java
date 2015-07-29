@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.adapter.testAdapter;
+import com.zhiyisoft.associations.adapter.NotifyNfyAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.listview.testListview;
+import com.zhiyisoft.associations.listview.NotifyNfyListview;
+import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -16,13 +17,12 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class FragmentNotifyNotify extends BaseFragment {
-	 private testListview mListView;
-	 private BAdapter mAdapter;
-	 private List<Model> mlist = new ArrayList<Model>();
+	private BaseListView mListView;
+	private BAdapter mAdapter;
+	private List<Model> mlist = new ArrayList<Model>();
 
 	@Override
 	public void initIntentData() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -33,15 +33,14 @@ public class FragmentNotifyNotify extends BaseFragment {
 
 	@Override
 	public void initView() {
-		mListView = (testListview) findViewById(R.id.notify_lv);
-		mAdapter = new testAdapter(this, mlist);
+		mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
+		mAdapter = new NotifyNfyAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 
 	}
 
 	@Override
 	public void initListener() {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -49,7 +49,7 @@ public class FragmentNotify extends BaseFragment implements OnClickListener {
 	private void initViewPager() {
 		mViewPager = (ViewPager) findViewById(R.id.notify_vp_content);
 		mFragments.add(new FragmentNotifyMsg());
-		mFragments.add(new FragmentNotifyNotify());
+		// mFragments.add(new FragmentNotifyNotify());  //存在bug 需要修改
 		mViewPager.setAdapter(new MyViewPagerAdapter(getChildFragmentManager(),
 				mFragments));
 		mViewPager.setCurrentItem(0);
@@ -109,5 +109,22 @@ public class FragmentNotify extends BaseFragment implements OnClickListener {
 			break;
 		}
 	}
+	//
+	// @Override
+	// public void onDetach() {
+	// super.onDetach();
+	//
+	// try {
+	// Field childFragmentManager = Fragment.class
+	// .getDeclaredField("mChildFragmentManager");
+	// childFragmentManager.setAccessible(true);
+	// childFragmentManager.set(this, null);
+	//
+	// } catch (NoSuchFieldException e) {
+	// throw new RuntimeException(e);
+	// } catch (IllegalAccessException e) {
+	// throw new RuntimeException(e);
+	// }
+	// }
 
 }

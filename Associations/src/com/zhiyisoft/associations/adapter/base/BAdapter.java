@@ -26,7 +26,7 @@ import com.zhiyisoft.associations.util.ViewHolder;
 /** adapter的基類，不要輕易修改這個類 */
 public abstract class BAdapter extends BaseAdapter {
 	/** 用來裝各個item的控件，方便管理 */
-	private ViewHolder mHolder;
+	public ViewHolder mHolder;
 	/** 存入activity，必要时用来调用里面的东西 */
 	private BaseActivity mBaseActivity;
 	/** app全局应用 */
@@ -161,6 +161,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
 	private void addHeadList(List<Model> list) {
+		Log.i("refresh", " addHeadList(List<Model> list)=" + list.size());
 		if (mList != null && list.size() > 0) {
 			List<Model> cacheList = new ArrayList<Model>();
 			if (mList.size() > 0) {
@@ -267,6 +268,7 @@ public abstract class BAdapter extends BaseAdapter {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				Log.i("refresh", "public void run()--REFRESH_HEADER");
 				sendMessage(REFRESH_HEADER,
 						refreshHeader(mList.get(0), REFRESH_COUNT));
 				break;
