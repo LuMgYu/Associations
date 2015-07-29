@@ -42,7 +42,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	/** 内容容器 */
 	public FrameLayout mContentll;
 	/** 底部容器 */
-	public LinearLayout mBottomll; //
+	public LinearLayout mBottomll; 
 	/** bundle数据 */
 	private Bundle mBundle;
 	/** title左边的图片id */
@@ -63,7 +63,11 @@ public abstract class BaseActivity extends FragmentActivity {
 	// adapter的基类
 	private BAdapter mAdapter;
 	private BaseListView mListView;
-	private TextView tv_title;
+	/** 常用的title布局的控件，注意 这只是常用的title哈，不常用的 就隐藏这个title，然后就直接画到这个该布局xml里面 */
+	public TextView tv_title_left;
+	public TextView tv_title;
+	public TextView tv_title_right;
+	public ImageView iv_title_left;
 
 	/**
 	 * 方便子类替换content部分
@@ -103,16 +107,15 @@ public abstract class BaseActivity extends FragmentActivity {
 
 		if (title != null && title.length() > 0) {
 			mTitleLayout = mInflater.inflate(R.layout.title, null);
-			ImageView iv_left = (ImageView) mTitleLayout
-					.findViewById(R.id.iv_title_left);
-			ImageView iv_right = (ImageView) mTitleLayout
-					.findViewById(R.id.iv_title_right);
+			tv_title_left = (TextView) mTitleLayout
+					.findViewById(R.id.tv_title_left);
 			tv_title = (TextView) mTitleLayout.findViewById(R.id.tv_title);
+			tv_title_right = (TextView) mTitleLayout
+					.findViewById(R.id.tv_title_right);
+			iv_title_left = (ImageView) mTitleLayout
+					.findViewById(R.id.iv_title_left);
 			if (mTitleLeftImageId != 0) {
-				iv_left.setImageResource(mTitleLeftImageId);
-			}
-			if (mTitleRightImageId != 0) {
-				iv_right.setImageResource(mTitleRightImageId);
+				iv_title_left.setImageResource(mTitleLeftImageId);
 			}
 			tv_title.setText(title + "");
 		}
@@ -156,6 +159,34 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	/** 設置中間的title */
 	public abstract String setCenterTitle();
+
+	/**
+	 * 设置使用的title
+	 * 
+	 * @param leftTitle
+	 *            左边的title 不设置的可以为空
+	 * @param centerTitle
+	 *            中的title 不设置的可以为空
+	 * @param rightTitle
+	 *            右边的title 不需要就设置为空
+	 */
+	public void setAlltitle(String leftTitle, String centerTitle,
+			String rightTitle) {
+		// public TextView tv_title_left;
+		// public TextView tv_title;
+		// public TextView tv_title_right;
+		// public ImageView iv_title_left;
+		if (leftTitle != null) {
+			tv_title_left.setText(leftTitle + "");
+		}
+		if (centerTitle != null && centerTitle.length() > 0) {
+			tv_title.setText(centerTitle + "");
+		}
+		if (centerTitle != null) {
+			tv_title_right.setText(rightTitle + "");
+		}
+
+	}
 
 	/**
 	 * 改变title

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/bottom_height"
-    android:background="#409"
+    android:background="@drawable/tbg"
     android:baselineAligned="false"
     android:orientation="horizontal" >
 
@@ -18,7 +18,7 @@
             android:id="@+id/iv_home"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/home" />
 
         <TextView
             android:id="@+id/tv_home"
@@ -41,7 +41,7 @@
             android:id="@+id/iv_move"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/activity" />
 
         <TextView
             android:id="@+id/tv_move"
@@ -64,7 +64,7 @@
             android:id="@+id/iv_association"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/corporation" />
 
         <TextView
             android:id="@+id/tv_association"
@@ -87,7 +87,7 @@
             android:id="@+id/iv_notify"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/inform" />
 
         <TextView
             android:id="@+id/tv_notify"
@@ -110,7 +110,7 @@
             android:id="@+id/iv_me"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/personal" />
 
         <TextView
             android:id="@+id/tv_me"

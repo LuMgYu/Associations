@@ -104,28 +104,28 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.ll_home:
 			resetTheColor();
-			changeTheColor(iv_home, tv_home);
+			changeTheColor(iv_home, tv_home, R.drawable.home_c);
 			initFragmentHome();
 			break;
 
 		case R.id.ll_move:
 			resetTheColor();
-			changeTheColor(iv_move, tv_move);
+			changeTheColor(iv_move, tv_move, R.drawable.activity_c);
 			initFragmentMove();
 			break;
 		case R.id.ll_association:
 			resetTheColor();
-			changeTheColor(iv_association, tv_association);
+			changeTheColor(iv_association, tv_association, R.drawable.corporation_c);
 			initFragmentAssociation();
 			break;
 		case R.id.ll_notify:
 			resetTheColor();
-			changeTheColor(iv_notify, tv_notify);
+			changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 			initFragmentNotify();
 			break;
 		case R.id.ll_me:
 			resetTheColor();
-			changeTheColor(iv_me, tv_me);
+			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			initFragmentMe();
 			break;
 		}
@@ -200,10 +200,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	 * @param textView
 	 *            需要改變的textview控件
 	 */
-	private void changeTheColor(ImageView imageView, TextView textView) {
+	private void changeTheColor(ImageView imageView, TextView textView,
+			int imageid) {
 		if (imageView != null && textView != null) {
-			imageView.setImageDrawable(getResources().getDrawable(
-					R.drawable.arrow_down));
+			imageView.setImageDrawable(getResources().getDrawable(imageid));
 			textView.setTextColor(getResources().getColor(
 					R.color.bottom_tv_color_change));
 		}
@@ -213,16 +213,14 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	 * 把这两个控件设置颜色重置
 	 */
 	private void resetTheColor() {
-		iv_home.setImageDrawable(getResources().getDrawable(
-				R.drawable.ic_launcher));
-		iv_move.setImageDrawable(getResources().getDrawable(
-				R.drawable.ic_launcher));
+		iv_home.setImageDrawable(getResources().getDrawable(R.drawable.home));
+		iv_move.setImageDrawable(getResources()
+				.getDrawable(R.drawable.activity));
 		iv_association.setImageDrawable(getResources().getDrawable(
-				R.drawable.ic_launcher));
-		iv_notify.setImageDrawable(getResources().getDrawable(
-				R.drawable.ic_launcher));
-		iv_me.setImageDrawable(getResources().getDrawable(
-				R.drawable.ic_launcher));
+				R.drawable.corporation));
+		iv_notify.setImageDrawable(getResources()
+				.getDrawable(R.drawable.inform));
+		iv_me.setImageDrawable(getResources().getDrawable(R.drawable.personal));
 		tv_home.setTextColor(getResources().getColor(R.color.bottom_tv_color));
 		tv_move.setTextColor(getResources().getColor(R.color.bottom_tv_color));
 		tv_association.setTextColor(getResources().getColor(
