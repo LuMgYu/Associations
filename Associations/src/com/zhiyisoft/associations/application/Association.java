@@ -6,11 +6,15 @@ import java.util.concurrent.Executors;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
+import android.os.Bundle;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.util.Anim;
 
 /**
  * author：qiuchunjia time：下午2:16:14 类描述：
@@ -24,7 +28,13 @@ public class Association extends Application {
 	/** 定义一个线程池，整個app都用它 */
 	private ExecutorService mExecutor;
 	public static HttpClient mHttpClient;
+	/** api区域 */
+	private Api.LoginImpl mLogin;
+	private Api.LeagueImpl mLeague;
+	private Api.SchoolImpl mSchool;
+	private Api.BaseSettingImpl mBaseSetting;
 
+	/** api区域结束 */
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -77,5 +87,83 @@ public class Association extends Application {
 			mHttpClient = new DefaultHttpClient();
 		}
 		return mHttpClient;
+	}
+
+	// -----------------------------获取api------------------------------------------------------
+	public Api.LoginImpl getmLogin() {
+		if (mLogin == null) {
+			mLogin = new Api.LoginImpl();
+		}
+		return mLogin;
+	}
+
+	public Api.LeagueImpl getmLeague() {
+		if (mLeague == null) {
+			mLeague = new Api.LeagueImpl();
+		}
+		return mLeague;
+	}
+
+	public Api.SchoolImpl getmSchool() {
+		if (mSchool == null) {
+			mSchool = new Api.SchoolImpl();
+		}
+		return mSchool;
+	}
+
+	public Api.BaseSettingImpl getmBaseSetting() {
+		if (mBaseSetting == null) {
+			mBaseSetting = new Api.BaseSettingImpl();
+		}
+		return mBaseSetting;
+	}
+
+	// -----------------------------获取api 结束-----------------------------
+	public void startActivity(Activity now, Class<? extends Activity> target,
+			Bundle data) {
+		Intent intent = new Intent();
+		intent.setClass(now, target);
+		if (data != null) {
+			if (intent.getExtras() != null) {
+				intent.replaceExtras(data);
+			} else {
+				intent.putExtras(data);
+			}
+		}
+		now.startActivity(intent);
+		System.out.println("now" + now);
+		System.out.println("target" + target);
+		Anim.in(now);
+	}
+
+	public void startActivity(Activity now, Class<? extends Activity> target,
+			Bundle data, int flag) {
+		Intent intent = new Intent();
+		intent.setClass(now, target);
+		intent.setFlags(flag); // 注意本行的FLAG设置
+		if (data != null) {
+			if (intent.getExtras() != null) {
+				intent.replaceExtras(data);
+			} else {
+				intent.putExtras(data);
+			}
+		}
+		now.startActivity(intent);
+		Anim.in(now);
+	}
+
+	public void startActivityForResult(Activity now,
+			Class<? extends Activity> target, Bundle data) {
+		Intent intent = new Intent();
+		intent.setClass(now, target);
+		if (data != null) {
+			if (intent.getExtras() != null) {
+				intent.replaceExtras(data);
+			} else {
+				intent.putExtras(data);
+			}
+		}
+		now.startActivityForResult(intent, 3456);
+		Anim.in(now);
 	}
 }

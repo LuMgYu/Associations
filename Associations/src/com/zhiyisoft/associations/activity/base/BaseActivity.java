@@ -42,7 +42,7 @@ public abstract class BaseActivity extends FragmentActivity {
 	/** 内容容器 */
 	public FrameLayout mContentll;
 	/** 底部容器 */
-	public LinearLayout mBottomll; 
+	public LinearLayout mBottomll;
 	/** bundle数据 */
 	private Bundle mBundle;
 	/** title左边的图片id */
@@ -58,7 +58,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	public LayoutInflater mInflater;
 	// 全局应用
-	private Association mApp;
+	public Association mApp;
 
 	// adapter的基类
 	private BAdapter mAdapter;
@@ -92,7 +92,8 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	/** 初始化公共布局 */
 	private void initTheCommonLayout() {
-		mLayout = (RelativeLayout) mInflater.inflate(getLayoutId(), null);
+		mLayout = (RelativeLayout) mInflater.inflate(R.layout.comom_layout,
+				null);
 		mTitlell = (LinearLayout) mLayout.findViewById(R.id.ll_Title);
 		mContentll = (FrameLayout) mLayout.findViewById(R.id.ll_content);
 		mBottomll = (LinearLayout) mLayout.findViewById(R.id.ll_bottom);
@@ -146,13 +147,15 @@ public abstract class BaseActivity extends FragmentActivity {
 	public View combineTheLayout() {
 		setTitleLayout();
 		setBottomlayout();
-		// mBodyLayout = mInflater.inflate(getLayoutId(), null);
+		if (getLayoutId() > 0) {
+			mBodyLayout = mInflater.inflate(getLayoutId(), null);
+			mContentll.addView(mBodyLayout);
+		}
 		if (mTitleLayout != null)
 			mTitlell.addView(mTitleLayout);
-		// mContentll.addView(mBodyLayout);
 		if (mBottomLayout != null) {
 			mBottomll.addView(mBottomLayout);
-			Log.i("bottom", "--------------------->");
+			// Log.i("bottom", "--------------------->");
 		}
 		return mLayout;
 	}
@@ -172,20 +175,30 @@ public abstract class BaseActivity extends FragmentActivity {
 	 */
 	public void setAlltitle(String leftTitle, String centerTitle,
 			String rightTitle) {
-		// public TextView tv_title_left;
-		// public TextView tv_title;
-		// public TextView tv_title_right;
-		// public ImageView iv_title_left;
 		if (leftTitle != null) {
 			tv_title_left.setText(leftTitle + "");
 		}
 		if (centerTitle != null && centerTitle.length() > 0) {
 			tv_title.setText(centerTitle + "");
 		}
-		if (centerTitle != null) {
+		if (rightTitle != null) {
 			tv_title_right.setText(rightTitle + "");
 		}
 
+	}
+
+	/**
+	 * 设置控件是否显示
+	 * 
+	 * @param view
+	 *            需要改变的控件
+	 */
+	public void setViewStatus(View view) {
+		if (View.GONE == view.getVisibility()) {
+			view.setVisibility(View.VISIBLE);
+			return;
+		}
+		view.setVisibility(View.GONE);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations;
+package com.zhiyisoft.associations.activity;
 
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -7,6 +7,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.R.color;
+import com.zhiyisoft.associations.R.drawable;
+import com.zhiyisoft.associations.R.id;
+import com.zhiyisoft.associations.R.layout;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.fragment.FragmentAssociation;
 import com.zhiyisoft.associations.fragment.FragmentHome;
@@ -50,7 +55,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public int getBottomLayoutId() {
-		return R.layout.comom_layout;
+		return R.layout.bottom_layout;
 	}
 
 	@Override
@@ -61,7 +66,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.comom_layout;
+		return 0;
 	}
 
 	@Override
@@ -115,7 +120,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.ll_association:
 			resetTheColor();
-			changeTheColor(iv_association, tv_association, R.drawable.corporation_c);
+			changeTheColor(iv_association, tv_association,
+					R.drawable.corporation_c);
 			initFragmentAssociation();
 			break;
 		case R.id.ll_notify:
