@@ -71,7 +71,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public TextView tv_title;
 	public TextView tv_title_right;
 	public ImageView iv_title_left;
-
+	public ImageView iv_title_right;
 	/**
 	 * 方便子类替换content部分
 	 */
@@ -118,8 +118,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 					.findViewById(R.id.tv_title_right);
 			iv_title_left = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_left);
+			iv_title_right = (ImageView) mTitleLayout
+					.findViewById(R.id.iv_title_right);
 			if (mTitleLeftImageId != 0) {
 				iv_title_left.setImageResource(mTitleLeftImageId);
+			}
+			if (mTitleRightImageId != 0) {
+				iv_title_left.setImageResource(mTitleRightImageId);
 			}
 			iv_title_left.setOnClickListener(new OnClickListener() {
 				@Override
@@ -128,6 +133,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 				}
 			});
 			tv_title.setText(title + "");
+		} else {
+			// 如果没有title的话 就设置为空
+			setViewStatus(mTitlell);
 		}
 	}
 

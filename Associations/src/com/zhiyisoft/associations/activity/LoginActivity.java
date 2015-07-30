@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +19,7 @@ import com.zhiyisoft.associations.util.ToastUtils;
  *
  */
 
-public class LoginActivity extends BaseActivity{
+public class LoginActivity extends BaseActivity {
 
 	private ImageView iv_login_icon;
 	private EditText et_loginName;
@@ -110,7 +111,8 @@ public class LoginActivity extends BaseActivity{
 			break;
 
 		case R.id.bt_login:
-
+			mApp.startActivity(this, MainActivity.class, null,
+					Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			break;
 		case R.id.bt_register:
 			mApp.startActivity(this, RegisterPhoneActivity.class, null);

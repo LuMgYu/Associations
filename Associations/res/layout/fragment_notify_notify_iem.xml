@@ -2,55 +2,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="#ffe" >
+    android:background="#ffe"
+    android:minHeight="60dp" >
 
-    <!-- 个人信息布局布局 -->
+    <!-- 通知布局 -->
 
     <FrameLayout
         android:id="@+id/fl_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
-        android:background="#90e" >
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/white" >
 
         <ImageView
             android:id="@+id/iv_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/sys" />
 
         <ImageView
-            android:id="@+id/iv_photo"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_gravity="right|bottom"
-            android:layout_margin="2dp"
-            android:src="@drawable/ic_launcher" />
+            android:id="@+id/iv_remind"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/remind" />
     </FrameLayout>
 
     <TextView
         android:id="@+id/tv_nick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/fl_icon"
         android:layout_marginLeft="14dp"
+        android:layout_marginTop="@dimen/margin_top"
         android:layout_toRightOf="@+id/fl_icon"
         android:text="系统通知"
-        android:textColor="#888"
-        android:textSize="12sp" />
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_common" />
 
     <TextView
         android:id="@+id/tv_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_nick"
+        android:layout_below="@id/tv_nick"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:layout_toRightOf="@+id/fl_icon"
         android:text="领的支付宝要爆炸了"
-        android:textColor="#000"
-        android:textSize="12sp" />
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -65,9 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/fl_icon"
-        android:layout_marginRight="10dp"
-        android:text="2015-5-23 20:23"
-        android:textColor="#888"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:text="10月19日"
+        android:textColor="@color/text_more_gray"
         android:textSize="10sp" />
 
 </RelativeLayout>

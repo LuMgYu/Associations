@@ -2,16 +2,11 @@ package com.zhiyisoft.associations.activity;
 
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.R.color;
-import com.zhiyisoft.associations.R.drawable;
-import com.zhiyisoft.associations.R.id;
-import com.zhiyisoft.associations.R.layout;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.fragment.FragmentAssociation;
 import com.zhiyisoft.associations.fragment.FragmentHome;
@@ -20,7 +15,7 @@ import com.zhiyisoft.associations.fragment.FragmentMove;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 
-public class MainActivity extends BaseActivity implements OnClickListener {
+public class MainActivity extends BaseActivity {
 	// private testListview mListView;
 	// private BAdapter mAdapter;
 	// private List<Model> mlist = new ArrayList<Model>();
@@ -50,7 +45,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public String setCenterTitle() {
-		return "首页";
+		return "线团";
 	}
 
 	@Override
@@ -62,6 +57,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	public void initIntent() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public int setTitleLeftImageId() {
+		return super.setTitleLeftImageId();
 	}
 
 	@Override
@@ -106,6 +106,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+		iv_title_right.setVisibility(View.GONE);
 		switch (v.getId()) {
 		case R.id.ll_home:
 			resetTheColor();
@@ -130,9 +131,11 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			initFragmentNotify();
 			break;
 		case R.id.ll_me:
+			iv_title_right.setVisibility(View.VISIBLE);
 			resetTheColor();
 			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			initFragmentMe();
+
 			break;
 		}
 	}
@@ -145,7 +148,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mMeFragment = new FragmentMe();
 		}
 		replaceFragment(mMeFragment);
-		changeTheTitle("个人");
+		changeTheTitle("我的");
 	}
 
 	/**
@@ -179,7 +182,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mMoveFragment = new FragmentMove();
 		}
 		replaceFragment(mMoveFragment);
-		changeTheTitle("运动");
+		changeTheTitle("活动");
 	}
 
 	/**
@@ -190,7 +193,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			mHomeFragment = new FragmentHome();
 		}
 		replaceFragment(mHomeFragment);
-		changeTheTitle("主页");
+		changeTheTitle("线团");
 	}
 
 	private void replaceFragment(BaseFragment fragment) {
@@ -210,8 +213,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			int imageid) {
 		if (imageView != null && textView != null) {
 			imageView.setImageDrawable(getResources().getDrawable(imageid));
-			textView.setTextColor(getResources().getColor(
-					R.color.bottom_tv_color_change));
+			textView.setTextColor(getResources().getColor(R.color.main_color));
 		}
 	}
 
@@ -227,12 +229,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		iv_notify.setImageDrawable(getResources()
 				.getDrawable(R.drawable.inform));
 		iv_me.setImageDrawable(getResources().getDrawable(R.drawable.personal));
-		tv_home.setTextColor(getResources().getColor(R.color.bottom_tv_color));
-		tv_move.setTextColor(getResources().getColor(R.color.bottom_tv_color));
-		tv_association.setTextColor(getResources().getColor(
-				R.color.bottom_tv_color));
-		tv_notify
-				.setTextColor(getResources().getColor(R.color.bottom_tv_color));
-		tv_me.setTextColor(getResources().getColor(R.color.bottom_tv_color));
+		tv_home.setTextColor(getResources().getColor(R.color.text_gray));
+		tv_move.setTextColor(getResources().getColor(R.color.text_gray));
+		tv_association.setTextColor(getResources().getColor(R.color.text_gray));
+		tv_notify.setTextColor(getResources().getColor(R.color.text_gray));
+		tv_me.setTextColor(getResources().getColor(R.color.text_gray));
 	}
 }

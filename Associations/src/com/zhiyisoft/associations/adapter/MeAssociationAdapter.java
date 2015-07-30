@@ -21,19 +21,19 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class NotifyNfyAdapter extends BAdapter {
+public class MeAssociationAdapter extends BAdapter {
 
-	public NotifyNfyAdapter(BaseActivity activity, List<Model> list) {
+	public MeAssociationAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
 
-	public NotifyNfyAdapter(BaseFragment fragment, List<Model> list) {
+	public MeAssociationAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.fragment_notify_notify_iem, null);
+		return mInflater.inflate(R.layout.fragment_notify_msg_iem, null);
 	}
 
 	@Override
@@ -49,17 +49,6 @@ public class NotifyNfyAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());
-		SchoolIm school = new Api.SchoolImpl();
-		school.getSchools("四川");
-		// LoginIm loginIm = new Api.LoginImpl();
-		// loginIm.Login(null);
-		// LeagueIm leagueIm = new Api.LeagueImpl();
-		// leagueIm.createLeague(new Model());
-		// leagueIm.getGroupCommonList(new Model());
-		// BaseSettingIm settingIm = new Api.BaseSettingImpl();
-		// settingIm.updateMask(new Model());
-		// settingIm.getUserActiveMaskInfo(new Model());
-		// settingIm.setFaceImg(new Model());
 		return items;
 	}
 

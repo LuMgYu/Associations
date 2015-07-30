@@ -22,7 +22,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_gravity="right|bottom"
-            android:layout_margin="2dp"
+            android:layout_margin="5dp"
             android:src="@drawable/camer" />
     </FrameLayout>
 

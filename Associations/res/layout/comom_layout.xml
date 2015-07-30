@@ -10,7 +10,7 @@
         android:id="@+id/ll_Title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="#e00"
+        android:background="@color/main_color"
         android:orientation="vertical" >
     </LinearLayout>
     <!-- 公共的content底部，一般不會用到它，只有主界面的时候才会用到它，所以平常都隐藏它 -->
@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/ll_bottom"
         android:layout_below="@id/ll_Title"
-        android:background="#560"
+        android:background="@color/main_white_color"
         android:orientation="vertical" >
     </FrameLayout>
 

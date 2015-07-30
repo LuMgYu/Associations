@@ -2,12 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff8" >
+    android:background="@color/main_white_color" >
 
     <LinearLayout
         android:id="@+id/me_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <!-- 个人信息布局布局 -->
@@ -15,8 +15,12 @@
         <RelativeLayout
             android:id="@+id/me_rl_find"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#ffe" >
+            android:layout_height="80dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/white"
+            android:gravity="center_vertical" >
 
             <FrameLayout
                 android:id="@+id/me_fl_icon"
@@ -24,21 +28,21 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
-                android:background="#90e" >
+                android:background="@color/main_white_color" >
 
-                <ImageView
+                <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/me_iv_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/default_image_small" />
 
                 <ImageView
                     android:id="@+id/me_iv_photo"
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_gravity="right|bottom"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/ic_launcher" />
+                    android:layout_margin="1dp"
+                    android:src="@drawable/camer" />
             </FrameLayout>
 
             <TextView
@@ -46,30 +50,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/me_fl_icon"
-                android:layout_marginLeft="14dp"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginTop="@dimen/margin_top"
                 android:layout_toRightOf="@+id/me_fl_icon"
-                android:text="i牛牛哥"
-                android:textSize="12sp" />
+                android:text="李大苍天"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_big" />
 
             <Button
                 android:id="@+id/me_btn_update"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/me_tv_nick"
-                android:layout_marginLeft="12dp"
+                android:layout_width="65dp"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/margin_top"
+                android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_toRightOf="@+id/me_fl_icon"
+                android:background="@drawable/btn_white"
                 android:padding="1dp"
                 android:text="更新资料"
-                android:textColor="#fff"
-                android:textSize="12sp" />
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/arrow_down" />
+                android:src="@drawable/x" />
         </RelativeLayout>
 
         <View
@@ -81,8 +88,10 @@
         <RelativeLayout
             android:id="@+id/me_rl_signature"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="#ffa"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@color/white"
             android:gravity="center_vertical" >
 
             <TextView
@@ -90,9 +99,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
                 android:text="个性签名:"
-                android:textSize="12sp" />
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/me_tv_signature"
@@ -101,154 +110,74 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/me_tv_signature_des"
-                android:text="however,this is jb useful"
-                android:textColor="#888"
-                android:textSize="10sp" />
+                android:text="我就是这么任性，呵呵哒"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/arrow_down" />
+                android:src="@drawable/x" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#eee" />
-        <!-- 我的内容布局布局 -->
-
-        <LinearLayout
-            android:id="@+id/me_ll_content"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="#483"
-            android:orientation="horizontal" >
-
-            <LinearLayout
-                android:id="@+id/me_ll_myMove"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:id="@+id/me_iv_myMove"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_launcher" />
-
-                <TextView
-                    android:id="@+id/me_tv_myMove"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的活动" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0.5dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:background="#888" />
-
-            <LinearLayout
-                android:id="@+id/me_ll_myAssociate"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal" >
-
-                <ImageView
-                    android:id="@+id/me_iv_myAssociate"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_launcher" />
-
-                <TextView
-                    android:id="@+id/me_tv_myAssociate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的社团" />
-            </LinearLayout>
-        </LinearLayout>
-        <!-- 空白区域 -->
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#eee" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="35dp"
-            android:background="#eee" />
-        <!-- 我的勋章 -->
+        <!-- 已加入社团 -->
 
         <RelativeLayout
+            android:id="@+id/me_rl_signature"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:id="@+id/me_tv_aword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:text="我的勋章"
-                android:textSize="12sp" />
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small" >
 
             <ImageView
+                android:id="@+id/me_shetuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/arrow_down" />
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/shetuan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/me_shetuan"
+                android:text="已加入社团"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:layout_marginTop="5dp"
             android:background="#eee" />
-        <!-- 关于软件 -->
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical" >
-
-            <TextView
-                android:id="@+id/me_tv_soft"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:text="關于軟件"
-                android:textSize="12sp" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top" >
 
             <ImageView
-                android:id="@+id/me_arrow_right"
-                android:layout_width="wrap_content"
+                android:id="@+id/me_iv_default"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/arrow_down" />
+                android:layout_marginTop="40dp"
+                android:src="@drawable/nonegroup" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/me_arrow_right"
-                android:text="v1.0"
-                android:textSize="12sp" />
-        </RelativeLayout>
+            <com.zhiyisoft.associations.listview.MeAssociationListview
+                android:id="@+id/me_lv_association"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
     </LinearLayout>
 
 </ScrollView>

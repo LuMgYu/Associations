@@ -13,6 +13,8 @@
     <!-- 定义左边距，右边距，上边距，下边距，以及條目的高度 -->
     <dimen name="margin_left">20dp</dimen>
     <dimen name="margin_right">20dp</dimen>
+    <dimen name="margin_left_small">10dp</dimen>
+    <dimen name="margin_right_small">10dp</dimen>
     <dimen name="margin_top">10dp</dimen>
     <dimen name="margin_bottom">10dp</dimen>
     <dimen name="item_height">40dp</dimen>
