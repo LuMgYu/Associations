@@ -18,11 +18,11 @@
         android:layout_marginRight="@dimen/margin_right" >
 
         <EditText
-            android:textColor="@color/text_black"
             android:id="@+id/et_vitify"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="请输入验证码"
+            android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
             android:textSize="@dimen/text_small" />
 
@@ -42,13 +42,13 @@
     <include layout="@layout/view_line_vertical" />
 
     <EditText
-        android:textColor="@color/text_black"
         android:id="@+id/et_new_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginRight="@dimen/margin_right"
         android:hint="新密码"
+        android:textColor="@color/text_black"
         android:textColorHint="@color/text_gray"
         android:textSize="@dimen/text_small" />
 
@@ -57,13 +57,13 @@
     <!-- 确认新密码 -->
 
     <EditText
-        android:textColor="@color/text_black"
         android:id="@+id/et_sure_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginRight="@dimen/margin_right"
         android:hint="确认密码"
+        android:textColor="@color/text_black"
         android:textColorHint="@color/text_gray"
         android:textSize="@dimen/text_small" />
 

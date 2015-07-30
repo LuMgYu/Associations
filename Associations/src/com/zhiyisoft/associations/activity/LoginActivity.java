@@ -18,7 +18,7 @@ import com.zhiyisoft.associations.util.ToastUtils;
  *
  */
 
-public class LoginActivity extends BaseActivity implements OnClickListener {
+public class LoginActivity extends BaseActivity{
 
 	private ImageView iv_login_icon;
 	private EditText et_loginName;
@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
-
+			mApp.startActivity(this, ForgetPwdPhoneActivity.class, null);
 			break;
 		case R.id.iv_login_icon:
 			ToastUtils.showToast("点击了头像");
@@ -113,7 +113,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 
 			break;
 		case R.id.bt_register:
-
+			mApp.startActivity(this, RegisterPhoneActivity.class, null);
 			break;
 		case R.id.iv_qq:
 

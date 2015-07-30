@@ -6,25 +6,24 @@
 
     <FrameLayout
         android:id="@+id/fill_fl_icon"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:background="#90e" >
+        android:layout_marginTop="40dp" >
 
-        <ImageView
+        <com.zhiyisoft.associations.img.RoundImageView
             android:id="@+id/fill_iv_login_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/yun" />
+            android:src="@drawable/default_image_small" />
 
         <ImageView
             android:id="@+id/fill_iv_photo"
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="right|bottom"
             android:layout_margin="2dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/camer" />
     </FrameLayout>
 
     <View
@@ -75,7 +74,7 @@
     <!-- 学校布局 -->
 
     <RelativeLayout
-        android:id="@+id/fill_fl_school"
+        android:id="@+id/fill_rl_school"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_below="@id/fill_bottom_line2"
@@ -104,7 +103,7 @@
         android:id="@+id/fill_bottom_line3"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_below="@id/fill_fl_school"
+        android:layout_below="@id/fill_rl_school"
         android:background="@color/main_gray_color" />
 
     <RelativeLayout

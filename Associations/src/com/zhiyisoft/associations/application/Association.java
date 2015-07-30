@@ -166,4 +166,8 @@ public class Association extends Application {
 		now.startActivityForResult(intent, 3456);
 		Anim.in(now);
 	}
+
+	public static String getCache_path() {
+		return "cache_path";
+	}
 }

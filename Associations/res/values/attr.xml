@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="RoundImageView">
+
+    <declare-styleable name="RoundImageView">
         <attr name="type" format="enum">
             <enum name="circle" value="0" />
             <enum name="round" value="1" />
         </attr>
         <attr name="radius" format="dimension" />
         <attr name="src" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="PowerImageView">
+        <attr name="auto_play" format="boolean"></attr>
+    </declare-styleable>
+    <declare-styleable name="roundedimageview">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
     </declare-styleable>
 
 </resources>

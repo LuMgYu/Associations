@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,13 +25,15 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.impl.RefreshListener;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.util.Anim;
 
 /**
  * activity的基类，任何activity都要继承它，并且实现里面的方法 一般不要轻易修改它
  * 
  * @pdOid
  */
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity implements
+		OnClickListener {
 	/**
 	 * activity的总布局，加入mTitleLayout和mBodyLayout
 	 * 
@@ -118,8 +121,20 @@ public abstract class BaseActivity extends FragmentActivity {
 			if (mTitleLeftImageId != 0) {
 				iv_title_left.setImageResource(mTitleLeftImageId);
 			}
+			iv_title_left.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					onBackPressed();
+				}
+			});
 			tv_title.setText(title + "");
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Anim.exit(this);
 	}
 
 	/**
