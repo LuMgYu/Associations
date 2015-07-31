@@ -3,6 +3,8 @@ package com.zhiyisoft.associations.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.view.View;
+
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.adapter.NotifyMsgAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
@@ -49,6 +51,12 @@ public class FragmentNotifyMsg extends BaseFragment {
 	public void initData() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

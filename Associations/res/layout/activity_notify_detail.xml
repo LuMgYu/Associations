@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_left_small"
+    android:layout_marginRight="@dimen/margin_right_small" >
+
+    <ImageView
+        android:id="@+id/iv_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:src="@drawable/sys" />
+
+    <TextView
+        android:id="@+id/tv_notify_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_notify"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_toRightOf="@id/iv_notify"
+        android:text="系统通知 12:22"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_verysmall" />
+
+    <LinearLayout
+        android:id="@+id/ll_notify_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_notify_date"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_toRightOf="@id/iv_notify"
+        android:background="@drawable/notify_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_notify_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="【四川大学文艺连欢社团】邀请你参加最新的活动，要嗨皮哦，活动地点任你选择，截止时间，呵呵哒,快点来"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+
+        <TextView
+            android:id="@+id/tv_notify_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="点击查看详情>>"
+            android:textColor="#0090ff"
+            android:textSize="@dimen/text_common" />
+    </LinearLayout>
+
+</RelativeLayout>

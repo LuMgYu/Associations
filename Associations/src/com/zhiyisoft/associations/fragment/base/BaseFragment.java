@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.zhiyisoft.associations.adapter.base.BAdapter;
@@ -24,7 +25,7 @@ import com.zhiyisoft.associations.model.ModelUser;
  * fragment的基类，其它fragment必須實現他，不要隨意修改這個基類
  * 
  **/
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements OnClickListener {
 	/** adapter 基类 */
 	private BAdapter mAdapter;
 	/** listview基类 */
@@ -38,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
 	/** 加載動畫 */
 	private View mLoadingView;
 	/** application基類 */
-	private Association mApp;
+	public Association mApp;
 
 	// public FragmentManager mFManager = getChildFragmentManager();
 
@@ -62,6 +63,7 @@ public abstract class BaseFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mApp = (Association) getActivity().getApplication();
 		initFragmentUser();
 		initIntentData();
 		initView();

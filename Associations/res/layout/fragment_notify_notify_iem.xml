@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="#ffe"
+    android:background="@color/main_white_color"
     android:minHeight="60dp" >
 
     <!-- 通知布局 -->
@@ -30,7 +30,7 @@
             android:layout_height="8dp"
             android:layout_gravity="right|top"
             android:layout_marginRight="3dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
             android:src="@drawable/remind" />
     </FrameLayout>
 
@@ -52,7 +52,7 @@
         android:layout_below="@id/tv_nick"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:layout_toRightOf="@+id/fl_icon"
         android:text="领的支付宝要爆炸了"
         android:textColor="@color/text_gray"

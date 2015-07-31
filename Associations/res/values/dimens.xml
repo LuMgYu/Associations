@@ -6,6 +6,7 @@
     <dimen name="title_height">48dp</dimen>
     <dimen name="bottom_height">48dp</dimen>
     <!-- 定义字体大小 -->
+    <dimen name="text_very_big">18sp</dimen>
     <dimen name="text_big">16sp</dimen>
     <dimen name="text_common">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
@@ -16,6 +17,8 @@
     <dimen name="margin_left_small">10dp</dimen>
     <dimen name="margin_right_small">10dp</dimen>
     <dimen name="margin_top">10dp</dimen>
+    <dimen name="margin_top_big">20dp</dimen>
+    <dimen name="margin_bottom_big">20dp</dimen>
     <dimen name="margin_bottom">10dp</dimen>
     <dimen name="item_height">40dp</dimen>
     <dimen name="line_height">0.5dp</dimen>

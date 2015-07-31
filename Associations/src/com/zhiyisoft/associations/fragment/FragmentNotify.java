@@ -94,6 +94,12 @@ public class FragmentNotify extends BaseFragment {
 
 	}
 
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	//
 	// @Override
 	// public void onDetach() {

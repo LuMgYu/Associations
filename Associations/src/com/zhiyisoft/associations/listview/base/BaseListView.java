@@ -47,13 +47,13 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 	/** 下拉刷新的工具类 */
 	private DragDown mDragDown;
 	/** activity */
-	private BaseActivity mBaseActivity;
+	public BaseActivity mBaseActivity;
 	/**
 	 * 最后可见的位置
 	 */
 	private int mLastVisiablPos;
 
-	private Association mApp;
+	public Association mApp;
 
 	/** 初始化设置 */
 	public void initSet(Context context) {
