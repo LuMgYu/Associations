@@ -1,0 +1,360 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_gray_color" >
+
+    <LinearLayout
+        android:id="@+id/main_ll_act"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/main_rl_share"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/share02" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="分享一下"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_big" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:background="@color/main_gray_color" />
+
+        <LinearLayout
+            android:id="@+id/main_rl_join"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/share02" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="申请加入"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_big" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_ll_act" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="@color/main_color" >
+
+                <FrameLayout
+                    android:id="@+id/fl_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true" >
+
+                    <com.zhiyisoft.associations.img.RoundImageView
+                        android:id="@+id/iv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/default_image_small" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_margin="2dp"
+                        android:src="@drawable/v" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_association_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fl_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="北京大学轮滑社团"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_big" />
+            </RelativeLayout>
+            <!-- 社团资料 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/tv_association_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="社团资料："
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/tv_association_data_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_toRightOf="@id/tv_association_data"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="为中华之崛起而创建社团，目标虽然远大，呵呵哒"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/tv_association_data_xiehui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_association_data_content"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_toRightOf="@+id/tv_association_data"
+                    android:drawableLeft="@drawable/school"
+                    android:text=" 文体协会"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_big" />
+
+                <TextView
+                    android:id="@+id/tv_association_data_school"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_association_data_xiehui"
+                    android:layout_marginBottom="@dimen/margin_bottom"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:layout_toRightOf="@+id/tv_association_data"
+                    android:drawableLeft="@drawable/school"
+                    android:text=" 北京大学青鸟学院"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_big" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/margin_top"
+                android:background="@color/main_gray_color" />
+
+            <RelativeLayout
+                android:id="@+id/rl_member"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/tv_association_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:text="成员"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:src="@drawable/x" />
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_member"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right"
+                    android:src="@drawable/ic_launcher" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/main_gray_color" />
+
+            <RelativeLayout
+                android:id="@+id/rl_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/tv_new"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:text="新鲜事"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:src="@drawable/x" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/main_gray_color" />
+
+            <RelativeLayout
+                android:id="@+id/rl_activity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/item_height"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/tv_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:text="社团活动"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:src="@drawable/x" />
+
+                <TextView
+                    android:id="@+id/tv_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right"
+                    android:text="3个"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_big" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/main_gray_color" />
+
+            <RelativeLayout
+                android:id="@+id/rl_album"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/tv_album"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:text="相册"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:src="@drawable/x" />
+
+                <ImageView
+                    android:id="@+id/iv_album"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right"
+                    android:src="@drawable/default_image_small" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/main_gray_color" />
+
+            <RelativeLayout
+                android:id="@+id/rl_file_share"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/tv_file_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:text="分享文件"
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_big" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:src="@drawable/x" />
+
+                <ImageView
+                    android:id="@+id/iv_file_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right"
+                    android:src="@drawable/default_image_small" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -3,16 +3,13 @@ package com.zhiyisoft.associations.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.adapter.NotifyMsgAdapter;
 import com.zhiyisoft.associations.adapter.NotifyNfyAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.listview.NotifyMsgListview;
 import com.zhiyisoft.associations.listview.NotifyNfyListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
@@ -40,9 +37,14 @@ public class FragmentNotify extends BaseFragment {
 
 	@Override
 	public void initView() {
-		mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
-		mAdapter = new NotifyNfyAdapter(this, mlist);
-		mListView.setAdapter(mAdapter);
+		Log.i("notify", "-----------------------调用了initview");
+		if (mListView == null) {
+			Log.i("notify",
+					"-----------------------调用了initview——mListView == null");
+			mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
+			mAdapter = new NotifyNfyAdapter(this, mlist);
+			mListView.setAdapter(mAdapter);
+		}
 	}
 
 	// private void initViewPager() {
@@ -97,7 +99,7 @@ public class FragmentNotify extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	//

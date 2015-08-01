@@ -1,9 +1,22 @@
 package com.zhiyisoft.associations.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.adapter.AssociationAdapter;
+import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.listview.AssociationListview;
+import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -11,6 +24,14 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
  */
 
 public class FragmentAssociation extends BaseFragment {
+	private BaseListView mListView;
+	private List<Model> mlist = new ArrayList<Model>();
+	private BAdapter mAdapter;
+
+	private Context mContext;
+	private int[] mImageArray;
+	private LayoutInflater mLayoutInflater;
+	private LinearLayout school_ll;
 
 	@Override
 	public void initIntentData() {
@@ -25,7 +46,12 @@ public class FragmentAssociation extends BaseFragment {
 
 	@Override
 	public void initView() {
-		// TODO Auto-generated method stub
+		mContext = getActivity();
+		school_ll = (LinearLayout) findViewById(R.id.school_ll);
+		mLayoutInflater = LayoutInflater.from(mContext);
+		mListView = (AssociationListview) findViewById(R.id.school_lv);
+		mAdapter = new AssociationAdapter(this, mlist);
+		mListView.setAdapter(mAdapter);
 
 	}
 
@@ -37,14 +63,35 @@ public class FragmentAssociation extends BaseFragment {
 
 	@Override
 	public void initData() {
-		// TODO Auto-generated method stub
+		addHotSorting();
+	}
 
+	/**
+	 * 添加热热门分类
+	 */
+	private void addHotSorting() {
+		mImageArray = new int[] { R.drawable.flag, R.drawable.flag,
+				R.drawable.flag, R.drawable.flag, R.drawable.flag,
+				R.drawable.flag, R.drawable.flag, R.drawable.flag,
+				R.drawable.flag };
+		View itemView = null;
+		ImageView imageView = null;
+		TextView textView;
+		for (int i = 0; i < mImageArray.length; i++) {
+			itemView = mLayoutInflater.inflate(
+					R.layout.fragment_association_hsv_item, null);
+			imageView = (ImageView) itemView.findViewById(R.id.school_scv_iv);
+			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
+			imageView.setImageResource(mImageArray[i]);
+			textView.setText("主页");
+			school_ll.addView(itemView);
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

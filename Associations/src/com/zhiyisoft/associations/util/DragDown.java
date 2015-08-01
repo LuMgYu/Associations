@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.impl.RefreshListener;
+import com.zhiyisoft.associations.listview.base.BaseListView;
 
 public class DragDown implements OnTouchListener, OnGestureListener,
 		RefreshListener {
@@ -121,7 +121,7 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 		header = new LinearLayout(getContext());
 		header.setOrientation(LinearLayout.HORIZONTAL);
 		header.setGravity(Gravity.CENTER_HORIZONTAL);
-
+		Log.i("refresh", "headerContent创建了-----qcj");
 		headerContent = new LinearLayout(getContext());
 		headerContent.setId(CONTENT_LAYOUT_ID);
 		headerContent.setOrientation(LinearLayout.VERTICAL);
@@ -225,6 +225,13 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+		if (headerContent == null) {
+			Log.i("refresh",
+					" onTouch(View v, MotionEvent event) headerContent == null ");
+		} else {
+			Log.i("refresh",
+					" onTouch(View v, MotionEvent event) headerContent != null ");
+		}
 		if (null != headerContent) {// 头部不空
 			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
 					.getLayoutParams();
@@ -364,7 +371,9 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	@Override
 	public void headerShow() {
 		if (headerContent == null) {
-			return;
+			BaseListView listView = (BaseListView) getActivity().getListView();
+			listView.addHeaderView(getHeaderView());
+			Log.i("refresh", "headerContent为空");
 		}
 		LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
 				.getLayoutParams();
@@ -378,31 +387,36 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	 */
 	@Override
 	public void headerHiden() {
-		try {
-			Log.i("refresh", "dragdown headerHiden()  {");
-			LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
-					.getLayoutParams();
-
-			Animation anima = AnimationUtils.loadAnimation(getContext(),
-					R.anim.activity_upoword_out);
-			// header.startAnimation(anima);
-			Log.i("refresh", "// header.startAnimation(anima);");
-			lpCenter.topMargin = OFFSET;
-			headerContent.setLayoutParams(lpCenter);
-			refreshing = false;
-			ImageView contentImage = (ImageView) header
-					.findViewById(CONTENT_IMAGE_ID);
-			Log.i("refresh", "// header.startAnimation(anima);");
-			LinearLayout.LayoutParams lpImage = (android.widget.LinearLayout.LayoutParams) contentImage
-					.getLayoutParams();
-			lpImage.bottomMargin = BOTTON_MARIGN;
-			contentImage.setBackgroundResource(R.drawable.arrow_down);
-			Log.i("refresh", "setTime();-----");
-			setTime();
-		} catch (Exception ex) {
-			Log.i("refresh", "dragdown headerHiden() catch  {");
-			return;
+		// try {
+		Log.i("refresh", "dragdown headerHiden()  {");
+		if (headerContent == null) {
+			BaseListView listView = (BaseListView) getActivity().getListView();
+			listView.addHeaderView(getHeaderView());
+			Log.i("refresh", "headerContent为空");
 		}
+		LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
+				.getLayoutParams();
+
+		Animation anima = AnimationUtils.loadAnimation(getContext(),
+				R.anim.activity_upoword_out);
+		// header.startAnimation(anima);
+		Log.i("refresh", "// header.startAnimation(anima);");
+		lpCenter.topMargin = OFFSET;
+		headerContent.setLayoutParams(lpCenter);
+		refreshing = false;
+		ImageView contentImage = (ImageView) header
+				.findViewById(CONTENT_IMAGE_ID);
+		Log.i("refresh", "// header.startAnimation(anima);");
+		LinearLayout.LayoutParams lpImage = (android.widget.LinearLayout.LayoutParams) contentImage
+				.getLayoutParams();
+		lpImage.bottomMargin = BOTTON_MARIGN;
+		contentImage.setBackgroundResource(R.drawable.arrow_down);
+		Log.i("refresh", "setTime();-----");
+		setTime();
+		// } catch (Exception ex) {
+		// Log.i("refresh", "dragdown headerHiden() catch  {");
+		// return;
+		// }
 	}
 
 	/**
@@ -412,7 +426,9 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	public void headerRefresh() {
 		this.setTime();
 		if (header == null) {
-			return;
+			BaseListView listView = (BaseListView) getActivity().getListView();
+			listView.addHeaderView(getHeaderView());
+			Log.i("refresh", "headerContent为空");
 		}
 
 		Log.i("headerRefresh()", "调用了这个方法headerRefresh()");

@@ -3,9 +3,8 @@ package com.zhiyisoft.associations.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -21,17 +20,20 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class MeSettingSchoolActivity extends BaseActivity {
-	private ImageView school_iv_zoom;
-	private EditText school_et_zoom;
-	private ImageView school_iv_x;
 	private BaseListView school_lv;
 
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
 
 	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+		setAlltitle("选择省份", null, null);
+	}
+
+	@Override
 	public String setCenterTitle() {
-		return "选择学校";
+		return "四川省";
 	}
 
 	@Override
@@ -46,9 +48,6 @@ public class MeSettingSchoolActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		school_iv_zoom = (ImageView) findViewById(R.id.school_iv_zoom);
-		school_et_zoom = (EditText) findViewById(R.id.school_et_zoom);
-		school_iv_x = (ImageView) findViewById(R.id.school_iv_x);
 		school_lv = (MeSettingSchoolListview) findViewById(R.id.school_lv);
 		mAdapter = new MeSettingSchoolAdapter(this, mlist);
 		school_lv.setAdapter(mAdapter);
@@ -56,19 +55,11 @@ public class MeSettingSchoolActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
-		school_iv_zoom.setOnClickListener(this);
-		school_iv_x.setOnClickListener(this);
 
 	}
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.school_iv_zoom:
-			break;
-		case R.id.school_iv_x:
-			break;
-		}
 
 	}
 }

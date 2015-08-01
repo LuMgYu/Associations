@@ -16,9 +16,6 @@ import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 
 public class MainActivity extends BaseActivity {
-	// private testListview mListView;
-	// private BAdapter mAdapter;
-	// private List<Model> mlist = new ArrayList<Model>();
 	private LinearLayout ll_home;
 	private LinearLayout ll_move;
 	private LinearLayout ll_association;

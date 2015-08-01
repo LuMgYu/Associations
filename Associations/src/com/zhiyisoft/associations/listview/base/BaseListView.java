@@ -59,18 +59,21 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 	public void initSet(Context context) {
 		this.setScrollbarFadingEnabled(true);
 		this.setCacheColorHint(0);
-		this.setDividerHeight(1);
+		this.setDividerHeight(2);
 		mApp = (Association) context.getApplicationContext();
 		mBaseActivity = mApp.getActivity();
 		mBaseActivity.setListView(this);
-		mDragDown = new DragDown(mBaseActivity, this);
+		if (mDragDown == null) {
+			mDragDown = new DragDown(mBaseActivity, this);
+		}
 		this.setOnTouchListener(mDragDown);
 	}
 
 	/** 設置下拉刷新的頭部 */
 	public void setHeaderView() {
-		if (mDragDown.getHeaderView() != null) {
-			super.addHeaderView(mDragDown.getHeaderView());
+		View view = mDragDown.getHeaderView();
+		if (view != null) {
+			super.addHeaderView(view);
 		}
 	}
 
@@ -110,7 +113,6 @@ public abstract class BaseListView extends ListView implements RefreshListener {
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 					int visibleItemCount, int totalItemCount) {
-				// TODO Auto-generated method stub
 
 			}
 		});

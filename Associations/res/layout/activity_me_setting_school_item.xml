@@ -9,7 +9,7 @@
         android:id="@+id/rl_school_item"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
-        android:layout_margin="@dimen/margin_left_small" >
+        android:layout_marginLeft="@dimen/margin_left_small" >
 
         <TextView
             android:id="@+id/tv_school_name"

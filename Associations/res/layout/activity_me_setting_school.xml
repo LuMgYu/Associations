@@ -5,7 +5,8 @@
     android:background="@color/main_white_color"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <!--
+     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="@dimen/margin_top"
@@ -45,8 +46,7 @@
                 android:background="@drawable/x03" />
         </RelativeLayout>
     </RelativeLayout>
-
-    <View
+     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/main_gray_color" />
@@ -65,6 +65,9 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/margin_top"
         android:background="@color/main_gray_color" />
+    
+    -->
+
 
     <com.zhiyisoft.associations.listview.MeSettingSchoolListview
         android:id="@+id/school_lv"

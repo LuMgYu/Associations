@@ -7,4 +7,5 @@ package com.zhiyisoft.associations.config;
 
 public class Config {
 	public static final String PHONE_NUMBER = "phone_number";
+	public static final String PROVINCE = "province";
 }

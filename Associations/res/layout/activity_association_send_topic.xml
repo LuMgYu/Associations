@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="@dimen/margin_top" >
+
+        <EditText
+            android:id="@+id/topic_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@null"
+            android:hint="标题（必填）"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small" >
+
+        <EditText
+            android:id="@+id/topic_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@null"
+            android:gravity="top|left"
+            android:hint="请输入内容哦。。。"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <ImageView
+            android:id="@+id/topic_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_bottom"
+            android:src="@drawable/pic" />
+
+        <ImageView
+            android:id="@+id/topic_expression"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_bottom"
+            android:layout_marginLeft="@dimen/margin_right"
+            android:layout_toRightOf="@id/topic_image"
+            android:src="@drawable/face" />
+
+        <FrameLayout
+            android:id="@+id/topic_fl_big_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_above="@id/topic_image"
+            android:layout_marginBottom="@dimen/margin_top" >
+
+            <ImageView
+                android:id="@+id/topic_iv_big_image"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/default_image_small" />
+
+            <ImageView
+                android:id="@+id/topic_iv_delete_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/x02" />
+        </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>
