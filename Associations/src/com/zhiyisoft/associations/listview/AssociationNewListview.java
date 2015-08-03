@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.zhiyisoft.associations.activity.AssociationMainActivity;
-import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**
@@ -16,15 +14,15 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
  *
  */
 
-public class AssociationListview extends BaseListView {
+public class AssociationNewListview extends BaseListView {
 	private Context mContext;
 
-	public AssociationListview(Context context) {
+	public AssociationNewListview(Context context) {
 		super(context);
 		this.mContext = context;
 	}
 
-	public AssociationListview(Context context, AttributeSet attrs) {
+	public AssociationNewListview(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
 	}
@@ -32,12 +30,6 @@ public class AssociationListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		if (position % 2 == 0) {
-			mApp.startActivity(mBaseActivity, AssociationMainActivity.class,
-					data);
-		} else {
-			mApp.startActivity(mBaseActivity, AssociationSingleActivity.class,
-					data);
-		}
+		mApp.startActivity(mBaseActivity, AssociationMainActivity.class, data);
 	}
 }

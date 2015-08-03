@@ -21,19 +21,19 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class MeAssociationAdapter extends BAdapter {
+public class AssociationWordAdapter extends BAdapter {
 
-	public MeAssociationAdapter(BaseActivity activity, List<Model> list) {
+	public AssociationWordAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
 
-	public MeAssociationAdapter(BaseFragment fragment, List<Model> list) {
+	public AssociationWordAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.notify_msg_iem, null);
+		return mInflater.inflate(R.layout.association_word_item, null);
 	}
 
 	@Override

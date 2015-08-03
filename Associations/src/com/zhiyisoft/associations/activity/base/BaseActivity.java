@@ -108,8 +108,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 		mTitleLeftImageId = setTitleLeftImageId();
 		mTitleRightImageId = setTitleRightImageId();
 		String title = setCenterTitle();
-
-		if (title != null && title.length() > 0) {
+		// if (title != null && title.length() > 0) {
+		if (title != null) {
 			mTitleLayout = mInflater.inflate(R.layout.title, null);
 			tv_title_left = (TextView) mTitleLayout
 					.findViewById(R.id.tv_title_left);

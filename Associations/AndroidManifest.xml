@@ -51,6 +51,14 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingProvinceActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMainActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationNewActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationSingleActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationWordActivity" >
+        </activity>
     </application>
 
 </manifest>

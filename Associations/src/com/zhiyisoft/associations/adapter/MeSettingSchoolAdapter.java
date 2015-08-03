@@ -34,7 +34,7 @@ public class MeSettingSchoolAdapter extends BAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		return mInflater
-				.inflate(R.layout.activity_me_setting_school_item, null);
+				.inflate(R.layout.me_setting_school_item, null);
 	}
 
 	@Override

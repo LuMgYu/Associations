@@ -12,7 +12,7 @@
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:id="@+id/main_rl_share"
+            android:id="@+id/main_ll_share"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_weight="1"
@@ -40,7 +40,7 @@
             android:background="@color/main_gray_color" />
 
         <LinearLayout
-            android:id="@+id/main_rl_join"
+            android:id="@+id/main_ll_join"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
             android:layout_weight="1"
@@ -73,6 +73,7 @@
             android:orientation="vertical" >
 
             <RelativeLayout
+                android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:background="@color/main_color" >
@@ -91,6 +92,7 @@
                         android:src="@drawable/default_image_small" />
 
                     <ImageView
+                        android:id="@+id/iv_v"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|right"
@@ -168,7 +170,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="@dimen/line_height"
                 android:layout_marginTop="@dimen/margin_top"
                 android:background="@color/main_gray_color" />
 
@@ -197,18 +199,45 @@
                     android:src="@drawable/x" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
-                    android:id="@+id/iv_member"
+                    android:id="@+id/iv_member1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right"
-                    android:src="@drawable/ic_launcher" />
+                    android:src="@drawable/default_image_small" />
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_member2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:layout_toLeftOf="@id/iv_member1"
+                    android:src="@drawable/default_image_small" />
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_member3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:layout_toLeftOf="@id/iv_member2"
+                    android:src="@drawable/default_image_small" />
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_member4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:layout_toLeftOf="@id/iv_member3"
+                    android:src="@drawable/default_image_small" />
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="@dimen/line_height"
                 android:background="@color/main_gray_color" />
 
             <RelativeLayout
@@ -238,7 +267,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="@dimen/line_height"
                 android:background="@color/main_gray_color" />
 
             <RelativeLayout
@@ -279,7 +308,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="@dimen/line_height"
                 android:background="@color/main_gray_color" />
 
             <RelativeLayout
@@ -308,8 +337,8 @@
 
                 <ImageView
                     android:id="@+id/iv_album"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right"
@@ -318,7 +347,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_height="@dimen/line_height"
                 android:background="@color/main_gray_color" />
 
             <RelativeLayout
@@ -352,7 +381,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/doc" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

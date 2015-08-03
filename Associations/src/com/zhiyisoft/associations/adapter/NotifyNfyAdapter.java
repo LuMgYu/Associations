@@ -33,7 +33,7 @@ public class NotifyNfyAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.fragment_notify_notify_iem, null);
+		return mInflater.inflate(R.layout.notify_notify_iem, null);
 	}
 
 	@Override

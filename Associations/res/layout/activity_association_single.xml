@@ -56,7 +56,7 @@
             android:textSize="@dimen/text_common" />
 
         <TextView
-            android:id="@+id/title_tv_topic"
+            android:id="@+id/title_tv_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_tv_member"
@@ -67,6 +67,64 @@
             android:text="北京大学青鸟学员"
             android:textColor="@color/text_more_gray"
             android:textSize="@dimen/text_small" />
+
+        <Button
+            android:id="@+id/title_tv_type"
+            android:layout_width="70dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/margin_top"
+            android:background="@drawable/btn_gray"
+            android:text="文体协会"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+    <!-- 社团活动 -->
+
+    <RelativeLayout
+        android:id="@+id/title_rl_move"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/move_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_left_small"
+            android:src="@drawable/flag" />
+
+        <TextView
+            android:id="@+id/title_tv_move"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/move_iv"
+            android:text="社团活动（21）"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="5dp"
+        android:background="@color/main_gray_color" />
+
+    <com.zhiyisoft.associations.listview.AssociationNewListview
+        android:id="@+id/single_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

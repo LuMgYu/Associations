@@ -33,7 +33,7 @@ public class NotifyMsgAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.fragment_notify_msg_iem, null);
+		return mInflater.inflate(R.layout.notify_msg_iem, null);
 	}
 
 	@Override
