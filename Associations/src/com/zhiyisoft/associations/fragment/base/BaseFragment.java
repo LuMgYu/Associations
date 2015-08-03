@@ -53,7 +53,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			// 当存在mview的时候就调用清零
 			ViewGroup parent = (ViewGroup) mView.getParent();
 			if (parent != null) {
-				parent.removeAllViews();
+				parent.removeView(mView);
+				;
 			}
 			return mView;
 		}

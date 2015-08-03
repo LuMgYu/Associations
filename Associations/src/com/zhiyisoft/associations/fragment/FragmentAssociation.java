@@ -30,6 +30,7 @@ public class FragmentAssociation extends BaseFragment {
 
 	private Context mContext;
 	private int[] mImageArray;
+	private String[] mStringName;
 	private LayoutInflater mLayoutInflater;
 	private LinearLayout school_ll;
 
@@ -70,10 +71,11 @@ public class FragmentAssociation extends BaseFragment {
 	 * 添加热热门分类
 	 */
 	private void addHotSorting() {
-		mImageArray = new int[] { R.drawable.flag, R.drawable.flag,
-				R.drawable.flag, R.drawable.flag, R.drawable.flag,
-				R.drawable.flag, R.drawable.flag, R.drawable.flag,
-				R.drawable.flag };
+		mImageArray = new int[] { R.drawable.qb, R.drawable.zygy_,
+				R.drawable.shsj, R.drawable.xsxx, R.drawable.jycy,
+				R.drawable.xqah, R.drawable.xlhd, R.drawable.qt };
+		mStringName = new String[] { "全部", "志愿公益", "社会实践", "学术学习", "就业创业",
+				"兴趣爱好", "心理活动", "其它" };
 		View itemView = null;
 		ImageView imageView = null;
 		TextView textView;
@@ -83,7 +85,7 @@ public class FragmentAssociation extends BaseFragment {
 			imageView = (ImageView) itemView.findViewById(R.id.school_scv_iv);
 			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
 			imageView.setImageResource(mImageArray[i]);
-			textView.setText("主页");
+			textView.setText(mStringName[i] + "");
 			school_ll.addView(itemView);
 		}
 	}
