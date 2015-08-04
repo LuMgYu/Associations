@@ -5,12 +5,12 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.AssociationWordAdapter;
+import com.zhiyisoft.associations.adapter.AssociationMemberAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.listview.AssociationMemberListview;
 import com.zhiyisoft.associations.listview.AssociationWordListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
@@ -20,21 +20,14 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class AssociationWordActivity extends BaseActivity {
-	private BaseListView word_lv;
-	private TextView next;
+public class AssociationMemberActivity extends BaseActivity {
+	private BaseListView member_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
 
 	@Override
-	protected void onCreate(Bundle arg0) {
-		super.onCreate(arg0);
-		setAlltitle("手机文档", null, null);
-	}
-
-	@Override
 	public String setCenterTitle() {
-		return "选择文档";
+		return "社团成员";
 	}
 
 	@Override
@@ -44,17 +37,14 @@ public class AssociationWordActivity extends BaseActivity {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.activity_association_word;
+		return R.layout.activity_association_member;
 	}
 
-	// private BaseListView word_lv;
-	// private TextView next;
 	@Override
 	public void initView() {
-		word_lv = (AssociationWordListview) findViewById(R.id.word_lv);
-		next = (TextView) findViewById(R.id.next);
-		mAdapter = new AssociationWordAdapter(this, mlist);
-		word_lv.setAdapter(mAdapter);
+		member_lv = (AssociationMemberListview) findViewById(R.id.member_lv);
+		mAdapter = new AssociationMemberAdapter(this, mlist);
+		member_lv.setAdapter(mAdapter);
 	}
 
 	@Override

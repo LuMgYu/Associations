@@ -89,7 +89,7 @@ public class AssociationMainActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.rl_member:
 			Bundle data = new Bundle();
-			mApp.startActivity(this, MeSettingNickActivity.class, data);
+			mApp.startActivity(this, AssociationMemberActivity.class, data);
 			break;
 		case R.id.rl_new:
 			Bundle data1 = new Bundle();
@@ -97,7 +97,7 @@ public class AssociationMainActivity extends BaseActivity {
 			break;
 		case R.id.rl_activity:
 			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
+			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.iv_title:
 			break;

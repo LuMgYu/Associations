@@ -371,9 +371,12 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	@Override
 	public void headerShow() {
 		if (headerContent == null) {
-			BaseListView listView = (BaseListView) getActivity().getListView();
-			listView.addHeaderView(getHeaderView());
-			Log.i("refresh", "headerContent为空");
+			Log.i("refresh", " headerShow() headerContent == null");
+			return;
+			// BaseListView listView = (BaseListView)
+			// getActivity().getListView();
+			// listView.addHeaderView(getHeaderView());
+			// Log.i("refresh", "headerContent为空");
 		}
 		LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
 				.getLayoutParams();
@@ -388,11 +391,14 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	@Override
 	public void headerHiden() {
 		// try {
-		Log.i("refresh", "dragdown headerHiden()  {");
+		Log.i("refresh", " headerHiden() dragdown headerHiden()  {");
 		if (headerContent == null) {
-			BaseListView listView = (BaseListView) getActivity().getListView();
-			listView.addHeaderView(getHeaderView());
-			Log.i("refresh", "headerContent为空");
+			Log.i("refresh", "headerContent == null");
+			return;
+			// BaseListView listView = (BaseListView)
+			// getActivity().getListView();
+			// listView.addHeaderView(getHeaderView());
+			// Log.i("refresh", "headerContent为空");
 		}
 		LinearLayout.LayoutParams lpCenter = (android.widget.LinearLayout.LayoutParams) headerContent
 				.getLayoutParams();
@@ -426,9 +432,11 @@ public class DragDown implements OnTouchListener, OnGestureListener,
 	public void headerRefresh() {
 		this.setTime();
 		if (header == null) {
-			BaseListView listView = (BaseListView) getActivity().getListView();
-			listView.addHeaderView(getHeaderView());
-			Log.i("refresh", "headerContent为空");
+			// BaseListView listView = (BaseListView)
+			// getActivity().getListView();
+			// listView.addHeaderView(getHeaderView());
+			Log.i("refresh", " headerRefresh() headerContent为空");
+			return;
 		}
 
 		Log.i("headerRefresh()", "调用了这个方法headerRefresh()");

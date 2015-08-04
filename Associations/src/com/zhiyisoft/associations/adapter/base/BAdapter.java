@@ -28,7 +28,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/** 用來裝各個item的控件，方便管理 */
 	public ViewHolder mHolder;
 	/** 存入activity，必要时用来调用里面的东西 */
-	private BaseActivity mBaseActivity;
+	public BaseActivity mBaseActivity;
 	/** app全局应用 */
 	private Association mApp;
 	/** 創建item需要传入的list */

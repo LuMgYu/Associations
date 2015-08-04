@@ -59,6 +59,10 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationWordActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMemberActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMoveActivity" >
+        </activity>
     </application>
 
 </manifest>

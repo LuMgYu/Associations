@@ -1,0 +1,94 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.zhiyisoft.associations.img.SmartImageView
+            android:id="@+id/move_iv"
+            android:layout_width="100dp"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_top"
+            android:src="@drawable/default_image_small" />
+
+        <TextView
+            android:id="@+id/move_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/move_iv"
+            android:layout_toRightOf="@id/move_iv"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="第十三届大学生摄影大赛"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_big" />
+
+        <Button
+            android:id="@+id/move_btn_online"
+            android:layout_width="35dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/move_tv_title"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/move_iv"
+            android:background="@drawable/btn_red_more_radius"
+            android:text="线上"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_verysmall" />
+
+        <Button
+            android:id="@+id/move_btn_event"
+            android:layout_width="35dp"
+            android:layout_height="20dp"
+            android:layout_alignTop="@id/move_btn_online"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/move_btn_online"
+            android:background="@drawable/btn_blue_more_radius"
+            android:text="赛事"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_verysmall" />
+
+        <TextView
+            android:id="@+id/move_tv_deadline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/move_btn_online"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/move_iv"
+            android:drawableLeft="@drawable/clock"
+            android:drawablePadding="4dp"
+            android:text="2015-07-28--08.30"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/move_tv_allmove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/move_tv_deadline"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/move_iv"
+            android:drawableLeft="@drawable/user03"
+            android:drawablePadding="4dp"
+            android:text="25参加"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/move_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/move_tv_allmove"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/move_iv"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="大学生摄影大赛正在如火如荼的报名，还在等什么理解报名吧"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+</LinearLayout>
