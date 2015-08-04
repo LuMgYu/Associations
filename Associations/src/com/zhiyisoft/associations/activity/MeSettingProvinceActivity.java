@@ -8,7 +8,7 @@ import android.widget.GridView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.MyGridViewAdapter;
+import com.zhiyisoft.associations.adapter.MyStringGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
 
 /**
@@ -25,7 +25,7 @@ import com.zhiyisoft.associations.config.Config;
  * */
 public class MeSettingProvinceActivity extends BaseActivity {
 	private GridView province_gv;
-	private MyGridViewAdapter mAdapter;
+	private MyStringGridViewAdapter mAdapter;
 	private String mStr[] = new String[] { "北京", "上海", "天津", "重庆", "浙江", "广东",
 			"江苏", "山东", "福建", "安徽", "四川", "湖北", "河北", "云南", "黑龙江", "吉林", "辽宁",
 			"海南", "湖南", "河南", "贵州", "江西", "广西", "陕西", "山西", "青海", "宁夏", "甘肃",
@@ -49,7 +49,7 @@ public class MeSettingProvinceActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		province_gv = (GridView) findViewById(R.id.province_gv);
-		mAdapter = new MyGridViewAdapter(mStr, this);
+		mAdapter = new MyStringGridViewAdapter(mStr, this);
 		province_gv.setAdapter(mAdapter);
 
 	}

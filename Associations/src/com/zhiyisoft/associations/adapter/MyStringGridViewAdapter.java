@@ -1,24 +1,23 @@
 package com.zhiyisoft.associations.adapter;
 
-import com.zhiyisoft.associations.R;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.zhiyisoft.associations.R;
 
 /**
  * author：qiuchunjia time：下午6:23:39 类描述：这个类是实现
  *
  */
 
-public class MyGridViewAdapter extends BaseAdapter {
+public class MyStringGridViewAdapter extends BaseAdapter {
 	private String[] mStr;
 	private Context mContext;
 
-	public MyGridViewAdapter(String[] str, Context context) {
+	public MyStringGridViewAdapter(String[] str, Context context) {
 		this.mStr = str;
 		this.mContext = context;
 	}

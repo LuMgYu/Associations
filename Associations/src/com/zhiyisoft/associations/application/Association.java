@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -165,6 +167,25 @@ public class Association extends Application {
 		}
 		now.startActivityForResult(intent, 3456);
 		Anim.in(now);
+	}
+
+	/**
+	 * 判断网络连接
+	 * 
+	 * @param context
+	 * @return
+	 */
+	public boolean isNetworkConnected(Context context) {
+		if (context != null) {
+			ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo mNetworkInfo = mConnectivityManager
+					.getActiveNetworkInfo();
+			if (mNetworkInfo != null) {
+				return mNetworkInfo.isAvailable();
+			}
+		}
+		return false;
 	}
 
 	public static String getCache_path() {

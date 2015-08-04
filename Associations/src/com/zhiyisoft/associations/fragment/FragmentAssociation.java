@@ -80,8 +80,8 @@ public class FragmentAssociation extends BaseFragment {
 		ImageView imageView = null;
 		TextView textView;
 		for (int i = 0; i < mImageArray.length; i++) {
-			itemView = mLayoutInflater.inflate(
-					R.layout.association_hsv_item, null);
+			itemView = mLayoutInflater.inflate(R.layout.association_hsv_item,
+					null);
 			imageView = (ImageView) itemView.findViewById(R.id.school_scv_iv);
 			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
 			imageView.setImageResource(mImageArray[i]);

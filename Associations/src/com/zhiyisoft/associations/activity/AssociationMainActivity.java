@@ -102,6 +102,8 @@ public class AssociationMainActivity extends BaseActivity {
 		case R.id.iv_title:
 			break;
 		case R.id.rl_album:
+			Bundle data4 = new Bundle();
+			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
 			break;
 		case R.id.rl_file_share:
 			Bundle data3 = new Bundle();

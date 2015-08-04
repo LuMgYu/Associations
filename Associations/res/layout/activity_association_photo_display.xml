@@ -1,0 +1,16 @@
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/photo_hsv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000" >
+
+    <LinearLayout
+        android:id="@+id/photo_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/main_gray_color"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+</HorizontalScrollView>

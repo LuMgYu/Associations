@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.zhiyisoft.associations.model.ModelAssociation;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelSchool;
@@ -162,6 +163,54 @@ public class Api {
 		}
 	}
 
+	public static final class AssociationImpl implements AssociationIm {
+
+		@Override
+		public boolean addAssociation(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, AssociationImpl.GROUP);
+			get.addBodyParam(ACT, AssociationImpl.JOIN);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+		@Override
+		public List<Model> getAssociationMember(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, AssociationImpl.GROUP);
+			get.addBodyParam(ACT, AssociationImpl.MEMBERLIST);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return parseOriginalJsonArray(object.toString(),
+					new ModelAssociation());
+		}
+
+		@Override
+		public boolean quitAssociation(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, AssociationImpl.GROUP);
+			get.addBodyParam(ACT, AssociationImpl.LEAVE);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+	}
+
+	// -------------------------------------------------------------------------------------
 	/**
 	 * 判断返回的json是否有效，当code=1时表面有效，其它的都看着无效
 	 * 
@@ -232,7 +281,7 @@ public class Api {
 				json = new JSONObject(jsonObject.toString());
 				if (json.has("data")) {
 					JSONArray array = json.getJSONArray("data");
-					list = parseJsonArray(array, new ModelSchool());
+					list = parseJsonArray(array, ModelType);
 					return list;
 				}
 			} catch (JSONException e) {
