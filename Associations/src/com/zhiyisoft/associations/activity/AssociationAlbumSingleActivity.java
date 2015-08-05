@@ -20,6 +20,8 @@ import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
 public class AssociationAlbumSingleActivity extends BaseActivity {
 	private GridView album_gv;
 	private int[] resArray = new int[] { R.drawable.girl, R.drawable.girl,
+			R.drawable.ic_launcher, R.drawable.apk, R.drawable.doc,
+			R.drawable.default_image_small, R.drawable.girl, R.drawable.girl,
 			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
 			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
 			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
@@ -29,8 +31,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
 			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
 			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl };
+			R.drawable.girl, R.drawable.girl };
 	private BaseAdapter mAdapter;
 
 	@Override

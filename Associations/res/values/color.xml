@@ -9,6 +9,8 @@
     <color name="main_white_color">#f9f9f9</color>
     <!-- 主题颜色灰色 -->
     <color name="main_gray_color">#ececec</color>
+    <!-- 主题黑色 -->
+    <color name="main_black_color">#000</color>
 
     <!-- 字体颜色 -->
     <color name="text_white">#fff</color>
