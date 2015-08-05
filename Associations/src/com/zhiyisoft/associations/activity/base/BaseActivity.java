@@ -72,6 +72,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public TextView tv_title_right;
 	public ImageView iv_title_left;
 	public ImageView iv_title_right;
+	public ImageView iv_title_right2;
 	/**
 	 * 方便子类替换content部分
 	 */
@@ -120,6 +121,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 					.findViewById(R.id.iv_title_left);
 			iv_title_right = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_right);
+			iv_title_right2 = (ImageView) mTitleLayout
+					.findViewById(R.id.iv_title_right2);
 			if (mTitleLeftImageId != 0) {
 				iv_title_left.setImageResource(mTitleLeftImageId);
 			}

@@ -13,7 +13,8 @@
             android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_top"
-            android:src="@drawable/default_image_small" />
+            android:background="@drawable/default_image_small"
+           />
 
         <TextView
             android:id="@+id/move_tv_title"

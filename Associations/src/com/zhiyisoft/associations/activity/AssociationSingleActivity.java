@@ -73,33 +73,21 @@ public class AssociationSingleActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
-		// rl_nick.setOnClickListener(this);
-		// rl_gender.setOnClickListener(this);
-		// rl_school.setOnClickListener(this);
-		// rl_homeland.setOnClickListener(this);
-		// rl_email.setOnClickListener(this);
-		// rl_phone.setOnClickListener(this);
+		title_iv.setOnClickListener(this);
+		title_rl_move.setOnClickListener(this);
 
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.rl_nick:
+		case R.id.title_iv:
 			Bundle data = new Bundle();
 			mApp.startActivity(this, MeSettingNickActivity.class, data);
 			break;
-		case R.id.rl_gender:
-			break;
-		case R.id.rl_school:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
-			break;
-		case R.id.rl_homeland:
-			break;
-		case R.id.rl_email:
-			break;
-		case R.id.rl_phone:
+		case R.id.title_rl_move:
+			Bundle data1 = new Bundle();
+			mApp.startActivity(this, AssociationMoveActivity.class, data1);
 			break;
 		}
 

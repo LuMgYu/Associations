@@ -99,40 +99,44 @@ public class MainActivity extends BaseActivity {
 		ll_association.setOnClickListener(this);
 		ll_notify.setOnClickListener(this);
 		ll_me.setOnClickListener(this);
+		tv_title_right.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		iv_title_right.setVisibility(View.GONE);
+		setAlltitle(null, null, "");
+		resetTheColor();
 		switch (v.getId()) {
 		case R.id.ll_home:
-			resetTheColor();
 			changeTheColor(iv_home, tv_home, R.drawable.home_c);
 			initFragmentHome();
 			break;
 
 		case R.id.ll_move:
-			resetTheColor();
 			changeTheColor(iv_move, tv_move, R.drawable.activity_c);
 			initFragmentMove();
 			break;
 		case R.id.ll_association:
-			resetTheColor();
+			setAlltitle(null, null, "创建");
 			changeTheColor(iv_association, tv_association,
 					R.drawable.corporation_c);
 			initFragmentAssociation();
+
 			break;
 		case R.id.ll_notify:
-			resetTheColor();
 			changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 			initFragmentNotify();
 			break;
 		case R.id.ll_me:
 			iv_title_right.setVisibility(View.VISIBLE);
-			resetTheColor();
 			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			initFragmentMe();
 
+			break;
+		case R.id.tv_title_right:
+			tv_title_right.setVisibility(View.VISIBLE);
+			mApp.startActivity(this, AssociationCreate.class, null);
 			break;
 		}
 	}
