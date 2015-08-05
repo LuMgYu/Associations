@@ -40,6 +40,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setAlltitle("北京社团轮滑社", null, null);
+		setAllImagetitle(0, R.drawable.write, R.drawable.three_);
 	}
 
 	@Override
@@ -75,6 +76,8 @@ public class AssociationSingleActivity extends BaseActivity {
 	public void initListener() {
 		title_iv.setOnClickListener(this);
 		title_rl_move.setOnClickListener(this);
+		iv_title_right1.setOnClickListener(this);
+		iv_title_right2.setOnClickListener(this);
 
 	}
 
@@ -88,6 +91,12 @@ public class AssociationSingleActivity extends BaseActivity {
 		case R.id.title_rl_move:
 			Bundle data1 = new Bundle();
 			mApp.startActivity(this, AssociationMoveActivity.class, data1);
+			break;
+		case R.id.iv_title_right1:
+			mApp.startActivity(this, AssociationSendTopicActivity.class, null);
+			break;
+		case R.id.iv_title_right2:
+			mApp.startActivity(this, MeSettingNickActivity.class, null);
 			break;
 		}
 

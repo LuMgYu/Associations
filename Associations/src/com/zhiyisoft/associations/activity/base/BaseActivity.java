@@ -71,8 +71,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public TextView tv_title;
 	public TextView tv_title_right;
 	public ImageView iv_title_left;
-	public ImageView iv_title_right;
 	public ImageView iv_title_right2;
+	public ImageView iv_title_right1;
 	/**
 	 * 方便子类替换content部分
 	 */
@@ -119,10 +119,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 					.findViewById(R.id.tv_title_right);
 			iv_title_left = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_left);
-			iv_title_right = (ImageView) mTitleLayout
-					.findViewById(R.id.iv_title_right);
 			iv_title_right2 = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_right2);
+			iv_title_right1 = (ImageView) mTitleLayout
+					.findViewById(R.id.iv_title_right1);
 			if (mTitleLeftImageId != 0) {
 				iv_title_left.setImageResource(mTitleLeftImageId);
 			}
@@ -209,6 +209,32 @@ public abstract class BaseActivity extends FragmentActivity implements
 		}
 		if (rightTitle != null) {
 			tv_title_right.setText(rightTitle + "");
+		}
+
+	}
+
+	/**
+	 * 设置title的图标
+	 * 
+	 * @param leftResId
+	 *            左边按钮的资源文件
+	 * @param rightResId1
+	 *            右边1按钮的资源文件
+	 * @param rightResId
+	 *            右边按钮的资源文件
+	 */
+	public void setAllImagetitle(int leftResId, int rightResId1, int rightResId) {
+		if (leftResId != 0) {
+			iv_title_left.setImageResource(leftResId);
+			setViewStatus(iv_title_left);
+		}
+		if (rightResId1 != 0) {
+			iv_title_right1.setImageResource(rightResId1);
+			setViewStatus(iv_title_right1);
+		}
+		if (rightResId != 0) {
+			iv_title_right2.setImageResource(rightResId);
+			setViewStatus(iv_title_right2);
 		}
 
 	}

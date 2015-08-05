@@ -71,6 +71,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationCreate" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
+        </activity>
     </application>
 
 </manifest>

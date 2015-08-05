@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public void onClick(View v) {
-		iv_title_right.setVisibility(View.GONE);
+		iv_title_right2.setVisibility(View.GONE);
 		setAlltitle(null, null, "");
 		resetTheColor();
 		switch (v.getId()) {
@@ -129,7 +129,7 @@ public class MainActivity extends BaseActivity {
 			initFragmentNotify();
 			break;
 		case R.id.ll_me:
-			iv_title_right.setVisibility(View.VISIBLE);
+			iv_title_right2.setVisibility(View.VISIBLE);
 			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			initFragmentMe();
 
