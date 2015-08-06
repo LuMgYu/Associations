@@ -2,11 +2,11 @@ package com.zhiyisoft.associations.adapter;
 
 import java.util.ArrayList;
 
-import com.zhiyisoft.associations.fragment.base.BaseFragment;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.zhiyisoft.associations.fragment.base.BaseFragment;
 
 public class MyViewPagerAdapter extends FragmentPagerAdapter {
 	private ArrayList<BaseFragment> mFragments;

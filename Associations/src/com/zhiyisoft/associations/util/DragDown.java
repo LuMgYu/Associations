@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.impl.RefreshListener;
-import com.zhiyisoft.associations.listview.base.BaseListView;
 
 public class DragDown implements OnTouchListener, OnGestureListener,
 		RefreshListener {

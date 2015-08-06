@@ -10,12 +10,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.zhiyisoft.associations.application.Association;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+
+import com.zhiyisoft.associations.application.Association;
 
 public class WebImageCache {
 	private static final String DISK_CACHE_PATH = "/web_image_cache/";

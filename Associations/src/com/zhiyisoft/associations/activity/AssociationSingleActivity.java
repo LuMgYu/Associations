@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationNewAdapter;
-import com.zhiyisoft.associations.adapter.NotifyNfyAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.listview.AssociationNewListview;

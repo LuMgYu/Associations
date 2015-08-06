@@ -76,7 +76,7 @@ public class Api {
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
 			get.addBodyParam("name", "上海");
-			Object object = get.run();
+			Object object = get.run(); //利用网络请求数据，然后返回的数据
 			return parseOriginalJsonArray(object.toString(), new ModelSchool());
 		}
 	}

@@ -2,13 +2,13 @@ package com.zhiyisoft.associations.img;
 
 import java.io.InputStream;
 
-import android.content.ContentUris;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.ContactsContract;
 
 public class ContactImage implements SmartImage {
 	private long contactId;
