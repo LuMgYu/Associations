@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.zhiyisoft.associations.model.ModelAssociation;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueList;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
@@ -76,7 +77,7 @@ public class Api {
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
 			get.addBodyParam("name", "上海");
-			Object object = get.run(); //利用网络请求数据，然后返回的数据
+			Object object = get.run(); // 利用网络请求数据，然后返回的数据
 			return parseOriginalJsonArray(object.toString(), new ModelSchool());
 		}
 	}
@@ -116,6 +117,97 @@ public class Api {
 			Object object = get.run();
 			return parseOriginalJsonArray(object.toString(), new ModelLeague());
 		}
+
+		@Override
+		public boolean addLeague(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, JOIN);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+		@Override
+		public List<Model> getLeagueMember(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, MEMBERLIST);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return parseOriginalJsonArray(object.toString(),
+					new ModelAssociation());
+		}
+
+		@Override
+		public boolean quitLeague(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, LEAVE);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+		@Override
+		public List<Model> getLeagueList(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, INDEX);
+			get.addBodyParam("schoolid", "2");
+			Object object = get.run();
+			return parseOriginalJsonArray(object.toString(),
+					new ModelLeagueList());
+		}
+
+		@Override
+		public Model getLeagueDetail(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, USER);
+			get.addBodyParam(ACT, VIEW);
+			get.addBodyParam("gid", "15225");
+			Object object = get.run();
+			return null;
+		}
+
+		@Override
+		public Model getAlbumByLeagueID(Model model) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Model getPhotoListByAlbumId(Model model) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Model createAlbum(Model model) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {
@@ -129,7 +221,7 @@ public class Api {
 					"34975aeea94b0e71311c21215daf117a");
 			get.addBodyParam(MOD, BaseSettingIm.USER);
 			get.addBodyParam(ACT, BaseSettingIm.SETMASK);
-			get.addBodyParam("mask", "俺是小腿");
+			get.addBodyParam("mask", "俺是da腿");
 			get.run();
 			return null;
 		}
@@ -161,53 +253,6 @@ public class Api {
 			Object object = post.run();
 			return parseOriginalJsonObject(object.toString(), new ModelMask());
 		}
-	}
-
-	public static final class AssociationImpl implements AssociationIm {
-
-		@Override
-		public boolean addAssociation(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, AssociationImpl.GROUP);
-			get.addBodyParam(ACT, AssociationImpl.JOIN);
-			get.addBodyParam("gid", "15222");
-			Object object = get.run();
-			return isCodeOk(object.toString());
-		}
-
-		@Override
-		public List<Model> getAssociationMember(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, AssociationImpl.GROUP);
-			get.addBodyParam(ACT, AssociationImpl.MEMBERLIST);
-			get.addBodyParam("gid", "15222");
-			Object object = get.run();
-			return parseOriginalJsonArray(object.toString(),
-					new ModelAssociation());
-		}
-
-		@Override
-		public boolean quitAssociation(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, AssociationImpl.GROUP);
-			get.addBodyParam(ACT, AssociationImpl.LEAVE);
-			get.addBodyParam("gid", "15222");
-			Object object = get.run();
-			return isCodeOk(object.toString());
-		}
-
 	}
 
 	// -------------------------------------------------------------------------------------
