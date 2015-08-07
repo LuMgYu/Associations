@@ -69,13 +69,15 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoDisplayActivity" >
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreate" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity" >
+        </activity>
+           <activity android:name="com.zhiyisoft.associations.activity.MoveCreateActivity" >
         </activity>
     </application>
 

@@ -1,13 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/white" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="移動" />
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:text="热门分类"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_big" />
+        <!-- 热门种类 -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:layout_marginTop="30dp" >
+
+            <HorizontalScrollView
+                android:id="@+id/move_hsv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:id="@+id/move_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:background="@color/main_gray_color" />
+
+        <!-- 搜索你感兴趣的 -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/margin_left_small"
+            android:background="@drawable/rl_border" >
+
+            <ImageView
+                android:id="@+id/move_iv_zoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:background="@drawable/zoom" />
+
+            <EditText
+                android:id="@+id/move_et_zoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_zoom"
+                android:background="@null"
+                android:hint="搜索你感兴趣的活动"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+        <!-- 搜索你感兴趣的 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_change"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/margin_left_small" >
+
+            <TextView
+                android:id="@+id/move_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="我的活动"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@color/main_gray_color" />
+
+        <com.zhiyisoft.associations.listview.MoveListview
+            android:id="@+id/move_lv"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:minHeight="180dp" />
+    </LinearLayout>
+
+</ScrollView>

@@ -17,7 +17,7 @@ import com.zhiyisoft.associations.img.RoundImageView;
  *
  */
 
-public class AssociationCreate extends BaseActivity {
+public class AssociationCreateActivity extends BaseActivity {
 	private RoundImageView association_icon;
 	private EditText association_et_name;
 	private TextView association_tv_school_name;

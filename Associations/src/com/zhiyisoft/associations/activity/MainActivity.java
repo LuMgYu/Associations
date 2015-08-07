@@ -40,6 +40,13 @@ public class MainActivity extends BaseActivity {
 	private FragmentNotify mNotifyFragment;
 	private FragmentMe mMeFragment;
 
+	public static int HOME = 0;
+	public static int MOVE = 1;
+	public static int ASSOCIATION = 2;
+	public static int NOTIFY = 3;
+	public static int ME = 4;
+	public static int mCurrentState = -1;
+
 	@Override
 	public String setCenterTitle() {
 		return "线团";
@@ -109,26 +116,34 @@ public class MainActivity extends BaseActivity {
 		resetTheColor();
 		switch (v.getId()) {
 		case R.id.ll_home:
+			mCurrentState = HOME;
 			changeTheColor(iv_home, tv_home, R.drawable.home_c);
 			initFragmentHome();
 			break;
 
 		case R.id.ll_move:
+			mCurrentState = MOVE;
+			setAlltitle(null, null, "创建");
+			tv_title_right.setVisibility(View.VISIBLE);
 			changeTheColor(iv_move, tv_move, R.drawable.activity_c);
 			initFragmentMove();
 			break;
 		case R.id.ll_association:
+			mCurrentState = ASSOCIATION;
 			setAlltitle(null, null, "创建");
+			tv_title_right.setVisibility(View.VISIBLE);
 			changeTheColor(iv_association, tv_association,
 					R.drawable.corporation_c);
 			initFragmentAssociation();
 
 			break;
 		case R.id.ll_notify:
+			mCurrentState = NOTIFY;
 			changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 			initFragmentNotify();
 			break;
 		case R.id.ll_me:
+			mCurrentState = ME;
 			iv_title_right2.setVisibility(View.VISIBLE);
 			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			initFragmentMe();
@@ -136,7 +151,14 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.tv_title_right:
 			tv_title_right.setVisibility(View.VISIBLE);
-			mApp.startActivity(this, AssociationCreate.class, null);
+			switch (mCurrentState) {
+			case 1:
+				mApp.startActivity(this, MoveCreateActivity.class, null);
+				break;
+			case 2:
+				mApp.startActivity(this, AssociationCreateActivity.class, null);
+				break;
+			}
 			break;
 		}
 	}
