@@ -73,6 +73,10 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity" >
+        </activity>
     </application>
 
 </manifest>

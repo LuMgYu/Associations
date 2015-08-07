@@ -78,7 +78,7 @@ public interface LeagueIm {
 	/**
 	 * 获取社团详情
 	 * 
-	 * 传参 mod=user&act=setmask
+	 * 传参 mod=group&act=setmask
 	 * 
 	 * @param model
 	 * @return

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.AssociationMainActivity;
+import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**
@@ -30,6 +31,7 @@ public class AssociationNewListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		mApp.startActivity(mBaseActivity, AssociationMainActivity.class, data);
+		mApp.startActivity(mBaseActivity, AssociationTopicDetailActivity.class,
+				data);
 	}
 }
