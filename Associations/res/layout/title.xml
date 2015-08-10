@@ -59,12 +59,21 @@
             android:visibility="gone" />
 
         <ImageView
+            android:id="@+id/iv_title_right3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/more"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/iv_title_right1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="40dp"
-            android:src="@drawable/write"
+            android:src="@drawable/set"
             android:visibility="gone" />
     </FrameLayout>
 

@@ -57,7 +57,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setAlltitle("北京社团轮滑社", null, null);
-		setAllImagetitle(0, R.drawable.write, R.drawable.three_);
+		setAllImagetitle(0, R.drawable.write, R.drawable.three_,0);
 	}
 
 	@Override
@@ -145,12 +145,6 @@ public class AssociationSingleActivity extends BaseActivity {
 	/**
 	 * 初始化popWindow
 	 * */
-	/**
-	 * 
-	 */
-	/**
-	 * 
-	 */
 	private void initPopWindow() {
 		View popView = mInflater.inflate(R.layout.association_slidemenu, null);
 		mPopupWindow = new PopupWindow(popView,

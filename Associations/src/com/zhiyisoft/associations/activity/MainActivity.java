@@ -1,10 +1,15 @@
 package com.zhiyisoft.associations.activity;
 
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -75,9 +80,6 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		// mListView = (testListview) findViewById(R.id.testlv);
-		// mAdapter = new testAdapter(this, mlist);
-		// mListView.setAdapter(mAdapter);
 
 		ll_home = (LinearLayout) findViewById(R.id.ll_home);
 		ll_move = (LinearLayout) findViewById(R.id.ll_move);
@@ -96,6 +98,7 @@ public class MainActivity extends BaseActivity {
 		tv_association = (TextView) findViewById(R.id.tv_association);
 		tv_notify = (TextView) findViewById(R.id.tv_notify);
 		tv_me = (TextView) findViewById(R.id.tv_me);
+		initPopWindow();
 
 	}
 
@@ -112,6 +115,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		iv_title_right2.setVisibility(View.GONE);
+		iv_title_right3.setVisibility(View.GONE);
 		setAlltitle(null, null, "");
 		resetTheColor();
 		switch (v.getId()) {
@@ -123,8 +127,14 @@ public class MainActivity extends BaseActivity {
 
 		case R.id.ll_move:
 			mCurrentState = MOVE;
-			setAlltitle(null, null, "创建");
-			tv_title_right.setVisibility(View.VISIBLE);
+			setAllImagetitle(0, 0, 0, R.drawable.more);
+			iv_title_right3.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					showPop(iv_title_right3, 0, 20);
+				}
+			});
 			changeTheColor(iv_move, tv_move, R.drawable.activity_c);
 			initFragmentMove();
 			break;
@@ -151,6 +161,7 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.tv_title_right:
 			tv_title_right.setVisibility(View.VISIBLE);
+
 			switch (mCurrentState) {
 			case 1:
 				mApp.startActivity(this, MoveCreateActivity.class, null);
@@ -257,5 +268,68 @@ public class MainActivity extends BaseActivity {
 		tv_association.setTextColor(getResources().getColor(R.color.text_gray));
 		tv_notify.setTextColor(getResources().getColor(R.color.text_gray));
 		tv_me.setTextColor(getResources().getColor(R.color.text_gray));
+	}
+
+	// --------------------------PopupWindow的界面控件-----------------------------------------
+	private PopupWindow mPopupWindow;
+	private TextView me_join;
+	private TextView me_create;
+	private TextView me_watch;
+	private TextView create_online_move;
+	private TextView create_notOnline_move;
+
+	/**
+	 * 初始化popWindow
+	 * */
+	private void initPopWindow() {
+		if (mPopupWindow == null) {
+			View popView = mInflater.inflate(R.layout.move_menu, null);
+			mPopupWindow = new PopupWindow(popView, 330,
+					LayoutParams.WRAP_CONTENT);
+			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+			// 设置popwindow出现和消失动画
+			initPopWidge(popView);
+			setPopListener();
+		}
+	}
+
+	/**
+	 * 设置popWindow监听器
+	 */
+	private void setPopListener() {
+		me_join.setOnClickListener(this);
+		me_create.setOnClickListener(this);
+		me_watch.setOnClickListener(this);
+		create_online_move.setOnClickListener(this);
+		create_notOnline_move.setOnClickListener(this);
+	}
+
+	/**
+	 * 初始化popwindow里面的控件
+	 * 
+	 * @param popView
+	 */
+	private void initPopWidge(View popView) {
+		me_join = (TextView) popView.findViewById(R.id.me_join);
+		me_create = (TextView) popView.findViewById(R.id.me_create);
+		me_watch = (TextView) popView.findViewById(R.id.me_watch);
+		create_online_move = (TextView) popView
+				.findViewById(R.id.create_online_move);
+		create_notOnline_move = (TextView) popView
+				.findViewById(R.id.create_notOnline_move);
+	}
+
+	/**
+	 * 显示popWindow
+	 * */
+	public void showPop(View parent, int x, int y) {
+		Toast.makeText(this, "点了这里", Toast.LENGTH_LONG).show();
+		// 设置popwindow显示位置
+		mPopupWindow.showAsDropDown(parent, x, y);
+		// 获取popwindow焦点
+		mPopupWindow.setFocusable(true);
+		// 设置popwindow如果点击外面区域，便关闭。
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.update();
 	}
 }

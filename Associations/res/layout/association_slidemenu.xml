@@ -60,6 +60,17 @@
         android:textSize="@dimen/text_big" />
 
     <TextView
+        android:id="@+id/vedio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_height"
+        android:drawableLeft="@drawable/vedio5"
+        android:drawablePadding="5dp"
+        android:text="社团视频"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_big" />
+
+    <TextView
         android:id="@+id/file"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

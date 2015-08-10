@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.AssociationMainActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
+import com.zhiyisoft.associations.activity.MoveMainActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**
@@ -29,7 +30,7 @@ public class MoveListview extends BaseListView {
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
 		if (position % 2 == 0) {
-			mApp.startActivity(mBaseActivity, AssociationMainActivity.class,
+			mApp.startActivity(mBaseActivity, MoveMainActivity.class,
 					data);
 		} else {
 			mApp.startActivity(mBaseActivity, AssociationSingleActivity.class,

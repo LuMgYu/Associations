@@ -73,6 +73,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public ImageView iv_title_left;
 	public ImageView iv_title_right2;
 	public ImageView iv_title_right1;
+	public ImageView iv_title_right3;
 	/**
 	 * 方便子类替换content部分
 	 */
@@ -123,6 +124,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 					.findViewById(R.id.iv_title_right2);
 			iv_title_right1 = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_right1);
+			iv_title_right3 = (ImageView) mTitleLayout
+					.findViewById(R.id.iv_title_right3);
 			if (mTitleLeftImageId != 0) {
 				iv_title_left.setImageResource(mTitleLeftImageId);
 			}
@@ -222,8 +225,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 *            右边1按钮的资源文件
 	 * @param rightResId
 	 *            右边按钮的资源文件
+	 * @param rightResid3
 	 */
-	public void setAllImagetitle(int leftResId, int rightResId1, int rightResId) {
+	public void setAllImagetitle(int leftResId, int rightResId1,
+			int rightResId, int rightResid3) {
 		if (leftResId != 0) {
 			iv_title_left.setImageResource(leftResId);
 			setViewStatus(iv_title_left);
@@ -235,6 +240,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 		if (rightResId != 0) {
 			iv_title_right2.setImageResource(rightResId);
 			setViewStatus(iv_title_right2);
+		}
+		if (rightResid3 != 0) {
+			iv_title_right3.setImageResource(rightResid3);
+			setViewStatus(iv_title_right3);
 		}
 
 	}

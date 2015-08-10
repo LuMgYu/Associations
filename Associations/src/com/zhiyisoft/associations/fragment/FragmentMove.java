@@ -57,7 +57,6 @@ public class FragmentMove  extends BaseFragment {
 
 	@Override
 	public void initListener() {
-		// TODO Auto-generated method stub
 
 	}
 
