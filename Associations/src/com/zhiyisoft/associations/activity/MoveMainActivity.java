@@ -118,7 +118,7 @@ public class MoveMainActivity extends BaseActivity {
 			break;
 		case R.id.rl_works_display:
 			Bundle data1 = new Bundle();
-			mApp.startActivity(this, AssociationNewActivity.class, data1);
+			mApp.startActivity(this, MoveWorksDisplayActivity.class, data1);
 			break;
 		case R.id.rl_move_status:
 			Bundle data2 = new Bundle();

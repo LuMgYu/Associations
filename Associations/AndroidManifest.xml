@@ -81,6 +81,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveWorksDisplayActivity" >
+        </activity>
     </application>
 
 </manifest>
