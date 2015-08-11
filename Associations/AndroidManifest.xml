@@ -93,6 +93,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveMyActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.widget.XListViewActivity" >
+        </activity>
     </application>
 
 </manifest>

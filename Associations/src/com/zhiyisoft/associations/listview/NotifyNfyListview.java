@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.NotifyDetailActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.widget.XListViewActivity;
 
 /**
  * author：qiuchunjia time：上午10:37:57 类描述：这个类是实现
@@ -28,6 +29,6 @@ public class NotifyNfyListview extends BaseListView {
 
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
-		mApp.startActivity(mBaseActivity, NotifyDetailActivity.class, null);
+		mApp.startActivity(mBaseActivity, XListViewActivity.class, null);
 	}
 }
