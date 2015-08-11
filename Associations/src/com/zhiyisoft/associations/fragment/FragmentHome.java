@@ -11,7 +11,6 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
  */
 
 public class FragmentHome extends BaseFragment {
-
 	@Override
 	public void initIntentData() {
 		// TODO Auto-generated method stub
@@ -44,7 +43,7 @@ public class FragmentHome extends BaseFragment {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

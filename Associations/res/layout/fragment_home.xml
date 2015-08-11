@@ -1,13 +1,339 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/main_white_color" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="主頁" />
+        android:orientation="vertical" >
 
-</LinearLayout>
+        <!-- 广告布局 -->
+
+        <RelativeLayout
+            android:id="@+id/home_rl_ads"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/main_gray_color" >
+        </RelativeLayout>
+        <!-- 我的社团 -->
+
+        <RelativeLayout
+            android:id="@+id/home_rl_my_association"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/main_white_color" >
+
+            <TextView
+                android:id="@+id/tv_my_association"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:gravity="center"
+                android:text="我的社团"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsv_association"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/tv_my_association"
+                android:background="#789" >
+
+                <LinearLayout
+                    android:id="@+id/ll_association"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 全国活动的按钮 -->
+
+        <LinearLayout
+            android:id="@+id/home_rl_move"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/main_white_color"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btn_all_move"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_bottom"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_weight="1"
+                android:background="@drawable/all"
+                android:gravity="right|center_vertical"
+                android:paddingRight="20dp"
+                android:text="全国活动"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_big" />
+
+            <Button
+                android:id="@+id/btn_around_move"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_bottom"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_left_small"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_weight="1"
+                android:background="@drawable/bendi"
+                android:gravity="right|center_vertical"
+                android:paddingRight="20dp"
+                android:text="周边活动"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_big" />
+        </LinearLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:drawableLeft="@drawable/rectangle"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="社团推荐"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 社团推荐4个 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/main_gray_color"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/ll_association1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_association1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/default_image_small" />
+
+                <TextView
+                    android:id="@+id/tv_association1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="天大青年协会"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_association2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_association2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/default_image_small" />
+
+                <TextView
+                    android:id="@+id/tv_association2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="天大青年协会"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_association3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_association3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/default_image_small" />
+
+                <TextView
+                    android:id="@+id/tv_association3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="天大青年协会"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_association4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/iv_association4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/default_image_small" />
+
+                <TextView
+                    android:id="@+id/tv_association4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"
+                    android:text="天大青年协会"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/main_gray_color" />
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:drawableLeft="@drawable/rectangle3"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="热门活动"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/main_gray_color" />
+        <!-- 热门活动，限制在三个 -->
+
+        <LinearLayout
+            android:id="@+id/ll_hotMove"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/main_gray_color"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/main_gray_color" />
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:drawableLeft="@drawable/rectangle4"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="作品展示"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/main_gray_color" />
+        <!-- 作品展示，限制在三个 -->
+
+        <LinearLayout
+            android:id="@+id/ll_works"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/main_gray_color"
+            android:orientation="horizontal" >
+
+            <com.zhiyisoft.associations.img.SmartImageView
+                android:id="@+id/iv_work1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/default_image_small" />
+
+            <com.zhiyisoft.associations.img.SmartImageView
+                android:id="@+id/iv_work2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_weight="1"
+                android:background="@drawable/default_image_small" />
+
+            <com.zhiyisoft.associations.img.SmartImageView
+                android:id="@+id/iv_work3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_weight="1"
+                android:background="@drawable/default_image_small" />
+        </LinearLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:drawableLeft="@drawable/rectangle2"
+            android:drawablePadding="3dp"
+            android:gravity="center"
+            android:text="新鲜事"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/main_gray_color" />
+        <!-- 新鲜事，限制在5个 -->
+
+        <LinearLayout
+            android:id="@+id/ll_news"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/main_gray_color"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
