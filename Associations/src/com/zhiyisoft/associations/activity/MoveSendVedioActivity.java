@@ -2,16 +2,10 @@ package com.zhiyisoft.associations.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.img.RoundImageView;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现

@@ -16,7 +16,6 @@ import com.zhiyisoft.associations.adapter.ViewPagerAdapter;
 public class AssociationPhotoDisplayActivity extends BaseActivity {
 	private ViewPager viewpager;
 	private int[] resArray;
-
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);

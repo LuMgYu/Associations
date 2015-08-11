@@ -297,11 +297,12 @@ public class MainActivity extends BaseActivity {
 	 * 设置popWindow监听器
 	 */
 	private void setPopListener() {
-		me_join.setOnClickListener(this);
-		me_create.setOnClickListener(this);
-		me_watch.setOnClickListener(this);
-		create_online_move.setOnClickListener(this);
-		create_notOnline_move.setOnClickListener(this);
+		PopWindowItemListener listener = new PopWindowItemListener();
+		me_join.setOnClickListener(listener);
+		me_create.setOnClickListener(listener);
+		me_watch.setOnClickListener(listener);
+		create_online_move.setOnClickListener(listener);
+		create_notOnline_move.setOnClickListener(listener);
 	}
 
 	/**
@@ -319,11 +320,42 @@ public class MainActivity extends BaseActivity {
 				.findViewById(R.id.create_notOnline_move);
 	}
 
+	private class PopWindowItemListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.me_join:
+				mApp.startActivity(MainActivity.this, MoveMyActivity.class,
+						null);
+				break;
+
+			case R.id.me_create:
+				mApp.startActivity(MainActivity.this, MoveMyActivity.class,
+						null);
+				break;
+			case R.id.me_watch:
+				mApp.startActivity(MainActivity.this, MoveMyActivity.class,
+						null);
+				break;
+			case R.id.create_online_move:
+				mApp.startActivity(MainActivity.this, MoveCreateActivity.class,
+						null);
+				break;
+			case R.id.create_notOnline_move:
+				mApp.startActivity(MainActivity.this, MoveCreateActivity.class,
+						null);
+				break;
+
+			}
+		}
+
+	}
+
 	/**
 	 * 显示popWindow
 	 * */
 	public void showPop(View parent, int x, int y) {
-		Toast.makeText(this, "点了这里", Toast.LENGTH_LONG).show();
 		// 设置popwindow显示位置
 		mPopupWindow.showAsDropDown(parent, x, y);
 		// 获取popwindow焦点
