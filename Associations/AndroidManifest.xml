@@ -83,6 +83,14 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveWorksDisplayActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendEssayActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendMusicActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendPhotoActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendVedioActivity" >
+        </activity>
     </application>
 
 </manifest>
