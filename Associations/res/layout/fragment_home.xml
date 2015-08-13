@@ -14,8 +14,8 @@
         <RelativeLayout
             android:id="@+id/home_rl_ads"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@color/main_gray_color" >
+            android:layout_height="200dp"
+            android:background="#898" >
         </RelativeLayout>
         <!-- 我的社团 -->
 
@@ -23,7 +23,7 @@
             android:id="@+id/home_rl_my_association"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/main_white_color" >
+            android:background="@color/main_gray_color" >
 
             <TextView
                 android:id="@+id/tv_my_association"
@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:gravity="center"
-                android:text="我的社团"
+                android:text="我的社团:"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/text_common" />
 
@@ -40,13 +40,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/tv_my_association"
-                android:background="#789" >
+                android:layout_toRightOf="@id/tv_my_association" >
 
                 <LinearLayout
                     android:id="@+id/ll_association"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
@@ -56,9 +56,9 @@
         <!-- 全国活动的按钮 -->
 
         <LinearLayout
-            android:id="@+id/home_rl_move"
+            android:id="@+id/home_ll_move"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:background="@color/main_white_color"
             android:orientation="horizontal" >
 
@@ -98,23 +98,28 @@
         <include layout="@layout/view_line_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/white"
             android:drawableLeft="@drawable/rectangle"
             android:drawablePadding="3dp"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
             android:text="社团推荐"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_big" />
 
-        <include layout="@layout/view_line_vertical" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/main_gray_color" />
         <!-- 社团推荐4个 -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/main_gray_color"
+            android:background="@color/white"
             android:orientation="horizontal" >
 
             <LinearLayout
@@ -127,8 +132,8 @@
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_association1"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/default_image_small" />
 
                 <TextView
@@ -137,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top"
                     android:text="天大青年协会"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
 
@@ -151,8 +156,8 @@
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_association2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/default_image_small" />
 
                 <TextView
@@ -161,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top"
                     android:text="天大青年协会"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
 
@@ -175,8 +180,8 @@
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_association3"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/default_image_small" />
 
                 <TextView
@@ -185,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top"
                     android:text="天大青年协会"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
 
@@ -199,8 +204,8 @@
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_association4"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/default_image_small" />
 
                 <TextView
@@ -209,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_top"
                     android:text="天大青年协会"
-                    android:textColor="@color/text_black"
+                    android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
         </LinearLayout>
@@ -223,12 +228,13 @@
         <include layout="@layout/view_line_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/white"
             android:drawableLeft="@drawable/rectangle3"
             android:drawablePadding="3dp"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
             android:text="热门活动"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_big" />
@@ -243,8 +249,8 @@
         <LinearLayout
             android:id="@+id/ll_hotMove"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/main_gray_color"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical" >
         </LinearLayout>
 
@@ -257,28 +263,24 @@
         <include layout="@layout/view_line_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/white"
             android:drawableLeft="@drawable/rectangle4"
             android:drawablePadding="3dp"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
             android:text="作品展示"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_big" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:background="@color/main_gray_color" />
         <!-- 作品展示，限制在三个 -->
 
         <LinearLayout
             android:id="@+id/ll_works"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/main_gray_color"
+            android:background="@color/white"
             android:orientation="horizontal" >
 
             <com.zhiyisoft.associations.img.SmartImageView
@@ -294,7 +296,6 @@
                 android:id="@+id/iv_work2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_weight="1"
                 android:background="@drawable/default_image_small" />
 
@@ -302,7 +303,8 @@
                 android:id="@+id/iv_work3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="@dimen/margin_right_small"
                 android:layout_weight="1"
                 android:background="@drawable/default_image_small" />
         </LinearLayout>
@@ -310,12 +312,13 @@
         <include layout="@layout/view_line_vertical" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@color/white"
             android:drawableLeft="@drawable/rectangle2"
             android:drawablePadding="3dp"
-            android:gravity="center"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
             android:text="新鲜事"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_big" />
@@ -330,7 +333,7 @@
         <LinearLayout
             android:id="@+id/ll_news"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="wrap_content"
             android:background="@color/main_gray_color"
             android:orientation="vertical" >
         </LinearLayout>

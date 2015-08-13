@@ -40,7 +40,7 @@ public class MoveSendVedioActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		vedio_title = (EditText) findViewById(R.id.vedio_title);
-		vedio_content = (EditText) findViewById(R.id.move_icon);
+		vedio_content = (EditText) findViewById(R.id.vedio_content);
 
 	}
 

@@ -39,6 +39,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	private View mLoadingView;
 	/** application基類 */
 	public Association mApp;
+	/** mInflater */
+	public LayoutInflater mInflater;
 
 	// public FragmentManager mFManager = getChildFragmentManager();
 
@@ -47,6 +49,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		if (mView == null) {
 			mView = inflater.inflate(getLayoutId(), null);
+			mInflater = inflater;
 
 		} else {
 			// 当存在mview的时候就调用清零

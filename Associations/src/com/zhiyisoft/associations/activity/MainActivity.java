@@ -99,6 +99,7 @@ public class MainActivity extends BaseActivity {
 		tv_notify = (TextView) findViewById(R.id.tv_notify);
 		tv_me = (TextView) findViewById(R.id.tv_me);
 		initPopWindow();
+		initFragmentHome();
 
 	}
 
@@ -110,6 +111,7 @@ public class MainActivity extends BaseActivity {
 		ll_notify.setOnClickListener(this);
 		ll_me.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
+
 	}
 
 	@Override
@@ -121,7 +123,6 @@ public class MainActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.ll_home:
 			mCurrentState = HOME;
-			changeTheColor(iv_home, tv_home, R.drawable.home_c);
 			initFragmentHome();
 			break;
 
@@ -135,27 +136,22 @@ public class MainActivity extends BaseActivity {
 					showPop(iv_title_right3, 0, 20);
 				}
 			});
-			changeTheColor(iv_move, tv_move, R.drawable.activity_c);
 			initFragmentMove();
 			break;
 		case R.id.ll_association:
 			mCurrentState = ASSOCIATION;
 			setAlltitle(null, null, "创建");
 			tv_title_right.setVisibility(View.VISIBLE);
-			changeTheColor(iv_association, tv_association,
-					R.drawable.corporation_c);
 			initFragmentAssociation();
 
 			break;
 		case R.id.ll_notify:
 			mCurrentState = NOTIFY;
-			changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 			initFragmentNotify();
 			break;
 		case R.id.ll_me:
 			mCurrentState = ME;
 			iv_title_right2.setVisibility(View.VISIBLE);
-			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			initFragmentMe();
 
 			break;
@@ -183,6 +179,7 @@ public class MainActivity extends BaseActivity {
 		}
 		replaceFragment(mMeFragment);
 		changeTheTitle("我的");
+		changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 	}
 
 	/**
@@ -195,6 +192,7 @@ public class MainActivity extends BaseActivity {
 		}
 		replaceFragment(mNotifyFragment);
 		changeTheTitle("通知");
+		changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 	}
 
 	/**
@@ -206,6 +204,7 @@ public class MainActivity extends BaseActivity {
 		}
 		replaceFragment(mAssociationFragment);
 		changeTheTitle("社团");
+		changeTheColor(iv_association, tv_association, R.drawable.corporation_c);
 	}
 
 	/**
@@ -217,6 +216,7 @@ public class MainActivity extends BaseActivity {
 		}
 		replaceFragment(mMoveFragment);
 		changeTheTitle("活动");
+		changeTheColor(iv_move, tv_move, R.drawable.activity_c);
 	}
 
 	/**
@@ -228,6 +228,7 @@ public class MainActivity extends BaseActivity {
 		}
 		replaceFragment(mHomeFragment);
 		changeTheTitle("线团");
+		changeTheColor(iv_home, tv_home, R.drawable.home_c);
 	}
 
 	private void replaceFragment(BaseFragment fragment) {

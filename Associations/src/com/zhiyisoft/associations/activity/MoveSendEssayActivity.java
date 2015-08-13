@@ -1,17 +1,11 @@
 package com.zhiyisoft.associations.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.img.RoundImageView;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -25,7 +19,7 @@ public class MoveSendEssayActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("发表文章",null, "发表");
+		setAlltitle("发表文章", null, "发表");
 	}
 
 	@Override
@@ -46,7 +40,7 @@ public class MoveSendEssayActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		essay_title = (EditText) findViewById(R.id.essay_title);
-		essay_content = (EditText) findViewById(R.id.move_icon);
+		essay_content = (EditText) findViewById(R.id.essay_content);
 
 	}
 
