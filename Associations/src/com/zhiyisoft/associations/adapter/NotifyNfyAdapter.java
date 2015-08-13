@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,6 +12,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LeagueIm;
+import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.base.Model;
 
@@ -58,8 +60,8 @@ public class NotifyNfyAdapter extends BAdapter {
 		// leagueIm.getLeagueList(new Model());
 		// leagueIm.createLeague(new Model());
 		// leagueIm.getGroupCommonList(new Model());
-//		 BaseSettingIm settingIm = new Api.BaseSettingImpl();
-//		 settingIm.updateMask(new Model());
+		// BaseSettingIm settingIm = new Api.BaseSettingImpl();
+		// settingIm.updateMask(new Model());
 		// settingIm.getUserActiveMaskInfo(new Model());
 		// settingIm.setFaceImg(new Model());
 		return items;
@@ -67,8 +69,19 @@ public class NotifyNfyAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		Log.i("refreshFooter",
+				"---------------------调用了这个refreshFooter(Model item, int count) ");
+		// AssociationImpl association = new Api.AssociationImpl();
+		// association.addAssociation(new Model());
+		 LoginIm loginIm = new Api.LoginImpl();
+		 loginIm.Login(null);
+//		 LeagueIm leagueIm = new Api.LeagueImpl();
+		// leagueIm.getLeagueDetail(new Model());
+		return items;
 	}
 
 	@Override

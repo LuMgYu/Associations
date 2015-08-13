@@ -30,7 +30,7 @@ public class AssociationAlbumListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		mApp.startActivity(mBaseActivity, AssociationAlbumSingleActivity.class,
+		mApp.startActivity(mApp.getActivity(), AssociationAlbumSingleActivity.class,
 				data);
 	}
 }

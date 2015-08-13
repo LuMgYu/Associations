@@ -20,6 +20,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.cache.base.Cache;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -47,6 +48,7 @@ public abstract class BAdapter extends BaseAdapter {
 	private final static int REFRESH_NEW = 1;
 	private final static int REFRESH_HEADER = 2;
 	private final static int REFRESH_FOOTER = 3;
+	private BaseListView mListView;
 
 	public LayoutInflater mInflater;
 
@@ -132,8 +134,6 @@ public abstract class BAdapter extends BaseAdapter {
 
 	/** 真正的刷新数据數據，即調用RefreshHeader() 獲取的數據加載到adapter里面 */
 	public void doRefreshHeader() {
-		this.mBaseActivity.getListView().headerShow();
-		this.mBaseActivity.getListView().headerRefresh();
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
 			mList = new ArrayList<Model>();
@@ -174,8 +174,9 @@ public abstract class BAdapter extends BaseAdapter {
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
-		// 通知更新后就应该隐藏headview了
-		this.mBaseActivity.getListView().headerHiden();
+		if (mListView != null) {
+			mListView.onLoad();
+		}
 	}
 
 	/**
@@ -183,10 +184,13 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 把数据加载到底部
 	 */
 	private void addFooterList(List<Model> list) {
-		if (mList != null && list.size() > 0) {
+		if (mList != null && list != null) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
+		}
+		if (mListView != null) {
+			mListView.onLoad();
 		}
 	}
 
@@ -313,6 +317,10 @@ public abstract class BAdapter extends BaseAdapter {
 			message.obj = items;
 			mHandle.sendMessage(message);
 		}
+	}
+
+	public void setListView(BaseListView listView) {
+		this.mListView = listView;
 	}
 
 	// ------------------------------------实现baseadapter必须实现的方法-------------------------------------------------------

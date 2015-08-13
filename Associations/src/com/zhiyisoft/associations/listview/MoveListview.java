@@ -30,10 +30,10 @@ public class MoveListview extends BaseListView {
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
 		if (position % 2 == 0) {
-			mApp.startActivity(mBaseActivity, MoveMainActivity.class,
+			mApp.startActivity(mApp.getActivity(), MoveMainActivity.class,
 					data);
 		} else {
-			mApp.startActivity(mBaseActivity, AssociationSingleActivity.class,
+			mApp.startActivity(mApp.getActivity(), AssociationSingleActivity.class,
 					data);
 		}
 	}

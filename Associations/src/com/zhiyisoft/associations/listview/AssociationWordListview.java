@@ -30,6 +30,6 @@ public class AssociationWordListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		mApp.startActivity(mBaseActivity, AssociationMainActivity.class, data);
+		mApp.startActivity(mApp.getActivity(), AssociationMainActivity.class, data);
 	}
 }

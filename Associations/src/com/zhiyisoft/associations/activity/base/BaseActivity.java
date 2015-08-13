@@ -319,9 +319,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		this.mListView = listView;
 	}
 
-	public RefreshListener getListView() {
-		return mListView;
-	}
 
 	/**
 	 * 设置底部可见

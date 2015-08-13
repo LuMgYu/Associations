@@ -31,7 +31,7 @@ public class AssociationNewListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		mApp.startActivity(mBaseActivity, AssociationTopicDetailActivity.class,
+		mApp.startActivity(mApp.getActivity(), AssociationTopicDetailActivity.class,
 				data);
 	}
 }

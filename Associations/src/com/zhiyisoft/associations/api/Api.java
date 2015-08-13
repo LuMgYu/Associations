@@ -59,7 +59,11 @@ public class Api {
 			post.addBodyParam("password", "13445555");
 			Object object = post.run();
 			Log.i("request", "object=" + object);
-			return parseOriginalJsonObject(object.toString(), new ModelUser());
+			if (object != null) {
+				return parseOriginalJsonObject(object.toString(),
+						new ModelUser());
+			}
+			return null;
 		}
 
 	}
