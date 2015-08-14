@@ -50,7 +50,8 @@ public class testAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		SchoolIm school = new Api.SchoolImpl();
-		school.getSchools("四川");
+
+		// school.getSchools("四川");
 		// LoginIm loginIm = new Api.LoginImpl();
 		// loginIm.Login(null);
 		// LeagueIm leagueIm = new Api.LeagueImpl();

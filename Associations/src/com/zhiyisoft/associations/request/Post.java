@@ -21,7 +21,7 @@ import com.zhiyisoft.associations.request.base.Request;
  */
 
 public class Post extends Request {
-	
+
 	@Override
 	public Request addHeaderParam(String name, Object value) {
 		mHeadMap.put(name, value);
@@ -30,7 +30,9 @@ public class Post extends Request {
 
 	@Override
 	public Request addBodyParam(String name, Object value) {
-		mParams.add(new BasicNameValuePair(name, value.toString()));
+		if (value != null) {
+			mParams.add(new BasicNameValuePair(name, value.toString()));
+		}
 		return this;
 	}
 

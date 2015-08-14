@@ -41,7 +41,7 @@ public class Api {
 			get.setHostUrlFooter(Config.appSendSMSCode);
 			get.addBodyParam(MOBILE, model.getMobile());
 			Object object = get.run();
-			return isCodeOk(object.toString());
+			return isCodeOk(object);
 		}
 
 		@Override
@@ -70,34 +70,81 @@ public class Api {
 	 *
 	 */
 	public static final class LoginImpl implements LoginIm {
+
 		@Override
-		public Object registerMem(ModelUser user) {
+		public Model appUserMobileLogin(ModelUser model) {
 			Request post = new Post();
-			post.addHeaderParam("client_id", "1");
-			post.addBodyParam(MOD, LoginIm.LOGIN);
-			post.addBodyParam(ACT, LoginIm.REG);
-			post.addBodyParam("mobile", "13688449697");
-			post.addBodyParam("password", "13445555");
+			post.setHostUrlFooter(Config.appUserMobileLogin);
+			post.addBodyParam(MOBILE, model.getMobile());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
 			Object object = post.run();
-			Log.i("request", "object=" + object);
-			return null;
+			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 		@Override
-		public Model Login(ModelUser user) {
+		public Model appUserAccountLogin(ModelUser model) {
 			Request post = new Post();
-			post.addHeaderParam("client_id", "1");
-			post.addBodyParam(MOD, LoginIm.LOGIN);
-			post.addBodyParam(ACT, LoginIm.INDEX);
-			post.addBodyParam("mobile", "13688449697");
-			post.addBodyParam("password", "13445555");
+			post.setHostUrlFooter(Config.appUserAccountLogin);
+			post.addBodyParam(ACCOUNT, model.getAccount());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
 			Object object = post.run();
-			Log.i("request", "object=" + object);
-			if (object != null) {
-				return parseOriginalJsonObject(object.toString(),
-						new ModelUser());
-			}
-			return null;
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model boundedUserLogin(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.boundedUserLogin);
+			post.addBodyParam(OPENID, model.getOpenid());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model boundMobileUser(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.boundMobileUser);
+			post.addBodyParam(MOBILE, model.getMobile());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(OPENID, model.getOpenid());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model appValidateUserAuth(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appValidateUserAuth);
+			post.addBodyParam(USERAUTH, model.getUserauth());
+			post.addBodyParam(TOURL, model.getToUrl());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model appValidateUserPwd(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appValidateUserPwd);
+			post.addBodyParam(USERAUTH, model.getUserauth());
+			post.addBodyParam(PWD, model.getPwd());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 	}
@@ -109,13 +156,76 @@ public class Api {
 	public static final class SchoolImpl implements SchoolIm {
 
 		@Override
-		public List<Model> getSchools(String province) {
+		public List<Model> appMetaData(ModelSchool school) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appMetaData);
+			post.addBodyParam(METANAME, school.getMetaName());
+			post.addBodyParam(METAID, school.getMetaID());
+			post.addBodyParam(OWNERID, school.getOwnerID());
+			post.addBodyParam(USERAUTH, school.getUserauth());
+			Object object = post.run();
+			return parseOriginalJsonArray(object.toString(), new ModelSchool());
+		}
+
+		@Override
+		public boolean appUpdateUserArea(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserArea);
+			post.addBodyParam(PROVINCEID, user.getProvince());
+			post.addBodyParam(CITYID, user.getCityid());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateUserSchool(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserSchool);
+			post.addBodyParam(SCHOOLID, user.getSchoolId());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateUserDept(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserDept);
+			post.addBodyParam(DEPTID, user.getDeptid());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateUserClass(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserClass);
+			post.addBodyParam(CLASSID, user.getClassid());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateGradeYear(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateGradeYear);
+			post.addBodyParam(GRADEYEAR, user.getGradeyear());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public List<Model> getSchools(ModelSchool model) {
 			Request get = new Get();
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
-			get.addBodyParam("name", "上海");
+			get.addBodyParam("name", model.getArea());
 			Object object = get.run(); // 利用网络请求数据，然后返回的数据
-			return parseOriginalJsonArray(object.toString(), new ModelSchool());
+			return parseOriginalJsonArray(object, new ModelSchool());
 		}
 	}
 
@@ -301,15 +411,17 @@ public class Api {
 	 *            需要传入的json字符串
 	 * @return
 	 */
-	public static boolean isCodeOk(String json) {
-		try {
-			JSONObject jsonObject = new JSONObject(json);
-			if (jsonObject.has("state")) {
-				boolean code = jsonObject.getBoolean("state");
-				return code;
+	public static boolean isCodeOk(Object json) {
+		if (json != null) {
+			try {
+				JSONObject jsonObject = new JSONObject(json.toString());
+				if (jsonObject.has("state")) {
+					boolean code = jsonObject.getBoolean("state");
+					return code;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
 		}
 		return false;
 	}

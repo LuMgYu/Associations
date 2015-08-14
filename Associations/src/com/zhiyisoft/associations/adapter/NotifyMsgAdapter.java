@@ -10,7 +10,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
-import com.zhiyisoft.associations.api.SchoolIm;
+import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.base.Model;
 
@@ -49,10 +49,9 @@ public class NotifyMsgAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());
-		SchoolIm school = new Api.SchoolImpl();
-		school.getSchools("四川");
-		// LoginIm loginIm = new Api.LoginImpl();
-		// loginIm.Login(null);
+//		SchoolIm school = new Api.SchoolImpl();
+//		school.getSchools("四川");
+//		 LoginIm loginIm = new Api.LoginImpl();
 		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.createLeague(new Model());
 		// leagueIm.getGroupCommonList(new Model());
