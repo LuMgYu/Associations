@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.application.Association;
 
 public class ToastUtils {
@@ -59,13 +62,13 @@ public class ToastUtils {
 
 	public static void showToast(final Context ctx, final int duration,
 			final String text) {
-//		final Toast toast = Toast.makeText(ctx, text, duration);
-//		View view = RelativeLayout.inflate(ctx, R.layout.toast_layout, null);
-//		TextView mNextView = (TextView) view.findViewById(R.id.toast_name);
-//		toast.setView(view);
-//		mNextView.setText(text);
-//		toast.setGravity(Gravity.CENTER, 0, 0);
-//		toast.show();
+		final Toast toast = Toast.makeText(ctx, text, duration);
+		// View view = RelativeLayout.inflate(ctx, R.layout.toast_layout, null);
+		// TextView mNextView = (TextView) view.findViewById(R.id.toast_name);
+		// toast.setView(view);
+		// mNextView.setText(text);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.show();
 	}
 
 	/** 在UI线程运行弹出 */

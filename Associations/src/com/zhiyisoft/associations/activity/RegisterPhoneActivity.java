@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午10:28:27 类描述：这个类是实现
@@ -52,9 +53,26 @@ public class RegisterPhoneActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case R.id.bt_next:
 			Bundle data = new Bundle();
-			data.putString(Config.PHONE_NUMBER, et_number.getText().toString()
-					+ "");
-			mApp.startActivity(this, RegisterActivity.class, data);
+			String phoneNumber = et_number.getText().toString();
+			if (checkThePhoneNumber(phoneNumber)) {
+				data.putString(Config.PHONE_NUMBER, phoneNumber);
+				mApp.startActivity(this, RegisterActivity.class, data);
+			} else {
+				ToastUtils.showToast("手机号码为空或不合法");
+			}
 		}
+	}
+
+	/**
+	 * 检验手机号码是否为空
+	 * 
+	 * @param phoneNumber
+	 * @return
+	 */
+	private boolean checkThePhoneNumber(String phoneNumber) {
+		if (phoneNumber == null || phoneNumber.length() < 11) {
+			return false;
+		}
+		return true;
 	}
 }

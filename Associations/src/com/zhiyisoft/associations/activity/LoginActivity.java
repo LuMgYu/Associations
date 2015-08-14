@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -39,6 +41,14 @@ public class LoginActivity extends BaseActivity {
 			// TODO
 			switch (msg.what) {
 			case LOGIN:
+				ModelUser user = (ModelUser) msg.obj;
+				if (user != null) {
+					// TODO 把获取的信息，保存到shareprefrence类中
+					mApp.startActivity(LoginActivity.this, MainActivity.class,
+							null, Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				} else {
+					ToastUtils.showToast("登录失败");
+				}
 				break;
 
 			case FORGET_PWD:
@@ -110,8 +120,26 @@ public class LoginActivity extends BaseActivity {
 			break;
 
 		case R.id.bt_login:
-			mApp.startActivity(this, MainActivity.class, null,
-					Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			final String username = et_loginName.getText().toString();
+			final String pwd = et_loginPwd.getText().toString();
+			if (checkTheUserAndPwd(username, pwd)) {
+				mApp.getExecutor().execute(new Runnable() {
+
+					@Override
+					public void run() {
+						ModelUser user = new ModelUser();
+						user.setMobile(username);
+						user.setPwd(pwd);
+						LoginIm loginIm = mApp.getLoginIm();
+						ModelUser modelUser = (ModelUser) loginIm
+								.appUserMobileLogin(user);
+						Message message = Message.obtain();
+						message.what = LOGIN;
+						message.obj = modelUser;
+						mHandle.sendMessage(message);
+					}
+				});
+			}
 			break;
 		case R.id.bt_register:
 			mApp.startActivity(this, RegisterPhoneActivity.class, null);
@@ -126,4 +154,17 @@ public class LoginActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 检查账号和密码是否合格，这里主要是判断是否为空之类的，比较明显的错误
+	 * 
+	 * @param userName
+	 *            用户名
+	 * @param pwd
+	 *            密码
+	 * @return
+	 */
+	private boolean checkTheUserAndPwd(String userName, String pwd) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

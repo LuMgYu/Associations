@@ -35,6 +35,7 @@ public class Association extends Application {
 	private Api.LeagueImpl mLeague;
 	private Api.SchoolImpl mSchool;
 	private Api.BaseSettingImpl mBaseSetting;
+	private Api.RegisterImpl mRegister;
 
 	/** api区域结束 */
 	@Override
@@ -92,32 +93,39 @@ public class Association extends Application {
 	}
 
 	// -----------------------------获取api------------------------------------------------------
-	public Api.LoginImpl getmLogin() {
+	public Api.LoginImpl getLoginIm() {
 		if (mLogin == null) {
 			mLogin = new Api.LoginImpl();
 		}
 		return mLogin;
 	}
 
-	public Api.LeagueImpl getmLeague() {
+	public Api.LeagueImpl getLeagueIm() {
 		if (mLeague == null) {
 			mLeague = new Api.LeagueImpl();
 		}
 		return mLeague;
 	}
 
-	public Api.SchoolImpl getmSchool() {
+	public Api.SchoolImpl getmSchoolIm() {
 		if (mSchool == null) {
 			mSchool = new Api.SchoolImpl();
 		}
 		return mSchool;
 	}
 
-	public Api.BaseSettingImpl getmBaseSetting() {
+	public Api.BaseSettingImpl getmBaseSettingIm() {
 		if (mBaseSetting == null) {
 			mBaseSetting = new Api.BaseSettingImpl();
 		}
 		return mBaseSetting;
+	}
+
+	public Api.RegisterImpl getRegisterIm() {
+		if (mRegister == null) {
+			mRegister = new Api.RegisterImpl();
+		}
+		return mRegister;
 	}
 
 	// -----------------------------获取api 结束-----------------------------

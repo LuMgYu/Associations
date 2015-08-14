@@ -47,7 +47,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	/** 底部容器 */
 	public LinearLayout mBottomll;
 	/** bundle数据 */
-	private Bundle mBundle;
+	public Bundle mBundle;
 	/** title左边的图片id */
 	private int mTitleLeftImageId;
 	/** title的右边id */
@@ -89,7 +89,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		initTheCommonLayout();
 		// 把内容和title结合
 		setContentView(combineTheLayout());
-		initIntent();
 		initIntent();
 		initView();
 		initListener();
@@ -318,7 +317,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void setListView(BaseListView listView) {
 		this.mListView = listView;
 	}
-
 
 	/**
 	 * 设置底部可见
