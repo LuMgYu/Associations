@@ -14,7 +14,7 @@
         <RelativeLayout
             android:id="@+id/home_rl_ads"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:background="#898" >
         </RelativeLayout>
         <!-- 我的社团 -->
@@ -40,7 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/tv_my_association" >
+                android:layout_toRightOf="@id/tv_my_association"
+                android:overScrollMode="never"
+                android:scrollbars="none" >
 
                 <LinearLayout
                     android:id="@+id/ll_association"

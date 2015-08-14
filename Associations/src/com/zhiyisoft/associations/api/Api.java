@@ -8,11 +8,13 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelAssociation;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueDetail;
 import com.zhiyisoft.associations.model.ModelLeagueList;
 import com.zhiyisoft.associations.model.ModelMask;
+import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
@@ -30,6 +32,38 @@ public class Api {
 
 	public static final String MOD = "mod";
 	public static final String ACT = "act";
+
+	public static final class RegisterImpl implements RegisterIm {
+
+		@Override
+		public boolean appSendSMSCode(ModelRegister model) {
+			Request get = new Get();
+			get.setHostUrlFooter(Config.appSendSMSCode);
+			get.addBodyParam(MOBILE, model.getMobile());
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+		@Override
+		public Model appUserReg(ModelRegister model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUserReg);
+			post.addBodyParam(MOBILE, model.getMobile());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(SMSCODE, model.getSmscode());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelRegister());
+		}
+
+		@Override
+		public Model validMobile(ModelRegister model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.validMobile);
+			post.addBodyParam(MOBILE, model.getMobile());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelRegister());
+		}
+	}
 
 	/**
 	 * @author qcj 登录类
@@ -270,12 +304,9 @@ public class Api {
 	public static boolean isCodeOk(String json) {
 		try {
 			JSONObject jsonObject = new JSONObject(json);
-			if (jsonObject.has("code")) {
-				int code = jsonObject.getInt("code");
-				if (code == 1) {
-					return true;
-				}
-				return false;
+			if (jsonObject.has("state")) {
+				boolean code = jsonObject.getBoolean("state");
+				return code;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -292,21 +323,23 @@ public class Api {
 	 *            需要解析成model类型，一般是model的子類
 	 * @return
 	 */
-	public static Model parseOriginalJsonObject(String jsonObject,
+	public static Model parseOriginalJsonObject(Object jsonObject,
 			Model ModelType) {
 		Model model = null;
-		try {
-			if (isCodeOk(jsonObject.toString())) {
-				JSONObject json = new JSONObject(jsonObject.toString());
-				if (json.has("data")) {
-					JSONObject modelData = json.getJSONObject("data");
-					model = JsonUtils.parseJsonObject(modelData, ModelType);
-					Log.i("model", "model=" + model.toString());
-					return model;
+		if (jsonObject != null) {
+			try {
+				if (isCodeOk(jsonObject.toString())) {
+					JSONObject json = new JSONObject(jsonObject.toString());
+					if (json.has("data")) {
+						JSONObject modelData = json.getJSONObject("data");
+						model = JsonUtils.parseJsonObject(modelData, ModelType);
+						Log.i("model", "model=" + model.toString());
+						return model;
+					}
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
 		}
 		return model;
 
@@ -321,24 +354,25 @@ public class Api {
 	 *            需啊解析成model 类型
 	 * @return
 	 */
-	public static List<Model> parseOriginalJsonArray(String jsonObject,
+	public static List<Model> parseOriginalJsonArray(Object jsonObject,
 			Model ModelType) {
 		List<Model> list = null;
-		if (isCodeOk(jsonObject.toString())) {
-			JSONObject json;
-			try {
-				json = new JSONObject(jsonObject.toString());
-				if (json.has("data")) {
-					JSONArray array = json.getJSONArray("data");
-					list = JsonUtils.parseJsonArray(array, ModelType);
-					return list;
+		if (jsonObject != null) {
+			if (isCodeOk(jsonObject.toString())) {
+				JSONObject json;
+				try {
+					json = new JSONObject(jsonObject.toString());
+					if (json.has("data")) {
+						JSONArray array = json.getJSONArray("data");
+						list = JsonUtils.parseJsonArray(array, ModelType);
+						return list;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-			} catch (JSONException e) {
-				e.printStackTrace();
 			}
 		}
 		return null;
 
 	}
-
 }

@@ -160,7 +160,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
-	private void addHeadList(List<Model> list) {
+	private synchronized void addHeadList(List<Model> list) {
 		Log.i("refresh", " addHeadList(List<Model> list)=" + list.size());
 		if (mList != null && list.size() > 0) {
 			List<Model> cacheList = new ArrayList<Model>();
@@ -183,7 +183,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 把数据加载到底部
 	 */
-	private void addFooterList(List<Model> list) {
+	private synchronized void addFooterList(List<Model> list) {
 		if (mList != null && list != null) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list

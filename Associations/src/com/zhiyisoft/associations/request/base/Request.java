@@ -25,12 +25,26 @@ import com.zhiyisoft.associations.util.StreamTool;
 
 /** 定制網絡請求 */
 public abstract class Request {
-	private HttpClient mClient;
+	private HttpClient mClient; // 客服端
+								// 需要在application类或者其子类获取,保证访问网络的时候就用这个客服端，避免资源浪费
 	/** host的基本地址 */
 	public String mHostUrl;
+	/** host的尾部 */
+	/*
+	 * 例如 http://api.univs.cn/appSendSMSCode.action
+	 * 
+	 * http://api.univs.cn/
+	 * 
+	 * host地址
+	 * 
+	 * appSendSMSCode.action
+	 * 
+	 * mHostUrlfooter尾部地址
+	 */
+	public String mHostUrlfooter;
 	public List<NameValuePair> mParams;
 	public HashMap<String, Object> mHeadMap;
-	public String mBodyParams = "";
+	public String mBodyParams = "?";
 
 	public Request() {
 		mClient = getHttpClient();
@@ -38,14 +52,6 @@ public abstract class Request {
 		mParams = new ArrayList<NameValuePair>();
 		mHeadMap = new HashMap<String, Object>();
 	}
-
-	/**
-	 * @param name
-	 *            鍵值對
-	 * @param value
-	 * @pdOid 添加键值对，并且返回request对象
-	 */
-	public abstract Request addBodyParam(String name, Object value);
 
 	/**
 	 * 添加頭部
@@ -56,6 +62,14 @@ public abstract class Request {
 	 *            值
 	 */
 	public abstract Request addHeaderParam(String name, Object value);
+
+	/**
+	 * @param name
+	 *            鍵值對
+	 * @param value
+	 * @pdOid 添加键值对，并且返回request对象
+	 */
+	public abstract Request addBodyParam(String name, Object value);
 
 	/**
 	 * @return 获取请求方式的对象
@@ -88,22 +102,24 @@ public abstract class Request {
 
 	}
 
-	/** 过滤一下请求地址 */
-	public boolean filterTheUrl(String url) {
-		if (url.contains("daxs.zhiyicx.com")) {
-			return true;
-		}
-		return false;
-	}
-
 	/** 獲取主機地址，注意：主機地址放在配置文件里面，方便修改 */
 	public String getTheHostUrl() {
 		// TODO: 通过application获取host地址
-		return Association.getHostUrl();
+		return Association.getHostUrl(); // association 为application的子类
 	}
 
 	public HttpClient getHttpClient() {
 		return Association.getHttpClient();
+	}
+
+	/**
+	 * 把尾部整和赋值给mhosturl 这样链接地址更完整了
+	 * 
+	 * @param str
+	 *            主机的尾部
+	 */
+	public void setHostUrlFooter(String str) {
+		mHostUrl = mHostUrl + str;
 	}
 
 }

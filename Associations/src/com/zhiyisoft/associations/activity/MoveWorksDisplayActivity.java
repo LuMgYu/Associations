@@ -11,7 +11,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
-import android.widget.Toast;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -77,7 +76,7 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 			mApp.startActivity(this, MoveSendEssayActivity.class, data);
 			break;
 		case R.id.ll_pic:
-			mApp.startActivity(this, MoveSendPhotoActivity.class,null);
+			mApp.startActivity(this, MoveSendPhotoActivity.class, null);
 			break;
 		case R.id.ll_music:
 			Bundle data2 = new Bundle();
@@ -99,6 +98,18 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 	private LinearLayout ll_vedio;
 
 	/**
+	 * 设置屏幕的透明度
+	 * 
+	 * @param alpha
+	 *            需要设置透明度
+	 */
+	private void setWindowAlpha(float alpha) {
+		WindowManager.LayoutParams params = getWindow().getAttributes();
+		params.alpha = alpha;
+		getWindow().setAttributes(params);
+	}
+
+	/**
 	 * 初始化popWindow
 	 * */
 	private void initPopWindow() {
@@ -106,7 +117,7 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 			View popView = mInflater.inflate(R.layout.move_works_send_style,
 					null);
 			mPopupWindow = new PopupWindow(popView, LayoutParams.MATCH_PARENT,
-					200);
+					200);// 设置需要显示宽度
 			mPopupWindow.setBackgroundDrawable(new ColorDrawable(
 					R.color.main_gray_color));
 			mPopupWindow.setOnDismissListener(new OnDismissListener() {
@@ -125,16 +136,6 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 	}
 
 	/**
-	 * 设置popWindow监听器
-	 */
-	private void setPopListener() {
-		ll_essay.setOnClickListener(this);
-		ll_pic.setOnClickListener(this);
-		ll_music.setOnClickListener(this);
-		ll_vedio.setOnClickListener(this);
-	}
-
-	/**
 	 * 初始化popwindow里面的控件
 	 * 
 	 * @param popView
@@ -147,28 +148,27 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 	}
 
 	/**
+	 * 设置popWindow监听器
+	 */
+	private void setPopListener() {
+		ll_essay.setOnClickListener(this);
+		ll_pic.setOnClickListener(this);
+		ll_music.setOnClickListener(this);
+		ll_vedio.setOnClickListener(this);
+	}
+
+	/**
 	 * 显示popWindow
 	 * */
 	public void showPop(View parent, int x, int y) {
 		// 设置popwindow显示位置
 		mPopupWindow.showAsDropDown(parent, x, y);
+		// mPopupWindow.showAtLocation(parent, gravity, x, y);
 		// 获取popwindow焦点
 		mPopupWindow.setFocusable(true);
 		// 设置popwindow如果点击外面区域，便关闭。
 		mPopupWindow.setOutsideTouchable(true);
 		mPopupWindow.update();
-	}
-
-	/**
-	 * 设置屏幕的透明度
-	 * 
-	 * @param alpha
-	 *            需要设置透明度
-	 */
-	private void setWindowAlpha(float alpha) {
-		WindowManager.LayoutParams params = getWindow().getAttributes();
-		params.alpha = alpha;
-		getWindow().setAttributes(params);
 	}
 
 }

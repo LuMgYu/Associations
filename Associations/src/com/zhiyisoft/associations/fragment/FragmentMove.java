@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.adapter.AssociationAdapter;
+import com.zhiyisoft.associations.adapter.MoveAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.MoveListview;
@@ -67,7 +68,7 @@ public class FragmentMove extends BaseFragment {
 		move_ll = (LinearLayout) findViewById(R.id.move_ll);
 		mLayoutInflater = LayoutInflater.from(mContext);
 		mListView = (MoveListview) findViewById(R.id.move_lv);
-		mAdapter = new AssociationAdapter(this, mlist);
+		mAdapter = new MoveAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 		mItemWidth = UIUtils.getWindowWidth(mContext) / 2;
 	}

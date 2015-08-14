@@ -151,7 +151,6 @@ public class XListView extends ListView implements OnScrollListener {
 	 */
 	public void setPullRefreshEnable(boolean enable) {
 		mEnablePullRefresh = enable;
-
 		// disable, hide the content
 		mHeaderContent.setVisibility(enable ? View.VISIBLE : View.INVISIBLE);
 	}
@@ -354,7 +353,6 @@ public class XListView extends ListView implements OnScrollListener {
 				// the first item is showing, header has shown or pull down.
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
-
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1
 					&& (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
 				// last item, already pulled up or want to pull up.
@@ -375,7 +373,6 @@ public class XListView extends ListView implements OnScrollListener {
 				}
 
 				resetHeaderHeight();
-
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
 				// invoke load more.
 				if (mEnablePullLoad

@@ -13,7 +13,9 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.api.RegisterIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -55,8 +57,16 @@ public class NotifyNfyAdapter extends BAdapter {
 		// association.addAssociation(new Model());
 		// LoginIm loginIm = new Api.LoginImpl();
 		// loginIm.Login(null);
-		LeagueIm leagueIm = new Api.LeagueImpl();
-		leagueIm.getLeagueDetail(new Model());
+		// LeagueIm leagueIm = new Api.LeagueImpl();
+		// leagueIm.getLeagueDetail(new Model());
+		RegisterIm registerIm = new Api.RegisterImpl();
+		ModelRegister model = new ModelRegister();
+		model.setSmscode("614737");
+		model.setPwd("123456");
+		model.setMobile("13688449697");
+		registerIm.appUserReg(model);
+		// registerIm.appSendSMSCode(model);
+		// registerIm.validMobile(model);
 		// leagueIm.getLeagueList(new Model());
 		// leagueIm.createLeague(new Model());
 		// leagueIm.getGroupCommonList(new Model());
@@ -77,9 +87,9 @@ public class NotifyNfyAdapter extends BAdapter {
 				"---------------------调用了这个refreshFooter(Model item, int count) ");
 		// AssociationImpl association = new Api.AssociationImpl();
 		// association.addAssociation(new Model());
-		 LoginIm loginIm = new Api.LoginImpl();
-		 loginIm.Login(null);
-//		 LeagueIm leagueIm = new Api.LeagueImpl();
+		// LoginIm loginIm = new Api.LoginImpl();
+		// loginIm.Login(null);
+		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.getLeagueDetail(new Model());
 		return items;
 	}

@@ -199,6 +199,7 @@ public class MoveMyActivity extends BaseActivity {
 	 * */
 	private void initPopWindow() {
 		if (mPopupWindow == null) {
+			//需要加载的布局
 			View popView = mInflater.inflate(R.layout.move_menu, null);
 			mPopupWindow = new PopupWindow(popView, 330,
 					LayoutParams.WRAP_CONTENT);
@@ -241,6 +242,7 @@ public class MoveMyActivity extends BaseActivity {
 	public void showPop(View parent, int x, int y) {
 		// 设置popwindow显示位置
 		mPopupWindow.showAsDropDown(parent, x, y);
+//		mPopupWindow.showAtLocation(parent, gravity, x, y);
 		// 获取popwindow焦点
 		mPopupWindow.setFocusable(true);
 		// 设置popwindow如果点击外面区域，便关闭。

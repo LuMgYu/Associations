@@ -81,7 +81,7 @@ public class Association extends Application {
 	 */
 	public static String getHostUrl() {
 		// TODO 以后把地址写到xml里面
-		return "http://daxs.zhiyicx.com/api?";
+		return "http://api.univs.cn/";
 	}
 
 	public static HttpClient getHttpClient() {
