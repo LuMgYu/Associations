@@ -334,7 +334,7 @@ public class Api {
 			get.addBodyParam(ACT, VIEW);
 			get.addBodyParam("gid", "15225");
 			Object object = get.run();
-			return parseOriginalJsonObject(object.toString(),
+			return parseOriginalJsonObject(object,
 					new ModelLeagueDetail());
 		}
 

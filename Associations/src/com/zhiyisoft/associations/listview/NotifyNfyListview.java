@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.zhiyisoft.associations.activity.NotifyDetailActivity;
 import com.zhiyisoft.associations.activity.NotifyDetailContentActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
@@ -28,6 +29,6 @@ public class NotifyNfyListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		mApp.startActivity(mApp.getActivity(),
-				NotifyDetailContentActivity.class, null);
+				NotifyDetailActivity.class, null);
 	}
 }

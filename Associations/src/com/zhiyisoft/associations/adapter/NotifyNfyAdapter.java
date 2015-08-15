@@ -13,9 +13,7 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.api.LoginIm;
-import com.zhiyisoft.associations.api.RegisterIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 
@@ -100,6 +98,15 @@ public class NotifyNfyAdapter extends BAdapter {
 		// loginIm.Login(null);
 		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.getLeagueDetail(new Model());
+		LoginIm loginIm = new Api.LoginImpl();
+		ModelUser model = new ModelUser();
+		// model.setMobile("13688449697");
+		// model.setPwd("123456");
+		// model.setDevicetype("android");
+		model.setPwd("123456");
+		model.setUserauth("d61937499890ce90b0a61c22e8762e6e");
+		loginIm.appValidateUserPwd(model);
+		loginIm.appUserMobileLogin(model);
 		return items;
 	}
 

@@ -31,7 +31,7 @@ public class AssociationAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.association_single_item, null);
+		return mInflater.inflate(R.layout.listview_me_association_item, null);
 	}
 
 	@Override

@@ -3,8 +3,18 @@ package com.zhiyisoft.associations.application;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 
 import android.app.Activity;
 import android.app.Application;
@@ -85,9 +95,29 @@ public class Association extends Application {
 		return "http://api.univs.cn/";
 	}
 
+	/**
+	 * 08-15 06:52:01.629: W/SingleClientConnManager(2450): Invalid use of
+	 * SingleClientConnManager: connection still allocated.
+	 * 报错信息为采用单例的ingleClientConnManager，连接还在持续中
+	 * 
+	 * ，控制mHttpClient被一个线程访问完后才能被其它线程访问
+	 * 
+	 * */
 	public static HttpClient getHttpClient() {
 		if (mHttpClient == null) {
-			mHttpClient = new DefaultHttpClient();
+			HttpParams params = new BasicHttpParams();
+			ConnManagerParams.setMaxTotalConnections(params, 100);
+			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+			// Create and initialize scheme registry
+			SchemeRegistry schemeRegistry = new SchemeRegistry();
+			schemeRegistry.register(new Scheme("http", PlainSocketFactory
+					.getSocketFactory(), 80));
+			// Create an HttpClient with the ThreadSafeClientConnManager.
+			// This connection manager must be used if more than one thread will
+			// be using the HttpClient.
+			ClientConnectionManager cm = new ThreadSafeClientConnManager(
+					params, schemeRegistry);
+			mHttpClient = new DefaultHttpClient(cm, params);
 		}
 		return mHttpClient;
 	}

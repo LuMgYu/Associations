@@ -93,21 +93,7 @@ public abstract class BaseListView extends XListView implements
 				onClick(parent, view, position, id);
 			}
 		});
-		this.setOnScrollListener(new OnScrollListener() {
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
-					// TODO
-				}
-			}
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-					int visibleItemCount, int totalItemCount) {
-
-			}
-		});
+		
 	}
 
 	/** 重新每一個item的點擊事件 */

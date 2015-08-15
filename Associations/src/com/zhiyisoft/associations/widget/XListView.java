@@ -22,8 +22,7 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 
 /**
- * XListView, it's based on <a
- * href="https://github.com/Maxwin-z/XListView-Android">XListView(Maxwin)</a>
+ * 
  *
  * @author markmjw
  * @date 2013-10-08
@@ -336,6 +335,7 @@ public class XListView extends ListView implements OnScrollListener {
 		}
 	}
 
+	// 核心方法
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		if (mLastY == -1) {
@@ -364,7 +364,7 @@ public class XListView extends ListView implements OnScrollListener {
 			break;
 
 		default:
-			// reset
+			// reset 其实本质上就是松开手后执行的操作
 			mLastY = -1;
 			if (getFirstVisiblePosition() == 0) {
 				// invoke refresh
@@ -450,15 +450,17 @@ public class XListView extends ListView implements OnScrollListener {
 	/**
 	 * You can listen ListView.OnScrollListener or this one. it will invoke
 	 * onXScrolling when header/footer scroll back.
+	 * 
+	 * 自定义OnScrollListener，暂时用不到
 	 */
 	public interface OnXScrollListener extends OnScrollListener {
 		public void onXScrolling(View view);
 	}
 
 	/**
-	 * Implements this interface to get refresh/load more event.
+	 * 实现这个接口就可以刷新或者加载更多
 	 *
-	 * @author markmjw
+	 * 
 	 */
 	public interface IXListViewListener {
 		public void onRefresh();

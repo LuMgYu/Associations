@@ -87,6 +87,9 @@ public abstract class Request {
 					InputStream stream = response.getEntity().getContent();
 					Object result = StreamTool.streamToString(stream);
 					Log.i("request", "result=" + result.toString());
+					if (stream != null) {
+						stream.close(); // 关闭数据流 如果不关闭的话，程序偶尔会出现不可预测的崩溃
+					}
 					return result;
 				}
 				Log.i("request", "status=" + status);
@@ -96,7 +99,10 @@ public abstract class Request {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} finally {
+				
 			}
+
 		}
 		return null;
 
