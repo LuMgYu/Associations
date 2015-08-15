@@ -151,6 +151,6 @@ public class RegisterActivity extends BaseActivity {
 	 */
 	private boolean checkThePwdAndSms(String smsCode, String pwd, String surePwd) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 }

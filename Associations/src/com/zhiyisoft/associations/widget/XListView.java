@@ -63,16 +63,16 @@ public class XListView extends ListView implements OnScrollListener {
 
 	private LinearLayout mFooterLayout;
 	private XFooterView mFooterView;
-	private boolean mIsFooterReady = false;
+	private boolean mIsFooterReady = false; // 底部是否准备好
 
-	private boolean mEnablePullRefresh = true;
-	private boolean mPullRefreshing = false;
+	private boolean mEnablePullRefresh = true;// 能否下拉刷新
+	private boolean mPullRefreshing = false;// 是否在刷新
 
-	private boolean mEnablePullLoad = true;
-	private boolean mEnableAutoLoad = false;
-	private boolean mPullLoading = false;
+	private boolean mEnablePullLoad = true; // 能否加载更多
+	private boolean mEnableAutoLoad = false;// 能否自动加载
+	private boolean mPullLoading = false; // 是否在加载更多
 
-	// total list items, used to detect is at the bottom of ListView
+	// listview的总的item数量，这个主要是用于程序检测能否上拉加载更多（起了一个判断作用）
 	private int mTotalItemCount;
 
 	public XListView(Context context) {
@@ -94,14 +94,14 @@ public class XListView extends ListView implements OnScrollListener {
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		super.setOnScrollListener(this);
 
-		// init header view
+		// 初始化 header view
 		mHeader = new XHeaderView(context);
 		mHeaderContent = (RelativeLayout) mHeader
 				.findViewById(R.id.header_content);
 		mHeaderTime = (TextView) mHeader.findViewById(R.id.header_hint_time);
 		addHeaderView(mHeader);
 
-		// init footer view
+		// 初始化 footer view
 		mFooterView = new XFooterView(context);
 		mFooterLayout = new LinearLayout(context);
 		LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -135,28 +135,27 @@ public class XListView extends ListView implements OnScrollListener {
 
 	@Override
 	public void setAdapter(ListAdapter adapter) {
-		// make sure XFooterView is the last footer view, and only add once.
+		// 保证listview的尾部只能有一个尾部
 		if (!mIsFooterReady) {
 			mIsFooterReady = true;
 			addFooterView(mFooterLayout);
 		}
-
 		super.setAdapter(adapter);
 	}
 
 	/**
-	 * Enable or disable pull down refresh feature.
+	 * 设置是否能可以下拉刷新，共外部调用选择
 	 *
 	 * @param enable
 	 */
 	public void setPullRefreshEnable(boolean enable) {
 		mEnablePullRefresh = enable;
-		// disable, hide the content
+		// 如果设置不可以的话，就隐藏头部
 		mHeaderContent.setVisibility(enable ? View.VISIBLE : View.INVISIBLE);
 	}
 
 	/**
-	 * Enable or disable pull up load more feature.
+	 * 设置是否能可以底部加载更多，共外部调用选择
 	 *
 	 * @param enable
 	 */
@@ -174,7 +173,7 @@ public class XListView extends ListView implements OnScrollListener {
 			mFooterView.setPadding(0, 0, 0, 0);
 			mFooterView.show();
 			mFooterView.setState(XFooterView.STATE_NORMAL);
-			// both "pull up" and "click" will invoke load more.
+			// 设置监听器，让不仅上拉加载更多，点击也会加载更多
 			mFooterView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -185,7 +184,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * Enable or disable auto load more feature when scroll to bottom.
+	 * 设置当移动到listview底部的时候是否可以自动加载更多
 	 *
 	 * @param enable
 	 */
@@ -194,7 +193,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * Stop refresh, reset header view.
+	 * 停止刷新, 重置header view.
 	 */
 	public void stopRefresh() {
 		if (mPullRefreshing) {
@@ -204,7 +203,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * Stop load more, reset footer view.
+	 * 停止加载更多, 重置 footer view.
 	 */
 	public void stopLoadMore() {
 		if (mPullLoading) {
@@ -214,7 +213,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * Set last refresh time
+	 * 设置最后的 refresh time
 	 *
 	 * @param time
 	 */
@@ -223,7 +222,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * Set listener.
+	 * 设置监听器 listener.
 	 *
 	 * @param listener
 	 */
@@ -232,7 +231,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * Auto call back refresh.
+	 * 自动刷新.
 	 */
 	public void autoRefresh() {
 		mHeader.setVisibleHeight(mHeaderHeight);
@@ -279,22 +278,23 @@ public class XListView extends ListView implements OnScrollListener {
 		if (height == 0)
 			return;
 
-		// refreshing and header isn't shown fully. do nothing.
+		// 刷新中，但是头部没有完全显示出来，这个时候不需要干什么事情，（这种情况发现在，正在刷新的时候，然后又故意向上滑动）
 		if (mPullRefreshing && height <= mHeaderHeight)
 			return;
 
-		// default: scroll back to dismiss header.
 		int finalHeight = 0;
 		// is refreshing, just scroll back to show all the header.
+		// 当触发到刷新的临界点，然后继续下拉的时候，松开手就弹到头部的高端
 		if (mPullRefreshing && height > mHeaderHeight) {
 			finalHeight = mHeaderHeight;
 		}
 
 		mScrollBack = SCROLL_BACK_HEADER;
+		// 这就是我们看到的弹到原位置的感觉（在这里其实可以实现一弹一弹的感觉）
 		mScroller.startScroll(0, height, 0, finalHeight - height,
 				SCROLL_DURATION);
 
-		// trigger computeScroll
+		// 调用这个方法请求重绘界面 这个方法又会触发 computeScroll
 		invalidate();
 	}
 
@@ -312,8 +312,6 @@ public class XListView extends ListView implements OnScrollListener {
 
 		mFooterView.setBottomMargin(height);
 
-		// scroll to bottom
-		// setSelection(mTotalItemCount - 1);
 	}
 
 	private void resetFooterHeight() {
@@ -327,10 +325,15 @@ public class XListView extends ListView implements OnScrollListener {
 		}
 	}
 
+	/**
+	 * 修复了listview里面item很少的时候，下拉刷新会同时加载更多的bug
+	 */
 	private void startLoadMore() {
-		mPullLoading = true;
-		mFooterView.setState(XFooterView.STATE_LOADING);
-		loadMore();
+		if (!mPullRefreshing) {
+			mPullLoading = true;
+			mFooterView.setState(XFooterView.STATE_LOADING);
+			loadMore();
+		}
 	}
 
 	@Override
@@ -373,6 +376,7 @@ public class XListView extends ListView implements OnScrollListener {
 				}
 
 				resetHeaderHeight();
+
 			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
 				// invoke load more.
 				if (mEnablePullLoad
