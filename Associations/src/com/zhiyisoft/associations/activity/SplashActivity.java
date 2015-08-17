@@ -19,7 +19,7 @@ public class SplashActivity extends BaseActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_splash);
 		Handler x = new Handler();
-		x.postDelayed(new splashhandler(), 2000);
+		x.postDelayed(new splashhandler(), 3000);
 
 	}
 

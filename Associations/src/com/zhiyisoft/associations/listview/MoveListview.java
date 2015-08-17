@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
@@ -28,11 +27,6 @@ public class MoveListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		if (position % 2 == 0) {
-			mApp.startActivity(mApp.getActivity(), MoveMainActivity.class, data);
-		} else {
-			mApp.startActivity(mApp.getActivity(),
-					AssociationSingleActivity.class, data);
-		}
+		mApp.startActivity(mApp.getActivity(), MoveMainActivity.class, data);
 	}
 }

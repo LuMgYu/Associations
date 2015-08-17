@@ -8,10 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.adapter.ImageAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.util.UIUtils;
+import com.zhiyisoft.associations.widget.CircleFlowIndicator;
+import com.zhiyisoft.associations.widget.ViewFlow;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -50,6 +53,9 @@ public class FragmentHome extends BaseFragment {
 	private View mHotViewItem;
 	// 新鲜事的item
 	private View mNewsViewItem;
+	// 广告栏
+	private ViewFlow mhome_viewflow;
+	private CircleFlowIndicator mhome_viewflowindicator;
 
 	@Override
 	public boolean checkTheUser() {
@@ -95,7 +101,17 @@ public class FragmentHome extends BaseFragment {
 		iv_work2 = (SmartImageView) findViewById(R.id.iv_work2);
 		iv_work3 = (SmartImageView) findViewById(R.id.iv_work3);
 		ll_news = (LinearLayout) findViewById(R.id.ll_news);
+		mhome_viewflow = (ViewFlow) findViewById(R.id.home_viewflow);
+		mhome_viewflowindicator = (CircleFlowIndicator) findViewById(R.id.home_viewflowindicator);
 
+	}
+
+	// 设置广告自动浮动
+	private void setAds() {
+		mhome_viewflow.setAdapter(new ImageAdapter(getActivity()));
+		mhome_viewflow.setFlowIndicator(mhome_viewflowindicator);
+		mhome_viewflow.setTimeSpan(1000 * 3);
+		mhome_viewflow.startAutoFlowTimer();
 	}
 
 	@Override
@@ -105,6 +121,7 @@ public class FragmentHome extends BaseFragment {
 
 	@Override
 	public void initData() {
+		setAds();
 		initWorksIv();
 		if (mHotViewItem == null) {
 			mHotViewItem = mInflater.inflate(R.layout.move_item, null);

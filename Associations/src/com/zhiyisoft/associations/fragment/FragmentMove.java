@@ -78,15 +78,6 @@ public class FragmentMove extends BaseFragment {
 	public void initListener() {
 		move_my_tv.setOnClickListener(this);
 		move_arround_tv.setOnClickListener(this);
-//		mListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			@Override
-//			public void onItemClick(AdapterView<?> parent, View view,
-//					int position, long id) {
-//				ToastUtils.showToast("点击了这里");
-//
-//			}
-//		});
 	}
 
 	@Override
