@@ -241,8 +241,6 @@
             android:layout_marginTop="@dimen/margin_top"
             android:background="@color/main_gray_color" />
 
-        <include layout="@layout/view_line_vertical" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
@@ -277,7 +275,6 @@
             android:layout_height="@dimen/line_height"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@color/main_gray_color" />
-
 
         <TextView
             android:layout_width="match_parent"

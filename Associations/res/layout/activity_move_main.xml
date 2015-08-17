@@ -142,7 +142,9 @@
                     android:layout_height="100dp"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="@dimen/margin_left_small"
-                    android:background="@drawable/move_icon" />
+                    android:background="@drawable/iv_white_border"
+                    android:padding="0.5dp"
+                    android:src="@drawable/move_icon" />
 
                 <RelativeLayout
                     android:id="@+id/photo_top"
@@ -380,24 +382,30 @@
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_big" />
 
-                <com.zhiyisoft.associations.img.RoundImageView
-                    android:id="@+id/association_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/default_image_small" />
-
-                <TextView
-                    android:id="@+id/tv_association_name"
+                <RelativeLayout
+                    android:id="@+id/association_rl_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_left_small"
-                    android:layout_toRightOf="@id/association_icon"
-                    android:text="社团名称"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_big" />
+                    android:layout_marginLeft="140dp" >
+
+                    <com.zhiyisoft.associations.img.RoundImageView
+                        android:id="@+id/association_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/default_image_small" />
+
+                    <TextView
+                        android:id="@+id/tv_association_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin_left_small"
+                        android:layout_toRightOf="@id/association_icon"
+                        android:text="社团名称ff"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_big" />
+                </RelativeLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -451,7 +459,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/margin_right"
+                    android:layout_marginRight="13dp"
                     android:layout_toLeftOf="@id/iv_album1"
                     android:src="@drawable/default_image_small" />
 
@@ -460,7 +468,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/margin_right"
+                    android:layout_marginRight="13dp"
                     android:layout_toLeftOf="@id/iv_album2"
                     android:src="@drawable/default_image_small" />
             </RelativeLayout>
