@@ -19,6 +19,7 @@ import com.zhiyisoft.associations.fragment.FragmentMe;
 import com.zhiyisoft.associations.fragment.FragmentMove;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.util.UIUtils;
 
 public class MainActivity extends BaseActivity {
 	private LinearLayout ll_home;
@@ -295,7 +296,8 @@ public class MainActivity extends BaseActivity {
 	private void initPopWindow() {
 		if (mPopupWindow == null) {
 			View popView = mInflater.inflate(R.layout.move_menu, null);
-			mPopupWindow = new PopupWindow(popView, 330,
+			mPopupWindow = new PopupWindow(popView,
+					UIUtils.getWindowWidth(getApplicationContext()) / 10 * 4,
 					LayoutParams.WRAP_CONTENT);
 			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
 			// 设置popwindow出现和消失动画
