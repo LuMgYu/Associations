@@ -323,7 +323,6 @@
                 android:background="@drawable/default_image_small" />
         </LinearLayout>
 
-        <include layout="@layout/view_line_vertical" />
 
         <TextView
             android:layout_width="match_parent"

@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.MeSettingProvinceActivity;
 import com.zhiyisoft.associations.adapter.AssociationAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
@@ -34,6 +36,10 @@ public class FragmentAssociation extends BaseFragment {
 	private LayoutInflater mLayoutInflater;
 	private LinearLayout school_ll;
 
+	private RelativeLayout school_rl_change;
+	private ImageView school_iv_change;
+	private TextView school_tv;
+
 	@Override
 	public void initIntentData() {
 		// TODO Auto-generated method stub
@@ -54,11 +60,15 @@ public class FragmentAssociation extends BaseFragment {
 		mAdapter = new AssociationAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 
+		school_rl_change = (RelativeLayout) findViewById(R.id.school_rl_change);
+		school_iv_change = (ImageView) findViewById(R.id.school_iv_change);
+		school_tv = (TextView) findViewById(R.id.school_tv);
+
 	}
 
 	@Override
 	public void initListener() {
-		// TODO Auto-generated method stub
+		school_rl_change.setOnClickListener(this);
 
 	}
 
@@ -92,7 +102,15 @@ public class FragmentAssociation extends BaseFragment {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.school_rl_change:
+			mApp.startActivity(getActivity(), MeSettingProvinceActivity.class,
+					null);
+			break;
+
+		default:
+			break;
+		}
 
 	}
 

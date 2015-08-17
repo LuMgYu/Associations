@@ -221,14 +221,17 @@ public class Api {
 
 		@Override
 		public List<Model> getSchools(ModelSchool model) {
-			Request get = new Get();
-			Log.i("getSchools", "getSchools(ModelSchool model)---");
-			get.setHostUrl("http://daxs.zhiyicx.com/api");
-			get.addBodyParam(MOD, SchoolIm.TOOL);
-			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
-			get.addBodyParam("name", model.getArea());
-			Object object = get.run(); // 利用网络请求数据，然后返回的数据
-			return parseOriginalJsonArray(object, new ModelSchool());
+			if (model != null) {
+				Request get = new Get();
+				Log.i("getSchools", "getSchools(ModelSchool model)---");
+				get.setHostUrl("http://daxs.zhiyicx.com/api");
+				get.addBodyParam(MOD, SchoolIm.TOOL);
+				get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
+				get.addBodyParam("name", model.getArea());
+				Object object = get.run(); // 利用网络请求数据，然后返回的数据
+				return parseOriginalJsonArray(object, new ModelSchool());
+			}
+			return null;
 		}
 	}
 
