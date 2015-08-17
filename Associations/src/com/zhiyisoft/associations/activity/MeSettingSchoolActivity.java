@@ -10,8 +10,10 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MeSettingSchoolAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.MeSettingSchoolListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -24,21 +26,22 @@ public class MeSettingSchoolActivity extends BaseActivity {
 
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
+	private String mProvince;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("选择省份", null, null);
+		setAlltitle("选择省份", mProvince, null);
 	}
 
 	@Override
 	public String setCenterTitle() {
-		return "四川省";
+		return "";
 	}
 
 	@Override
 	public void initIntent() {
-
+		mProvince = getIntent().getExtras().getString(Config.PROVINCE);
 	}
 
 	@Override
@@ -49,7 +52,9 @@ public class MeSettingSchoolActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		school_lv = (MeSettingSchoolListview) findViewById(R.id.school_lv);
-		mAdapter = new MeSettingSchoolAdapter(this, mlist);
+		ModelSchool modelSchool = new ModelSchool();
+		modelSchool.setArea(mProvince);
+		mAdapter = new MeSettingSchoolAdapter(this, mlist, modelSchool);
 		school_lv.setAdapter(mAdapter);
 	}
 

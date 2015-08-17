@@ -80,6 +80,7 @@
                 android:layout_toRightOf="@id/iv_loginPwd"
                 android:background="@null"
                 android:hint="请输入你的密码"
+                android:password="true"
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_gray"
                 android:textSize="@dimen/text_small" />

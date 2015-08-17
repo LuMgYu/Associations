@@ -52,6 +52,11 @@ public class FragmentHome extends BaseFragment {
 	private View mNewsViewItem;
 
 	@Override
+	public boolean checkTheUser() {
+		return true;
+	}
+
+	@Override
 	public void initIntentData() {
 
 	}

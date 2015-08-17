@@ -23,7 +23,7 @@ public class RegisterPhoneActivity extends BaseActivity implements
 
 	@Override
 	public String setCenterTitle() {
-		return "找回密码";
+		return "手机号码";
 	}
 
 	@Override

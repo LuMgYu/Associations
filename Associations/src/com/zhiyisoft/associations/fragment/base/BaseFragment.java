@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
+import com.zhiyisoft.associations.activity.LoginActivity;
+import com.zhiyisoft.associations.activity.MainActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.listview.base.BaseListView;
@@ -67,11 +69,29 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mApp = (Association) getActivity().getApplication();
-		initFragmentUser();
-		initIntentData();
-		initView();
-		initListener();
-		initData();
+		if (checkTheUser()) {
+			initIntentData();
+			initView();
+			initListener();
+			initData();
+		} else {
+			mApp.startActivity(getActivity(), LoginActivity.class, null);
+		}
+	}
+
+	/**
+	 * 判断这个用户是否登录过
+	 * 
+	 * 如果个别fragement对用户开发的话，就重新这个方法，然后return true就可以了
+	 * 
+	 * @return
+	 */
+	public boolean checkTheUser() {
+		ModelUser user = mApp.getUser();
+		if (user == null) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -96,10 +116,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 
 	/** 初始化數據 */
 	public abstract void initData();
-
-	/** 初始化用户 */
-	public void initFragmentUser() {
-	}
 
 	/** 獲取基類baseListview */
 	public BaseListView getListView() {
@@ -129,20 +145,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	 */
 	public void setAdapter(BAdapter adapter) {
 		this.mAdapter = adapter;
-	}
-
-	/** 刷新头部，这个一般都是调用adaper刷新頭部 */
-	public void doRefreshHead() {
-		if (mAdapter != null) {
-			mAdapter.doRefreshNew();
-		}
-	}
-
-	/** 刷新底部，这个一般都是调用adapter刷新底部 */
-	public void doRefreshfoot() {
-		if (mAdapter != null) {
-			mAdapter.doRefreshFooter();
-		}
 	}
 
 }

@@ -6,8 +6,14 @@ package com.zhiyisoft.associations.config;
  */
 
 public class Config {
+	// -----------------------------activity之间或者fragment之间需要传递的值需要用到-------------------------------------------------
 	public static final String PHONE_NUMBER = "phone_number";
 	public static final String PROVINCE = "province";
+	// -----------------------------访问shareprefrence用到-------------------------------------------------
+	public static final String USER_DATA = "user_data";
+	public static final String MOBILE = "mobile";
+	public static final String PWD = "pwd";
+	public static final String USERAUTH = "userauth";
 	// -----------------------------访问网络的的接口的尾部地址-------------------------------------------------
 	/** 发送手机验证码 */
 	public static final String appSendSMSCode = "appSendSMSCode.action";
@@ -40,5 +46,6 @@ public class Config {
 	/** 元数据接口 */
 	public static final String appMetaData = "appMetaData.action";
 	/** 修改所在班级 */
+	// -----------------------------结束-------------------------------------------------
 
 }

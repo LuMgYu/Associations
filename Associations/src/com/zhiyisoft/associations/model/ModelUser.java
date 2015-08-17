@@ -100,29 +100,11 @@ public class ModelUser extends Model {
 			if (jsonObject.has("userlogo")) {
 				this.setUserlogo(jsonObject.getString("userlogo"));
 			}
-			if (jsonObject.has("sex")) {
-				this.setSex(jsonObject.getInt("sex"));
-			}
 			if (jsonObject.has("nickname")) {
 				this.setNickname(jsonObject.getString("nickname"));
 			}
 			if (jsonObject.has("toUrl")) {
 				this.setToUrl(jsonObject.getString("toUrl"));
-			}
-			if (jsonObject.has("userid")) {
-				this.setUserid(jsonObject.getInt("userid"));
-			}
-			if (jsonObject.has("usertype")) {
-				this.setUsertype(jsonObject.getInt("usertype"));
-			}
-			if (jsonObject.has("provinceid")) {
-				this.setProvinceid(jsonObject.getInt("provinceid"));
-			}
-			if (jsonObject.has("cityid")) {
-				this.setCityid(jsonObject.getInt("cityid"));
-			}
-			if (jsonObject.has("univid")) {
-				this.setUnivid(jsonObject.getInt("univid"));
 			}
 			if (jsonObject.has("loginname")) {
 				this.setLoginname(jsonObject.getString("loginname"));
@@ -183,6 +165,24 @@ public class ModelUser extends Model {
 			}
 			if (jsonObject.has("schoolId")) {
 				this.setSchoolId(jsonObject.getString("schoolId"));
+			}
+			if (jsonObject.has("sex")) {
+				this.setSex(jsonObject.getInt("sex"));
+			}
+			if (jsonObject.has("provinceid")) {
+				this.setProvinceid(jsonObject.getInt("provinceid"));
+			}
+			if (jsonObject.has("cityid")) {
+				this.setCityid(jsonObject.getInt("cityid"));
+			}
+			if (jsonObject.has("univid")) {
+				this.setUnivid(jsonObject.getInt("univid"));
+			}
+			if (jsonObject.has("userid")) {
+				this.setUserid(jsonObject.getInt("userid"));
+			}
+			if (jsonObject.has("usertype")) {
+				this.setUsertype(jsonObject.getInt("usertype"));
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

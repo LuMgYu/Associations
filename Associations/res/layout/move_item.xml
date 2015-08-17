@@ -1,11 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white" >
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
 
         <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/move_iv"
@@ -13,8 +14,7 @@
             android:layout_height="130dp"
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_top"
-            android:background="@drawable/default_image_small"
-           />
+            android:background="@drawable/default_image_small" />
 
         <TextView
             android:id="@+id/move_tv_title"

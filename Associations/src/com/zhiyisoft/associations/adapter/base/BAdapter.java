@@ -33,7 +33,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/** app全局应用 */
 	private Association mApp;
 	/** 創建item需要传入的list */
-	private List<Model> mList;
+	public List<Model> mList;
 	/** 需要传入的fragment */
 	private BaseFragment mBaseFragment;
 	/** 缓存 */
@@ -75,7 +75,7 @@ public abstract class BAdapter extends BaseAdapter {
 		doRefreshNew();
 	}
 
-	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshHeader */
+	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshNew() */
 	public abstract List<Model> refreshNew();
 
 	/**

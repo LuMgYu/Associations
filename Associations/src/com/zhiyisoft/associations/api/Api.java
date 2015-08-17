@@ -221,6 +221,7 @@ public class Api {
 		@Override
 		public List<Model> getSchools(ModelSchool model) {
 			Request get = new Get();
+			get.setHostUrl("http://daxs.zhiyicx.com/api");
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
 			get.addBodyParam("name", model.getArea());
@@ -334,8 +335,7 @@ public class Api {
 			get.addBodyParam(ACT, VIEW);
 			get.addBodyParam("gid", "15225");
 			Object object = get.run();
-			return parseOriginalJsonObject(object,
-					new ModelLeagueDetail());
+			return parseOriginalJsonObject(object, new ModelLeagueDetail());
 		}
 
 		@Override

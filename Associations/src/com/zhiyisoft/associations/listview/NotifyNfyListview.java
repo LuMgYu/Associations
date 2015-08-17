@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.NotifyDetailActivity;
-import com.zhiyisoft.associations.activity.NotifyDetailContentActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**
@@ -16,6 +15,7 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
 
 public class NotifyNfyListview extends BaseListView {
 	private Context mContext;
+
 	public NotifyNfyListview(Context context) {
 		super(context);
 		this.mContext = context;
@@ -28,7 +28,6 @@ public class NotifyNfyListview extends BaseListView {
 
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
-		mApp.startActivity(mApp.getActivity(),
-				NotifyDetailActivity.class, null);
+		mApp.startActivity(mApp.getActivity(), NotifyDetailActivity.class, null);
 	}
 }

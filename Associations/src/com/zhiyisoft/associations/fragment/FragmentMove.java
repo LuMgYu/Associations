@@ -8,19 +8,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.adapter.AssociationAdapter;
 import com.zhiyisoft.associations.adapter.MoveAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.MoveListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
 /**
@@ -63,7 +65,6 @@ public class FragmentMove extends BaseFragment {
 		move_arround_tv = (TextView) findViewById(R.id.move_arround_tv);
 		move_my_tv = (TextView) findViewById(R.id.move_my_tv);
 		tv_bottom_line = (TextView) findViewById(R.id.tv_bottom_line);
-
 		mContext = getActivity();
 		move_ll = (LinearLayout) findViewById(R.id.move_ll);
 		mLayoutInflater = LayoutInflater.from(mContext);
@@ -77,6 +78,15 @@ public class FragmentMove extends BaseFragment {
 	public void initListener() {
 		move_my_tv.setOnClickListener(this);
 		move_arround_tv.setOnClickListener(this);
+//		mListView.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view,
+//					int position, long id) {
+//				ToastUtils.showToast("点击了这里");
+//
+//			}
+//		});
 	}
 
 	@Override

@@ -19,11 +19,19 @@ public class MeSettingSchoolListview extends BaseListView {
 	public MeSettingSchoolListview(Context context) {
 		super(context);
 		this.mContext = context;
+		setNotPull();
 	}
 
 	public MeSettingSchoolListview(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
+		setNotPull();
+	}
+
+	private void setNotPull() {
+		this.setPullRefreshEnable(false);
+		this.setPullLoadEnable(false);
+		this.setAutoLoadEnable(false);
 	}
 
 	@Override

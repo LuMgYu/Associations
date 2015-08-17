@@ -21,10 +21,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
-import com.zhiyisoft.associations.impl.RefreshListener;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
 
 /**
@@ -84,14 +85,33 @@ public abstract class BaseActivity extends FragmentActivity implements
 		super.onCreate(arg0);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mApp = (Association) getApplication();
-		mApp.setActivity(this);
 		mInflater = LayoutInflater.from(getApplicationContext());
-		initTheCommonLayout();
-		// 把内容和title结合
-		setContentView(combineTheLayout());
-		initIntent();
-		initView();
-		initListener();
+		mApp.setActivity(this);
+		if (checkTheUser()) {
+			initTheCommonLayout();
+			// 把内容和title结合
+			setContentView(combineTheLayout());
+			initIntent();
+			initView();
+			initListener();
+		} else {
+			mApp.startActivity(this, LoginActivity.class, null);
+		}
+	}
+
+	/**
+	 * 判断这个用户是否登录过
+	 * 
+	 * 如果个别fragement对用户开发的话，就重新这个方法，然后return true就可以了
+	 * 
+	 * @return
+	 */
+	public boolean checkTheUser() {
+		ModelUser user = mApp.getUser();
+		if (user == null) {
+			return false;
+		}
+		return true;
 	}
 
 	/** 初始化公共布局 */

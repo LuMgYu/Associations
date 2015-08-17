@@ -32,11 +32,11 @@ public class AssociationListview extends BaseListView {
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
 		if (position % 2 == 0) {
-			mApp.startActivity(mApp.getActivity(), AssociationMainActivity.class,
-					data);
+			mApp.startActivity(mApp.getActivity(),
+					AssociationMainActivity.class, data);
 		} else {
-			mApp.startActivity(mApp.getActivity(), AssociationSingleActivity.class,
-					data);
+			mApp.startActivity(mApp.getActivity(),
+					AssociationSingleActivity.class, data);
 		}
 	}
 }

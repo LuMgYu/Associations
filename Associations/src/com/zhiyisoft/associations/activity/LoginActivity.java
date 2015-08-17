@@ -1,9 +1,11 @@
 package com.zhiyisoft.associations.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
 
@@ -43,7 +46,10 @@ public class LoginActivity extends BaseActivity {
 			case LOGIN:
 				ModelUser user = (ModelUser) msg.obj;
 				if (user != null) {
-					// TODO 把获取的信息，保存到shareprefrence类中
+					// TODO 把获取的信息，保存到SharedPreferences类中
+					Log.i("user", user.getMobile() + "  " + user.getPwd() + " "
+							+ user.getUserauth());
+					saveToSharePreference(user);
 					mApp.startActivity(LoginActivity.this, MainActivity.class,
 							null, Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				} else {
@@ -61,7 +67,7 @@ public class LoginActivity extends BaseActivity {
 				break;
 			}
 
-		};
+		}
 
 	};
 
@@ -69,6 +75,11 @@ public class LoginActivity extends BaseActivity {
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setAlltitle(null, null, "忘记密码?");
+	}
+
+	@Override
+	public boolean checkTheUser() {
+		return true;
 	}
 
 	@Override
@@ -164,7 +175,25 @@ public class LoginActivity extends BaseActivity {
 	 * @return
 	 */
 	private boolean checkTheUserAndPwd(String userName, String pwd) {
-		// TODO Auto-generated method stub
-		return true;
+		if (userName != null && pwd != null) {
+			return true;
+		}
+		return false;
 	}
+
+	/**
+	 * 把获取的user保存到SharePreference，方便下次调用
+	 * 
+	 * @param user
+	 *            需要保存的用户
+	 */
+	private void saveToSharePreference(ModelUser user) {
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putString(Config.MOBILE, user.getMobile());
+		editor.putString(Config.PWD, user.getPwd());
+		editor.putString(Config.USERAUTH, user.getUserauth());
+		editor.commit();
+	};
 }

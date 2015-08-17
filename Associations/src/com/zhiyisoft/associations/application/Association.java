@@ -20,12 +20,15 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
 
 /**
@@ -37,6 +40,9 @@ import com.zhiyisoft.associations.util.Anim;
 public class Association extends Application {
 	private BaseActivity mActivity;
 	private static Association mApp;
+	/** 定义一个user，整個app都用它 */
+	private ModelUser mUser;
+
 	/** 定义一个线程池，整個app都用它 */
 	private ExecutorService mExecutor;
 	public static HttpClient mHttpClient;
@@ -67,6 +73,30 @@ public class Association extends Application {
 
 	public BaseActivity getActivity() {
 		return mActivity;
+	}
+
+	/**
+	 * 获取用户的信息，主要是获取手机号码，登录密码，认证信息
+	 * 
+	 * @return
+	 */
+	public ModelUser getUser() {
+		if (mUser == null) {
+			mUser = new ModelUser();
+			SharedPreferences preferences = this.getSharedPreferences(
+					Config.USER_DATA, MODE_PRIVATE);
+			String mobile = preferences.getString(Config.MOBILE, null);
+			String pwd = preferences.getString(Config.PWD, null);
+			String userAuth = preferences.getString(Config.USERAUTH, null);
+			mUser.setMobile(mobile);
+			mUser.setPwd(pwd);
+			mUser.setUserauth(userAuth);
+			// 如果mobile为为空的话，就说明根本就没有登录过，这个时候就把muser设置为空，到时候供外不调用
+			if (mobile == null) {
+				mUser = null;
+			}
+		}
+		return mUser;
 	}
 
 	public ExecutorService getExecutor() {

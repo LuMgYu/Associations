@@ -100,7 +100,7 @@ public abstract class Request {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
-				
+
 			}
 
 		}
@@ -126,6 +126,17 @@ public abstract class Request {
 	 */
 	public void setHostUrlFooter(String str) {
 		mHostUrl = mHostUrl + str;
+	}
+
+	/**
+	 * 设置主机地址，主要是考虑到获取学校的地址的时候 是另外一个主机地址，
+	 * 
+	 * 所以就另外添加了个方法，共外部调用
+	 * 
+	 * @param hostUrl
+	 */
+	public void setHostUrl(String hostUrl) {
+		this.mHostUrl = hostUrl;
 	}
 
 }

@@ -15,12 +15,12 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.model.base.Model;
@@ -32,6 +32,7 @@ public abstract class BaseListView extends XListView implements
 
 	public BaseListView(Context context) {
 		super(context, null);
+		mContext = context;
 		initSet(context);
 		initXListView();
 	}
@@ -48,6 +49,7 @@ public abstract class BaseListView extends XListView implements
 	// /** mlist數據 */
 	private List<Model> mList;
 	/** activity */
+	private BaseActivity mActivity;
 	private BAdapter mAdapter;
 	/**
 	 * 最后可见的位置
@@ -62,6 +64,8 @@ public abstract class BaseListView extends XListView implements
 		this.setCacheColorHint(0);
 		this.setDividerHeight(2);
 		mApp = (Association) context.getApplicationContext();
+		mActivity = mApp.getActivity();
+		mApp.setActivity(mActivity);
 	}
 
 	private void initXListView() {
@@ -74,11 +78,11 @@ public abstract class BaseListView extends XListView implements
 
 	@Override
 	public void setAdapter(ListAdapter adapter) {
+		super.setAdapter(adapter);
 		this.mAdapter = (BAdapter) adapter;
 		mAdapter.setListView(this);
-		super.setAdapter(adapter);
 		this.mList = ((BAdapter) adapter).getList();
-		Log.i("hhh", "---------------走到这里没有？");
+		Log.i("hhh", "---------------走到这里没有？setAdapter(ListAdapter adapter)");
 		this.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -93,7 +97,7 @@ public abstract class BaseListView extends XListView implements
 				onClick(parent, view, position, id);
 			}
 		});
-		
+
 	}
 
 	/** 重新每一個item的點擊事件 */

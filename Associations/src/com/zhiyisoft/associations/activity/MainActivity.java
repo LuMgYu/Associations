@@ -62,6 +62,16 @@ public class MainActivity extends BaseActivity {
 		return R.layout.bottom_layout;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.zhiyisoft.associations.activity.base.BaseActivity#checkTheUser()
+	 */
+	@Override
+	public boolean checkTheUser() {
+		return true;
+	}
+
 	@Override
 	public void initIntent() {
 		// TODO Auto-generated method stub
