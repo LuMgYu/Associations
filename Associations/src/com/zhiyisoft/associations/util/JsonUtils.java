@@ -83,7 +83,6 @@ public class JsonUtils {
 
 			}
 		}
-
-		return null;
+		return list;
 	}
 }

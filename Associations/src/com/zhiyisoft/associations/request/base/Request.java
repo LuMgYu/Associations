@@ -79,6 +79,7 @@ public abstract class Request {
 	/** 獲取網絡數據，并返回object類型，方便具體用時，具體解析 */
 	public Object run() {
 		HttpRequestBase requestBase = GetRequestObject();
+		Log.i("getSchools", "request.run()---");
 		if (requestBase != null && mClient != null) {
 			try {
 				HttpResponse response = mClient.execute(requestBase);

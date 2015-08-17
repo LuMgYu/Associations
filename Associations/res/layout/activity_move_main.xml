@@ -104,12 +104,19 @@
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                android:background="@color/main_white_color" >
+                android:background="@color/white" >
 
-                <ImageView
+                <FrameLayout
+                    android:id="@+id/move_fl_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:background="#89a" />
+                    android:layout_height="120dp" >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:alpha="0.5"
+                        android:background="#000" />
+                </FrameLayout>
 
                 <ImageView
                     android:id="@+id/returnBack"
@@ -135,7 +142,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="@dimen/margin_left_small"
-                    android:background="@drawable/default_image_small" />
+                    android:background="@drawable/move_icon" />
 
                 <RelativeLayout
                     android:id="@+id/photo_top"
@@ -150,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="摄影大赛"
-                        android:textColor="@color/text_black"
+                        android:textColor="@color/text_white"
                         android:textSize="@dimen/text_big" />
 
                     <Button

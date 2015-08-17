@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
@@ -161,7 +162,7 @@ public class MoveMyActivity extends BaseActivity {
 			break;
 		case R.id.iv_title_right3:
 			initPopWindow();
-			showPop(iv_title_right3, 0, 10);
+			showPop(iv_title_right3, 0, 20);
 			break;
 		// --------------------------PopWindow控件监听器--------------------------------------
 		case R.id.me_join:
@@ -199,11 +200,20 @@ public class MoveMyActivity extends BaseActivity {
 	 * */
 	private void initPopWindow() {
 		if (mPopupWindow == null) {
-			//需要加载的布局
+			// 需要加载的布局
 			View popView = mInflater.inflate(R.layout.move_menu, null);
-			mPopupWindow = new PopupWindow(popView, 330,
+			mPopupWindow = new PopupWindow(popView,
+					UIUtils.getWindowWidth(getApplicationContext()) / 10 * 4,
 					LayoutParams.WRAP_CONTENT);
 			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+			mPopupWindow.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+					setWindowAlpha(1.0f);
+
+				}
+			});
 			// 设置popwindow出现和消失动画
 			initPopWidge(popView);
 			setPopListener();
@@ -242,12 +252,13 @@ public class MoveMyActivity extends BaseActivity {
 	public void showPop(View parent, int x, int y) {
 		// 设置popwindow显示位置
 		mPopupWindow.showAsDropDown(parent, x, y);
-//		mPopupWindow.showAtLocation(parent, gravity, x, y);
+		// mPopupWindow.showAtLocation(parent, gravity, x, y);
 		// 获取popwindow焦点
 		mPopupWindow.setFocusable(true);
 		// 设置popwindow如果点击外面区域，便关闭。
 		mPopupWindow.setOutsideTouchable(true);
 		mPopupWindow.update();
+		setWindowAlpha(0.7f);
 	}
 
 	/**

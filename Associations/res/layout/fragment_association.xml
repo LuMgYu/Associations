@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="@dimen/margin_left"
-        android:layout_marginTop="30dp" >
+        android:layout_marginTop="15dp" >
 
         <HorizontalScrollView
             android:id="@+id/school_hsv"
@@ -35,12 +35,6 @@
             </LinearLayout>
         </HorizontalScrollView>
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/margin_top"
-        android:background="@color/main_gray_color" />
 
     <!-- 搜索你感兴趣的 -->
 
@@ -128,13 +122,6 @@
             android:layout_centerVertical="true"
             android:background="@drawable/x" />
     </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/main_gray_color" />
 
     <com.zhiyisoft.associations.listview.AssociationListview
         android:id="@+id/school_lv"

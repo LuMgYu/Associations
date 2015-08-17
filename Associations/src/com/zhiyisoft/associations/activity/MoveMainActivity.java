@@ -1,13 +1,18 @@
 package com.zhiyisoft.associations.activity;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.Config;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.img.RoundImageView;
@@ -46,6 +51,7 @@ public class MoveMainActivity extends BaseActivity {
 	private LinearLayout main_ll_share;
 	private LinearLayout main_ll_watch;
 	private LinearLayout main_ll_join;
+	private FrameLayout move_fl_bg;
 
 	@Override
 	public String setCenterTitle() {
@@ -94,6 +100,24 @@ public class MoveMainActivity extends BaseActivity {
 		main_ll_watch = (LinearLayout) findViewById(R.id.main_ll_watch);
 		main_ll_share = (LinearLayout) findViewById(R.id.main_ll_share);
 		main_ll_join = (LinearLayout) findViewById(R.id.main_ll_join);
+		move_fl_bg = (FrameLayout) findViewById(R.id.move_fl_bg);
+		setTopBg(move_fl_bg);
+	}
+
+	/**
+	 * 设置活动上面的背景
+	 * 
+	 * @param view
+	 */
+	@SuppressLint("NewApi")
+	private void setTopBg(View view) {
+		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+				R.drawable.move_icon);
+		int height = bitmap.getHeight();
+		int width = bitmap.getWidth();
+		Bitmap targetBp = Bitmap.createBitmap(bitmap, 0, 0, width, height / 3);
+		BitmapDrawable background = new BitmapDrawable(targetBp);
+		view.setBackground(background.getCurrent());
 	}
 
 	@Override

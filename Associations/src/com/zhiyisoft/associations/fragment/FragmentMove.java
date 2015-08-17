@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +20,6 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.MoveListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
-import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
 /**

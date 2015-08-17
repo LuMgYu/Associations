@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -221,6 +222,7 @@ public class Api {
 		@Override
 		public List<Model> getSchools(ModelSchool model) {
 			Request get = new Get();
+			Log.i("getSchools", "getSchools(ModelSchool model)---");
 			get.setHostUrl("http://daxs.zhiyicx.com/api");
 			get.addBodyParam(MOD, SchoolIm.TOOL);
 			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
@@ -416,11 +418,21 @@ public class Api {
 			try {
 				JSONObject jsonObject = new JSONObject(json.toString());
 				if (jsonObject.has("state")) {
-					boolean code = jsonObject.getBoolean("state");
-					return code;
+					boolean state = false;
+					state = jsonObject.getBoolean("state");
+					return state;
+				}
+				if (jsonObject.has("code")) {
+					int code = 0;
+					code = jsonObject.getInt("code");
+					if (code == 1) {
+						return true;
+					}
+					return false;
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
+
 			}
 		}
 		return false;
@@ -468,7 +480,7 @@ public class Api {
 	 */
 	public static List<Model> parseOriginalJsonArray(Object jsonObject,
 			Model ModelType) {
-		List<Model> list = null;
+		List<Model> list;
 		if (jsonObject != null) {
 			if (isCodeOk(jsonObject.toString())) {
 				JSONObject json;

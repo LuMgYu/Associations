@@ -37,7 +37,7 @@ public class AssociationMainActivity extends BaseActivity {
 
 	@Override
 	public String setCenterTitle() {
-		return "更新资料";
+		return "北京大学轮滑社";
 	}
 
 	@Override

@@ -1,15 +1,17 @@
 package com.zhiyisoft.associations.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -300,10 +302,30 @@ public class MainActivity extends BaseActivity {
 					UIUtils.getWindowWidth(getApplicationContext()) / 10 * 4,
 					LayoutParams.WRAP_CONTENT);
 			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+			mPopupWindow.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+					setWindowAlpha(1.0f);
+
+				}
+			});
 			// 设置popwindow出现和消失动画
 			initPopWidge(popView);
 			setPopListener();
 		}
+	}
+
+	/**
+	 * 设置屏幕的透明度
+	 * 
+	 * @param alpha
+	 *            需要设置透明度
+	 */
+	private void setWindowAlpha(float alpha) {
+		WindowManager.LayoutParams params = getWindow().getAttributes();
+		params.alpha = alpha;
+		getWindow().setAttributes(params);
 	}
 
 	/**
@@ -368,6 +390,7 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * 显示popWindow
 	 * */
+	@SuppressLint("NewApi")
 	public void showPop(View parent, int x, int y) {
 		// 设置popwindow显示位置
 		mPopupWindow.showAsDropDown(parent, x, y);
@@ -376,5 +399,6 @@ public class MainActivity extends BaseActivity {
 		// 设置popwindow如果点击外面区域，便关闭。
 		mPopupWindow.setOutsideTouchable(true);
 		mPopupWindow.update();
+		setWindowAlpha(0.7f);
 	}
 }
