@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.widget;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -18,7 +19,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
 import android.widget.TextView;
-
 import com.zhiyisoft.associations.R;
 
 /**
@@ -89,7 +89,10 @@ public class XListView extends ListView implements OnScrollListener {
 		initWithContext(context);
 	}
 
+	@SuppressLint("NewApi")
 	private void initWithContext(Context context) {
+		// 去掉下拉时，头部或者底部，过渡阴影 qcj 添加
+		this.setOverScrollMode(View.OVER_SCROLL_NEVER);
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		super.setOnScrollListener(this);
 
@@ -333,6 +336,14 @@ public class XListView extends ListView implements OnScrollListener {
 			mFooterView.setState(XFooterView.STATE_LOADING);
 			loadMore();
 		}
+	}
+
+	/**
+	 * 设置底部消失
+	 */
+	public void setFooterGone() {
+		mFooterLayout.setVisibility(View.GONE);
+		mFooterView.setVisibility(View.GONE);
 	}
 
 	// 核心方法

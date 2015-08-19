@@ -31,7 +31,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/** 存入activity，必要时用来调用里面的东西 */
 	public BaseActivity mBaseActivity;
 	/** app全局应用 */
-	private Association mApp;
+	public Association mApp;
 	/** 創建item需要传入的list */
 	public List<Model> mList;
 	/** 需要传入的fragment */
@@ -48,7 +48,7 @@ public abstract class BAdapter extends BaseAdapter {
 	private final static int REFRESH_NEW = 1;
 	private final static int REFRESH_HEADER = 2;
 	private final static int REFRESH_FOOTER = 3;
-	private BaseListView mListView;
+	public BaseListView mListView;
 
 	public LayoutInflater mInflater;
 
@@ -160,7 +160,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
-	private synchronized void addHeadList(List<Model> list) {
+	public void addHeadList(List<Model> list) {
 		Log.i("refresh", " addHeadList(List<Model> list)=" + list.size());
 		if (mList != null && list.size() > 0) {
 			List<Model> cacheList = new ArrayList<Model>();
@@ -174,6 +174,13 @@ public abstract class BAdapter extends BaseAdapter {
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
+		dismissTheProgress();
+	}
+
+	/**
+	 * 把下拉的进度条去掉
+	 */
+	public void dismissTheProgress() {
 		if (mListView != null) {
 			mListView.onLoad();
 		}
@@ -183,15 +190,13 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 把数据加载到底部
 	 */
-	private synchronized void addFooterList(List<Model> list) {
+	private void addFooterList(List<Model> list) {
 		if (mList != null && list != null) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
-		if (mListView != null) {
-			mListView.onLoad();
-		}
+		dismissTheProgress();
 	}
 
 	/** 獲取緩存，通常是調用mapp里面的緩存 */

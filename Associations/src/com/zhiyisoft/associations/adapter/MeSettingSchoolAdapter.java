@@ -28,6 +28,7 @@ public class MeSettingSchoolAdapter extends BAdapter {
 	public MeSettingSchoolAdapter(BaseActivity activity, List<Model> list,
 			ModelSchool modelSchool) {
 		super(activity, list);
+		// TODO 存在明显的bug，以后来调，先做一个标记
 		this.school = modelSchool;
 	}
 

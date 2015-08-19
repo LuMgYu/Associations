@@ -16,11 +16,11 @@
             android:id="@+id/me_rl_find"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="@dimen/margin_top"
             android:background="@color/white"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
+            android:paddingRight="@dimen/margin_right_small" >
 
             <FrameLayout
                 android:id="@+id/me_fl_icon"
@@ -89,10 +89,10 @@
             android:id="@+id/me_rl_signature"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_marginRight="@dimen/margin_right_small"
             android:background="@color/white"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
+            android:paddingRight="@dimen/margin_right_small" >
 
             <TextView
                 android:id="@+id/me_tv_signature_des"
