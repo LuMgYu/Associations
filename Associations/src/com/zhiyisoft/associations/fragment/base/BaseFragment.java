@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 
 import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.activity.MainActivity;
@@ -146,5 +147,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public void setAdapter(BAdapter adapter) {
 		this.mAdapter = adapter;
 	}
+	
 
 }

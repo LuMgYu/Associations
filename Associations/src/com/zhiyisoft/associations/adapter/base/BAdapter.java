@@ -60,7 +60,7 @@ public abstract class BAdapter extends BaseAdapter {
 		mList = list;
 		mHolder = new ViewHolder();
 		mInflater = LayoutInflater.from(activity);
-		doRefreshNew();
+		// doRefreshNew(); //屏蔽了这句话 qcj 2015-8-19
 	}
 
 	public BAdapter(BaseFragment fragment, List<Model> list) {

@@ -339,7 +339,7 @@ public class XListView extends ListView implements OnScrollListener {
 	}
 
 	/**
-	 * 设置底部消失
+	 * 设置底部消失 qcj添加
 	 */
 	public void setFooterGone() {
 		mFooterLayout.setVisibility(View.GONE);

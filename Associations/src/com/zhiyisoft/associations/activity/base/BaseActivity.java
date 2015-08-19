@@ -165,6 +165,20 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if (hasFocus) {
+			if (mAdapter != null) {
+				if (mAdapter.getList().size() > 0) {
+					mAdapter.mListView.autoRefresh();
+				} else {
+					mAdapter.doRefreshNew();
+				}
+			}
+		}
+	}
+
+	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
 		Anim.exit(this);
