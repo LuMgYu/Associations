@@ -22,6 +22,7 @@
     <dimen name="margin_bottom">10dp</dimen>
     <dimen name="item_height">40dp</dimen>
     <dimen name="line_height">1px</dimen>
+    <dimen name="bottom_img_padding">2dp</dimen>
     <!-- 定义下拉刷新的头部和底部的高度 -->
     <dimen name="header_height">60dp</dimen>
     <dimen name="footer_height">90dp</dimen>
