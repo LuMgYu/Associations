@@ -8,8 +8,15 @@ package com.zhiyisoft.associations.fragment.base;
 
 import java.util.List;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,10 +25,12 @@ import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 
 import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.activity.MainActivity;
+import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * fragment的基类，其它fragment必須實現他，不要隨意修改這個基類
@@ -42,6 +51,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	private View mLoadingView;
 	/** application基類 */
 	public Association mApp;
+	public BaseActivity mActivity;
 	/** mInflater */
 	public LayoutInflater mInflater;
 
@@ -70,6 +80,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mApp = (Association) getActivity().getApplication();
+		mActivity = (BaseActivity) getActivity();
 		if (checkTheUser()) {
 			initIntentData();
 			initView();
@@ -147,6 +158,62 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public void setAdapter(BAdapter adapter) {
 		this.mAdapter = adapter;
 	}
-	
+
+	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		try {
+			ContentResolver resolver = mActivity.getContentResolver();
+			if (resultCode != Activity.RESULT_OK) {
+				return;
+			} else if (requestCode == IMAGE_CODE) {
+				Uri originalUri = data.getData();
+				if (originalUri != null) {
+					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
+							originalUri);
+					compressPhotoAndDisplay(bitmap);
+				}
+			}
+			// else if (requestCode == CAPTURE_CODE && resultCode == RESULT_OK)
+			// {
+			// Bundle bundle = data.getExtras();
+			// if (bundle != null) {
+			// mBitmap = (Bitmap) bundle.get("data");
+			// association_icon.setImageBitmap(mBitmap);
+			// }
+		} catch (Exception e) {
+			Log.i("tag", e.toString() + "");
+			ToastUtils.showToast("获取图片抛出了异常！！");
+		}
+	}
+
+	/**
+	 * 同比例压缩图片，并且显示图片如果需要显示这个图片的话就 显示就交给子类重新这个方法，并实现
+	 * 
+	 * @param photo
+	 */
+	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
+		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
+		float scale = 0.5f;
+		if (scale <= 0)
+			scale = 1;
+		int width = originBitmap.getWidth();
+		int heigth = originBitmap.getHeight();
+		originBitmap = Bitmap.createScaledBitmap(originBitmap,
+				(int) (scale * width), (int) (scale * heigth), true);
+		return originBitmap;
+	}
+
+	/**
+	 * 打开相册
+	 */
+	public void openTheGalley() {
+		Intent intent = new Intent(Intent.ACTION_PICK,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(intent, IMAGE_CODE);
+	}
+	// ----------------------------------我是本区域邪恶的分界线------------------------------------------------------
 
 }

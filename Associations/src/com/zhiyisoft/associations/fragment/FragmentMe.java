@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,8 @@ public class FragmentMe extends BaseFragment {
 	private TextView me_tv_signature;
 	private ImageView me_iv_default;
 	private BaseListView me_lv_association;
+
+	private Bitmap mBitmap;
 
 	@Override
 	public void initIntentData() {
@@ -71,6 +75,13 @@ public class FragmentMe extends BaseFragment {
 	}
 
 	@Override
+	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
+		mBitmap = super.compressPhotoAndDisplay(originBitmap);
+		me_iv_icon.setImageBitmap(mBitmap);
+		return mBitmap;
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.me_rl_find:
@@ -82,7 +93,7 @@ public class FragmentMe extends BaseFragment {
 
 			break;
 		case R.id.me_iv_photo:
-
+			openTheGalley();
 			break;
 		case R.id.me_btn_update:
 			Bundle data1 = new Bundle();
