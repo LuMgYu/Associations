@@ -1,0 +1,273 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_color" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_white_color"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="@dimen/margin_top"
+            android:gravity="center"
+            android:text="基本信息"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/association_rl_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="名称:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_name1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/association_tv_name"
+                android:text="牛牛哥"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/iv_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/association_tv_name1"
+                android:src="@drawable/v" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 学校名称 -->
+
+        <RelativeLayout
+            android:id="@+id/association_rl_school"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_school"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="学校："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_school_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/association_tv_school"
+                android:background="@null"
+                android:text="四川南翔技校"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 类型 -->
+
+        <RelativeLayout
+            android:id="@+id/association_rl_welfare"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_welfare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="类别："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_welfare_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/association_tv_welfare"
+                android:background="@null"
+                android:text="志愿公益"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 简介 -->
+
+        <RelativeLayout
+            android:id="@+id/association_rl_about"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginTop="@dimen/margin_top"
+                android:text="简介："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_about2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_toRightOf="@id/association_tv_about"
+                android:gravity="top|left"
+                android:text="今天的天气特别好，好想去游泳，不过要上班，我也只能来一句呵呵哒。老子明天不上班，爽翻，巴适得板"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:gravity="center"
+            android:text="其它信息"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+
+        <include layout="@layout/view_line_vertical" />
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 学校名称 -->
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 主题 -->
+
+        <RelativeLayout
+            android:id="@+id/association_rl_theme"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="主题："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_theme_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/association_tv_theme"
+                android:text="公益  志愿者  如此"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+        <!-- 联系人 -->
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/association_rl_contact"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="联系人:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_contact2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_toRightOf="@id/association_tv_contact"
+                android:text="佳哥(管理员)"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/association_rl_contact_way"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/association_tv_contact_way"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="联系方式："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/association_tv_contact_way2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_toRightOf="@id/association_tv_contact_way"
+                android:text="260964739@qq.com"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

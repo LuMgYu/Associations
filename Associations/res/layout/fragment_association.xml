@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginTop="@dimen/margin_top_big"
+        android:text="热门分类"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_big" />
+    <!-- 热门种类 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginTop="15dp" >
+
+        <HorizontalScrollView
+            android:id="@+id/school_hsv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/school_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <!-- 搜索你感兴趣的 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:background="@drawable/rl_border" >
+
+        <ImageView
+            android:id="@+id/school_iv_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@drawable/zoom" />
+
+        <EditText
+            android:id="@+id/school_et_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/school_iv_zoom"
+            android:background="@null"
+            android:hint="搜索你感兴趣的社团"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+    <!-- 切换学校 -->
+
+    <RelativeLayout
+        android:id="@+id/school_rl_change"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/margin_left_small" >
+
+        <ImageView
+            android:id="@+id/school_iv_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@drawable/change" />
+
+        <TextView
+            android:id="@+id/school_tv_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/school_iv_change"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/school_iv_change"
+            android:text="切换学校"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/school_tv_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/school_tv_change"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/school_iv_change"
+            android:text="当前学校: "
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/school_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/school_tv_current"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/school_tv_current"
+            android:text="北京大学青鸟学员"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/x" />
+    </RelativeLayout>
+
+    <com.zhiyisoft.associations.listview.AssociationListview
+        android:id="@+id/school_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="180dp" />
+
+</LinearLayout>

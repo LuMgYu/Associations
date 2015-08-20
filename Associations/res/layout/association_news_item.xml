@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.zhiyisoft.associations.img.SmartImageView
+            android:id="@+id/move_iv"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_top"
+            android:background="@drawable/default_image_small" />
+
+        <TextView
+            android:id="@+id/move_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/move_iv"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/move_iv"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="最近学校有什么好吃 嘛？"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_big" />
+
+        <TextView
+            android:id="@+id/move_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/move_tv_title"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:layout_toRightOf="@id/move_iv"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="正宗好凉茶，正宗好声音。欢迎收看由凉茶领导者加多宝独家冠名的加多宝中国好声音。这个夏天还是熟悉的味道，还是好听的声音。百雀羚草本，天然不刺激，中国好声音由百雀羚草本天然护肤品独家特约播出，本届好声音四位导师最得意的门生将踏上百雀羚天然草本音乐之旅。天翼好网络，传递好声音，互动上翼聊。中国电信天翼飞Young邀您参与我们的节目互动，赢取飞Young五千元纯流量大礼包。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+</LinearLayout>

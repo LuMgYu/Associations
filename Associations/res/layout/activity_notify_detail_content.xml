@@ -1,0 +1,65 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small" >
+
+        <TextView
+            android:id="@+id/tv_content_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:text="2015年暑假校园卡及校园网充值等业务受理服务公告"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_very_big" />
+
+        <TextView
+            android:id="@+id/tv_content_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_content_title"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:text="今天 10:11"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_common" />
+
+        <TextView
+            android:id="@+id/tv_content_master"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_content_date"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_content_date"
+            android:text="线团管理员"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_common" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_content_master"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@color/main_gray_color" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:text="新华网北京7月30日电 7月30日，中共中央政治局会议审议并通过中央军委纪律检查委员会《关于对郭伯雄组织调查情况和处理意见的报告》，决定给予郭伯雄开除党籍处分，对其涉嫌严重受贿犯罪问题及线索移送最高人民检察院授权军事检察机关依法处理。
+
+2015年4月9日，中共中央依照党的纪律条例，决定对郭伯雄进行组织调查。经查，郭伯雄利用职务便利，为他人谋取职务晋升等方面利益，直接或通过家人收受贿赂，严重违反党的纪律，涉嫌受贿犯罪，情节严重，影响恶劣。
+
+会议认为，严肃查处郭伯雄严重违纪涉嫌违法犯罪问题，充分体现了以习近平同志为总书记的党中央推进全面从严治党、依法治军从严治军的坚定政治决心，表明了党中央坚定不移惩治腐败的坚强意志。全党全军必须充分认清当前党风廉政建设和反腐败斗争形势依然严峻复杂，坚定不移把党风廉政建设和反腐败斗争引向深入。任何人不论权力大小、职务高低，只要触犯党纪国法，都要严肃查"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+</ScrollView>

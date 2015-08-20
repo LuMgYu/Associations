@@ -12,8 +12,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 
+import com.zhiyisoft.associations.activity.LoginActivity;
+import com.zhiyisoft.associations.activity.MainActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.listview.base.BaseListView;
@@ -23,7 +27,7 @@ import com.zhiyisoft.associations.model.ModelUser;
  * fragment的基类，其它fragment必須實現他，不要隨意修改這個基類
  * 
  **/
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements OnClickListener {
 	/** adapter 基类 */
 	private BAdapter mAdapter;
 	/** listview基类 */
@@ -37,13 +41,27 @@ public abstract class BaseFragment extends Fragment {
 	/** 加載動畫 */
 	private View mLoadingView;
 	/** application基類 */
-	private Association mApp;
+	public Association mApp;
+	/** mInflater */
+	public LayoutInflater mInflater;
+
+	// public FragmentManager mFManager = getChildFragmentManager();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (mView == null) {
 			mView = inflater.inflate(getLayoutId(), null);
+			mInflater = inflater;
+
+		} else {
+			// 当存在mview的时候就调用清零
+			ViewGroup parent = (ViewGroup) mView.getParent();
+			if (parent != null) {
+				parent.removeView(mView);
+				;
+			}
+			return mView;
 		}
 		return mView;
 	}
@@ -51,11 +69,30 @@ public abstract class BaseFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		initFragmentUser();
-		initIntentData();
-		initView();
-		initListener();
-		initData();
+		mApp = (Association) getActivity().getApplication();
+		if (checkTheUser()) {
+			initIntentData();
+			initView();
+			initListener();
+			initData();
+		} else {
+			mApp.startActivity(getActivity(), LoginActivity.class, null);
+		}
+	}
+
+	/**
+	 * 判断这个用户是否登录过
+	 * 
+	 * 如果个别fragement对用户开发的话，就重新这个方法，然后return true就可以了
+	 * 
+	 * @return
+	 */
+	public boolean checkTheUser() {
+		ModelUser user = mApp.getUser();
+		if (user == null) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -80,10 +117,6 @@ public abstract class BaseFragment extends Fragment {
 
 	/** 初始化數據 */
 	public abstract void initData();
-
-	/** 初始化用户 */
-	public void initFragmentUser() {
-	}
 
 	/** 獲取基類baseListview */
 	public BaseListView getListView() {
@@ -114,19 +147,6 @@ public abstract class BaseFragment extends Fragment {
 	public void setAdapter(BAdapter adapter) {
 		this.mAdapter = adapter;
 	}
-
-	/** 刷新头部，这个一般都是调用adaper刷新頭部 */
-	public void doRefreshHead() {
-		if (mAdapter != null) {
-			mAdapter.doRefreshNew();
-		}
-	}
-
-	/** 刷新底部，这个一般都是调用adapter刷新底部 */
-	public void doRefreshfoot() {
-		if (mAdapter != null) {
-			mAdapter.doRefreshFooter();
-		}
-	}
+	
 
 }

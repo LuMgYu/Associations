@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_top"
+    android:background="@color/main_white_color"
+    android:orientation="vertical" >
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_album"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_album"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="相册名称："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <EditText
+            android:id="@+id/et_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/tv_album"
+            android:background="@null"
+            android:hint="相册名称"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_album_des"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_album_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="相册描述："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <EditText
+            android:id="@+id/et_album_des"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/tv_album_des"
+            android:background="@null"
+            android:hint="呵呵哒，大家好才是真的好，你说呢？孩子们"
+            android:maxLines="5"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_album"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_isvisable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="内容可见:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:id="@+id/iv_visable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/tv_isvisable"
+            android:src="@drawable/yes" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/iv_visable"
+            android:src="@drawable/no"
+            android:text="是"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:id="@+id/iv_gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left"
+            android:src="@drawable/no" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/iv_gone"
+            android:text="否"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+</LinearLayout>

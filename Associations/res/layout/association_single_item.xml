@@ -1,0 +1,136 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
+
+    <!-- 头部 -->
+
+    <RelativeLayout
+        android:id="@+id/new_item_rl_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <com.zhiyisoft.associations.img.RoundImageView
+            android:id="@+id/new_item_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_top"
+            android:src="@drawable/default_image_small" />
+
+        <TextView
+            android:id="@+id/new_item_tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@+id/new_item_iv"
+            android:text="牛牛哥发表了话题"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_big" />
+    </RelativeLayout>
+    <!-- 内容部分 -->
+
+    <RelativeLayout
+        android:id="@+id/new_item_rl_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_item_rl_head" >
+
+        <TextView
+            android:id="@+id/new_item_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:text="那些自然界的萌物"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_big" />
+
+        <TextView
+            android:id="@+id/new_item_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_item_tv_title"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="故事发生在波士顿”隔离区“，20年前这里曾经发生过一次真菌爆发，毁灭了所有的现代文明，政府。。。。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_big" />
+    </RelativeLayout>
+    <!-- 图片区域 -->
+
+    <LinearLayout
+        android:id="@+id/new_item_ll"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/new_item_rl_content"
+        android:layout_margin="@dimen/margin_left_small"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_weight="1"
+            android:src="@drawable/default_image_small" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_weight="1"
+            android:src="@drawable/default_image_small" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_weight="1"
+            android:src="@drawable/default_image_small" />
+    </LinearLayout>
+    <!-- 图片区域 -->
+
+    <RelativeLayout
+        android:id="@+id/new_item_rl_footer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/new_item_ll" >
+
+        <TextView
+            android:id="@+id/new_item_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="@dimen/margin_top_big"
+            android:text="2015-05-02"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/new_item_tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:text="12"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:id="@+id/new_item_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/new_item_tv_number"
+            android:src="@drawable/comment" />
+    </RelativeLayout>
+
+</RelativeLayout>

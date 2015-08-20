@@ -1,0 +1,837 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_color" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp" >
+
+            <ImageView
+                android:id="@+id/move_icon"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:background="@drawable/default_image_small" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="点击上传活动封面"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
+        </FrameLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 社团名称 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="名称:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <EditText
+                android:id="@+id/move_et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_toRightOf="@id/move_tv_name"
+                android:background="@null"
+                android:hint="五星摄影大赛"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 类型 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_welfare"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_welfare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="类别："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_welfare_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_welfare"
+                android:background="@null"
+                android:text="赛事"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_welfare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 简介 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_about"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginTop="@dimen/margin_top"
+                android:text="简介："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <EditText
+                android:id="@+id/move_et_about"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_marginTop="@dimen/margin_top"
+                android:layout_toRightOf="@id/move_tv_about"
+                android:background="@null"
+                android:gravity="top|left"
+                android:hint="今天的天气特别好，好想去游泳，不过要上班，我也只能来一句呵呵哒。老子明天不上班，爽翻，巴适得板"
+                android:maxLines="5"
+                android:textColor="@color/text_black"
+                android:textColorHint="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 类型 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_team"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="类别："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_team_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_team"
+                android:background="@null"
+                android:text="赛事"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_team"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <!-- 活动开始时间 -->
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:id="@+id/move_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:gravity="center_vertical"
+            android:text="活动时间"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_main"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="开始时间："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_start"
+                android:text="2015年7月30号"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_end"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="结束时间："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_start_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_end"
+                android:text="2015年7月30号"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <TextView
+            android:id="@+id/move_tv_enter"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:gravity="center_vertical"
+            android:text="报名"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_public"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="5dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_public"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="是否验证："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_public"
+                android:src="@drawable/yes" />
+
+            <TextView
+                android:id="@+id/move_et_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_yes"
+                android:text="是"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:src="@drawable/no" />
+
+            <TextView
+                android:id="@+id/move_et_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_no"
+                android:text="否"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_enter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_entertime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="开始时间："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_enter_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_entertime"
+                android:text="2015年7月30号"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_enter_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_enter_end"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_enter_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="结束时间："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_enter_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_enter_endTime"
+                android:text="2015年7月30号"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_enter_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+        <!-- 是否公开 -->
+
+        <TextView
+            android:id="@+id/move_tv_work"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:gravity="center_vertical"
+            android:text="提交作品"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_work"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="5dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_vetify_work"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="是否验证："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_vetify_work_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_vetify_work"
+                android:src="@drawable/yes" />
+
+            <TextView
+                android:id="@+id/move_et_vetify_work_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_vetify_work_yes"
+                android:text="是"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_vetify_work_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:src="@drawable/no" />
+
+            <TextView
+                android:id="@+id/move_tv_vetify_work_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_vetify_work_no"
+                android:text="否"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_commit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="5dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_commit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="允许上传权限"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_commit_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_commit"
+                android:src="@drawable/yes" />
+
+            <TextView
+                android:id="@+id/move_tv_commit_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_commit_yes"
+                android:text="仅发起人"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_commit_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_commit_yes"
+                android:src="@drawable/no" />
+
+            <TextView
+                android:id="@+id/move_tv_commit_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_commit_no"
+                android:text="所有活动成员"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_commmit_work"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_commmit_worktime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="开始时间："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_commmit_work_Start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_commmit_worktime"
+                android:text="2015年7月30号"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_work_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_work_end"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_work_endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="结束时间："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_workr_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_work_endTime"
+                android:text="2015年7月30号"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_work_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+
+        <!-- 是否验证 -->
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_vetify"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginTop="5dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_vetify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="是否验证："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_vetify_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_vetify"
+                android:src="@drawable/yes" />
+
+            <TextView
+                android:id="@+id/move_et_vetify_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_vetify_yes"
+                android:text="是"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_vetify_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:src="@drawable/no" />
+
+            <TextView
+                android:id="@+id/move_et_vetify_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_vetify_no"
+                android:text="否"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+        <!-- 活动类容类型 -->
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_content_type"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_content_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="活动类型范围："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_title_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_content_type"
+                android:src="@drawable/xz01" />
+
+            <TextView
+                android:id="@+id/move_tv_title_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_title_yes"
+                android:text="文章"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_photo_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_title_yes"
+                android:src="@drawable/xz02" />
+
+            <TextView
+                android:id="@+id/move_tv_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_photo_yes"
+                android:text="图片"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_vedio_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/move_iv_title_yes"
+                android:layout_below="@id/move_iv_title_yes"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/xz02" />
+
+            <TextView
+                android:id="@+id/move_tv_vedio_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/move_iv_vedio_yes"
+                android:layout_toLeftOf="@+id/move_iv_photo_yes"
+                android:text="视频"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_music_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/move_iv_title_yes"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginTop="30dp"
+                android:layout_toRightOf="@id/move_tv_vedio_yes"
+                android:src="@drawable/xz02" />
+
+            <TextView
+                android:id="@+id/move_tv_music_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/move_iv_music_yes"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_iv_music_yes"
+                android:text="音频"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_scope"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/move_tv_scope"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="开放范围："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_common" />
+
+            <TextView
+                android:id="@+id/move_tv_scope_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_scope"
+                android:background="@null"
+                android:text="指定学校"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+
+            <ImageView
+                android:id="@+id/move_iv_scope"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
+        </RelativeLayout>
+        <!-- 联系方式 -->
+
+        <include layout="@layout/view_line_vertical" />
+
+        <include layout="@layout/view_line_vertical" />
+    </LinearLayout>
+
+</ScrollView>

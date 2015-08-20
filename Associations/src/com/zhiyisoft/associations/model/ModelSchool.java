@@ -14,6 +14,15 @@ public class ModelSchool extends Model {
 	/*
 	 * "id": "2978", "area": "四川", "name": "四川师范大学成都学院"
 	 */
+
+	/*
+	 * 元数据需要的字段 metaName metaID ownerID userauth
+	 */
+	private String metaName;
+	private String metaID;
+	private String ownerID;
+	private String userauth;
+
 	private String id;
 	private String area;
 	private String name;
@@ -64,10 +73,43 @@ public class ModelSchool extends Model {
 		this.name = name;
 	}
 
+	public String getMetaName() {
+		return metaName;
+	}
+
+	public void setMetaName(String metaName) {
+		this.metaName = metaName;
+	}
+
+	public String getMetaID() {
+		return metaID;
+	}
+
+	public void setMetaID(String metaID) {
+		this.metaID = metaID;
+	}
+
+	public String getOwnerID() {
+		return ownerID;
+	}
+
+	public void setOwnerID(String ownerID) {
+		this.ownerID = ownerID;
+	}
+
 	@Override
 	public String toString() {
-		return "ModelSchool [id=" + id + ", area=" + area + ", name=" + name
-				+ "]";
+		return "ModelSchool [metaName=" + metaName + ", metaID=" + metaID
+				+ ", ownerID=" + ownerID + ", userauth=" + userauth + ", id="
+				+ id + ", area=" + area + ", name=" + name + "]";
+	}
+
+	public String getUserauth() {
+		return userauth;
+	}
+
+	public void setUserauth(String userauth) {
+		this.userauth = userauth;
 	}
 
 }

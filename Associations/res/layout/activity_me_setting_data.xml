@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_top"
+    android:background="@color/main_white_color"
+    android:orientation="vertical" >
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_nick"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="昵称:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:text="i牛牛哥"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_gender"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="性别："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_gender_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:text="男"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_school"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="学校："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_school_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:text="社会大学"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_homeland"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_homeland"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="家乡："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_homeland_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:text="四川 成都"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_gray_color" />
+
+    <RelativeLayout
+        android:id="@+id/rl_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="电子邮箱："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_email_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:text="sb94u@163.com"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/rl_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="手机号码："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_phone_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:text="1388888888"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+</LinearLayout>

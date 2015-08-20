@@ -5,7 +5,7 @@ package com.zhiyisoft.associations.db.base;
  * Purpose: Defines the Class SqliteHelper
  ***********************************************************************/
 
-import java.util.*;
+import java.util.ArrayList;
 
 /** @pdOid 35ccd2e2-bd10-4dc0-b0c5-3d2203d00ae4 */
 public class SqliteHelper {

@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 
@@ -19,19 +20,20 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.cache.base.Cache;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /** adapter的基類，不要輕易修改這個類 */
 public abstract class BAdapter extends BaseAdapter {
 	/** 用來裝各個item的控件，方便管理 */
-	private ViewHolder mHolder;
+	public ViewHolder mHolder;
 	/** 存入activity，必要时用来调用里面的东西 */
-	private BaseActivity mBaseActivity;
+	public BaseActivity mBaseActivity;
 	/** app全局应用 */
-	private Association mApp;
+	public Association mApp;
 	/** 創建item需要传入的list */
-	private List<Model> mList;
+	public List<Model> mList;
 	/** 需要传入的fragment */
 	private BaseFragment mBaseFragment;
 	/** 缓存 */
@@ -46,6 +48,7 @@ public abstract class BAdapter extends BaseAdapter {
 	private final static int REFRESH_NEW = 1;
 	private final static int REFRESH_HEADER = 2;
 	private final static int REFRESH_FOOTER = 3;
+	public BaseListView mListView;
 
 	public LayoutInflater mInflater;
 
@@ -57,12 +60,14 @@ public abstract class BAdapter extends BaseAdapter {
 		mList = list;
 		mHolder = new ViewHolder();
 		mInflater = LayoutInflater.from(activity);
-		doRefreshNew();
+		// doRefreshNew(); //屏蔽了这句话 qcj 2015-8-19
 	}
 
 	public BAdapter(BaseFragment fragment, List<Model> list) {
 		this.mBaseFragment = fragment;
 		mBaseActivity = (BaseActivity) mBaseFragment.getActivity();
+		mBaseActivity.setAdapter(this);
+		mInflater = LayoutInflater.from(mBaseActivity);
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
 		mExecutor = mApp.getExecutor();
 		mList = list;
@@ -70,7 +75,7 @@ public abstract class BAdapter extends BaseAdapter {
 		doRefreshNew();
 	}
 
-	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshHeader */
+	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshNew() */
 	public abstract List<Model> refreshNew();
 
 	/**
@@ -105,6 +110,7 @@ public abstract class BAdapter extends BaseAdapter {
 				break;
 
 			case REFRESH_HEADER:
+				Log.i("refresh", "case REFRESH_HEADER:");
 				List<Model> items = (List<Model>) msg.obj;
 				addHeadList(items);
 				break;
@@ -128,8 +134,6 @@ public abstract class BAdapter extends BaseAdapter {
 
 	/** 真正的刷新数据數據，即調用RefreshHeader() 獲取的數據加載到adapter里面 */
 	public void doRefreshHeader() {
-		this.mBaseActivity.getListView().headerShow();
-		this.mBaseActivity.getListView().headerRefresh();
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
 			mList = new ArrayList<Model>();
@@ -156,7 +160,8 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
-	private void addHeadList(List<Model> list) {
+	public void addHeadList(List<Model> list) {
+		Log.i("refresh", " addHeadList(List<Model> list)=" + list.size());
 		if (mList != null && list.size() > 0) {
 			List<Model> cacheList = new ArrayList<Model>();
 			if (mList.size() > 0) {
@@ -169,8 +174,16 @@ public abstract class BAdapter extends BaseAdapter {
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
-		// 通知更新后就应该隐藏headview了
-		this.mBaseActivity.getListView().headerHiden();
+		dismissTheProgress();
+	}
+
+	/**
+	 * 把下拉的进度条去掉
+	 */
+	public void dismissTheProgress() {
+		if (mListView != null) {
+			mListView.onLoad();
+		}
 	}
 
 	/**
@@ -178,11 +191,12 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 把数据加载到底部
 	 */
 	private void addFooterList(List<Model> list) {
-		if (mList != null && list.size() > 0) {
+		if (mList != null && list != null) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
+		dismissTheProgress();
 	}
 
 	/** 獲取緩存，通常是調用mapp里面的緩存 */
@@ -263,6 +277,7 @@ public abstract class BAdapter extends BaseAdapter {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				Log.i("refresh", "public void run()--REFRESH_HEADER");
 				sendMessage(REFRESH_HEADER,
 						refreshHeader(mList.get(0), REFRESH_COUNT));
 				break;
@@ -307,6 +322,10 @@ public abstract class BAdapter extends BaseAdapter {
 			message.obj = items;
 			mHandle.sendMessage(message);
 		}
+	}
+
+	public void setListView(BaseListView listView) {
+		this.mListView = listView;
 	}
 
 	// ------------------------------------实现baseadapter必须实现的方法-------------------------------------------------------

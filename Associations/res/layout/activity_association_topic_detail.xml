@@ -1,0 +1,270 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/main_white_color" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_white_color" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <!-- 详情内容标题部分 -->
+
+            <RelativeLayout
+                android:id="@+id/content_rl_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" >
+
+                <TextView
+                    android:id="@+id/content_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_left_small"
+                    android:text="手把手教你--旅行时拍出震撼人心的旅行大片"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_big" />
+
+                <com.zhiyisoft.associations.img.RoundImageView
+                    android:id="@+id/user_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/content_tv_title"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/content_tv_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignTop="@id/user_icon"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/user_icon"
+                    android:gravity="center_vertical"
+                    android:text="牛牛哥发表于"
+                    android:textColor="@color/text_more_gray"
+                    android:textSize="@dimen/text_verysmall" />
+
+                <TextView
+                    android:id="@+id/content_tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignTop="@id/content_tv_user"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/content_tv_user"
+                    android:gravity="center_vertical"
+                    android:text="2015-05-12 12:22"
+                    android:textColor="@color/text_more_gray"
+                    android:textSize="@dimen/text_verysmall" />
+            </RelativeLayout>
+            <!-- 详情内容部分 -->
+
+            <RelativeLayout
+                android:id="@+id/content_rl_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_white_color" >
+
+                <TextView
+                    android:id="@+id/content_tv_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_left_small"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="旅行路中,我们手中的相机除了记录美好的风景还可以记录自己从衣服配色到场景选择，以及天气好姿势"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_common" />
+
+                <LinearLayout
+                    android:id="@+id/content_ll_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/content_tv_content"
+                    android:background="@color/main_gray_color"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </RelativeLayout>
+            <!-- 详情内容回复部分 -->
+
+            <include layout="@layout/view_line_vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:layout_marginBottom="@dimen/margin_bottom"
+                android:layout_marginTop="@dimen/margin_top_big"
+                android:background="@color/main_gray_color" />
+
+            <LinearLayout
+                android:id="@+id/replay_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:id="@+id/replay_rl_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" >
+
+                    <com.zhiyisoft.associations.img.RoundImageView
+                        android:id="@+id/item_user_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin_left_small"
+                        android:src="@drawable/ic_launcher" />
+
+                    <TextView
+                        android:id="@+id/item_user_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/item_user_icon"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/item_user_icon"
+                        android:gravity="center_vertical"
+                        android:text="千年的牛牛"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:id="@+id/item_user_tv_a"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/item_user_tv"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/item_user_icon"
+                        android:text="#2"
+                        android:textColor="@color/text_more_gray"
+                        android:textSize="@dimen/text_verysmall" />
+
+                    <TextView
+                        android:id="@+id/item_user_tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/item_user_tv"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/item_user_tv_a"
+                        android:text="20小时前"
+                        android:textColor="@color/text_more_gray"
+                        android:textSize="@dimen/text_verysmall" />
+
+                    <Button
+                        android:id="@+id/replay_btn"
+                        android:layout_width="45dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/margin_left_small"
+                        android:background="@drawable/huifu"
+                        android:gravity="center"
+                        android:text="回复"
+                        android:textSize="@dimen/text_common" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/replay_rl_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="@dimen/margin_top" >
+
+                    <TextView
+                        android:id="@+id/replay_content_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:text="有父母是闪电多年的亲戚么没哦，我要加这个软件来试一试，呵呵哒"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_big" />
+                    <!-- 其它回复的内容 -->
+
+                    <LinearLayout
+                        android:id="@+id/replay_other_ll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/replay_content_tv"
+                        android:orientation="vertical" >
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/line_height"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/main_gray_color" />
+
+                        <TextView
+                            android:id="@+id/test_tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="center_vertical"
+                            android:text="牛牛哥：真牛，我信，呵呵哒，不管你信不信反正我行了，孩子们！ 9月10日"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/text_small" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/test_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/replay_other_ll"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical"
+                        android:text="更多四条内容"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/text_verysmall" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <!-- 回复输入框部分，实在在底部 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_gravity="bottom"
+        android:background="@color/white" >
+
+        <ImageView
+            android:id="@+id/phiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:src="@drawable/face" />
+
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@drawable/btn_red"
+            android:text="回复"
+            android:textSize="@dimen/text_small" />
+
+        <EditText
+            android:id="@+id/fill_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toLeftOf="@id/btn_return"
+            android:layout_toRightOf="@id/phiz"
+            android:background="@drawable/et_border"
+            android:hint="回复牛牛哥："
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_gray"
+            android:textSize="@dimen/text_common" />
+    </RelativeLayout>
+
+</FrameLayout>

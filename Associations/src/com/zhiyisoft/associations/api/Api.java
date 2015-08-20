@@ -1,7 +1,5 @@
 package com.zhiyisoft.associations.api;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +9,20 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelAssociation;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueDetail;
+import com.zhiyisoft.associations.model.ModelLeagueList;
 import com.zhiyisoft.associations.model.ModelMask;
+import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.request.Get;
 import com.zhiyisoft.associations.request.Post;
 import com.zhiyisoft.associations.request.base.Request;
+import com.zhiyisoft.associations.util.JsonUtils;
 
 /**
  * author：qiuchunjia time：下午2:32:28 类描述：这个类是实现调用api的接口
@@ -30,35 +34,118 @@ public class Api {
 	public static final String MOD = "mod";
 	public static final String ACT = "act";
 
+	public static final class RegisterImpl implements RegisterIm {
+
+		@Override
+		public boolean appSendSMSCode(ModelRegister model) {
+			Request get = new Get();
+			get.setHostUrlFooter(Config.appSendSMSCode);
+			get.addBodyParam(MOBILE, model.getMobile());
+			Object object = get.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public Model appUserReg(ModelRegister model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUserReg);
+			post.addBodyParam(MOBILE, model.getMobile());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(SMSCODE, model.getSmscode());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelRegister());
+		}
+
+		@Override
+		public Model validMobile(ModelRegister model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.validMobile);
+			post.addBodyParam(MOBILE, model.getMobile());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelRegister());
+		}
+	}
+
 	/**
 	 * @author qcj 登录类
 	 *
 	 */
 	public static final class LoginImpl implements LoginIm {
+
 		@Override
-		public Object registerMem(ModelUser user) {
+		public Model appUserMobileLogin(ModelUser model) {
 			Request post = new Post();
-			post.addHeaderParam("client_id", "1");
-			post.addBodyParam(MOD, LoginIm.LOGIN);
-			post.addBodyParam(ACT, LoginIm.REG);
-			post.addBodyParam("mobile", "13688449697");
-			post.addBodyParam("password", "13445555");
+			post.setHostUrlFooter(Config.appUserMobileLogin);
+			post.addBodyParam(MOBILE, model.getMobile());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
 			Object object = post.run();
-			Log.i("request", "object=" + object);
-			return null;
+			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 		@Override
-		public Model Login(ModelUser user) {
+		public Model appUserAccountLogin(ModelUser model) {
 			Request post = new Post();
-			post.addHeaderParam("client_id", "1");
-			post.addBodyParam(MOD, LoginIm.LOGIN);
-			post.addBodyParam(ACT, LoginIm.INDEX);
-			post.addBodyParam("mobile", "13688449697");
-			post.addBodyParam("password", "13445555");
+			post.setHostUrlFooter(Config.appUserAccountLogin);
+			post.addBodyParam(ACCOUNT, model.getAccount());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
 			Object object = post.run();
-			Log.i("request", "object=" + object);
-			return parseOriginalJsonObject(object.toString(), new ModelUser());
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model boundedUserLogin(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.boundedUserLogin);
+			post.addBodyParam(OPENID, model.getOpenid());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model boundMobileUser(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.boundMobileUser);
+			post.addBodyParam(MOBILE, model.getMobile());
+			post.addBodyParam(PWD, model.getPwd());
+			post.addBodyParam(OPENID, model.getOpenid());
+			post.addBodyParam(TOURL, model.getToUrl());
+			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
+			post.addBodyParam(PUSHUSERID, model.getPushuserid());
+			post.addBodyParam(DEVICETYPE, model.getDevicetype());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model appValidateUserAuth(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appValidateUserAuth);
+			post.addBodyParam(USERAUTH, model.getUserauth());
+			post.addBodyParam(TOURL, model.getToUrl());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public Model appValidateUserPwd(ModelUser model) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appValidateUserPwd);
+			post.addBodyParam(USERAUTH, model.getUserauth());
+			post.addBodyParam(PWD, model.getPwd());
+			Object object = post.run();
+			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 	}
@@ -70,13 +157,81 @@ public class Api {
 	public static final class SchoolImpl implements SchoolIm {
 
 		@Override
-		public List<Model> getSchools(String province) {
-			Request get = new Get();
-			get.addBodyParam(MOD, SchoolIm.TOOL);
-			get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
-			get.addBodyParam("name", "四川");
-			Object object = get.run();
+		public List<Model> appMetaData(ModelSchool school) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appMetaData);
+			post.addBodyParam(METANAME, school.getMetaName());
+			post.addBodyParam(METAID, school.getMetaID());
+			post.addBodyParam(OWNERID, school.getOwnerID());
+			post.addBodyParam(USERAUTH, school.getUserauth());
+			Object object = post.run();
 			return parseOriginalJsonArray(object.toString(), new ModelSchool());
+		}
+
+		@Override
+		public boolean appUpdateUserArea(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserArea);
+			post.addBodyParam(PROVINCEID, user.getProvince());
+			post.addBodyParam(CITYID, user.getCityid());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateUserSchool(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserSchool);
+			post.addBodyParam(SCHOOLID, user.getSchoolId());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateUserDept(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserDept);
+			post.addBodyParam(DEPTID, user.getDeptid());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateUserClass(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateUserClass);
+			post.addBodyParam(CLASSID, user.getClassid());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean appUpdateGradeYear(ModelUser user) {
+			Request post = new Post();
+			post.setHostUrlFooter(Config.appUpdateGradeYear);
+			post.addBodyParam(GRADEYEAR, user.getGradeyear());
+			post.addBodyParam(USERAUTH, user.getUserauth());
+			Object object = post.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public List<Model> getSchools(ModelSchool model) {
+			if (model != null) {
+				Request get = new Get();
+				Log.i("getSchools", "getSchools(ModelSchool model)---");
+				get.setHostUrl("http://daxs.zhiyicx.com/api");
+				get.addBodyParam(MOD, SchoolIm.TOOL);
+				get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
+				get.addBodyParam("name", model.getArea());
+				Object object = get.run(); // 利用网络请求数据，然后返回的数据
+				return parseOriginalJsonArray(object, new ModelSchool());
+			}
+			return null;
 		}
 	}
 
@@ -115,6 +270,97 @@ public class Api {
 			Object object = get.run();
 			return parseOriginalJsonArray(object.toString(), new ModelLeague());
 		}
+
+		@Override
+		public boolean addLeague(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, JOIN);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+		@Override
+		public List<Model> getLeagueMember(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, MEMBERLIST);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return parseOriginalJsonArray(object.toString(),
+					new ModelAssociation());
+		}
+
+		@Override
+		public boolean quitLeague(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, LEAVE);
+			get.addBodyParam("gid", "15222");
+			Object object = get.run();
+			return isCodeOk(object.toString());
+		}
+
+		@Override
+		public List<Model> getLeagueList(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, INDEX);
+			get.addBodyParam("schoolid", "2");
+			Object object = get.run();
+			return parseOriginalJsonArray(object.toString(),
+					new ModelLeagueList());
+		}
+
+		@Override
+		public Model getLeagueDetail(Model model) {
+			Request get = new Get();
+			get.addHeaderParam("client_id", "1");
+			get.addHeaderParam("uid", "6309289");
+			get.addHeaderParam("oauth_token",
+					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, VIEW);
+			get.addBodyParam("gid", "15225");
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelLeagueDetail());
+		}
+
+		@Override
+		public Model getAlbumByLeagueID(Model model) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Model getPhotoListByAlbumId(Model model) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public Model createAlbum(Model model) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {
@@ -128,7 +374,7 @@ public class Api {
 					"34975aeea94b0e71311c21215daf117a");
 			get.addBodyParam(MOD, BaseSettingIm.USER);
 			get.addBodyParam(ACT, BaseSettingIm.SETMASK);
-			get.addBodyParam("mask", "俺是小腿");
+			get.addBodyParam("mask", "俺是da腿");
 			get.run();
 			return null;
 		}
@@ -162,6 +408,7 @@ public class Api {
 		}
 	}
 
+	// -------------------------------------------------------------------------------------
 	/**
 	 * 判断返回的json是否有效，当code=1时表面有效，其它的都看着无效
 	 * 
@@ -169,18 +416,27 @@ public class Api {
 	 *            需要传入的json字符串
 	 * @return
 	 */
-	public static boolean isCodeOk(String json) {
-		try {
-			JSONObject jsonObject = new JSONObject(json);
-			if (jsonObject.has("code")) {
-				int code = jsonObject.getInt("code");
-				if (code == 1) {
-					return true;
+	public static boolean isCodeOk(Object json) {
+		if (json != null) {
+			try {
+				JSONObject jsonObject = new JSONObject(json.toString());
+				if (jsonObject.has("state")) {
+					boolean state = false;
+					state = jsonObject.getBoolean("state");
+					return state;
 				}
-				return false;
+				if (jsonObject.has("code")) {
+					int code = 0;
+					code = jsonObject.getInt("code");
+					if (code == 1) {
+						return true;
+					}
+					return false;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
@@ -194,21 +450,23 @@ public class Api {
 	 *            需要解析成model类型，一般是model的子類
 	 * @return
 	 */
-	public static Model parseOriginalJsonObject(String jsonObject,
+	public static Model parseOriginalJsonObject(Object jsonObject,
 			Model ModelType) {
 		Model model = null;
-		try {
-			if (isCodeOk(jsonObject.toString())) {
-				JSONObject json = new JSONObject(jsonObject.toString());
-				if (json.has("data")) {
-					JSONObject modelData = json.getJSONObject("data");
-					model = parseJsonObject(modelData, new ModelMask());
-					Log.i("model", "model=" + model.toString());
-					return model;
+		if (jsonObject != null) {
+			try {
+				if (isCodeOk(jsonObject.toString())) {
+					JSONObject json = new JSONObject(jsonObject.toString());
+					if (json.has("data")) {
+						JSONObject modelData = json.getJSONObject("data");
+						model = JsonUtils.parseJsonObject(modelData, ModelType);
+						Log.i("model", "model=" + model.toString());
+						return model;
+					}
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			e.printStackTrace();
 		}
 		return model;
 
@@ -223,104 +481,25 @@ public class Api {
 	 *            需啊解析成model 类型
 	 * @return
 	 */
-	public static List<Model> parseOriginalJsonArray(String jsonObject,
+	public static List<Model> parseOriginalJsonArray(Object jsonObject,
 			Model ModelType) {
-		List<Model> list = null;
-		if (isCodeOk(jsonObject.toString())) {
-			JSONObject json;
-			try {
-				json = new JSONObject(jsonObject.toString());
-				if (json.has("data")) {
-					JSONArray array = json.getJSONArray("data");
-					list = parseJsonArray(array, new ModelSchool());
-					return list;
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return null;
-
-	}
-
-	/**
-	 * json 并返回 一個model對象 利用反射机制解析
-	 * 
-	 * @param jsonObject
-	 *            需要解析的json对象 必須是純數據
-	 * @param typeItem
-	 *            需要解析成model的對象，只要是繼承model或者是其子類的都行
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	private static Model parseJsonObject(JSONObject jsonObject, Model typeItem) {
-		Class classType = typeItem.getClass();
+		List<Model> list;
 		if (jsonObject != null) {
-			try {
-				@SuppressWarnings("unchecked")
-				Constructor<Model> constructor = classType
-						.getConstructor(JSONObject.class);
-				Model model = constructor.newInstance(jsonObject);
-				Log.i("reflect", "------=" + model.toString() + "");
-				return model;
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * 把jsonarray解析成list<ModelItem> 利用反射机制解析
-	 * 
-	 * @param array
-	 *            需要解析的jsonarray 必须是纯数据
-	 * @param typeItem
-	 *            需要解析为model的類型
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	private static List<Model> parseJsonArray(JSONArray array, Model typeItem) {
-		List<Model> list = new ArrayList<Model>();
-		if (array != null && array.length() > 0) {
-			int num = array.length();
-			for (int i = 0; i < num; i++) {
-				Class classType = typeItem.getClass();
+			if (isCodeOk(jsonObject.toString())) {
+				JSONObject json;
 				try {
-					@SuppressWarnings("unchecked")
-					Constructor<Model> constructor = classType
-							.getConstructor(JSONObject.class);
-					Model model = constructor.newInstance(array.get(i));
-					Log.i("reflect", "------=" + model.toString() + "");
-					list.add(model);
-				} catch (NoSuchMethodException e) {
-					e.printStackTrace();
-				} catch (InstantiationException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
+					json = new JSONObject(jsonObject.toString());
+					if (json.has("data")) {
+						JSONArray array = json.getJSONArray("data");
+						list = JsonUtils.parseJsonArray(array, ModelType);
+						return list;
+					}
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
-
 			}
 		}
-
 		return null;
-	}
 
+	}
 }

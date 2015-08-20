@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="@dimen/margin_top" >
+
+        <com.zhiyisoft.associations.img.RoundImageView
+            android:id="@+id/association_iv_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/default_image_small" />
+
+        <TextView
+            android:id="@+id/association_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/association_iv_icon"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/association_iv_icon"
+            android:text="石家庄联合会社团"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_common" />
+
+        <TextView
+            android:id="@+id/association_tv_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/association_iv_icon"
+            android:drawableLeft="@drawable/people"
+            android:drawablePadding="5dp"
+            android:text="25成员"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/association_tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/association_iv_icon"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/association_iv_icon"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="我们是一个公益组织，请加入我们吧，孩子们"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+</RelativeLayout>

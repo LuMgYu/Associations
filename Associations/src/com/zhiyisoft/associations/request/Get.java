@@ -56,7 +56,8 @@ public class Get extends Request {
 		if (url != null & url.length() > 0) {
 			this.url = url.substring(0, url.length() - 1);
 		}
-		if (url.contains("daxs.zhiyicx.com")) {
+		if (url.contains(getTheHostUrl())
+				|| url.contains("http://daxs.zhiyicx.com/api")) {
 			return true;
 		}
 		return false;

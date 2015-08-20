@@ -10,14 +10,14 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
-import com.zhiyisoft.associations.api.BaseSettingIm;
-import com.zhiyisoft.associations.api.LeagueIm;
-import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.api.SchoolIm;
+import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
- * author：qiuchunjia time：上午10:47:11 类描述：这个类是实现
+ * author：qiuchunjia time：上午10:47:11
+ * 
+ * 类描述：这个类是实现
  *
  */
 
@@ -27,22 +27,19 @@ public class testAdapter extends BAdapter {
 		super(activity, list);
 	}
 
+	public testAdapter(BaseFragment fragment, List<Model> list) {
+		super(fragment, list);
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return mInflater.inflate(R.layout.title, null);
+		return mInflater.inflate(R.layout.notify_msg_iem, null);
 	}
 
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
 		items.add(new Model());
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return items;
 	}
 
@@ -52,17 +49,18 @@ public class testAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());
-//		SchoolIm school = new Api.SchoolImpl();
-//		school.getSchools("四川");
-//		LoginIm loginIm = new Api.LoginImpl();
-//		loginIm.Login(null);
-//		LeagueIm leagueIm = new Api.LeagueImpl();
-//		leagueIm.createLeague(new Model());
-//		leagueIm.getGroupCommonList(new Model());
-		BaseSettingIm settingIm = new Api.BaseSettingImpl();
-//		settingIm.updateMask(new Model());
-//		settingIm.getUserActiveMaskInfo(new Model());
-		settingIm.setFaceImg(new Model());
+		SchoolIm school = new Api.SchoolImpl();
+
+		// school.getSchools("四川");
+		// LoginIm loginIm = new Api.LoginImpl();
+		// loginIm.Login(null);
+		// LeagueIm leagueIm = new Api.LeagueImpl();
+		// leagueIm.createLeague(new Model());
+		// leagueIm.getGroupCommonList(new Model());
+		// BaseSettingIm settingIm = new Api.BaseSettingImpl();
+		// settingIm.updateMask(new Model());
+		// settingIm.getUserActiveMaskInfo(new Model());
+		// settingIm.setFaceImg(new Model());
 		return items;
 	}
 
