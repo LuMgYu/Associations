@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginTop="@dimen/margin_top_big"
+        android:layout_marginTop="@dimen/margin_top"
         android:text="热门分类"
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_big" />
@@ -16,21 +16,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginTop="15dp" >
 
         <HorizontalScrollView
             android:id="@+id/move_hsv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="none" >
 
             <LinearLayout
                 android:id="@+id/move_ll"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
             </LinearLayout>

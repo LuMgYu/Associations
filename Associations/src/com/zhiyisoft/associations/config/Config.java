@@ -9,6 +9,8 @@ public class Config {
 	// -----------------------------activity之间或者fragment之间需要传递的值需要用到-------------------------------------------------
 	public static final String PHONE_NUMBER = "phone_number";
 	public static final String PROVINCE = "province";
+	public static final String HOTCATEGORY = "hotcategory"; // 热门分类的
+
 	// -----------------------------访问shareprefrence用到-------------------------------------------------
 	public static final String USER_DATA = "user_data";
 	public static final String MOBILE = "mobile";

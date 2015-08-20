@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginTop="@dimen/margin_top_big"
+        android:layout_marginTop="@dimen/margin_top"
         android:text="热门分类"
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_big" />
@@ -16,26 +16,32 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginTop="15dp" >
 
         <HorizontalScrollView
             android:id="@+id/school_hsv"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:scrollbars="none" >
 
             <LinearLayout
                 android:id="@+id/school_ll"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
             </LinearLayout>
         </HorizontalScrollView>
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="5dp"
+        android:background="@color/main_gray_color" />
 
     <!-- 搜索你感兴趣的 -->
 
@@ -45,6 +51,7 @@
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginLeft="@dimen/margin_left_small"
         android:layout_marginRight="@dimen/margin_right_small"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rl_border" >
 
         <ImageView

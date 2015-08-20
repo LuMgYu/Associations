@@ -69,6 +69,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoDisplayActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationDisplayActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >

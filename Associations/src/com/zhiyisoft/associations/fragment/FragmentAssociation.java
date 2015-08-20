@@ -4,17 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.AssociationDisplayActivity;
 import com.zhiyisoft.associations.activity.MeSettingProvinceActivity;
 import com.zhiyisoft.associations.adapter.AssociationAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
@@ -88,14 +92,38 @@ public class FragmentAssociation extends BaseFragment {
 				"兴趣爱好", "心理活动", "其它" };
 		View itemView = null;
 		ImageView imageView = null;
-		TextView textView;
+		final List<TextView> views = new ArrayList<TextView>();
 		for (int i = 0; i < mImageArray.length; i++) {
 			itemView = mLayoutInflater.inflate(R.layout.association_hsv_item,
 					null);
 			imageView = (ImageView) itemView.findViewById(R.id.school_scv_iv);
+			final TextView textView;
 			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
+			views.add(textView);
 			imageView.setImageResource(mImageArray[i]);
 			textView.setText(mStringName[i] + "");
+			itemView.setTag(mStringName[i]);
+			itemView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String data = (String) v.getTag();
+					resetBackground();
+					textView.setBackgroundResource(R.drawable.tv_gray);
+					Bundle bundle = new Bundle();
+					bundle.putString(Config.HOTCATEGORY, data);
+					mApp.startActivity(getActivity(),
+							AssociationDisplayActivity.class, bundle);
+				}
+
+				/**
+				 * 重置背景
+				 */
+				private void resetBackground() {
+					for (TextView tv : views) {
+						tv.setBackgroundResource(R.color.white);
+					}
+				}
+			});
 			school_ll.addView(itemView);
 		}
 	}
