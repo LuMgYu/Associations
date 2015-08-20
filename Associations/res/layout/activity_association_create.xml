@@ -206,7 +206,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_toRightOf="@id/association_tv_public"
-                android:src="@drawable/yes" />
+                android:src="@drawable/no" />
 
             <TextView
                 android:id="@+id/association_et_yes"

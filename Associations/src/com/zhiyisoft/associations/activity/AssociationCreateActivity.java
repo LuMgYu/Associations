@@ -1,12 +1,8 @@
 package com.zhiyisoft.associations.activity;
 
-import android.content.ContentResolver;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +15,6 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
-import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -130,10 +125,12 @@ public class AssociationCreateActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.association_iv_yes:
+			resetChoose();
+			association_iv_yes.setImageResource(R.drawable.yes);
 			break;
 		case R.id.association_iv_no:
-			Bundle data4 = new Bundle();
-			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
+			resetChoose();
+			association_iv_no.setImageResource(R.drawable.yes);
 			break;
 		case R.id.association_rl_main:
 			Bundle data3 = new Bundle();
@@ -171,6 +168,15 @@ public class AssociationCreateActivity extends BaseActivity {
 			});
 			break;
 		}
+
+	}
+
+	/**
+	 * 重置选项
+	 */
+	private void resetChoose() {
+		association_iv_yes.setImageResource(R.drawable.no);
+		association_iv_no.setImageResource(R.drawable.no);
 
 	}
 }

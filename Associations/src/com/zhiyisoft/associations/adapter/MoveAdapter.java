@@ -38,6 +38,9 @@ public class MoveAdapter extends BAdapter {
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
 		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
 		return items;
 	}
 
