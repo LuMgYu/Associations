@@ -45,6 +45,7 @@
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginLeft="@dimen/margin_left_small"
         android:layout_marginRight="@dimen/margin_right_small"
+        android:layout_marginTop="@dimen/margin_top"
         android:background="@drawable/rl_border" >
 
         <ImageView

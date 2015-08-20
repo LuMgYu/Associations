@@ -1,6 +1,12 @@
 package com.zhiyisoft.associations.activity;
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +16,10 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -35,6 +44,21 @@ public class AssociationCreateActivity extends BaseActivity {
 
 	private TextView association_tv_commit_yes;
 	private Button association_btn_commit;
+	private Bitmap mBitmap;
+	public static final int SUCCESS = 1;
+
+	private Handler mHandle = new Handler() {
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case SUCCESS:
+
+				break;
+
+			default:
+				break;
+			}
+		};
+	};
 
 	@Override
 	public String setCenterTitle() {
@@ -50,24 +74,6 @@ public class AssociationCreateActivity extends BaseActivity {
 	public int getLayoutId() {
 		return R.layout.activity_association_create;
 	}
-
-	// private RelativeLayout association_icon;
-	// private RoundImageView association_et_name;
-	// private ImageView association_tv_school_name;
-	// private TextView association_rl_school;
-	// private TextView association_rl_welfare;
-	// private TextView association_tv_welfare_name;
-	// private TextView association_iv_welfare;
-	// private RelativeLayout association_et_about;
-	// private RoundImageView association_iv_yes;
-	// private RelativeLayout association_iv_no;
-	// private RelativeLayout association_rl_main;
-	// private TextView association_et_contact;
-	// private LinearLayout association_et_contact_way;
-	// private LinearLayout association_iv_commit_yes;
-	//
-	// private RelativeLayout association_tv_commit_yes;
-	// private RelativeLayout association_btn_commit;
 
 	@Override
 	public void initView() {
@@ -103,33 +109,66 @@ public class AssociationCreateActivity extends BaseActivity {
 	}
 
 	@Override
+	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
+		mBitmap = super.compressPhotoAndDisplay(originBitmap);
+		association_icon.setImageBitmap(mBitmap);
+		return mBitmap;
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.rl_member:
-			Bundle data = new Bundle();
-			mApp.startActivity(this, AssociationMemberActivity.class, data);
+		case R.id.association_icon:
+			super.openTheGalley();
 			break;
-		case R.id.rl_new:
+		case R.id.association_rl_school:
 			Bundle data1 = new Bundle();
-			mApp.startActivity(this, AssociationNewActivity.class, data1);
+			mApp.startActivity(this, MeSettingProvinceActivity.class, data1);
 			break;
-		case R.id.rl_activity:
+		case R.id.association_iv_welfare:
 			Bundle data2 = new Bundle();
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
-		case R.id.iv_title:
+		case R.id.association_iv_yes:
 			break;
-		case R.id.rl_album:
+		case R.id.association_iv_no:
 			Bundle data4 = new Bundle();
 			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
 			break;
-		case R.id.rl_file_share:
+		case R.id.association_rl_main:
 			Bundle data3 = new Bundle();
 			mApp.startActivity(this, AssociationWordActivity.class, data3);
 			break;
-		case R.id.main_ll_join:
-			break;
-		case R.id.rl_phone:
+		case R.id.association_btn_commit:
+			final ModelLeague league = new ModelLeague();
+			// name:社团名(45字符，约11个字)
+			// categoryid：分类
+			// logo:logoID
+			// description:描述
+			// school:学校ID
+			// private:是否够开
+			// tags: 标签(选填)
+			// contact:联系人电话
+			league.setName(association_et_name.getText().toString() + "");
+			// league.setCategoryid(categoryid);
+			// league.setLogo(name);
+			league.setDescription(association_et_about.getText().toString()
+					+ "");
+			league.setSchool(association_tv_school_name.getText().toString()
+					+ "");
+			// league.setmPrivate(association_et_name.getText().toString() +
+			// "");
+			// league.setTags(association_et_name.getText().toString() + "");
+			league.setContact(association_et_contact_way.getText().toString()
+					+ "");
+			mApp.getExecutor().execute(new Runnable() {
+
+				@Override
+				public void run() {
+					LeagueIm leagueIm = mApp.getLeagueIm();
+					leagueIm.createLeague(league);
+				}
+			});
 			break;
 		}
 

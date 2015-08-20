@@ -247,6 +247,7 @@ public class Api {
 		@Override
 		public Object createLeague(Model modelItem) {
 			Request post = new Post();
+			post.setHostUrl("http://daxs.zhiyicx.com/api");
 			post.addHeaderParam("client_id", "1");
 			post.addHeaderParam("uid", "6309289");
 			post.addHeaderParam("oauth_token",

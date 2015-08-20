@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
@@ -14,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.MoveDisplayActivity;
 import com.zhiyisoft.associations.adapter.MoveAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.MoveListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
@@ -95,6 +99,7 @@ public class FragmentMove extends BaseFragment {
 		View itemView = null;
 		ImageView imageView = null;
 		TextView textView;
+		final List<TextView> views = new ArrayList<TextView>();
 		for (int i = 0; i < mImageArray.length; i++) {
 			itemView = mLayoutInflater.inflate(R.layout.association_hsv_item,
 					null);
@@ -102,6 +107,28 @@ public class FragmentMove extends BaseFragment {
 			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
 			imageView.setImageResource(mImageArray[i]);
 			textView.setText(mStringName[i] + "");
+			itemView.setTag(mStringName[i]);
+			itemView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					String data = (String) v.getTag();
+					resetBackground();
+					// textView.setBackgroundResource(R.drawable.tv_gray);
+					Bundle bundle = new Bundle();
+					bundle.putString(Config.HOTCATEGORY, data);
+					mApp.startActivity(getActivity(),
+							MoveDisplayActivity.class, bundle);
+				}
+
+				/**
+				 * 重置背景
+				 */
+				private void resetBackground() {
+					for (TextView tv : views) {
+						tv.setBackgroundResource(R.color.white);
+					}
+				}
+			});
 			move_ll.addView(itemView);
 		}
 	}

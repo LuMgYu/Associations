@@ -315,9 +315,12 @@ public class HomeAdapter extends BAdapter {
 		// updateMove(list, views);
 		// updateNews(list, views);
 		// updateWorks(list);
-		dismissTheProgress();
-		mListView.setFooterGone();
-		return;
+		if (mList.size() > 1) {
+			dismissTheProgress();
+			mListView.setFooterGone();
+			return;
+		}
+		super.addHeadList(list);
 	}
 
 	@Override

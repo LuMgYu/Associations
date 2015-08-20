@@ -6,7 +6,13 @@ package com.zhiyisoft.associations.activity.base;
  * Purpose: Defines the Class BaseActivity
  ***********************************************************************/
 
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -27,6 +33,7 @@ import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * activity的基类，任何activity都要继承它，并且实现里面的方法 一般不要轻易修改它
@@ -83,6 +90,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);// 竖屏
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		mApp = (Association) getApplication();
 		mInflater = LayoutInflater.from(getApplicationContext());
@@ -366,4 +374,61 @@ public abstract class BaseActivity extends FragmentActivity implements
 		mBottomll.setVisibility(View.GONE);
 	}
 
+	// ----------------------------------调用本地的图片，摄像机，文件之类的操作------------------------------------------------------
+	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		try {
+			ContentResolver resolver = getContentResolver();
+			if (resultCode != RESULT_OK) {
+				return;
+			} else if (requestCode == IMAGE_CODE) {
+				Uri originalUri = data.getData();
+				if (originalUri != null) {
+					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
+							originalUri);
+					compressPhotoAndDisplay(bitmap);
+				}
+			}
+			// else if (requestCode == CAPTURE_CODE && resultCode == RESULT_OK)
+			// {
+			// Bundle bundle = data.getExtras();
+			// if (bundle != null) {
+			// mBitmap = (Bitmap) bundle.get("data");
+			// association_icon.setImageBitmap(mBitmap);
+			// }
+		} catch (Exception e) {
+			Log.i("tag", e.toString() + "");
+			ToastUtils.showToast("获取图片抛出了异常！！");
+		}
+	}
+
+	/**
+	 * 同比例压缩图片，并且显示图片如果需要显示这个图片的话就 显示就交给子类重新这个方法，并实现
+	 * 
+	 * @param photo
+	 */
+	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
+		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
+		float scale = 0.5f;
+		if (scale <= 0)
+			scale = 1;
+		int width = originBitmap.getWidth();
+		int heigth = originBitmap.getHeight();
+		originBitmap = Bitmap.createScaledBitmap(originBitmap,
+				(int) (scale * width), (int) (scale * heigth), true);
+		return originBitmap;
+	}
+
+	/**
+	 * 打开相册
+	 */
+	public void openTheGalley() {
+		Intent intent = new Intent(Intent.ACTION_PICK,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(intent, IMAGE_CODE);
+	}
+	// ----------------------------------我是本区域邪恶的分界线------------------------------------------------------
 }

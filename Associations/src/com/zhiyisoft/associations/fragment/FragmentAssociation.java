@@ -92,12 +92,12 @@ public class FragmentAssociation extends BaseFragment {
 				"兴趣爱好", "心理活动", "其它" };
 		View itemView = null;
 		ImageView imageView = null;
+		TextView textView;
 		final List<TextView> views = new ArrayList<TextView>();
 		for (int i = 0; i < mImageArray.length; i++) {
 			itemView = mLayoutInflater.inflate(R.layout.association_hsv_item,
 					null);
 			imageView = (ImageView) itemView.findViewById(R.id.school_scv_iv);
-			final TextView textView;
 			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
 			views.add(textView);
 			imageView.setImageResource(mImageArray[i]);
@@ -108,7 +108,7 @@ public class FragmentAssociation extends BaseFragment {
 				public void onClick(View v) {
 					String data = (String) v.getTag();
 					resetBackground();
-					textView.setBackgroundResource(R.drawable.tv_gray);
+					// textView.setBackgroundResource(R.drawable.tv_gray);
 					Bundle bundle = new Bundle();
 					bundle.putString(Config.HOTCATEGORY, data);
 					mApp.startActivity(getActivity(),
