@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationDisplayActivity;
@@ -24,7 +23,6 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
-import com.zhiyisoft.associations.util.UIUtils;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -87,6 +85,7 @@ public class FragmentAssociation extends BaseFragment {
 	 * 添加热热门分类
 	 */
 	private void addHotSorting() {
+		school_ll.removeAllViews();
 		mImageArray = new int[] { R.drawable.qb, R.drawable.zygy_,
 				R.drawable.shsj, R.drawable.xsxx, R.drawable.jycy,
 				R.drawable.xqah, R.drawable.xlhd, R.drawable.qt };
@@ -109,7 +108,7 @@ public class FragmentAssociation extends BaseFragment {
 				@Override
 				public void onClick(View v) {
 					String data = (String) v.getTag();
-					resetBackground();
+					// resetBackground();
 					// textView.setBackgroundResource(R.drawable.tv_gray);
 					Bundle bundle = new Bundle();
 					bundle.putString(Config.HOTCATEGORY, data);
@@ -117,14 +116,14 @@ public class FragmentAssociation extends BaseFragment {
 							AssociationDisplayActivity.class, bundle);
 				}
 
-				/**
-				 * 重置背景
-				 */
-				private void resetBackground() {
-					for (TextView tv : views) {
-						tv.setBackgroundResource(R.color.main_white_pure_color);
-					}
-				}
+				// /**
+				// * 重置背景
+				// */
+				// private void resetBackground() {
+				// for (TextView tv : views) {
+				// tv.setBackgroundResource(R.color.main_white_pure_color);
+				// }
+				// }
 			});
 			school_ll.addView(itemView);
 		}

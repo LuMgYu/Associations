@@ -21,10 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver.OnWindowFocusChangeListener;
 
 import com.zhiyisoft.associations.activity.LoginActivity;
-import com.zhiyisoft.associations.activity.MainActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
@@ -69,7 +67,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			ViewGroup parent = (ViewGroup) mView.getParent();
 			if (parent != null) {
 				parent.removeView(mView);
-				;
 			}
 			return mView;
 		}

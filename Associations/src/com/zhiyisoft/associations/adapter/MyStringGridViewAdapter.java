@@ -50,6 +50,8 @@ public class MyStringGridViewAdapter extends BaseAdapter {
 				.getWindowWidth(mContext) / 6, LayoutParams.WRAP_CONTENT));
 		textView.setGravity(Gravity.CENTER);
 		textView.setTextSize(13);
+		textView.setTextColor(mContext.getResources().getColor(
+				R.color.main_black_order1_color));
 		textView.setText(mStr[position] + "");
 		return textView;
 	}

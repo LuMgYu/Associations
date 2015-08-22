@@ -91,6 +91,7 @@ public class FragmentMove extends BaseFragment {
 	 * 添加热热门分类
 	 */
 	private void addHotSorting() {
+		move_ll.removeAllViews();
 		mImageArray = new int[] { R.drawable.qb, R.drawable.ss, R.drawable.hz,
 				R.drawable.yc, R.drawable.jh, R.drawable.jl, R.drawable.ty,
 				R.drawable.lx, R.drawable.gy, R.drawable.qt };

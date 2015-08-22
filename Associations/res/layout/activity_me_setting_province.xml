@@ -9,6 +9,7 @@
         android:id="@+id/province_gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
         android:numColumns="6"
         android:verticalSpacing="@dimen/margin_left" >
     </GridView>
