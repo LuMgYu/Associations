@@ -2,20 +2,19 @@ package com.zhiyisoft.associations.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnDragListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.activity.AssociationInformationActivity;
-import com.zhiyisoft.associations.activity.AssociationMoveActivity;
 import com.zhiyisoft.associations.activity.AssociationNewActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.activity.MoveDisplayActivity;
@@ -69,6 +68,7 @@ public class HomeAdapter extends BAdapter {
 		super(fragment, list);
 	}
 
+	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (mView == null) {
@@ -188,30 +188,6 @@ public class HomeAdapter extends BAdapter {
 		}
 	}
 
-	// private class MyOnclickListener implements OnClickListener {
-	//
-	// @Override
-	// public void onClick(View v) {
-	// switch (v.getId()) {
-	// case R.id.btn_all_move:
-	//
-	// break;
-	//
-	// case R.id.btn_all_move:
-	//
-	// break;
-	// case value:
-	//
-	// break;
-	// case value:
-	//
-	// break;
-	// }
-	//
-	// }
-
-	// }
-
 	/**
 	 * 设置监听器
 	 */
@@ -316,6 +292,18 @@ public class HomeAdapter extends BAdapter {
 			itemView = mInflater.inflate(R.layout.my_association_tv_item, null);
 			textView = (TextView) itemView.findViewById(R.id.association_text);
 			textView.setText(StringName[i] + "");
+			itemView.setTag(StringName[i]);
+			itemView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Bundle data = new Bundle();
+					data.putString(Config.HOTCATEGORY, (String) v.getTag());
+					mApp.startActivity(mBaseActivity,
+							AssociationSingleActivity.class, data);
+
+				}
+			});
 			mViewHolder.ll_association.addView(itemView);
 		}
 	}

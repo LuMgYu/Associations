@@ -91,11 +91,11 @@ public class FragmentMove extends BaseFragment {
 	 * 添加热热门分类
 	 */
 	private void addHotSorting() {
-		mImageArray = new int[] { R.drawable.ss, R.drawable.hz, R.drawable.yc,
-				R.drawable.jh, R.drawable.jl, R.drawable.ty, R.drawable.lx,
-				R.drawable.gy, R.drawable.qt };
-		mStringName = new String[] { "全部", "赛事", "演出", "聚会", "交流", "体育", "旅行",
-				"公益", "其它" };
+		mImageArray = new int[] { R.drawable.qb, R.drawable.ss, R.drawable.hz,
+				R.drawable.yc, R.drawable.jh, R.drawable.jl, R.drawable.ty,
+				R.drawable.lx, R.drawable.gy, R.drawable.qt };
+		mStringName = new String[] { "全部", "赛事", "会展", "演出", "聚会", "交流", "体育",
+				"旅行", "公益", "其它" };
 		View itemView = null;
 		ImageView imageView = null;
 		TextView textView;

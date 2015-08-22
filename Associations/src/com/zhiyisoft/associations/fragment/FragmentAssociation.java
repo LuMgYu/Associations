@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationDisplayActivity;
@@ -23,6 +24,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.UIUtils;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现

@@ -39,27 +39,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
-            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginTop="@dimen/margin_top_big"
             android:ellipsize="end"
             android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
             android:maxLines="4"
-            android:text="【四川大学文艺连欢社团】邀请你参加最新的活动，要嗨皮哦，活动地点任你选择，截止时间，呵呵哒,快点来"
+            android:text="【四川大学文艺连欢社团】邀请你参加最新的活动要嗨皮哦!活动地点任你选择,截止时间呵呵哒,快点来,不然就太不给面子啊！所以快点俩"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
 
         <TextView
             android:id="@+id/tv_notify_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_bottom"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="@dimen/margin_top"
             android:ellipsize="end"
-            android:maxLines="4"
             android:text="点击查看详情>>"
-            android:textColor="#0090ff"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/main_href_color"
+            android:textSize="@dimen/text_small" />
     </LinearLayout>
 
 </RelativeLayout>
