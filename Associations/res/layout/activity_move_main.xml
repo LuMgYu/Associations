@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
+        android:background="@color/main_white_pure_color"
         android:orientation="horizontal" >
 
         <LinearLayout
@@ -104,7 +104,7 @@
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="185dp"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <FrameLayout
                     android:id="@+id/move_fl_bg"
@@ -237,7 +237,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/tv_reference"
@@ -267,7 +267,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/tv_main_handle"
@@ -304,7 +304,7 @@
                 android:id="@+id/rl_member"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/tv_association_member"
@@ -370,7 +370,7 @@
                 android:id="@+id/rl_association"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/tv_association"
@@ -425,7 +425,7 @@
                 android:id="@+id/rl_works_display"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/tv_album"
@@ -482,7 +482,7 @@
                 android:id="@+id/rl_move_status"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/tv_move_status"

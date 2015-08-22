@@ -1,17 +1,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/main_white_color" >
+    android:background="@color/main_white_bg_color" >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_white_color" >
+        android:background="@color/main_white_bg_color" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/main_white_pure_color"
             android:orientation="vertical" >
 
             <!-- 详情内容标题部分 -->
@@ -20,7 +20,7 @@
                 android:id="@+id/content_rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/content_tv_title"
@@ -69,7 +69,7 @@
                 android:id="@+id/content_rl_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/main_white_color" >
+                android:background="@color/main_white_bg_color" >
 
                 <TextView
                     android:id="@+id/content_tv_content"
@@ -231,7 +231,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_gravity="bottom"
-        android:background="@color/white" >
+        android:background="@color/main_white_pure_color" >
 
         <ImageView
             android:id="@+id/phiz"

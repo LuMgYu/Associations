@@ -120,7 +120,7 @@ public class FragmentAssociation extends BaseFragment {
 				 */
 				private void resetBackground() {
 					for (TextView tv : views) {
-						tv.setBackgroundResource(R.color.white);
+						tv.setBackgroundResource(R.color.main_white_pure_color);
 					}
 				}
 			});

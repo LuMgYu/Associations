@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@color/main_white_color"
+    android:background="@color/main_white_bg_color"
     android:minHeight="60dp" >
 
     <!-- 通知布局 -->
@@ -42,7 +42,7 @@
         android:layout_toRightOf="@+id/fl_icon"
         android:text="系统通知"
         android:textColor="@color/text_black"
-        android:textSize="@dimen/text_common" />
+        android:textSize="@dimen/text_big" />
 
     <TextView
         android:id="@+id/tv_msg"

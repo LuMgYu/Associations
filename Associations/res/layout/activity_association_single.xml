@@ -11,7 +11,7 @@
         android:id="@+id/title_rl_title"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/white" >
+        android:background="@color/main_white_pure_color" >
 
         <com.zhiyisoft.associations.img.RoundImageView
             android:id="@+id/title_iv"
@@ -87,7 +87,7 @@
         android:id="@+id/title_rl_move"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
-        android:background="@color/white" >
+        android:background="@color/main_white_pure_color" >
 
         <ImageView
             android:id="@+id/move_iv"

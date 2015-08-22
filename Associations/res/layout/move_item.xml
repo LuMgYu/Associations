@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/main_white_pure_color"
     android:descendantFocusability="blocksDescendants" >
 
     <RelativeLayout
@@ -38,7 +38,7 @@
             android:background="@drawable/btn_red_more_radius"
             android:text="线上"
             android:textColor="@color/text_white"
-            android:textSize="@dimen/text_verysmall" />
+            android:textSize="@dimen/text_small" />
 
         <Button
             android:id="@+id/move_btn_event"
@@ -50,7 +50,7 @@
             android:background="@drawable/btn_blue_more_radius"
             android:text="赛事"
             android:textColor="@color/text_white"
-            android:textSize="@dimen/text_verysmall" />
+            android:textSize="@dimen/text_small" />
 
         <TextView
             android:id="@+id/move_tv_deadline"
@@ -63,7 +63,7 @@
             android:drawablePadding="4dp"
             android:text="2015-07-28--08.30"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/move_tv_allmove"
@@ -76,19 +76,21 @@
             android:drawablePadding="4dp"
             android:text="25参加"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/move_tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/move_tv_allmove"
+            android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/move_iv"
             android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
             android:maxLines="2"
             android:text="大学生摄影大赛正在如火如荼的报名，还在等什么理解报名吧"
-            android:textColor="@color/text_black"
+            android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>
 

@@ -5,20 +5,33 @@
     <color name="bottom_tv_color_change">#4d4</color>
     <!-- 主题颜色紅色 -->
     <color name="main_color">#ff4b4c</color>
-    <!-- 主题颜色白色 -->
-    <color name="main_white_color">#f9f9f9</color>
-    <!-- 主题颜色灰色 -->
-    <color name="main_gray_color">#ececec</color>
-    <!-- 主题黑色 -->
-    <color name="main_black_color">#000</color>
+    <!-- 辅助颜色 -->
+
+
+    <!-- 辅助黑色 -->
+    <color name="main_black_color">#333333</color>
+    <!-- 辅助次黑 -->
+    <color name="main_black_order1_color">#666666</color>
+    <!-- 辅助次黑2 -->
+    <color name="main_black_order2_color">#999999</color>
+    <!-- 辅助颜色灰色 -->
+    <color name="main_gray_color">#e7e7e7</color>
+    <!-- 辅助纯白色白色 -->
+    <color name="main_white_pure_color">#ffffff</color>
+    <!-- 背景颜色 -->
+    <color name="main_white_bg_color">#f9f9f9</color>
+    <!-- 特殊链接色 -->
+    <color name="main_href_color">#2f7dff</color>
 
     <!-- 字体颜色 -->
     <color name="text_white">#fff</color>
+    <!-- 标题正文 -->
     <color name="text_black">#333333</color>
-    <color name="text_gray">#999999</color>
-    <color name="text_more_gray">#cccccc</color>
+    <!-- 正文 -->
+    <color name="text_gray">#666666</color>
+    <!-- 次要文字 -->
+    <color name="text_more_gray">#999999</color>
     <color name="btn_blue_color">#7ebbff</color>
     <!-- 其它 -->
-    <color name="white">#fff</color>
 
 </resources>

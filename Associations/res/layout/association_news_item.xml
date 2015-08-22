@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white" >
+    android:background="@color/main_white_pure_color" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -33,9 +33,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/move_tv_title"
+            android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="@dimen/margin_top_big"
             android:layout_toRightOf="@id/move_iv"
             android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
             android:maxLines="2"
             android:text="正宗好凉茶，正宗好声音。欢迎收看由凉茶领导者加多宝独家冠名的加多宝中国好声音。这个夏天还是熟悉的味道，还是好听的声音。百雀羚草本，天然不刺激，中国好声音由百雀羚草本天然护肤品独家特约播出，本届好声音四位导师最得意的门生将踏上百雀羚天然草本音乐之旅。天翼好网络，传递好声音，互动上翼聊。中国电信天翼飞Young邀您参与我们的节目互动，赢取飞Young五千元纯流量大礼包。"
             android:textColor="@color/text_gray"

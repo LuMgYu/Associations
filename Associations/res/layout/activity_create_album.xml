@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_top"
-    android:background="@color/main_white_color"
+    android:background="@color/main_white_bg_color"
     android:orientation="vertical" >
 
     <include layout="@layout/view_line_vertical" />
@@ -14,7 +14,7 @@
         android:layout_height="@dimen/item_height"
         android:layout_marginLeft="@dimen/margin_left_small"
         android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/white" >
+        android:background="@color/main_white_pure_color" >
 
         <TextView
             android:id="@+id/tv_album"
@@ -47,7 +47,7 @@
         android:layout_height="100dp"
         android:layout_marginLeft="@dimen/margin_left_small"
         android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/white" >
+        android:background="@color/main_white_pure_color" >
 
         <TextView
             android:id="@+id/tv_album_des"
@@ -79,7 +79,7 @@
         android:layout_height="@dimen/item_height"
         android:layout_marginLeft="@dimen/margin_left_small"
         android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/white" >
+        android:background="@color/main_white_pure_color" >
 
         <TextView
             android:id="@+id/tv_isvisable"

@@ -77,6 +77,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoAlbumActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveCreateActivity" >

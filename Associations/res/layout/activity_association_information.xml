@@ -1,12 +1,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_white_color" >
+    android:background="@color/main_white_bg_color" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_white_color"
+        android:background="@color/main_white_bg_color"
         android:orientation="vertical" >
 
         <TextView
@@ -25,7 +25,7 @@
             android:id="@+id/association_rl_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_name"
@@ -66,7 +66,7 @@
             android:id="@+id/association_rl_school"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_school"
@@ -98,7 +98,7 @@
             android:id="@+id/association_rl_welfare"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_welfare"
@@ -130,7 +130,7 @@
             android:id="@+id/association_rl_about"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_about"
@@ -180,7 +180,7 @@
             android:id="@+id/association_rl_theme"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_theme"
@@ -211,7 +211,7 @@
             android:id="@+id/association_rl_contact"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_contact"
@@ -243,7 +243,7 @@
             android:id="@+id/association_rl_contact_way"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white" >
+            android:background="@color/main_white_pure_color" >
 
             <TextView
                 android:id="@+id/association_tv_contact_way"

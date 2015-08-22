@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_white_color" >
+    android:background="@color/main_white_bg_color" >
 
     <LinearLayout
         android:id="@+id/me_ll"
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="@dimen/margin_top"
-            android:background="@color/white"
+            android:background="@color/main_white_pure_color"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin_left_small"
             android:paddingRight="@dimen/margin_right_small" >
@@ -88,7 +88,7 @@
             android:id="@+id/me_rl_signature"
             android:layout_width="match_parent"
             android:layout_height="@dimen/item_height"
-            android:background="@color/white"
+            android:background="@color/main_white_pure_color"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin_left_small"
             android:paddingRight="@dimen/margin_right_small" >

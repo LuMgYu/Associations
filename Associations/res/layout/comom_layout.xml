@@ -32,7 +32,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/ll_bottom"
         android:layout_below="@id/ll_Title"
-        android:background="@color/main_white_color"
+        android:background="@color/main_white_bg_color"
         android:orientation="vertical" >
     </FrameLayout>
 

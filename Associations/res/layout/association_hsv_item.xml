@@ -24,7 +24,7 @@
             android:gravity="center"
             android:text="全部"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_verysmall" />
+            android:textSize="@dimen/text_small" />
     </LinearLayout>
 
 </RelativeLayout>

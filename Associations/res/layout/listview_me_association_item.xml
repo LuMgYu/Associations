@@ -23,7 +23,8 @@
             android:layout_toRightOf="@id/association_iv_icon"
             android:text="石家庄联合会社团"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_big"
+            android:textStyle="normal" />
 
         <TextView
             android:id="@+id/association_tv_member"
@@ -36,7 +37,7 @@
             android:drawablePadding="5dp"
             android:text="25成员"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/association_tv_content"
@@ -44,11 +45,12 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/association_iv_icon"
             android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
             android:layout_toRightOf="@id/association_iv_icon"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="我们是一个公益组织，请加入我们吧，孩子们"
-            android:textColor="@color/text_black"
+            android:text="我们是一个公益组织，请加入我们吧，孩子们你们好,呵呵哒"
+            android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
