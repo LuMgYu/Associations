@@ -79,32 +79,30 @@
             <Button
                 android:id="@+id/btn_all_move"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/item_height"
                 android:layout_marginBottom="@dimen/margin_bottom"
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="@dimen/margin_top"
                 android:layout_weight="1"
                 android:background="@drawable/all"
-                android:gravity="right|center_vertical"
-                android:paddingRight="25dp"
-                android:text="全国活动"
+                android:gravity="center"
+                android:text="        全国活动"
                 android:textColor="@color/text_white"
                 android:textSize="@dimen/text_big" />
 
             <Button
                 android:id="@+id/btn_around_move"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/item_height"
                 android:layout_marginBottom="@dimen/margin_bottom"
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_marginRight="@dimen/margin_left_small"
                 android:layout_marginTop="@dimen/margin_top"
                 android:layout_weight="1"
                 android:background="@drawable/bendi"
-                android:gravity="right|center_vertical"
-                android:paddingRight="25dp"
-                android:text="周边活动"
+                android:gravity="center"
+                android:text="    周边活动"
                 android:textColor="@color/text_white"
                 android:textSize="@dimen/text_big" />
         </LinearLayout>

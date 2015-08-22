@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -13,10 +14,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.AssociationInformationActivity;
+import com.zhiyisoft.associations.activity.AssociationMoveActivity;
 import com.zhiyisoft.associations.activity.AssociationNewActivity;
+import com.zhiyisoft.associations.activity.AssociationSingleActivity;
+import com.zhiyisoft.associations.activity.MoveDisplayActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
+import com.zhiyisoft.associations.activity.MoveWorksDisplayActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
@@ -48,6 +55,11 @@ public class HomeAdapter extends BAdapter {
 	private List<Model> mMoveList;
 	private List<Model> mWorksList;
 	private List<Model> mNewsList;
+
+	// 各个按钮的数组；
+	private View[] mTwoButton;
+	private View[] mRefreAssos;
+	private View[] mWorksViews;
 
 	public HomeAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
@@ -165,13 +177,81 @@ public class HomeAdapter extends BAdapter {
 					.findViewById(R.id.home_viewflow);
 			mViewHolder.mhome_viewflowindicator = (CircleFlowIndicator) mView
 					.findViewById(R.id.home_viewflowindicator);
+
+			mTwoButton = new View[] { mViewHolder.btn_all_move,
+					mViewHolder.btn_around_move };
+			mRefreAssos = new View[] { mViewHolder.iv_association1,
+					mViewHolder.iv_association2, mViewHolder.iv_association3,
+					mViewHolder.iv_association4 };
+			mWorksViews = new View[] { mViewHolder.iv_work1,
+					mViewHolder.iv_work2, mViewHolder.iv_work3 };
 		}
 	}
+
+	// private class MyOnclickListener implements OnClickListener {
+	//
+	// @Override
+	// public void onClick(View v) {
+	// switch (v.getId()) {
+	// case R.id.btn_all_move:
+	//
+	// break;
+	//
+	// case R.id.btn_all_move:
+	//
+	// break;
+	// case value:
+	//
+	// break;
+	// case value:
+	//
+	// break;
+	// }
+	//
+	// }
+
+	// }
 
 	/**
 	 * 设置监听器
 	 */
 	private void setListener() {
+		String[] strArray = new String[] { "全国活动", "周边活动" };
+		for (int i = 0; i < mTwoButton.length; i++) {
+			mTwoButton[i].setTag(strArray[i]);
+			mTwoButton[i].setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Bundle bundle = new Bundle();
+					bundle.putString(Config.HOTCATEGORY, (String) v.getTag());
+					mApp.startActivity(mBaseActivity,
+							MoveDisplayActivity.class, bundle);
+
+				}
+			});
+		}
+		for (int i = 0; i < mRefreAssos.length; i++) {
+			mRefreAssos[i].setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mApp.startActivity(mBaseActivity,
+							AssociationSingleActivity.class, null);
+
+				}
+			});
+		}
+		for (int i = 0; i < mWorksViews.length; i++) {
+			mWorksViews[i].setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mApp.startActivity(mBaseActivity,
+							MoveWorksDisplayActivity.class, null);
+
+				}
+			});
+		}
 		for (int i = 0; i < mHotItemViewArray.length; i++) {
 			mHotItemViewArray[i].setOnClickListener(new OnClickListener() {
 

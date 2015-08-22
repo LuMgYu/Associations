@@ -111,6 +111,7 @@ public class MainActivity extends BaseActivity {
 		tv_association = (TextView) findViewById(R.id.tv_association);
 		tv_notify = (TextView) findViewById(R.id.tv_notify);
 		tv_me = (TextView) findViewById(R.id.tv_me);
+		iv_title_left.setVisibility(View.GONE);
 		initPopWindow();
 		initFragmentHome();
 

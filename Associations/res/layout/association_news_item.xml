@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/move_tv_title"
             android:layout_marginRight="@dimen/margin_right_small"
-            android:layout_marginTop="@dimen/margin_top_big"
+            android:layout_marginTop="15dp"
             android:layout_toRightOf="@id/move_iv"
             android:ellipsize="end"
             android:lineSpacingExtra="@dimen/text_lineSpacingExtra"

@@ -15,7 +15,7 @@
     <!-- 次要文字 -->
     <dimen name="text_verysmall">10sp</dimen>
     <!-- 文字行间距 -->
-    <dimen name="text_lineSpacingExtra">2dp</dimen>
+    <dimen name="text_lineSpacingExtra">3dp</dimen>
 
     <!-- 定义左边距，右边距，上边距，下边距，以及條目的高度 -->
     <dimen name="margin_left">20dp</dimen>
