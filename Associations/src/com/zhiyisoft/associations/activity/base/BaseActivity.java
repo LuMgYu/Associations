@@ -102,6 +102,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 			initIntent();
 			initView();
 			initListener();
+			doRefreshNew();
 		} else {
 			mApp.startActivity(this, LoginActivity.class, null);
 		}
@@ -116,10 +117,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 */
 	public boolean checkTheUser() {
 		ModelUser user = mApp.getUser();
-		if (user == null) {
-			return false;
+		user.toString();
+		if (user != null && user.getMobile() != null) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	/** 初始化公共布局 */
@@ -172,17 +174,25 @@ public abstract class BaseActivity extends FragmentActivity implements
 		}
 	}
 
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		super.onWindowFocusChanged(hasFocus);
-		if (hasFocus) {
-			if (mAdapter != null) {
-				if (mAdapter.getList().size() > 0) {
-					mAdapter.mListView.autoRefresh();
-				} else {
-					mAdapter.doRefreshNew();
-				}
-			}
+	// @Override
+	// public void onWindowFocusChanged(boolean hasFocus) {
+	// super.onWindowFocusChanged(hasFocus);
+	// if (hasFocus) {
+	// if (mAdapter != null) {
+	// if (mAdapter.getList().size() > 0) {
+	// mAdapter.mListView.autoRefresh();
+	// } else {
+	// mAdapter.doRefreshNew();
+	// }
+	// }
+	// }
+	// }
+	/**
+	 * 第一次无数据的时候刷新
+	 */
+	private void doRefreshNew() {
+		if (mAdapter != null) {
+			mAdapter.doRefreshNew();
 		}
 	}
 

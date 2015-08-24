@@ -97,10 +97,10 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	 */
 	public boolean checkTheUser() {
 		ModelUser user = mApp.getUser();
-		if (user == null) {
-			return false;
+		if (user != null && user.getMobile() != null) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	/**

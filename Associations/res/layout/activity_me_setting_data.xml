@@ -21,12 +21,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="昵称:"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
@@ -41,7 +41,7 @@
             android:layout_marginRight="25dp"
             android:text="i牛牛哥"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />
@@ -59,12 +59,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="性别："
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+             android:layout_height="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
@@ -79,7 +79,7 @@
             android:layout_marginRight="25dp"
             android:text="男"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />
@@ -97,12 +97,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="学校："
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
@@ -117,7 +117,7 @@
             android:layout_marginRight="25dp"
             android:text="社会大学"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />
@@ -135,12 +135,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="家乡："
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+             android:layout_height="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
@@ -155,7 +155,7 @@
             android:layout_marginRight="25dp"
             android:text="四川 成都"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <View
@@ -177,12 +177,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="电子邮箱："
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+         android:layout_height="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
@@ -197,7 +197,7 @@
             android:layout_marginRight="25dp"
             android:text="sb94u@163.com"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />
@@ -215,12 +215,12 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="手机号码："
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="13dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
@@ -235,7 +235,32 @@
             android:layout_marginRight="25dp"
             android:text="1388888888"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_modify_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color" >
+
+        <TextView
+            android:id="@+id/tv__modify_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:text="修改密码:"
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+          android:layout_height="13dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
     </RelativeLayout>
 
 </LinearLayout>

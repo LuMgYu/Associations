@@ -15,12 +15,15 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.FragmentAssociation;
 import com.zhiyisoft.associations.fragment.FragmentHome;
+import com.zhiyisoft.associations.fragment.FragmentLogin;
 import com.zhiyisoft.associations.fragment.FragmentMe;
 import com.zhiyisoft.associations.fragment.FragmentMove;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.UIUtils;
 
 public class MainActivity extends BaseActivity {
@@ -47,13 +50,14 @@ public class MainActivity extends BaseActivity {
 	private FragmentAssociation mAssociationFragment;
 	private FragmentNotify mNotifyFragment;
 	private FragmentMe mMeFragment;
+	private FragmentLogin mLoginFragment;
 
 	public static int HOME = 0;
 	public static int MOVE = 1;
 	public static int ASSOCIATION = 2;
 	public static int NOTIFY = 3;
 	public static int ME = 4;
-	public static int mCurrentState = -1;
+	public static int mCurrentState = 0;
 
 	@Override
 	public String setCenterTitle() {
@@ -75,10 +79,17 @@ public class MainActivity extends BaseActivity {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.zhiyisoft.associations.activity.base.BaseActivity#initIntent()
+	 */
 	@Override
 	public void initIntent() {
-		// TODO Auto-generated method stub
-
+		mBundle = getIntent().getExtras();
+		if (mBundle != null) {
+			mCurrentState = mBundle.getInt(Config.MAIN_ACTIVITY, 0);
+		}
 	}
 
 	@Override
@@ -113,7 +124,7 @@ public class MainActivity extends BaseActivity {
 		tv_me = (TextView) findViewById(R.id.tv_me);
 		iv_title_left.setVisibility(View.GONE);
 		initPopWindow();
-		initFragmentHome();
+		chooseTheState(mCurrentState);
 
 	}
 
@@ -126,6 +137,50 @@ public class MainActivity extends BaseActivity {
 		ll_me.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
 
+	}
+
+	/**
+	 * 选择当前的当前的状态
+	 * 
+	 * @param state
+	 */
+	private void chooseTheState(int state) {
+		switch (state) {
+		case 0:
+			mCurrentState = HOME;
+			initFragmentHome();
+			break;
+
+		case 1:
+			mCurrentState = MOVE;
+			setAllImagetitle(0, 0, 0, R.drawable.more);
+			iv_title_right3.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					showPop(iv_title_right3, 0, 20);
+				}
+			});
+			initFragmentMove();
+			break;
+		case 2:
+			mCurrentState = ASSOCIATION;
+			setAlltitle(null, null, "创建");
+			tv_title_right.setVisibility(View.VISIBLE);
+			initFragmentAssociation();
+
+			break;
+		case 3:
+			mCurrentState = NOTIFY;
+			initFragmentNotify();
+			break;
+		case 4:
+			mCurrentState = ME;
+			iv_title_right2.setVisibility(View.VISIBLE);
+			initFragmentMe();
+
+			break;
+
+		}
 	}
 
 	@Override
@@ -187,13 +242,45 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * 初始化FragmentMe()
 	 */
-	private void initFragmentMe() {
-		if (mMeFragment == null) {
-			mMeFragment = new FragmentMe();
+	public void initFragmentMe() {
+		if (IsLogin()) {
+			if (mMeFragment == null) {
+				mMeFragment = new FragmentMe();
+			}
+			replaceFragment(mMeFragment);
+			changeTheTitle("我的");
+			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
+			iv_title_right2.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					mApp.startActivity(MainActivity.this,
+							MeSettingActivity.class, null);
+				}
+			});
+		} else {
+			if (mLoginFragment == null) {
+				mLoginFragment = new FragmentLogin();
+			}
+			replaceFragment(mLoginFragment);
+			setAlltitle("", "登录", "忘记密码？");
+			iv_title_right1.setVisibility(View.GONE);
+			iv_title_right2.setVisibility(View.GONE);
+			iv_title_right3.setVisibility(View.GONE);
 		}
-		replaceFragment(mMeFragment);
-		changeTheTitle("我的");
-		changeTheColor(iv_me, tv_me, R.drawable.personal_c);
+	}
+
+	/**
+	 * 是否登登录
+	 * 
+	 * @return
+	 */
+	public boolean IsLogin() {
+		ModelUser user = mApp.getUser();
+		if (user != null && user.getMobile() != null) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

@@ -5,11 +5,46 @@
     android:background="@color/main_white_bg_color"
     android:orientation="vertical" >
 
+    <RelativeLayout
+        android:id="@+id/rl_current_province"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small" >
+
+        <TextView
+            android:id="@+id/tv_current"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="当前地区："
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tv_current_province"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/tv_current"
+            android:gravity="center"
+            android:text="四川"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_gray_color" />
+
     <GridView
         android:id="@+id/province_gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_white_pure_color"
         android:numColumns="6"
         android:verticalSpacing="@dimen/margin_left" >
     </GridView>

@@ -36,6 +36,11 @@ public class FragmentNotify extends BaseFragment {
 	}
 
 	@Override
+	public boolean checkTheUser() {
+		return true;
+	}
+
+	@Override
 	public void initView() {
 		Log.i("notify", "-----------------------调用了initview");
 		if (mListView == null) {

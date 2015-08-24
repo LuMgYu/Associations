@@ -81,21 +81,16 @@ public class Association extends Application {
 	 * @return
 	 */
 	public ModelUser getUser() {
-		if (mUser == null) {
-			mUser = new ModelUser();
-			SharedPreferences preferences = this.getSharedPreferences(
-					Config.USER_DATA, MODE_PRIVATE);
-			String mobile = preferences.getString(Config.MOBILE, null);
-			String pwd = preferences.getString(Config.PWD, null);
-			String userAuth = preferences.getString(Config.USERAUTH, null);
-			mUser.setMobile(mobile);
-			mUser.setPwd(pwd);
-			mUser.setUserauth(userAuth);
-			// 如果mobile为为空的话，就说明根本就没有登录过，这个时候就把muser设置为空，到时候供外不调用
-			if (mobile == null) {
-				mUser = null;
-			}
-		}
+		mUser = new ModelUser();
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, MODE_PRIVATE);
+		String mobile = preferences.getString(Config.MOBILE, null);
+		String pwd = preferences.getString(Config.PWD, null);
+		String userAuth = preferences.getString(Config.USERAUTH, null);
+		mUser.setMobile(mobile);
+		mUser.setPwd(pwd);
+		mUser.setUserauth(userAuth);
+		// 如果mobile为为空的话，就说明根本就没有登录过，这个时候就把muser设置为空，到时候供外不调用
 		return mUser;
 	}
 

@@ -3,7 +3,9 @@ package com.zhiyisoft.associations.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,11 @@ public class FragmentAssociation extends BaseFragment {
 	}
 
 	@Override
+	public boolean checkTheUser() {
+		return true;
+	}
+
+	@Override
 	public void initView() {
 		mContext = getActivity();
 		school_ll = (LinearLayout) findViewById(R.id.school_ll);
@@ -67,7 +74,22 @@ public class FragmentAssociation extends BaseFragment {
 		school_rl_change = (RelativeLayout) findViewById(R.id.school_rl_change);
 		school_iv_change = (ImageView) findViewById(R.id.school_iv_change);
 		school_tv = (TextView) findViewById(R.id.school_tv);
+		getCurrentSchool(school_tv);
+	}
 
+	/**
+	 * 获取当前的省份
+	 */
+	private void getCurrentSchool(TextView tv) {
+		SharedPreferences preferences = mActivity.getSharedPreferences(
+				Config.USER_DATA, Activity.MODE_PRIVATE);
+		String province = preferences.getString(Config.CURRENT_SCHOOL, null);
+		if (province != null) {
+			tv.setVisibility(View.VISIBLE);
+			tv.setText(province + "");
+			return;
+		}
+		tv.setVisibility(View.GONE);
 	}
 
 	@Override

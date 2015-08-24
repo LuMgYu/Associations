@@ -23,6 +23,11 @@ public class SplashActivity extends BaseActivity {
 
 	}
 
+	@Override
+	public boolean checkTheUser() {
+		return true;
+	}
+
 	class splashhandler implements Runnable {
 
 		public void run() {

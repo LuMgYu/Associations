@@ -2,18 +2,18 @@ package com.zhiyisoft.associations.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationNewActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;

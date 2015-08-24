@@ -272,7 +272,7 @@ public abstract class BAdapter extends BaseAdapter {
 				sendMessage(REFRESH_NEW, mList);
 				break;
 			case REFRESH_HEADER:
-//				Log.i("refresh", "public void run()--REFRESH_HEADER");
+				// Log.i("refresh", "public void run()--REFRESH_HEADER");
 				sendMessage(REFRESH_HEADER,
 						refreshHeader(mList.get(0), REFRESH_COUNT));
 				break;

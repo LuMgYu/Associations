@@ -1,10 +1,13 @@
 package com.zhiyisoft.associations.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -31,6 +34,9 @@ public class MeSettingProvinceActivity extends BaseActivity {
 			"海南", "湖南", "河南", "贵州", "江西", "广西", "陕西", "山西", "青海", "宁夏", "甘肃",
 			"西藏", "内蒙古", "新疆", "台湾", "香港", "澳门", "国外" };
 
+	private RelativeLayout rl_current_province;
+	private TextView tv_current_province;
+
 	@Override
 	public String setCenterTitle() {
 		return "选择省份";
@@ -51,7 +57,23 @@ public class MeSettingProvinceActivity extends BaseActivity {
 		province_gv = (GridView) findViewById(R.id.province_gv);
 		mAdapter = new MyStringGridViewAdapter(mStr, this);
 		province_gv.setAdapter(mAdapter);
+		rl_current_province = (RelativeLayout) findViewById(R.id.rl_current_province);
+		tv_current_province = (TextView) findViewById(R.id.tv_current_province);
+		rl_current_province.setVisibility(View.GONE);
+		getCurrentProvince();
+	}
 
+	/**
+	 * 获取当前的省份
+	 */
+	private void getCurrentProvince() {
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, MODE_PRIVATE);
+		String province = preferences.getString(Config.CURRENT_PROVINCE, null);
+		if (province != null) {
+			rl_current_province.setVisibility(View.VISIBLE);
+			tv_current_province.setText(province + "");
+		}
 	}
 
 	@Override
@@ -68,6 +90,12 @@ public class MeSettingProvinceActivity extends BaseActivity {
 						MeSettingSchoolActivity.class, data);
 			}
 		});
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		getCurrentProvince();
 	}
 
 	@Override

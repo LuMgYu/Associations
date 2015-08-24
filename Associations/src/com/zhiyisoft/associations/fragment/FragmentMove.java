@@ -60,6 +60,11 @@ public class FragmentMove extends BaseFragment {
 	}
 
 	@Override
+	public boolean checkTheUser() {
+		return true;
+	}
+
+	@Override
 	public void initView() {
 		move_iv_zoom = (ImageView) findViewById(R.id.move_iv_zoom);
 		move_et_zoom = (EditText) findViewById(R.id.move_et_zoom);

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_bg_color"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_gray_color" />
+    <!-- 消息推送 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="消息推送"
+            android:textColor="@color/main_black_order2_color"
+            android:textSize="@dimen/text_small" >
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_openMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/on" >
+        </ImageView>
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+    <!-- 清除缓存 -->
+
+    <RelativeLayout
+        android:id="@+id/setting_rl_cache"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="清除缓存"
+            android:textColor="@color/main_black_order2_color"
+            android:textSize="@dimen/text_small" >
+        </TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/x" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/setting_tv_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right"
+            android:src="@drawable/x"
+            android:text="122.5M"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" >
+        </TextView>
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+    <!-- 使用条款 -->
+
+    <RelativeLayout
+        android:id="@+id/setting_rl_article"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="使用条款"
+            android:textColor="@color/main_black_order2_color"
+            android:textSize="@dimen/text_small" >
+        </TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/x" >
+        </ImageView>
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <include layout="@layout/view_line_vertical" />
+    <!-- 使用条款 -->
+
+    <RelativeLayout
+        android:id="@+id/setting_rl_edition"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="检查版本"
+            android:textColor="@color/main_black_order2_color"
+            android:textSize="@dimen/text_small" >
+        </TextView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/x" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/setting_tv_edition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right"
+            android:src="@drawable/x"
+            android:text="V1.0"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" >
+        </TextView>
+    </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <Button
+        android:id="@+id/btn_setting_quit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:layout_marginTop="@dimen/item_height"
+        android:background="@drawable/btn_red"
+        android:text="退出登录"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_small" />
+
+</LinearLayout>

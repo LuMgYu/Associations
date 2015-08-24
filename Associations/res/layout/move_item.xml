@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom" >
 
         <FrameLayout
             android:id="@+id/fl_move_iv"
@@ -98,7 +99,6 @@
             android:id="@+id/move_tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/fl_move_iv"
             android:layout_below="@id/move_tv_allmove"
             android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="8dp"

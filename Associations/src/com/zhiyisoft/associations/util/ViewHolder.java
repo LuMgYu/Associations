@@ -53,4 +53,16 @@ public class ViewHolder {
 	public ViewFlow mhome_viewflow;
 	public CircleFlowIndicator mhome_viewflowindicator;
 	/******************************** home item的各种控件 ********************************************/
+	/******************************** 作品的照片的各种控件 ********************************************/
+	public RoundImageView iv_photo_user_icon;
+	public TextView tv_user_name;
+	public TextView tv_user_send;
+	public TextView tv_photo_title;
+	public RoundImageView iv_photo1;
+	public TextView iv_photo2;
+	public LinearLayout iv_photo3;
+	public LinearLayout tv_photo_date;
+	public SmartImageView tv_photo_commit;
+	/******************************** 作品的照片的各种控件end ********************************************/
+
 }
