@@ -29,6 +29,6 @@ public class NotifyNfyListview extends BaseListView {
 
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
-		mApp.startActivity(mApp.getActivity(), XScrollViewActivity.class, null);
+		mApp.startActivity(mApp.getActivity(), NotifyDetailActivity.class, null);
 	}
 }

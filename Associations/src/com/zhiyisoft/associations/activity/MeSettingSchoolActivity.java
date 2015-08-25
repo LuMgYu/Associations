@@ -66,7 +66,7 @@ public class MeSettingSchoolActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				ModelSchool modelSchool = (ModelSchool) mAdapter.mList
-						.get(position);
+						.get(position - 1);
 				String school = modelSchool.getName();
 				saveToSharePreference(mProvince, school);
 				// TODO 要做判断---跳转到主页的第三个

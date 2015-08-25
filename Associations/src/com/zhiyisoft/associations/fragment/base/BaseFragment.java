@@ -59,9 +59,18 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (mView == null) {
+			mApp = (Association) getActivity().getApplication();
+			mActivity = (BaseActivity) getActivity();
 			mView = inflater.inflate(getLayoutId(), null);
 			mInflater = inflater;
-
+			if (checkTheUser()) {
+				initIntentData();
+				initView();
+				initListener();
+				initData();
+			} else {
+				mApp.startActivity(getActivity(), LoginActivity.class, null);
+			}
 		} else {
 			// 当存在mview的时候就调用清零
 			ViewGroup parent = (ViewGroup) mView.getParent();
@@ -73,21 +82,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		return mView;
 	}
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		mApp = (Association) getActivity().getApplication();
-		mActivity = (BaseActivity) getActivity();
-		if (checkTheUser()) {
-			initIntentData();
-			initView();
-			initListener();
-			initData();
-		} else {
-			mApp.startActivity(getActivity(), LoginActivity.class, null);
-		}
-	}
-
 	/**
 	 * 判断这个用户是否登录过
 	 * 
@@ -97,7 +91,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	 */
 	public boolean checkTheUser() {
 		ModelUser user = mApp.getUser();
-		if (user != null && user.getMobile() != null) {
+		if (user != null) {
 			return true;
 		}
 		return false;

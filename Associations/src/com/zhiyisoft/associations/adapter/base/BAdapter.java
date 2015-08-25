@@ -167,9 +167,11 @@ public abstract class BAdapter extends BaseAdapter {
 			if (mList.size() > 0) {
 				for (int i = 0; i < cacheList.size(); i++) {
 					cacheList.add(mList.remove(i));
+					this.notifyDataSetChanged(); // 修复了这里的bug，卧槽
 				}
 			}
 			mList.addAll(list);
+			this.notifyDataSetChanged();
 			mList.addAll(cacheList);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();

@@ -120,10 +120,4 @@
             android:background="@color/main_gray_color" />
     </RelativeLayout>
 
-    <com.zhiyisoft.associations.listview.MoveListview
-        android:id="@+id/move_lv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="180dp" />
-
 </LinearLayout>

@@ -43,6 +43,7 @@ public class FragmentAssociation extends BaseFragment {
 	@Override
 	public void initView() {
 		mListView = (AssociationListview) findViewById(R.id.mXlistView);
+		mListView.setPullRefreshEnable(false);
 		mAdapter = new AssociationMainAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 	}

@@ -80,5 +80,16 @@ public class ViewHolder {
 	public TextView move_my_tv;
 	public TextView tv_bottom_line;
 	/******************************** 活动一级页面的控件end ********************************************/
+	/******************************** 单个社团控件 ********************************************/
+	public RoundImageView title_iv;
+	public TextView title_tv;
+	public TextView title_tv_member;
+	public TextView title_tv_topic;
+	public TextView title_tv_school;
+	public TextView title_tv_type;
+	public TextView title_tv_move;
+	public RelativeLayout title_rl_move;
+
+	/******************************** 单个社团end ********************************************/
 
 }

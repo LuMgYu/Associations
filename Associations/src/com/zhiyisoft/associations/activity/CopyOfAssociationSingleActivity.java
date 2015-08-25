@@ -11,6 +11,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationNewAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.listview.AssociationNewListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.UIUtils;
@@ -28,12 +30,20 @@ import com.zhiyisoft.associations.util.UIUtils;
  *
  */
 
-public class AssociationSingleActivity extends BaseActivity {
+public class CopyOfAssociationSingleActivity extends BaseActivity {
+	private RoundImageView title_iv;
+	private TextView title_tv;
+	private TextView title_tv_member;
+	private TextView title_tv_topic;
+	private TextView title_tv_school;
+	private TextView title_tv_type;
+	private TextView title_tv_move;
+	private RelativeLayout title_rl_move;
 	private BaseListView single_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
-	// ------------PopupWindow里面的控件--------------------------
 	private PopupWindow mPopupWindow;
+	// ------------PopupWindow里面的控件--------------------------
 	private RoundImageView association_icon;
 	private LinearLayout association_ll_data;
 	private TextView mexmber;
@@ -66,8 +76,14 @@ public class AssociationSingleActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		single_lv = (BaseListView) findViewById(R.id.single_lv);
-		single_lv.setPullRefreshEnable(false);
+		title_iv = (RoundImageView) findViewById(R.id.title_iv);
+		title_tv = (TextView) findViewById(R.id.title_tv);
+		title_tv_member = (TextView) findViewById(R.id.title_tv_member);
+		title_tv_topic = (TextView) findViewById(R.id.title_tv_topic);
+		title_tv_school = (TextView) findViewById(R.id.title_tv_school);
+		title_tv_move = (TextView) findViewById(R.id.title_tv_move);
+		title_rl_move = (RelativeLayout) findViewById(R.id.title_rl_move);
+		single_lv = (AssociationNewListview) findViewById(R.id.single_lv);
 		mAdapter = new AssociationNewAdapter(this, mlist);
 		single_lv.setAdapter(mAdapter);
 		initPopWindow();
@@ -75,6 +91,8 @@ public class AssociationSingleActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
+		title_iv.setOnClickListener(this);
+		title_rl_move.setOnClickListener(this);
 		iv_title_right1.setOnClickListener(this);
 		iv_title_right2.setOnClickListener(this);
 
@@ -83,6 +101,20 @@ public class AssociationSingleActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.title_iv:
+			Bundle data = new Bundle();
+			mApp.startActivity(this, MeSettingNickActivity.class, data);
+			break;
+		case R.id.title_rl_move:
+			Bundle data1 = new Bundle();
+			mApp.startActivity(this, AssociationMoveActivity.class, data1);
+			break;
+		case R.id.iv_title_right1:
+			mApp.startActivity(this, AssociationSendTopicActivity.class, null);
+			break;
+		case R.id.iv_title_right2:
+			showPop(title_iv, 0, 0);
+			break;
 		// ------------popwindow------------------------------------------
 		case R.id.association_icon:
 			mApp.startActivity(this, MeSettingNickActivity.class, null);

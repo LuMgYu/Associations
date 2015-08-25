@@ -79,6 +79,7 @@ public class MoveMainAdapter extends BAdapter {
 		mViewHolder.tv_bottom_line = (TextView) mFirstView
 				.findViewById(R.id.tv_bottom_line);
 		mItemWidth = UIUtils.getWindowWidth(mBaseActivity) / 2;
+		mViewHolder.tv_bottom_line.setWidth(mItemWidth);
 	}
 
 	/**

@@ -306,11 +306,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 *            需要改变的控件
 	 */
 	public void setViewStatus(View view) {
-		if (View.GONE == view.getVisibility()) {
-			view.setVisibility(View.VISIBLE);
-			return;
+		if (view != null) {
+			if (View.GONE == view.getVisibility()) {
+				view.setVisibility(View.VISIBLE);
+				return;
+			}
+			view.setVisibility(View.GONE);
 		}
-		view.setVisibility(View.GONE);
 	}
 
 	/**
