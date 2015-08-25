@@ -340,8 +340,10 @@ public class MainActivity extends BaseActivity {
 	}
 
 	private void replaceFragment(BaseFragment fragment) {
-		FragmentTransaction mFTransaction = mFManager.beginTransaction();
-		mFTransaction.replace(R.id.ll_content, fragment).commit();
+		if (!fragment.isAdded()) {
+			FragmentTransaction mFTransaction = mFManager.beginTransaction();
+			mFTransaction.replace(R.id.ll_content, fragment).commit();
+		}
 	}
 
 	/**

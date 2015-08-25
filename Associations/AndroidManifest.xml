@@ -67,6 +67,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateAlbumActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationAgreementActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumSingleActivity" >
@@ -107,7 +109,9 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveMyActivity" >
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MainActivity" >
+        <activity
+            android:name="com.zhiyisoft.associations.activity.MainActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.widget.XScrollViewActivity" >
         </activity>

@@ -137,6 +137,7 @@ public abstract class BAdapter extends BaseAdapter {
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
 			mList = new ArrayList<Model>();
+		this.notifyDataSetChanged();
 		if (mList.size() > 0) {
 			mExecutor.execute(new WorkThread(REFRESH_HEADER));
 		} else {
@@ -150,6 +151,7 @@ public abstract class BAdapter extends BaseAdapter {
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		if (mList == null)
 			mList = new ArrayList<Model>();
+		this.notifyDataSetChanged();
 		if (!mList.isEmpty()) {
 			mExecutor.execute(new WorkThread(REFRESH_FOOTER));
 		}
@@ -232,6 +234,7 @@ public abstract class BAdapter extends BaseAdapter {
 	public void deleteAlltheItem() {
 		if (mList.size() > 0) {
 			mList.removeAll(mList);
+			this.notifyDataSetChanged();
 		}
 	}
 
@@ -270,8 +273,8 @@ public abstract class BAdapter extends BaseAdapter {
 		public void run() {
 			switch (type) {
 			case REFRESH_NEW:
-				firstRefreshData();
-				sendMessage(REFRESH_NEW, mList);
+				List<Model> list = firstRefreshData();
+				sendMessage(REFRESH_NEW, list);
 				break;
 			case REFRESH_HEADER:
 				// Log.i("refresh", "public void run()--REFRESH_HEADER");
@@ -284,23 +287,6 @@ public abstract class BAdapter extends BaseAdapter {
 						refreshFooter(mList.get(mList.size() - 1),
 								REFRESH_COUNT));
 				break;
-			}
-		}
-
-		/**
-		 * 第一次刷新数据（就是打開listview 獲取的数据）先獲取緩存中的數據，如果存在就加載出來，否則就去網絡上獲取數據
-		 */
-		private void firstRefreshData() {
-			mCache = getCache();
-			if (mCache != null) {
-				mList = mCache.getTheData(0);
-			}
-			if (mList == null || !(mList.size() > 0)) {
-				// TODO 这里要先检查网络是否有，如果没有的话 就return；
-				List<Model> list = refreshNew();
-				if (list == null)
-					list = new ArrayList<Model>();
-				mList = list;
 			}
 		}
 
@@ -319,6 +305,21 @@ public abstract class BAdapter extends BaseAdapter {
 			message.obj = items;
 			mHandle.sendMessage(message);
 		}
+	}
+
+	/**
+	 * 第一次刷新数据（就是打開listview 獲取的数据）先獲取緩存中的數據，如果存在就加載出來，否則就去網絡上獲取數據
+	 */
+	private List<Model> firstRefreshData() {
+		mCache = getCache();
+		if (mCache != null) {
+			return mCache.getTheData(0);
+		}
+		// TODO 这里要先检查网络是否有，如果没有的话 就return；
+		List<Model> list = refreshNew();
+		if (list == null)
+			list = new ArrayList<Model>();
+		return list;
 	}
 
 	public void setListView(BaseListView listView) {

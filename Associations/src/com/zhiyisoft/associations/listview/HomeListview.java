@@ -2,7 +2,6 @@ package com.zhiyisoft.associations.listview;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -24,6 +23,7 @@ public class HomeListview extends BaseListView {
 	public HomeListview(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
+		setFooterGone();
 	}
 
 	@Override

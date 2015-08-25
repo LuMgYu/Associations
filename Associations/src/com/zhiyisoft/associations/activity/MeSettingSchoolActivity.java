@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -74,7 +75,8 @@ public class MeSettingSchoolActivity extends BaseActivity {
 				bundle.putInt(Config.MAIN_ACTIVITY, MainActivity.ASSOCIATION);
 				bundle.putString(Config.CURRENT_SCHOOL, school);
 				mApp.startActivity(MeSettingSchoolActivity.this,
-						MainActivity.class, bundle);
+						MainActivity.class, bundle,
+						Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			}
 		});
 	}
