@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_pure_color"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginTop="@dimen/margin_top"
+        android:text="热门分类"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_big" />
+    <!-- 热门种类 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" >
+
+        <HorizontalScrollView
+            android:id="@+id/move_hsv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none" >
+
+            <LinearLayout
+                android:id="@+id/move_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <!-- 搜索你感兴趣的 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@drawable/rl_border" >
+
+        <ImageView
+            android:id="@+id/move_iv_zoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:background="@drawable/zoom" />
+
+        <EditText
+            android:id="@+id/move_et_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@id/move_iv_zoom"
+            android:background="@null"
+            android:hint="搜索你感兴趣的活动"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+    <!-- 搜索你感兴趣的 -->
+
+    <RelativeLayout
+        android:id="@+id/move_rl_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/move_ll_change"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/move_arround_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周边活动"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_big" />
+
+            <View
+                android:layout_width="@dimen/line_height"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@color/main_gray_color" />
+
+            <TextView
+                android:id="@+id/move_my_tv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="我的活动"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_big" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_bottom_line"
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_below="@id/move_ll_change"
+            android:background="@color/main_color" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/tv_bottom_line"
+            android:background="@color/main_gray_color" />
+    </RelativeLayout>
+
+    <com.zhiyisoft.associations.listview.MoveListview
+        android:id="@+id/move_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="180dp" />
+
+</LinearLayout>

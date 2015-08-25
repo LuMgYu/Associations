@@ -2,7 +2,9 @@ package com.zhiyisoft.associations.util;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,5 +66,19 @@ public class ViewHolder {
 	public LinearLayout tv_photo_date;
 	public SmartImageView tv_photo_commit;
 	/******************************** 作品的照片的各种控件end ********************************************/
+	/******************************** 社团一级页面的控件 ********************************************/
+	public LinearLayout school_ll;
+	public RelativeLayout school_rl_change;
+	public ImageView school_iv_change;
+	public TextView school_tv;
+	/******************************** 社团一级页面的控件end ********************************************/
+	/******************************** 活动一级页面的控件 ********************************************/
+	public LinearLayout move_ll;
+	public ImageView move_iv_zoom;
+	public EditText move_et_zoom;
+	public TextView move_arround_tv;
+	public TextView move_my_tv;
+	public TextView tv_bottom_line;
+	/******************************** 活动一级页面的控件end ********************************************/
 
 }

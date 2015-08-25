@@ -24,6 +24,7 @@ import com.zhiyisoft.associations.fragment.FragmentMove;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
 public class MainActivity extends BaseActivity {
@@ -139,6 +140,14 @@ public class MainActivity extends BaseActivity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		if (mCurrentState == ME) {
+			initFragmentMe();
+		}
+		super.onResume();
+	}
+
 	/**
 	 * 选择当前的当前的状态
 	 * 
@@ -243,13 +252,13 @@ public class MainActivity extends BaseActivity {
 	 * 初始化FragmentMe()
 	 */
 	public void initFragmentMe() {
+		changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 		if (IsLogin()) {
 			if (mMeFragment == null) {
 				mMeFragment = new FragmentMe();
 			}
 			replaceFragment(mMeFragment);
 			changeTheTitle("我的");
-			changeTheColor(iv_me, tv_me, R.drawable.personal_c);
 			iv_title_right2.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -264,9 +273,7 @@ public class MainActivity extends BaseActivity {
 			}
 			replaceFragment(mLoginFragment);
 			setAlltitle("", "登录", "忘记密码？");
-			iv_title_right1.setVisibility(View.GONE);
 			iv_title_right2.setVisibility(View.GONE);
-			iv_title_right3.setVisibility(View.GONE);
 		}
 	}
 

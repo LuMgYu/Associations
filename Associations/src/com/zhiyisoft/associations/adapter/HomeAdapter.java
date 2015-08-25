@@ -26,6 +26,7 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -68,7 +69,6 @@ public class HomeAdapter extends BAdapter {
 		super(fragment, list);
 	}
 
-	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (mView == null) {
@@ -280,10 +280,22 @@ public class HomeAdapter extends BAdapter {
 
 	}
 
+	public boolean IsLogin() {
+		ModelUser user = mApp.getUser();
+		if (user != null && user.getMobile() != null) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * 添加我的社团
 	 */
 	private void addMyAssociation() {
+		if (!IsLogin()) {
+			mViewHolder.home_rl_my_association.setVisibility(View.GONE);
+			return;
+		}
 		String[] StringName = new String[] { "羽毛球社团", "乒乓球社团", "花花球社团",
 				"泡妹子社团", "交友社团" };
 		View itemView = null;

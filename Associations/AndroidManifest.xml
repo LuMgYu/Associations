@@ -103,6 +103,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MainActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.widget.XScrollViewActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -44,8 +44,6 @@ public class FragmentNotify extends BaseFragment {
 	public void initView() {
 		Log.i("notify", "-----------------------调用了initview");
 		if (mListView == null) {
-			Log.i("notify",
-					"-----------------------调用了initview——mListView == null");
 			mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
 			mAdapter = new NotifyNfyAdapter(this, mlist);
 			mListView.setAdapter(mAdapter);

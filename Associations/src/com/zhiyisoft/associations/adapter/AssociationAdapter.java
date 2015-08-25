@@ -55,8 +55,11 @@ public class AssociationAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		return items;
 	}
 
 	@Override
