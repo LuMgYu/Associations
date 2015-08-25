@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_left_small"
+    android:paddingRight="@dimen/margin_right_small" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_big"
+        android:text="社团开通协议"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/text_big" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_big"
+        android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
+        android:text="1. 圈主及圈子管理员对圈子的管理负有直接责任，应确保圈子内的图片、文档、文字等信息符合公司相关管理规定要求和规范。\n2. 圈子支持原创信息的分享，任何转载请注明出处，并由转载人承担相关法律责任。\n3. 圈子内不能发布团购、征婚、广告、物品转让等内容，心声社区管理员有权删除不符合规定的信息。\n4. 心声社区管理员有权关闭不符合规定的圈子，并保留对圈子成员的处罚权力。\n5. 本规定中没有具体说明的问题，需结合以往处罚案例或社区内约定的处罚惯例处理或提交社区管理组讨论作出最终处理。\n 6. 本规定的制定、修改和解释权归本社区所有。
+"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+
+</LinearLayout>

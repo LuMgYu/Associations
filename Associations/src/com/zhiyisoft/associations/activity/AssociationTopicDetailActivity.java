@@ -25,8 +25,15 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private BAdapter mAdapter;
 
 	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+		setAllImagetitle(0, 0, R.drawable.shareout, 0);
+	}
+
+	@Override
 	public String setCenterTitle() {
-		return "社团详情";
+		return "详情";
+
 	}
 
 	@Override
@@ -41,9 +48,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-//		album_lv = (AssociationAlbumListview) findViewById(R.id.album_lv);
-//		mAdapter = new AssociationAlbumAdapter(this, mlist);
-//		album_lv.setAdapter(mAdapter);
+		// album_lv = (AssociationAlbumListview) findViewById(R.id.album_lv);
+		// mAdapter = new AssociationAlbumAdapter(this, mlist);
+		// album_lv.setAdapter(mAdapter);
 	}
 
 	@Override

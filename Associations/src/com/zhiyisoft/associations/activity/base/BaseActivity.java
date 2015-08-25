@@ -170,7 +170,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 			tv_title.setText(title + "");
 		} else {
 			// 如果没有title的话 就设置为空
-			setViewStatus(mTitlell);
+			setViewVisable(mTitlell);
 		}
 	}
 
@@ -282,19 +282,19 @@ public abstract class BaseActivity extends FragmentActivity implements
 			int rightResId, int rightResid3) {
 		if (leftResId != 0) {
 			iv_title_left.setImageResource(leftResId);
-			setViewStatus(iv_title_left);
+			setViewVisable(iv_title_left);
 		}
 		if (rightResId1 != 0) {
 			iv_title_right1.setImageResource(rightResId1);
-			setViewStatus(iv_title_right1);
+			setViewVisable(iv_title_right1);
 		}
 		if (rightResId != 0) {
 			iv_title_right2.setImageResource(rightResId);
-			setViewStatus(iv_title_right2);
+			setViewVisable(iv_title_right2);
 		}
 		if (rightResid3 != 0) {
 			iv_title_right3.setImageResource(rightResid3);
-			setViewStatus(iv_title_right3);
+			setViewVisable(iv_title_right3);
 		}
 
 	}
@@ -305,13 +305,9 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 * @param view
 	 *            需要改变的控件
 	 */
-	public void setViewStatus(View view) {
+	public void setViewVisable(View view) {
 		if (view != null) {
-			if (View.GONE == view.getVisibility()) {
-				view.setVisibility(View.VISIBLE);
-				return;
-			}
-			view.setVisibility(View.GONE);
+			view.setVisibility(View.VISIBLE);
 		}
 	}
 

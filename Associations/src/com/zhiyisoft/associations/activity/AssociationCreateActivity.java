@@ -1,6 +1,8 @@
 package com.zhiyisoft.associations.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,6 +17,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.util.Anim;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -89,6 +92,8 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_iv_commit_yes = (ImageView) findViewById(R.id.association_iv_commit_yes);
 		association_tv_commit_yes = (TextView) findViewById(R.id.association_tv_commit_yes);
 		association_btn_commit = (Button) findViewById(R.id.association_btn_commit);
+		association_tv_commit_yes.getPaint()
+				.setFlags(Paint.UNDERLINE_TEXT_FLAG); // 下划线
 	}
 
 	@Override
@@ -100,6 +105,7 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_iv_no.setOnClickListener(this);
 		association_rl_main.setOnClickListener(this);
 		association_btn_commit.setOnClickListener(this);
+		association_tv_commit_yes.setOnClickListener(this);
 
 	}
 
@@ -119,6 +125,13 @@ public class AssociationCreateActivity extends BaseActivity {
 		case R.id.association_rl_school:
 			Bundle data1 = new Bundle();
 			mApp.startActivity(this, MeSettingProvinceActivity.class, data1);
+			break;
+		case R.id.association_tv_commit_yes:
+			Bundle dat = new Bundle();
+			Intent intent = new Intent();
+			intent.setClass(this, AssociationAgreementActivity.class);
+			startActivity(intent);
+			Anim.startActivityFromBottom(this);
 			break;
 		case R.id.association_iv_welfare:
 			Bundle data2 = new Bundle();
