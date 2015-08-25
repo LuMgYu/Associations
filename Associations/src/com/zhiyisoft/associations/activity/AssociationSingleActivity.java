@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +85,12 @@ public class AssociationSingleActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.iv_title_right1:
+			mApp.startActivity(this, AssociationSendTopicActivity.class, null);
+			break;
+		case R.id.iv_title_right2:
+			showPop(iv_title_right2, 0, 0);
+			break;
 		// ------------popwindow------------------------------------------
 		case R.id.association_icon:
 			mApp.startActivity(this, MeSettingNickActivity.class, null);
@@ -118,6 +126,13 @@ public class AssociationSingleActivity extends BaseActivity {
 				UIUtils.getWindowWidth(getApplicationContext()) / 2,
 				LayoutParams.MATCH_PARENT);
 		mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+		mPopupWindow.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				setWindowAlpha(1.0f);
+			}
+		});
 		// 设置popwindow出现和消失动画
 		initPopWidge(popView);
 		setPopListener();
@@ -159,10 +174,23 @@ public class AssociationSingleActivity extends BaseActivity {
 	public void showPop(View parent, int x, int y) {
 		// 设置popwindow显示位置
 		mPopupWindow.showAtLocation(parent, Gravity.RIGHT, x, y);
+		setWindowAlpha(0.7f);
 		// 获取popwindow焦点
 		mPopupWindow.setFocusable(true);
 		// 设置popwindow如果点击外面区域，便关闭。
 		mPopupWindow.setOutsideTouchable(true);
 		mPopupWindow.update();
+	}
+
+	/**
+	 * 设置屏幕的透明度
+	 * 
+	 * @param alpha
+	 *            需要设置透明度
+	 */
+	private void setWindowAlpha(float alpha) {
+		WindowManager.LayoutParams params = getWindow().getAttributes();
+		params.alpha = alpha;
+		getWindow().setAttributes(params);
 	}
 }

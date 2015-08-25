@@ -81,7 +81,9 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity" >
+        <activity
+            android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoAlbumActivity" >
         </activity>

@@ -29,7 +29,8 @@
                     android:layout_margin="@dimen/margin_left_small"
                     android:text="手把手教你--旅行时拍出震撼人心的旅行大片"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_big" />
+                    android:textSize="@dimen/text_big"
+                    android:textStyle="normal" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/user_icon"
@@ -77,10 +78,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_left_small"
                     android:ellipsize="end"
+                    android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
                     android:maxLines="2"
                     android:text="旅行路中,我们手中的相机除了记录美好的风景还可以记录自己从衣服配色到场景选择，以及天气好姿势"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/text_common" />
+                    android:textColor="@color/text_gray"
+                    android:textSize="@dimen/text_small" />
 
                 <LinearLayout
                     android:id="@+id/content_ll_photo"
@@ -130,7 +132,7 @@
                         android:layout_toRightOf="@id/item_user_icon"
                         android:gravity="center_vertical"
                         android:text="千年的牛牛"
-                        android:textColor="@color/text_black"
+                        android:textColor="@color/text_gray"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -162,10 +164,12 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/margin_left_small"
+                        android:layout_marginRight="@dimen/margin_right_small"
                         android:background="@drawable/huifu"
                         android:gravity="center"
-                        android:text="回复"
-                        android:textSize="@dimen/text_common" />
+                        android:text="  回复"
+                        android:textColor="@color/text_white"
+                        android:textSize="@dimen/text_small" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -181,9 +185,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
                         android:gravity="center_vertical"
+                        android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
                         android:text="有父母是闪电多年的亲戚么没哦，我要加这个软件来试一试，呵呵哒"
-                        android:textColor="@color/text_black"
-                        android:textSize="@dimen/text_big" />
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_small" />
                     <!-- 其它回复的内容 -->
 
                     <LinearLayout
@@ -206,7 +211,7 @@
                             android:layout_marginLeft="5dp"
                             android:gravity="center_vertical"
                             android:text="牛牛哥：真牛，我信，呵呵哒，不管你信不信反正我行了，孩子们！ 9月10日"
-                            android:textColor="@color/text_black"
+                            android:textColor="@color/text_gray"
                             android:textSize="@dimen/text_small" />
                     </LinearLayout>
 
@@ -219,7 +224,7 @@
                         android:layout_marginLeft="5dp"
                         android:gravity="center_vertical"
                         android:text="更多四条内容"
-                        android:textColor="@color/text_black"
+                        android:textColor="@color/main_href_color"
                         android:textSize="@dimen/text_verysmall" />
                 </RelativeLayout>
             </LinearLayout>
@@ -247,24 +252,26 @@
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="@dimen/margin_right_small"
             android:background="@drawable/btn_red"
             android:text="回复"
+            android:textColor="@color/text_white"
             android:textSize="@dimen/text_small" />
 
         <EditText
             android:id="@+id/fill_content"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_toLeftOf="@id/btn_return"
             android:layout_toRightOf="@id/phiz"
             android:background="@drawable/et_border"
             android:hint="回复牛牛哥："
-            android:textColor="@color/text_black"
+            android:textColor="@color/text_gray"
             android:textColorHint="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
 </FrameLayout>

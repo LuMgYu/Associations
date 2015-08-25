@@ -124,7 +124,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/move_iv"
             android:text="社团活动（21）"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/text_big" />
 
         <ImageView

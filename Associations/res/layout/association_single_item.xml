@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_toRightOf="@+id/new_item_iv"
             android:text="牛牛哥发表了话题"
             android:textColor="@color/text_black"
@@ -42,7 +41,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_marginTop="@dimen/margin_top_big"
             android:text="那些自然界的萌物"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_big" />
@@ -55,10 +53,11 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
             android:maxLines="2"
             android:text="故事发生在波士顿”隔离区“，20年前这里曾经发生过一次真菌爆发，毁灭了所有的现代文明，政府。。。。"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_big" />
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
     <!-- 图片区域 -->
 
@@ -110,7 +109,7 @@
             android:layout_marginTop="@dimen/margin_top_big"
             android:text="2015-05-02"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/new_item_tv_number"
@@ -121,7 +120,7 @@
             android:layout_marginRight="@dimen/margin_right_small"
             android:text="12"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
 
         <ImageView
             android:id="@+id/new_item_comment"
