@@ -78,6 +78,7 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 			mCurrentState = PUB;
 			break;
 		case R.id.iv_gone:
+			resetImage();
 			iv_gone.setImageResource(R.drawable.yes);
 			mCurrentState = PRI;
 			break;
