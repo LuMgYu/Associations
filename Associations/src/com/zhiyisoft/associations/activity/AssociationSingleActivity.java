@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.adapter.AssociationMainNewAdapter;
 import com.zhiyisoft.associations.adapter.AssociationNewAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.img.RoundImageView;
@@ -70,7 +71,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	public void initView() {
 		single_lv = (BaseListView) findViewById(R.id.single_lv);
 		single_lv.setPullRefreshEnable(false);
-		mAdapter = new AssociationNewAdapter(this, mlist);
+		mAdapter = new AssociationMainNewAdapter(this, mlist);
 		single_lv.setAdapter(mAdapter);
 		initPopWindow();
 	}

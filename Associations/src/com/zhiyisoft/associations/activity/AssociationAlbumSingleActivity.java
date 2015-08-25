@@ -18,19 +18,30 @@ import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
 
 public class AssociationAlbumSingleActivity extends BaseActivity {
 	private GridView album_gv;
-	private int[] resArray = new int[] { R.drawable.girl, R.drawable.girl,
-			R.drawable.ic_launcher, R.drawable.apk, R.drawable.doc,
-			R.drawable.default_image_small, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl, R.drawable.girl, R.drawable.girl,
-			R.drawable.girl, R.drawable.girl };
+	private int[] resArray = new int[] { R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small, R.drawable.default_image_small,
+			R.drawable.default_image_small };
 	private BaseAdapter mAdapter;
 
 	@Override
@@ -65,7 +76,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 				Bundle data = new Bundle();
 				data.putIntArray("photolist", resArray);
 				mApp.startActivity(AssociationAlbumSingleActivity.this,
-						AssociationPhotoDisplayActivity.class, data);
+						AssociationTopicDetailActivity.class, data);
 
 			}
 		});

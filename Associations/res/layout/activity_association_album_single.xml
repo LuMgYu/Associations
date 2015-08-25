@@ -4,9 +4,11 @@
     android:background="@color/main_gray_color" >
 
     <GridView
+        android:background="@color/main_white_pure_color"
         android:id="@+id/album_gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:verticalSpacing="4dp"
         android:numColumns="3" >
     </GridView>
 
