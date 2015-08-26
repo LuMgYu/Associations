@@ -72,12 +72,18 @@ public class MoveWorksAdapter extends BAdapter {
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
 		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
+		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());
 		items.add(new Model());

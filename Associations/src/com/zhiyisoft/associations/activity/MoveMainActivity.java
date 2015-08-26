@@ -1,13 +1,11 @@
 package com.zhiyisoft.associations.activity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar.LayoutParams;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -148,7 +146,7 @@ public class MoveMainActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.rl_association:
 			Bundle data = new Bundle();
-			mApp.startActivity(this, AssociationMemberActivity.class, data);
+			mApp.startActivity(this, AssociationInformationActivity.class, data);
 			break;
 		case R.id.rl_works_display:
 			Bundle data1 = new Bundle();
@@ -161,16 +159,17 @@ public class MoveMainActivity extends BaseActivity {
 		case R.id.main_ll_share:
 			break;
 		case R.id.main_ll_watch:
-			Bundle data4 = new Bundle();
-			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
+//			Bundle data4 = new Bundle();
+//			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
 			break;
 		case R.id.main_ll_join:
-			Bundle data3 = new Bundle();
-			mApp.startActivity(this, AssociationWordActivity.class, data3);
+//			Bundle data3 = new Bundle();
+//			mApp.startActivity(this, AssociationInformationActivity.class,
+//					data3);
 			break;
 		case R.id.rl_member:
 			Bundle data5 = new Bundle();
-			mApp.startActivity(this, AssociationWordActivity.class, data5);
+//			mApp.startActivity(this, AssociationWordActivity.class, data5);
 			break;
 		case R.id.returnBack:
 			onBackPressed();

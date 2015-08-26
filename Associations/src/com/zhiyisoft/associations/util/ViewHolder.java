@@ -91,5 +91,21 @@ public class ViewHolder {
 	public RelativeLayout title_rl_move;
 
 	/******************************** 单个社团end ********************************************/
+	/******************************** 单个社团item单个控件 ********************************************/
+	public RelativeLayout new_item_rl_head;
+	public RoundImageView new_item_iv;
+	public TextView new_item_tv_nick;
+	public RelativeLayout new_item_rl_content;
+	public TextView new_item_tv_title;
+	public TextView new_item_tv_content;
+	public LinearLayout new_item_ll;
+	public SmartImageView imageView1;
+	public SmartImageView imageView2;
+	public SmartImageView imageView3;
+	public RelativeLayout new_item_rl_footer;
+	public TextView new_item_tv_date;
+	public TextView new_item_tv_number;
+
+	/******************************** 单个社团item单个控件end ********************************************/
 
 }

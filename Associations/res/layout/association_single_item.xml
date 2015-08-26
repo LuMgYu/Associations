@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/new_item_tv_title"
             android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
@@ -64,19 +65,19 @@
     <LinearLayout
         android:id="@+id/new_item_ll"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/new_item_rl_content"
-        android:layout_margin="@dimen/margin_left_small"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:orientation="horizontal" >
 
-        <ImageView
+        <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/imageView1"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:src="@drawable/default_image_small" />
 
-        <ImageView
+        <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/imageView2"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -84,7 +85,7 @@
             android:layout_weight="1"
             android:src="@drawable/default_image_small" />
 
-        <ImageView
+        <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/imageView3"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -92,7 +93,7 @@
             android:layout_weight="1"
             android:src="@drawable/default_image_small" />
     </LinearLayout>
-    <!-- 图片区域 -->
+    <!-- 日期区域 -->
 
     <RelativeLayout
         android:id="@+id/new_item_rl_footer"
@@ -118,18 +119,11 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
+            android:drawableLeft="@drawable/comment"
+            android:drawablePadding="5dp"
             android:text="12"
             android:textColor="@color/text_more_gray"
             android:textSize="@dimen/text_verysmall" />
-
-        <ImageView
-            android:id="@+id/new_item_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@id/new_item_tv_number"
-            android:src="@drawable/comment" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -170,7 +170,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 			tv_title.setText(title + "");
 		} else {
 			// 如果没有title的话 就设置为空
-			setViewVisable(mTitlell);
+			mTitlell.setVisibility(View.GONE);
 		}
 	}
 
