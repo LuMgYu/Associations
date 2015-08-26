@@ -28,7 +28,7 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_toRightOf="@id/iv_essay_user_icon"
             android:text="牛牛哥"
-            android:textColor="#003d90"
+            android:textColor="@color/main_href_color"
             android:textSize="@dimen/text_big" />
 
         <TextView
@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
             android:text="最近学校有什么好吃的东西嘛？"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_big" />
@@ -66,9 +67,10 @@
             android:layout_marginRight="@dimen/margin_right_small"
             android:layout_marginTop="@dimen/margin_top"
             android:ellipsize="end"
+            android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
             android:maxLines="2"
             android:text="看见对方是否看见对方，呵呵呵大幅的发掘十分了解的了撒激发覅的发哦达家居服"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/text_more_gray"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
@@ -87,7 +89,7 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="2015-05-20"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/tv_essay_commit"
@@ -99,7 +101,7 @@
             android:drawableLeft="@drawable/comment"
             android:text="12"
             android:textColor="@color/text_more_gray"
-            android:textSize="@dimen/text_small" />
+            android:textSize="@dimen/text_verysmall" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />

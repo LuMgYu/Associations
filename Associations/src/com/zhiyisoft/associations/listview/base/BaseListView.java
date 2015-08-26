@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Notification.Style;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;

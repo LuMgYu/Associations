@@ -56,8 +56,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
             android:text="优衣库我来了"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/text_big" />
 
         <FrameLayout
@@ -67,6 +68,7 @@
             android:layout_below="@id/tv_vedio_title"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
             android:orientation="vertical" >
 
             <com.zhiyisoft.associations.img.SmartImageView
@@ -82,8 +84,8 @@
                 android:id="@+id/iv_vedio_click"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/video03"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:src="@drawable/video03" />
         </FrameLayout>
     </RelativeLayout>
 
@@ -101,8 +103,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="2015-05-20"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/tv_vedio_commit"
@@ -114,8 +116,8 @@
             android:drawableLeft="@drawable/comment"
             android:drawablePadding="4dp"
             android:text="12"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_verysmall" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />

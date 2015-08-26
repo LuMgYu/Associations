@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -25,7 +27,10 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class MoveWorksAdapter extends BAdapter {
-	private View mView;
+	private View mEssayView; // 文章view
+	private View mMusicView; // 音乐view
+	private View mPhotoView; // 照片view
+	private View mVedioView; // 视频view
 	private ViewHolder mViewHolder = new ViewHolder();
 
 	public MoveWorksAdapter(BaseActivity activity, List<Model> list) {
@@ -40,32 +45,139 @@ public class MoveWorksAdapter extends BAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (position % 4 == 0) {
-			return mInflater.inflate(R.layout.move_works_essay_item, null);
+			mEssayView = mInflater
+					.inflate(R.layout.move_works_essay_item, null);
+			initEssayWorks();
+			return mEssayView;
 		}
 		if (position % 4 == 1) {
-			return mInflater.inflate(R.layout.move_works_music_item, null);
+			mMusicView = mInflater
+					.inflate(R.layout.move_works_music_item, null);
+			initMusicWorks();
+			return mMusicView;
 		}
 		if (position % 4 == 2) {
-			mView = mInflater.inflate(R.layout.move_works_photo_item, null);
+			mPhotoView = mInflater
+					.inflate(R.layout.move_works_photo_item, null);
+			initPhotoWorks();
+			return mPhotoView;
 		}
 		if (position % 4 == 3) {
-			return mInflater.inflate(R.layout.move_works_vedio_item, null);
+			mVedioView = mInflater
+					.inflate(R.layout.move_works_vedio_item, null);
+			initVedioWorks();
+			return mVedioView;
 		}
-		return mView;
+		return null;
 	}
 
-	// public LinearLayout iv_photo_user_icon;
-	// public RoundImageView tv_user_name;
-	// public TextView tv_user_send;
-	// public LinearLayout tv_photo_title;
-	// public RoundImageView iv_photo1;
-	// public TextView iv_photo2;
-	// public LinearLayout iv_photo3;
-	// public LinearLayout tv_photo_date;
-	// public SmartImageView tv_photo_commit;
-	private void initPhotoWorks(View view) {
-//		mViewHolder.iv_photo_user_icon = (LinearLayout) view
-//				.findViewById(R.id.iv_photo_user_icon);
+	/**
+	 * 初始化文章的控件
+	 */
+	private void initEssayWorks() {
+		if (mEssayView != null) {
+			mViewHolder.iv_essay_user_icon = (RoundImageView) mEssayView
+					.findViewById(R.id.iv_essay_user_icon);
+			mViewHolder.tv_user_name = (TextView) mEssayView
+					.findViewById(R.id.tv_user_name);
+			mViewHolder.tv_user_send = (TextView) mEssayView
+					.findViewById(R.id.tv_user_send);
+			mViewHolder.tv_essay_title = (TextView) mEssayView
+					.findViewById(R.id.tv_essay_title);
+			mViewHolder.tv_essay_content = (TextView) mEssayView
+					.findViewById(R.id.tv_essay_content);
+			mViewHolder.tv_essay_date = (TextView) mEssayView
+					.findViewById(R.id.tv_essay_date);
+			mViewHolder.tv_essay_commit = (TextView) mEssayView
+					.findViewById(R.id.tv_essay_commit);
+		}
+	}
+
+	/**
+	 * 初始化音乐作品的控件
+	 */
+	private void initMusicWorks() {
+		if (mMusicView != null) {
+			mViewHolder.iv_music_user_icon = (RoundImageView) mMusicView
+					.findViewById(R.id.iv_music_user_icon);
+			mViewHolder.tv_user_name = (TextView) mMusicView
+					.findViewById(R.id.tv_user_name);
+			mViewHolder.tv_user_send = (TextView) mMusicView
+					.findViewById(R.id.tv_user_send);
+			mViewHolder.tv_music_name = (TextView) mMusicView
+					.findViewById(R.id.tv_music_name);
+			mViewHolder.tv_music_date = (TextView) mMusicView
+					.findViewById(R.id.tv_music_date);
+			mViewHolder.tv_music_commit = (TextView) mMusicView
+					.findViewById(R.id.tv_music_commit);
+		}
+	}
+
+	/**
+	 * 初始化照片作品控件
+	 */
+	private void initPhotoWorks() {
+		if (mPhotoView != null) {
+			mViewHolder.iv_photo_user_icon = (RoundImageView) mPhotoView
+					.findViewById(R.id.iv_photo_user_icon);
+			mViewHolder.tv_user_name = (TextView) mPhotoView
+					.findViewById(R.id.tv_user_name);
+			mViewHolder.tv_user_send = (TextView) mPhotoView
+					.findViewById(R.id.tv_user_send);
+			mViewHolder.tv_photo_title = (TextView) mPhotoView
+					.findViewById(R.id.tv_photo_title);
+			mViewHolder.iv_photo1 = (SmartImageView) mPhotoView
+					.findViewById(R.id.iv_photo1);
+			mViewHolder.iv_photo2 = (SmartImageView) mPhotoView
+					.findViewById(R.id.iv_photo2);
+			mViewHolder.iv_photo3 = (SmartImageView) mPhotoView
+					.findViewById(R.id.iv_photo3);
+			mViewHolder.tv_photo_date = (TextView) mPhotoView
+					.findViewById(R.id.tv_photo_date);
+			mViewHolder.tv_photo_commit = (TextView) mPhotoView
+					.findViewById(R.id.tv_photo_commit);
+			initPhotoWidth();
+		}
+	}
+
+	/**
+	 * 初始化照片的宽高
+	 */
+	private void initPhotoWidth() {
+		int photoWidth = (UIUtils.getWindowWidth(mBaseActivity) - 60) / 3;
+		LinearLayout.LayoutParams work1, work2;
+		work1 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
+		work1.leftMargin = 20;
+		mViewHolder.iv_photo1.setLayoutParams(work1);
+		work2 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
+		work2.leftMargin = 10;
+		mViewHolder.iv_photo2.setLayoutParams(work2);
+		mViewHolder.iv_photo3.setLayoutParams(work2);
+	}
+
+	/**
+	 * 初始化视频作品控件
+	 */
+	private void initVedioWorks() {
+		if (mVedioView != null) {
+			mViewHolder.iv_vedio_user_icon = (RoundImageView) mVedioView
+					.findViewById(R.id.iv_vedio_user_icon);
+			mViewHolder.tv_user_name = (TextView) mVedioView
+					.findViewById(R.id.tv_user_name);
+			mViewHolder.tv_user_send = (TextView) mVedioView
+					.findViewById(R.id.tv_user_send);
+			mViewHolder.tv_vedio_title = (TextView) mVedioView
+					.findViewById(R.id.tv_music_name);
+			mViewHolder.iv_vedio = (SmartImageView) mVedioView
+					.findViewById(R.id.iv_vedio);
+			mViewHolder.iv_vedio_click = (ImageView) mVedioView
+					.findViewById(R.id.iv_vedio_click);
+			mViewHolder.tv_vedio_date = (TextView) mVedioView
+					.findViewById(R.id.tv_vedio_date);
+			mViewHolder.tv_vedio_commit = (TextView) mVedioView
+					.findViewById(R.id.tv_vedio_commit);
+
+		}
 	}
 
 	@Override
@@ -92,8 +204,13 @@ public class MoveWorksAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		return items;
 	}
 
 	@Override

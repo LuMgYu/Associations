@@ -105,10 +105,6 @@ public class MoveMainActivity extends BaseActivity {
 		main_ll_join = (LinearLayout) findViewById(R.id.main_ll_join);
 		move_fl_bg = (FrameLayout) findViewById(R.id.move_fl_bg);
 		association_rl_name = (RelativeLayout) findViewById(R.id.association_rl_name);
-		RelativeLayout.LayoutParams params = (android.widget.RelativeLayout.LayoutParams) association_rl_name
-				.getLayoutParams();
-		params.leftMargin = UIUtils.getWindowWidth(getApplicationContext()) - 360;
-		association_rl_name.setLayoutParams(params);
 		setTopBg(move_fl_bg);
 	}
 
@@ -159,17 +155,17 @@ public class MoveMainActivity extends BaseActivity {
 		case R.id.main_ll_share:
 			break;
 		case R.id.main_ll_watch:
-//			Bundle data4 = new Bundle();
-//			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
+			// Bundle data4 = new Bundle();
+			// mApp.startActivity(this, AssociationAlbumActivity.class, data4);
 			break;
 		case R.id.main_ll_join:
-//			Bundle data3 = new Bundle();
-//			mApp.startActivity(this, AssociationInformationActivity.class,
-//					data3);
+			// Bundle data3 = new Bundle();
+			// mApp.startActivity(this, AssociationInformationActivity.class,
+			// data3);
 			break;
 		case R.id.rl_member:
 			Bundle data5 = new Bundle();
-//			mApp.startActivity(this, AssociationWordActivity.class, data5);
+			// mApp.startActivity(this, AssociationWordActivity.class, data5);
 			break;
 		case R.id.returnBack:
 			onBackPressed();

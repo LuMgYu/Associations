@@ -55,17 +55,6 @@ public class ViewHolder {
 	public ViewFlow mhome_viewflow;
 	public CircleFlowIndicator mhome_viewflowindicator;
 	/******************************** home item的各种控件 ********************************************/
-	/******************************** 作品的照片的各种控件 ********************************************/
-	public RoundImageView iv_photo_user_icon;
-	public TextView tv_user_name;
-	public TextView tv_user_send;
-	public TextView tv_photo_title;
-	public RoundImageView iv_photo1;
-	public TextView iv_photo2;
-	public LinearLayout iv_photo3;
-	public LinearLayout tv_photo_date;
-	public SmartImageView tv_photo_commit;
-	/******************************** 作品的照片的各种控件end ********************************************/
 	/******************************** 社团一级页面的控件 ********************************************/
 	public LinearLayout school_ll;
 	public RelativeLayout school_rl_change;
@@ -107,5 +96,41 @@ public class ViewHolder {
 	public TextView new_item_tv_number;
 
 	/******************************** 单个社团item单个控件end ********************************************/
+	/******************************** 活动作品展示 ********************************************/
+	// 文章部分
+	public RoundImageView iv_essay_user_icon;
+	// public TextView tv_user_name; 因为命名重复了就注释掉这部分
+	// public TextView tv_user_send;
+	public TextView tv_essay_title;
+	public TextView tv_essay_content;
+	public TextView tv_essay_date;
+	public TextView tv_essay_commit;
+	// 音频部分
+	public RoundImageView iv_music_user_icon;
+	// public TextView tv_user_name;
+	// public TextView tv_user_send; 因为命名重复了就注释掉这部分
+	public TextView tv_music_name;
+	public TextView tv_music_date;
+	public TextView tv_music_commit;
+	// 图片部分
+	public RoundImageView iv_photo_user_icon;
+	public TextView tv_user_name;
+	public TextView tv_user_send;
+	public TextView tv_photo_title;
+	public SmartImageView iv_photo1;
+	public SmartImageView iv_photo2;
+	public SmartImageView iv_photo3;
+	public TextView tv_photo_date;
+	public TextView tv_photo_commit;
+	// 视频部分
+	public RoundImageView iv_vedio_user_icon;
+	// public TextView tv_user_name; 因为命名重复了就注释掉这部分
+	// public TextView tv_user_send;
+	public TextView tv_vedio_title;
+	public SmartImageView iv_vedio;
+	public ImageView iv_vedio_click;
+	public TextView tv_vedio_date;
+	public TextView tv_vedio_commit;
 
+	/******************************** 活动作品展示end ********************************************/
 }

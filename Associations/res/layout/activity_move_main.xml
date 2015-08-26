@@ -202,7 +202,7 @@
                         android:drawablePadding="4dp"
                         android:text="2015-07-28--08.30"
                         android:textColor="@color/text_more_gray"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="@dimen/text_verysmall" />
 
                     <TextView
                         android:id="@+id/move_tv_allmove"
@@ -214,7 +214,7 @@
                         android:drawablePadding="4dp"
                         android:text="25参加"
                         android:textColor="@color/text_more_gray"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="@dimen/text_verysmall" />
 
                     <TextView
                         android:id="@+id/move_tv_onlineMove"
@@ -226,7 +226,7 @@
                         android:drawablePadding="4dp"
                         android:text="线上活动"
                         android:textColor="@color/text_more_gray"
-                        android:textSize="@dimen/text_small" />
+                        android:textSize="@dimen/text_verysmall" />
                 </RelativeLayout>
             </FrameLayout>
             <!-- 社团资料 -->
@@ -256,7 +256,7 @@
                     android:layout_marginLeft="@dimen/margin_left_small"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_marginTop="@dimen/margin_top"
-                    android:text="别跟我谈流量，伤感情茄子快船零流量，别跟我比速度分分钟甩你五条街：好东西与基友分享？启动茄子快船，分分钟就到了你基友哪里了"
+                    android:text="      别跟我谈流量，伤感情茄子快船零流量，别跟我比速度分分钟甩你五条街：好东西与基友分享？启动茄子快船，分分钟就到了你基友哪里了"
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/text_small" />
             </RelativeLayout>
@@ -311,7 +311,7 @@
                     android:layout_marginLeft="@dimen/margin_left_small"
                     android:text="参与者（200）"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/text_big" />
+                    android:textSize="@dimen/text_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -377,7 +377,7 @@
                     android:layout_marginLeft="@dimen/margin_left_small"
                     android:text="所属社团"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/text_big" />
+                    android:textSize="@dimen/text_small" />
 
                 <RelativeLayout
                     android:id="@+id/association_rl_name"
@@ -390,18 +390,20 @@
                         android:id="@+id/association_icon"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+                        android:layout_marginRight="@dimen/margin_right_small"
+                        android:layout_toLeftOf="@id/tv_association_name"
                         android:src="@drawable/default_image_small" />
 
                     <TextView
                         android:id="@+id/tv_association_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin_left_small"
-                        android:layout_toRightOf="@id/association_icon"
-                        android:text="社团名称ff"
-                        android:textColor="@color/text_black"
-                        android:textSize="@dimen/text_big" />
+                        android:layout_marginRight="30dp"
+                        android:text="成都大学学生会社团"
+                        android:textColor="@color/text_gray"
+                        android:textSize="@dimen/text_small" />
                 </RelativeLayout>
 
                 <ImageView
@@ -432,7 +434,7 @@
                     android:layout_marginLeft="@dimen/margin_left_small"
                     android:text="作品展示"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/text_big" />
+                    android:textSize="@dimen/text_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -489,7 +491,7 @@
                     android:layout_marginLeft="@dimen/margin_left_small"
                     android:text="活动动态"
                     android:textColor="@color/text_gray"
-                    android:textSize="@dimen/text_big" />
+                    android:textSize="@dimen/text_small" />
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -53,8 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
             android:text="北京天安门我来了"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/text_black"
             android:textSize="@dimen/text_big" />
 
         <RelativeLayout
@@ -64,6 +65,7 @@
             android:layout_below="@id/tv_music_title"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/music01"
             android:orientation="vertical" >
 
@@ -93,8 +95,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:text="2015-05-20"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_verysmall" />
 
         <TextView
             android:id="@+id/tv_music_commit"
@@ -106,8 +108,8 @@
             android:drawableLeft="@drawable/comment"
             android:drawablePadding="4dp"
             android:text="12"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small" />
+            android:textColor="@color/text_more_gray"
+            android:textSize="@dimen/text_verysmall" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />

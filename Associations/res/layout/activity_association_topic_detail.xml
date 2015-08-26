@@ -269,6 +269,7 @@
             android:layout_toRightOf="@id/phiz"
             android:background="@drawable/et_border"
             android:hint="回复牛牛哥："
+            android:paddingLeft="@dimen/margin_left_small"
             android:textColor="@color/text_gray"
             android:textColorHint="@color/text_gray"
             android:textSize="@dimen/text_small" />
