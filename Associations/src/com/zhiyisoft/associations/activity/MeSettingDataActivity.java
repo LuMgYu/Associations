@@ -30,6 +30,7 @@ public class MeSettingDataActivity extends BaseActivity {
 	private TextView tv_email_name;
 	private RelativeLayout rl_phone;
 	private TextView tv_phone_name;
+	private RelativeLayout rl_modify_pwd;
 
 	@Override
 	public String setCenterTitle() {
@@ -61,6 +62,7 @@ public class MeSettingDataActivity extends BaseActivity {
 		rl_homeland = (RelativeLayout) findViewById(R.id.rl_homeland);
 		rl_email = (RelativeLayout) findViewById(R.id.rl_email);
 		rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
+		rl_modify_pwd = (RelativeLayout) findViewById(R.id.rl_modify_pwd);
 		initGender();
 	}
 
@@ -72,6 +74,7 @@ public class MeSettingDataActivity extends BaseActivity {
 		rl_homeland.setOnClickListener(this);
 		rl_email.setOnClickListener(this);
 		rl_phone.setOnClickListener(this);
+		rl_modify_pwd.setOnClickListener(this);
 
 	}
 
@@ -97,6 +100,9 @@ public class MeSettingDataActivity extends BaseActivity {
 		case R.id.rl_email:
 			break;
 		case R.id.rl_phone:
+			break;
+		case R.id.rl_modify_pwd:
+			mApp.startActivity(this, ForgetPwdPhoneActivity.class, null);
 			break;
 		}
 
