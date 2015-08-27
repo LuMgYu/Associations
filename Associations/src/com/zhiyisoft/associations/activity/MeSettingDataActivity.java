@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -7,6 +9,8 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.util.Anim;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -57,6 +61,7 @@ public class MeSettingDataActivity extends BaseActivity {
 		rl_homeland = (RelativeLayout) findViewById(R.id.rl_homeland);
 		rl_email = (RelativeLayout) findViewById(R.id.rl_email);
 		rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
+		initGender();
 	}
 
 	@Override
@@ -78,6 +83,10 @@ public class MeSettingDataActivity extends BaseActivity {
 			mApp.startActivity(this, MeSettingNickActivity.class, data);
 			break;
 		case R.id.rl_gender:
+			startActivityForResult(new Intent(this,
+					MeModifyGenderActivity.class),
+					MeModifyGenderActivity.GENDER);
+			Anim.in(this);
 			break;
 		case R.id.rl_school:
 			Bundle data2 = new Bundle();
@@ -91,5 +100,36 @@ public class MeSettingDataActivity extends BaseActivity {
 			break;
 		}
 
+	}
+
+	/**
+	 * 初始化性别
+	 */
+	private void initGender() {
+		int gender = getGender();
+		if (gender == MeModifyGenderActivity.BOY) {
+			tv_gender_name.setText("男");
+			return;
+		}
+		tv_gender_name.setText("女");
+	}
+
+	private int getGender() {
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, MODE_PRIVATE);
+		int gender = preferences.getInt(Config.GENDER, 0);
+		return gender;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == MeModifyGenderActivity.GENDER) {
+			int gender = data.getIntExtra(Config.GENDER, 0);
+			if (gender == 0) {
+				tv_gender_name.setText("男");
+			} else {
+				tv_gender_name.setText("女");
+			}
+		}
 	}
 }

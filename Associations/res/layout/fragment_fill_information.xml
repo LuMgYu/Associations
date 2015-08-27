@@ -40,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_below="@id/fill_bottom_line"
-        android:layout_marginLeft="@dimen/margin_left"
-        android:layout_marginRight="@dimen/margin_right" >
+         android:paddingLeft="@dimen/margin_left"
+        android:paddingRight="@dimen/margin_right"  >
 
         <TextView
             android:id="@+id/fill_tv_nick"
@@ -80,8 +80,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_below="@id/fill_bottom_line2"
-        android:layout_marginLeft="@dimen/margin_left"
-        android:layout_marginRight="@dimen/margin_right" >
+        android:paddingLeft="@dimen/margin_left"
+        android:paddingRight="@dimen/margin_right" >
 
         <TextView
             android:id="@+id/fill_tv_school"
@@ -113,8 +113,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_below="@id/fill_bottom_line3"
-        android:layout_marginLeft="@dimen/margin_left"
-        android:layout_marginRight="@dimen/margin_right" >
+        android:paddingLeft="@dimen/margin_left"
+        android:paddingRight="@dimen/margin_right" >
 
         <TextView
             android:id="@+id/fill_tv_gender"

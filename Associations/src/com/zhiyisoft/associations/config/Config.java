@@ -21,6 +21,7 @@ public class Config {
 	public static final String CURRENT_PROVINCE = "current_province";
 	public static final String CURRENT_SCHOOL = "current_school";
 	public static final String ISNOT_GUIDE = "ISNOT_GUIDE";
+	public static final String GENDER = "gender";
 	// -----------------------------访问网络的的接口的尾部地址-------------------------------------------------
 	/** 发送手机验证码 */
 	public static final String appSendSMSCode = "appSendSMSCode.action";

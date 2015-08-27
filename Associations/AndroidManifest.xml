@@ -48,6 +48,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeModifyGenderActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingSignatureActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingSchoolActivity" >

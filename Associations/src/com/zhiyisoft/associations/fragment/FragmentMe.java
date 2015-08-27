@@ -88,7 +88,7 @@ public class FragmentMe extends BaseFragment {
 			break;
 
 		case R.id.me_iv_icon:
-
+			openTheGalley();
 			break;
 		case R.id.me_iv_photo:
 			openTheGalley();
