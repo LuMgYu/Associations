@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zhiyisoft.associations"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="com.zhiyisoft.associations.application.Association"
+        android:allowBackup="true"
+        android:icon="@drawable/association"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.zhiyisoft.associations.activity.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.ForgetPwdActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.RegisterFillInformationActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.ForgetPwdPhoneActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.RegisterActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.RegisterPhoneActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.LoginActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailContentActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingDataActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingNickActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeModifyGenderActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingSignatureActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingSchoolActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingProvinceActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMainActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationNewActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationSingleActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationWordActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMemberActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMoveActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateAlbumActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationAgreementActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumSingleActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoDisplayActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationDisplayActivity" >
+        </activity>
+        <activity
+            android:name="com.zhiyisoft.associations.activity.AssociationCreateActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
+        </activity>
+        <activity
+            android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhoneAlbumActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveCreateActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveWorksDisplayActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendEssayActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendMusicActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendPhotoActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveDisplayActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendVedioActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveMyActivity" >
+        </activity>
+        <activity
+            android:name="com.zhiyisoft.associations.activity.MainActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.widget.XScrollViewActivity" >
+        </activity>
+    </application>
+
+</manifest>
