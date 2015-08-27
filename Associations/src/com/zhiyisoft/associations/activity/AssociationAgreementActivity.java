@@ -19,7 +19,6 @@ public class AssociationAgreementActivity extends BaseActivity {
 		setAllImagetitle(R.drawable.x_agreement, 0, 0, 0);
 		iv_title_left.setVisibility(View.VISIBLE);
 	}
-
 	@Override
 	public void onClick(View v) {
 

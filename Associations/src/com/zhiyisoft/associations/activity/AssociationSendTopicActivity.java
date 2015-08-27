@@ -106,7 +106,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				@Override
 				public void onClick(View v) {
 					mApp.startActivity(AssociationSendTopicActivity.this,
-							AssociationPhotoAlbumActivity.class, null);
+							AssociationPhoneAlbumActivity.class, null);
 				}
 			});
 		}
