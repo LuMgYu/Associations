@@ -106,6 +106,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveSendPhotoActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MoveMemberActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveDisplayActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveSendVedioActivity" >
@@ -139,7 +141,8 @@
         <!-- ###################注册SDK使用的Activity###################### -->
         <!-- 分享编辑页 -->
 
-        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
+
+        <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"

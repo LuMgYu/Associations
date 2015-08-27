@@ -175,7 +175,7 @@ public class MoveMainActivity extends BaseActivity {
 			break;
 		case R.id.rl_member:
 			Bundle data5 = new Bundle();
-			// mApp.startActivity(this, AssociationWordActivity.class, data5);
+			mApp.startActivity(this, MoveMemberActivity.class, data5);
 			break;
 		case R.id.returnBack:
 			onBackPressed();
