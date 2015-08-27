@@ -459,12 +459,16 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 * 初始化需要分享的内容
 	 */
 	private void initShareContent() {
+		// // 设置分享内容
+		// mController
+		// .setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
 		// 设置分享内容
-		mController
-				.setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
+		mController.setShareContent("快点来看哥哥做的app，大学生在线社团，就是这么屌！");
 		// 设置分享图片, 参数2为图片的url地址
-		mController.setShareMedia(new UMImage(this,
-				"http://www.baidu.com/img/bdlogo.png"));
+		mController
+				.setShareMedia(new UMImage(
+						this,
+						"http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E8%90%8C%E5%9B%BE%E7%89%87&step_word=&pn=3&spn=0&di=182312698480&pi=&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=3883907600%2C1209210391&os=1389723797%2C702479891&adpicid=0&ln=1000&fr=&fmq=1440664042957_R&ic=0&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=0&objurl=http%3A%2F%2F5.66825.com%2Fdownload%2Fpic%2F000%2F328%2F2d9c7a0a343c880e632ac1c4db0339af.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3Fowr_z%26e3Bncnn_z%26e3Bv54AzdH3FrtvAzdH3Fndbc8d_z%26e3Brir%3F45ktsj%3D8d00d&gsm=0"));
 		initQQShare();
 		initQQZoneShare();
 	}
