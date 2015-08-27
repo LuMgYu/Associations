@@ -25,6 +25,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
@@ -52,6 +57,7 @@ public class Association extends Application {
 	private Api.SchoolImpl mSchool;
 	private Api.BaseSettingImpl mBaseSetting;
 	private Api.RegisterImpl mRegister;
+
 
 	/** api区域结束 */
 	@Override

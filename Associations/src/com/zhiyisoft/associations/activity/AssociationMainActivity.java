@@ -99,6 +99,13 @@ public class AssociationMainActivity extends BaseActivity {
 			Bundle data2 = new Bundle();
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
+		case R.id.main_ll_share:
+			preformShare();
+			break;
+		case R.id.main_ll_join:
+			// Bundle data2 = new Bundle();
+			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
+			break;
 		case R.id.iv_title:
 			break;
 		case R.id.rl_album:
@@ -108,8 +115,6 @@ public class AssociationMainActivity extends BaseActivity {
 		case R.id.rl_file_share:
 			Bundle data3 = new Bundle();
 			mApp.startActivity(this, AssociationWordActivity.class, data3);
-			break;
-		case R.id.main_ll_join:
 			break;
 		case R.id.rl_phone:
 			break;

@@ -55,7 +55,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
-		// rl_nick.setOnClickListener(this);
+		iv_title_right2.setOnClickListener(this);
 		// rl_gender.setOnClickListener(this);
 		// rl_school.setOnClickListener(this);
 		// rl_homeland.setOnClickListener(this);
@@ -67,15 +67,14 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.rl_nick:
-			Bundle data = new Bundle();
-			mApp.startActivity(this, MeSettingNickActivity.class, data);
+		case R.id.iv_title_right2:
+			preformShare();
 			break;
 		case R.id.rl_gender:
 			break;
 		case R.id.rl_school:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
+			// Bundle data2 = new Bundle();
+			// mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
 			break;
 		case R.id.rl_homeland:
 			break;

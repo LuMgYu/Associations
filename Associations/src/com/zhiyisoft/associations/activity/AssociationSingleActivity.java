@@ -108,7 +108,8 @@ public class AssociationSingleActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationWordActivity.class, null);
 			break;
 		case R.id.share:
-			mApp.startActivity(this, AssociationWordActivity.class, null);
+			// mApp.startActivity(this, AssociationWordActivity.class, null);
+			preformShare();
 			break;
 		case R.id.btn_quit:
 			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();

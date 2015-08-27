@@ -26,6 +26,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
@@ -87,6 +92,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 */
 	public FragmentManager mFManager = getSupportFragmentManager();
 
+	/**
+	 * 使用友盟来分享就是爽爽哒
+	 */
+	// 首先在您的Activity中添加如下成员变量
+	final UMSocialService mController = UMServiceFactory
+			.getUMSocialService("com.umeng.share");
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -103,6 +115,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 			initView();
 			initListener();
 			doRefreshNew();
+			initShareContent();
 		} else {
 			mApp.startActivity(this, LoginActivity.class, null);
 		}
@@ -438,5 +451,51 @@ public abstract class BaseActivity extends FragmentActivity implements
 				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(intent, IMAGE_CODE);
 	}
+
 	// ----------------------------------我是本区域邪恶的分界线------------------------------------------------------
+
+	// ------------------------------------友盟初始化qq，微信，微博，人人等-----------------------
+	/**
+	 * 初始化需要分享的内容
+	 */
+	private void initShareContent() {
+		// 设置分享内容
+		mController
+				.setShareContent("友盟社会化组件（SDK）让移动应用快速整合社交分享功能，http://www.umeng.com/social");
+		// 设置分享图片, 参数2为图片的url地址
+		mController.setShareMedia(new UMImage(this,
+				"http://www.baidu.com/img/bdlogo.png"));
+		initQQShare();
+		initQQZoneShare();
+	}
+
+	/**
+	 * 初始化qq分享的内容
+	 */
+	private void initQQShare() {
+		// 参数1为当前Activity， 参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, "1104831952",
+				"ioLElezMMAJ94NHm");
+		qqSsoHandler.addToSocialSDK();
+	}
+
+	/**
+	 * 初始化qq空间分享的内容
+	 */
+	private void initQQZoneShare() {
+		// 参数1为当前Activity， 参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+		QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(this,
+				"1104831952", "ioLElezMMAJ94NHm");
+		qZoneSsoHandler.addToSocialSDK();
+	}
+
+	/**
+	 * 执行分享
+	 */
+	public void preformShare() {
+		mController.openShare(this, false);
+	}
+
+	// ------------------------------------友盟初始化qq微信，微博，人人end------------------
+
 }

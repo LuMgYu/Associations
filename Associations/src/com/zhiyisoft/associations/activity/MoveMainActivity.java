@@ -13,10 +13,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.sso.QZoneSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.img.RoundImageView;
-import com.zhiyisoft.associations.util.UIUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -71,6 +75,11 @@ public class MoveMainActivity extends BaseActivity {
 		return R.layout.activity_move_main;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.zhiyisoft.associations.activity.base.BaseActivity#initView()
+	 */
 	@Override
 	public void initView() {
 		returnBack = (ImageView) findViewById(R.id.returnBack);
@@ -153,6 +162,7 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.main_ll_share:
+			preformShare();
 			break;
 		case R.id.main_ll_watch:
 			// Bundle data4 = new Bundle();
