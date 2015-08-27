@@ -42,6 +42,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	private TextView album;
 	private TextView file;
 	private TextView share;
+	private TextView vedio;
 	private Button btn_quit;
 
 	@Override
@@ -111,6 +112,10 @@ public class AssociationSingleActivity extends BaseActivity {
 			// mApp.startActivity(this, AssociationWordActivity.class, null);
 			preformShare();
 			break;
+		case R.id.vedio:
+			mApp.startActivity(this, AssociationVedioDisplayActivity.class,
+					null);
+			break;
 		case R.id.btn_quit:
 			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();
 			break;
@@ -149,6 +154,7 @@ public class AssociationSingleActivity extends BaseActivity {
 		album.setOnClickListener(this);
 		file.setOnClickListener(this);
 		share.setOnClickListener(this);
+		vedio.setOnClickListener(this);
 		btn_quit.setOnClickListener(this);
 	}
 
@@ -166,6 +172,7 @@ public class AssociationSingleActivity extends BaseActivity {
 		album = (TextView) popView.findViewById(R.id.album);
 		file = (TextView) popView.findViewById(R.id.file);
 		share = (TextView) popView.findViewById(R.id.share);
+		vedio = (TextView) popView.findViewById(R.id.vedio);
 		btn_quit = (Button) popView.findViewById(R.id.btn_quit);
 	}
 

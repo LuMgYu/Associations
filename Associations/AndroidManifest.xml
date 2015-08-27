@@ -94,6 +94,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationVedioDisplayActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveCreateActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity" >

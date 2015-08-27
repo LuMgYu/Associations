@@ -37,12 +37,7 @@ public class MoveWorksListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		if (position % 2 == 0) {
-			mApp.startActivity(mApp.getActivity(),
-					AssociationTopicDetailActivity.class, data);
-		} else {
-			mApp.startActivity(mApp.getActivity(),
-					AssociationTopicDetailActivity.class, data);
-		}
+		mApp.startActivity(mApp.getActivity(),
+				AssociationTopicDetailActivity.class, data);
 	}
 }
