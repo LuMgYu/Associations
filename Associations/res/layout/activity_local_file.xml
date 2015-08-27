@@ -3,8 +3,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_gray_color" >
 
-    <!--
- <Button
+    <Button
         android:id="@+id/next"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
@@ -13,10 +12,9 @@
         android:text="下一步"
         android:textColor="@color/main_color"
         android:textSize="@dimen/text_common" />
-    -->
 
-    <com.zhiyisoft.associations.listview.AssociationWordListview
-        android:id="@+id/word_lv"
+    <com.zhiyisoft.associations.listview.LocalFileListview
+        android:id="@+id/File_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/next" />

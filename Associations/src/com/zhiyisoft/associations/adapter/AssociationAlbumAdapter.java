@@ -39,6 +39,9 @@ public class AssociationAlbumAdapter extends BAdapter {
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
 		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
 		return items;
 	}
 
@@ -53,7 +56,11 @@ public class AssociationAlbumAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		return null;
+		List<Model> items = new ArrayList<Model>();
+		items.add(new Model());
+		items.add(new Model());
+		items.add(new Model());
+		return items;
 	}
 
 	@Override

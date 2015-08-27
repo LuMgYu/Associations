@@ -19,15 +19,15 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
  *
  */
 
-public class AssociationWordListview extends BaseListView {
+public class LocalFileListview extends BaseListView {
 	private Context mContext;
 
-	public AssociationWordListview(Context context) {
+	public LocalFileListview(Context context) {
 		super(context);
 		this.mContext = context;
 	}
 
-	public AssociationWordListview(Context context, AttributeSet attrs) {
+	public LocalFileListview(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
 		this.setDivider(new ColorDrawable(0xfff9f9f9));
@@ -36,8 +36,5 @@ public class AssociationWordListview extends BaseListView {
 
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
-		Bundle data = new Bundle();
-		mApp.startActivity(mApp.getActivity(),
-				AssociationTopicDetailActivity.class, data);
 	}
 }

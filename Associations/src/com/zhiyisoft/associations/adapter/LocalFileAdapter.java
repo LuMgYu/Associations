@@ -20,19 +20,19 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class AssociationWordAdapter extends BAdapter {
+public class LocalFileAdapter extends BAdapter {
 
-	public AssociationWordAdapter(BaseActivity activity, List<Model> list) {
+	public LocalFileAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
 
-	public AssociationWordAdapter(BaseFragment fragment, List<Model> list) {
+	public LocalFileAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.association_file_item, null);
+		return mInflater.inflate(R.layout.local_file_item, null);
 	}
 
 	@Override

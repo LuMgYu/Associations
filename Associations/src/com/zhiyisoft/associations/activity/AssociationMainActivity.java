@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.img.SmartImageView;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -26,6 +27,15 @@ public class AssociationMainActivity extends BaseActivity {
 	private TextView tv_association_data_school;
 	private RelativeLayout rl_member;
 	private RoundImageView iv_member1;
+	private RoundImageView iv_member2;
+	private RoundImageView iv_member3;
+	private RoundImageView iv_member4;
+	private SmartImageView iv_album;
+	private SmartImageView iv_album2;
+	private SmartImageView iv_album3;
+	private SmartImageView iv_file_share;
+	private SmartImageView iv_file_share2;
+	private SmartImageView iv_file_share3;
 	private RelativeLayout rl_new;
 	private RelativeLayout rl_activity;
 	private TextView tv_activity;
@@ -69,6 +79,16 @@ public class AssociationMainActivity extends BaseActivity {
 		main_ll_join = (LinearLayout) findViewById(R.id.main_ll_join);
 		rl_album = (RelativeLayout) findViewById(R.id.rl_album);
 		rl_file_share = (RelativeLayout) findViewById(R.id.rl_file_share);
+
+		iv_member2 = (RoundImageView) findViewById(R.id.iv_member2);
+		iv_member3 = (RoundImageView) findViewById(R.id.iv_member3);
+		iv_member4 = (RoundImageView) findViewById(R.id.iv_member4);
+		iv_album = (SmartImageView) findViewById(R.id.iv_album);
+		iv_album2 = (SmartImageView) findViewById(R.id.iv_album2);
+		iv_album3 = (SmartImageView) findViewById(R.id.iv_album3);
+		iv_file_share = (SmartImageView) findViewById(R.id.iv_file_share);
+		iv_file_share2 = (SmartImageView) findViewById(R.id.iv_file_share2);
+		iv_file_share3 = (SmartImageView) findViewById(R.id.iv_file_share3);
 	}
 
 	@Override
