@@ -8,7 +8,7 @@
         android:layout_height="100dp" >
 
         <com.zhiyisoft.associations.img.SmartImageView
-            android:id="@+id/member_iv"
+            android:id="@+id/album_iv"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
@@ -16,23 +16,23 @@
             android:src="@drawable/default_image_small" />
 
         <TextView
-            android:id="@+id/member_tv_name"
+            android:id="@+id/album_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@id/member_iv"
+            android:layout_alignTop="@id/album_iv"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/member_iv"
+            android:layout_toRightOf="@id/album_iv"
             android:text="最近活动照片"
             android:textColor="@color/text_black"
             android:textSize="@dimen/text_big" />
 
         <TextView
-            android:id="@+id/member_tv_school"
+            android:id="@+id/album_tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/member_tv_name"
+            android:layout_below="@id/album_tv_name"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/member_iv"
+            android:layout_toRightOf="@id/album_iv"
             android:text="共172张"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_common" />
@@ -41,9 +41,9 @@
             android:id="@+id/album_tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/member_tv_school"
+            android:layout_below="@id/album_tv_count"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/member_iv"
+            android:layout_toRightOf="@id/album_iv"
             android:text="更新与2015年七月23日"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_common" />

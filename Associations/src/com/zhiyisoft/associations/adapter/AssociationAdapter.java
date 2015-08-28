@@ -5,12 +5,15 @@ import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午10:47:11
@@ -20,6 +23,7 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class AssociationAdapter extends BAdapter {
+	private View mView;
 
 	public AssociationAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
@@ -31,9 +35,33 @@ public class AssociationAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.listview_me_association_item, null);
+		if (convertView == null) {
+			mView = mInflater.inflate(R.layout.listview_me_association_item,
+					null);
+			convertView = mView;
+			convertView.setTag(mHolder);
+			initView();
+		} else {
+			mHolder = (ViewHolder) convertView.getTag();
+			// TODO 获取list里面的数据，然后添加数据
+		}
+		return convertView;
 	}
 
+	private void initView() {
+		if (mView != null) {
+			mHolder.association_iv_icon = (RoundImageView) mView
+					.findViewById(R.id.association_iv_icon);
+			mHolder.association_tv_title = (TextView) mView
+					.findViewById(R.id.association_tv_title);
+			mHolder.association_tv_member = (TextView) mView
+					.findViewById(R.id.association_tv_member);
+			mHolder.association_tv_content = (TextView) mView
+					.findViewById(R.id.association_tv_content);
+		}
+	}
+
+	// -----------------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();

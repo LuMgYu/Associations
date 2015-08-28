@@ -80,7 +80,7 @@ public class ViewHolder {
 	public RelativeLayout title_rl_move;
 
 	/******************************** 单个社团end ********************************************/
-	/******************************** 单个社团item单个控件 ********************************************/
+	/******************************** 单个社团话题item单个控件 ********************************************/
 	public RelativeLayout new_item_rl_head;
 	public RoundImageView new_item_iv;
 	public TextView new_item_tv_nick;
@@ -95,8 +95,31 @@ public class ViewHolder {
 	public TextView new_item_tv_date;
 	public TextView new_item_tv_number;
 
-	/******************************** 单个社团item单个控件end ********************************************/
-	/******************************** 活动作品展示 ********************************************/
+	/******************************** 单个社团话题item单个控件end ********************************************/
+	/**************** 单个社团item ********************************************/
+	public RoundImageView association_iv_icon;
+	public TextView association_tv_title;
+	public TextView association_tv_member;
+	public TextView association_tv_content;
+
+	/**************** 单个社团item end ********************************************/
+	/**************** association_album_item ********************************************/
+	public SmartImageView album_iv;
+	public TextView album_tv_name;
+	public TextView album_tv_count;
+	public TextView album_tv_date;
+
+	/**************** association_album_item end ********************************************/
+
+	/**************** association_member_item ********************************************/
+	public TextView member_type;
+	public RoundImageView member_iv;
+	public TextView member_tv_name;
+	public TextView member_tv_school;
+
+	/**************** association_member_item end ********************************************/
+
+	/**************** 活动作品展示 ********************************************/
 	// 文章部分
 	public RoundImageView iv_essay_user_icon;
 	// public TextView tv_user_name; 因为命名重复了就注释掉这部分
