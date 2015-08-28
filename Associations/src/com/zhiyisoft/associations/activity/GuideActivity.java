@@ -13,7 +13,7 @@ import android.widget.ImageView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.GuideAdapter;
+import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 
 /**
  * author：qiuchunjia time：下午5:29:32 类描述：这个类是实现
@@ -22,7 +22,7 @@ import com.zhiyisoft.associations.adapter.GuideAdapter;
 
 public class GuideActivity extends BaseActivity {
 	private ViewPager mViewpager;
-	private GuideAdapter mAdapter;
+	private ViewpagerCommonAdapter mAdapter;
 	int[] ImageRes = new int[] { R.drawable.guide_01, R.drawable.guide_02,
 			R.drawable.guide_03 };
 	List<View> mViews = new ArrayList<View>();
@@ -71,7 +71,7 @@ public class GuideActivity extends BaseActivity {
 			}
 			mViews.add(view);
 		}
-		mAdapter = new GuideAdapter(mViews);
+		mAdapter = new ViewpagerCommonAdapter(mViews);
 		mViewpager.setAdapter(mAdapter);
 	}
 

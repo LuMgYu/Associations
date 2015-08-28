@@ -6,16 +6,17 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * author：qiuchunjia time：下午5:31:55 类描述：这个类是实现
  *
  */
 
-public class GuideAdapter extends PagerAdapter {
+public class ViewpagerCommonAdapter extends PagerAdapter {
 	private List<View> views;
 
-	public GuideAdapter(List<View> views) {
+	public ViewpagerCommonAdapter(List<View> views) {
 		this.views = views;
 	}
 
@@ -35,7 +36,12 @@ public class GuideAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(View arg0, int arg1) {
-		((ViewPager) arg0).addView(views.get(arg1 % views.size()), 0);
+		View view = views.get(arg1 % views.size());
+		ViewGroup viewGroup = (ViewGroup) view.getParent();
+		if (viewGroup != null) {
+			viewGroup.removeView(view);
+		}
+		((ViewPager) arg0).addView(view, 0);
 		return views.get(arg1 % views.size());
 	}
 

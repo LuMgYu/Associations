@@ -1,20 +1,28 @@
 package com.zhiyisoft.associations.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.test.UiThreadTest;
+import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
+import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 import com.zhiyisoft.associations.util.UIUtils;
 
 /**
@@ -156,8 +164,77 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.topic_expression:
+			initPopWindow();
+			showPop(topic_expression, 0, 0);
 			break;
 		}
 
+	}
+
+	// --------------------------PopupWindow的界面控件-----------------------------------------
+	private PopupWindow mPopupWindow;
+	private ViewPager emotionViewpager;
+	private LinearLayout emotionflag;
+	private ViewpagerCommonAdapter adapter;
+	private List<View> views = new ArrayList<View>();
+	private EmotionGridViewAdapter gridViewAdapter;
+
+	/**
+	 * 初始化popWindow
+	 * */
+	private void initPopWindow() {
+		if (mPopupWindow == null) {
+			View popView = mInflater.inflate(R.layout.emotion_framework, null);
+			mPopupWindow = new PopupWindow(popView,
+					android.widget.AbsListView.LayoutParams.MATCH_PARENT, 300);
+			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+			mPopupWindow.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+
+				}
+			});
+			// 设置popwindow出现和消失动画
+			initPopWidge(popView);
+		}
+	}
+
+	/**
+	 * 初始化popwindow里面的控件
+	 * 
+	 * @param popView
+	 */
+	private void initPopWidge(View popView) {
+		emotionViewpager = (ViewPager) popView
+				.findViewById(R.id.emotionViewpager);
+		emotionflag = (LinearLayout) popView.findViewById(R.id.emotionflag);
+		gridViewAdapter = new EmotionGridViewAdapter(this, 21);
+		for (int i = 0; i < 7; i++) {
+			View view = mInflater.inflate(
+					R.layout.emotion_framework_gridview_item, null);
+			GridView gridView = (GridView) view
+					.findViewById(R.id.emotion_gridView);
+			gridView.setAdapter(gridViewAdapter);
+
+			views.add(gridView);
+		}
+		adapter = new ViewpagerCommonAdapter(views);
+		emotionViewpager.setAdapter(adapter);
+	}
+
+	/**
+	 * 显示popWindow
+	 * */
+	@SuppressLint("NewApi")
+	public void showPop(View parent, int x, int y) {
+		// 设置popwindow显示位置
+		mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, x, y);
+		mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
+		// 获取popwindow焦点
+		mPopupWindow.setFocusable(true);
+		// 设置popwindow如果点击外面区域，便关闭。
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.update();
 	}
 }

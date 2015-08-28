@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.GuideAdapter;
+import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 import com.zhiyisoft.associations.config.Config;
 
 /**
@@ -26,7 +26,7 @@ import com.zhiyisoft.associations.config.Config;
 public class SplashActivity extends BaseActivity {
 
 	private ViewPager mViewpager;
-	private GuideAdapter mAdapter;
+	private ViewpagerCommonAdapter mAdapter;
 	int[] ImageRes = new int[] { R.drawable.guide_01, R.drawable.guide_02,
 			R.drawable.guide_03 };
 	List<View> mViews = new ArrayList<View>();
@@ -93,7 +93,7 @@ public class SplashActivity extends BaseActivity {
 				}
 				mViews.add(view);
 			}
-			mAdapter = new GuideAdapter(mViews);
+			mAdapter = new ViewpagerCommonAdapter(mViews);
 			mViewpager.setAdapter(mAdapter);
 		} else {
 			Handler x = new Handler();
