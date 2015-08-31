@@ -132,7 +132,7 @@ public class AssociationMainAdapter extends BAdapter {
 	}
 
 	/**
-	 * 获取当前的省份
+	 * 获取当前的学校
 	 */
 	private void getCurrentSchool(TextView tv) {
 		SharedPreferences preferences = mBaseActivity.getSharedPreferences(

@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.util.Anim;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -63,7 +66,24 @@ public class MeSettingDataActivity extends BaseActivity {
 		rl_email = (RelativeLayout) findViewById(R.id.rl_email);
 		rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
 		rl_modify_pwd = (RelativeLayout) findViewById(R.id.rl_modify_pwd);
+		getCurrentSchool(tv_school_name);
 		initGender();
+	}
+
+	/**
+	 * 获取当前的学校
+	 * 
+	 * @param tv
+	 */
+	private void getCurrentSchool(TextView tv) {
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, Activity.MODE_PRIVATE);
+		String school = preferences.getString(Config.CURRENT_SCHOOL, null);
+		if (school != null) {
+			tv.setVisibility(View.VISIBLE);
+			tv.setText(school + "");
+			return;
+		}
 	}
 
 	@Override
@@ -93,7 +113,8 @@ public class MeSettingDataActivity extends BaseActivity {
 			break;
 		case R.id.rl_school:
 			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
+			mApp.startActivityForResult(this, MeSettingProvinceActivity.class,
+					data2);
 			break;
 		case R.id.rl_homeland:
 			break;
@@ -135,6 +156,17 @@ public class MeSettingDataActivity extends BaseActivity {
 				tv_gender_name.setText("男");
 			} else {
 				tv_gender_name.setText("女");
+			}
+		}
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data == null) {
+				return;
+			}
+			Bundle bundle = data.getExtras();
+			ModelSchool school = (ModelSchool) bundle
+					.get(Config.GET_ACTIVITY_DATA);
+			if (school != null) {
+				tv_school_name.setText(school.getName() + "");
 			}
 		}
 	}

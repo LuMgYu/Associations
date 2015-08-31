@@ -58,7 +58,6 @@ public class Association extends Application {
 	private Api.BaseSettingImpl mBaseSetting;
 	private Api.RegisterImpl mRegister;
 
-
 	/** api区域结束 */
 	@Override
 	public void onCreate() {
@@ -234,7 +233,7 @@ public class Association extends Application {
 				intent.putExtras(data);
 			}
 		}
-		now.startActivityForResult(intent, 3456);
+		now.startActivityForResult(intent, BaseActivity.GET_DATA_FROM_ACTIVITY);
 		Anim.in(now);
 	}
 

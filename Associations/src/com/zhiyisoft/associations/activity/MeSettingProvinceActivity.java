@@ -1,7 +1,10 @@
 package com.zhiyisoft.associations.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -13,6 +16,9 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyStringGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -86,10 +92,26 @@ public class MeSettingProvinceActivity extends BaseActivity {
 					int position, long id) {
 				Bundle data = new Bundle();
 				data.putString(Config.PROVINCE, mStr[position]);
-				mApp.startActivity(MeSettingProvinceActivity.this,
+				mApp.startActivityForResult(MeSettingProvinceActivity.this,
 						MeSettingSchoolActivity.class, data);
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data == null) {
+				return;
+			}
+			Bundle bundle = data.getExtras();
+			Model model = (Model) bundle.get(Config.GET_ACTIVITY_DATA);
+			if (model != null) {
+				onReturnResult(model);
+				onBackPressed();
+			}
+		}
 	}
 
 	@Override

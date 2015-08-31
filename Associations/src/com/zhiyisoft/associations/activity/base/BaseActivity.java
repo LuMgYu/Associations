@@ -36,8 +36,10 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
 import com.zhiyisoft.associations.util.ToastUtils;
 
@@ -398,6 +400,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	// ----------------------------------调用本地的图片，摄像机，文件之类的操作------------------------------------------------------
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
+	public static final int GET_DATA_FROM_ACTIVITY = 2;
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -425,6 +428,17 @@ public abstract class BaseActivity extends FragmentActivity implements
 			Log.i("tag", e.toString() + "");
 			ToastUtils.showToast("获取图片抛出了异常！！");
 		}
+	}
+
+	/**
+	 * 设置返回的结果
+	 */
+	public void onReturnResult(Model model) {
+		Intent intent = new Intent();
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(Config.GET_ACTIVITY_DATA, model);
+		intent.putExtras(bundle);
+		this.setResult(this.GET_DATA_FROM_ACTIVITY, intent);
 	}
 
 	/**

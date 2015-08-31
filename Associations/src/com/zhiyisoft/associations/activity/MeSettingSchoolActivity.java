@@ -71,12 +71,11 @@ public class MeSettingSchoolActivity extends BaseActivity {
 				String school = modelSchool.getName();
 				saveToSharePreference(mProvince, school);
 				// TODO 要做判断---跳转到主页的第三个
-				Bundle bundle = new Bundle();
-				bundle.putInt(Config.MAIN_ACTIVITY, MainActivity.ASSOCIATION);
-				bundle.putString(Config.CURRENT_SCHOOL, school);
-				mApp.startActivity(MeSettingSchoolActivity.this,
-						MainActivity.class, bundle,
-						Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				onReturnResult(modelSchool);
+				onBackPressed();
+				// mApp.startActivity(MeSettingSchoolActivity.this,
+				// MainActivity.class, bundle,
+				// Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			}
 		});
 	}
@@ -110,4 +109,5 @@ public class MeSettingSchoolActivity extends BaseActivity {
 	public void onClick(View v) {
 
 	}
+
 }
