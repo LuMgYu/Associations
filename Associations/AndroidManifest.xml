@@ -118,6 +118,10 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.LocalFileActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.LocalImagListActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.LocalAlbumActivity" >
+        </activity>
         <activity
             android:name="com.zhiyisoft.associations.activity.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" >

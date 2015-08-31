@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.util.LocalPhotoHelper;
+package com.zhiyisoft.associations.util.localImageHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +58,6 @@ public class LocalImage {
 					dirInfo.setPicCount(cursor.getInt(3));
 					dirInfo.setUserOtherPicSoft(false);
 					list.add(dirInfo);
-					Toast.makeText(context, dirInfo.toString(),
-							Toast.LENGTH_LONG).show();
-					;
 				}
 			}
 			cursor.close();

@@ -7,7 +7,7 @@
  * @date 2013-11-12 下午3:39:27 
  * @version V1.0  
  */ 
-package com.zhiyisoft.associations.util.LocalPhotoHelper;
+package com.zhiyisoft.associations.util.localImageHelper;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

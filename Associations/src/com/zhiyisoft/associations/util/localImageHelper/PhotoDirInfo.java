@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.util.LocalPhotoHelper;
+package com.zhiyisoft.associations.util.localImageHelper;
 
 /**
  * 

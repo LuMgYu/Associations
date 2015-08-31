@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zhiyisoft.associations.util.LocalPhotoHelper;
+package com.zhiyisoft.associations.util.localImageHelper;
 
 import java.io.BufferedOutputStream;
 import java.io.File;

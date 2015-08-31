@@ -161,7 +161,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.topic_image:
 			Bundle data2 = new Bundle();
-			mApp.startActivity(this, AssociationMoveActivity.class, data2);
+			mApp.startActivity(this, LocalImagListActivity.class, data2);
 			break;
 		case R.id.topic_expression:
 			initPopWindow();
