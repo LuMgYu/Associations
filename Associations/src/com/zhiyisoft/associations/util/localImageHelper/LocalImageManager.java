@@ -21,6 +21,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.zhiyisoft.associations.application.Association;
 
@@ -250,6 +251,17 @@ public class LocalImageManager {
 		}
 
 		queueImage(new ImageRef(imageView, url, filePath, resId, width, height));
+	}
+
+	/**
+	 * 通过url获取bitmap 只能获取缓存的图片
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public Bitmap getBitmapByUrl(String url, int width, int height) {
+		Bitmap bitmap = mMemoryCache.get(url + width + height);
+		return bitmap;
 	}
 
 	/**

@@ -1,13 +1,4 @@
-/**  
- * @Title: AlbumGridViewAdapter.java 
- * @Package com.example.adapter 
- * @Description: TODO() 
- * @author Derek 
- * @email renchun525@gmail.com
- * @date 2013-11-12 下午3:39:27 
- * @version V1.0  
- */
-package com.zhiyisoft.associations.util.LocalPhotoHelper.adapter;
+package com.zhiyisoft.associations.util.localImageHelper.adapter;
 
 import java.util.ArrayList;
 
@@ -24,13 +15,6 @@ import android.widget.ToggleButton;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImageManager;
-
-/**
- * @ClassName: AlbumGridViewAdapter
- * @Description: TODO()
- * @author Derek
- * @date 2013-11-12 下午3:39:27
- */
 
 public class AlbumGridViewAdapter extends BaseAdapter implements
 		OnClickListener {
@@ -72,7 +56,7 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 	 */
 	private class ViewHolder {
 		public ImageView imageView;
-//		public ToggleButton toggleButton;
+		public ToggleButton toggleButton;
 	}
 
 	@Override
@@ -84,8 +68,8 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 					R.layout.select_imageview, parent, false);
 			viewHolder.imageView = (ImageView) convertView
 					.findViewById(R.id.image_view);
-//			viewHolder.toggleButton = (ToggleButton) convertView
-//					.findViewById(R.id.toggle_button);
+			viewHolder.toggleButton = (ToggleButton) convertView
+					.findViewById(R.id.toggle_button);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();
@@ -93,7 +77,6 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 		String path;
 		if (dataList != null && dataList.size() > position) {
 			path = dataList.get(position);
-			// Log.e("path==>", ""+path);
 		} else {
 			path = "camera_default";
 		}
@@ -104,13 +87,15 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 			LocalImageManager.from(mContext).displayImage(viewHolder.imageView,
 					path, R.drawable.default_image_small, 100, 100);
 		}
-//		viewHolder.toggleButton.setTag(position);
-//		viewHolder.toggleButton.setOnClickListener(this);
-//		if (isInSelectedDataList(path)) {
-//			viewHolder.toggleButton.setChecked(true);
-//		} else {
-//			viewHolder.toggleButton.setChecked(false);
-//		}
+		viewHolder.toggleButton.setTag(position);
+		viewHolder.toggleButton.setOnClickListener(this);
+		if (isInSelectedDataList(path)) {
+			viewHolder.toggleButton.setChecked(true);
+			viewHolder.toggleButton.setBackgroundResource(R.drawable.choseed);
+		} else {
+			viewHolder.toggleButton.setChecked(false);
+			viewHolder.toggleButton.setBackgroundResource(R.drawable.notchose);
+		}
 
 		return convertView;
 	}
@@ -130,14 +115,13 @@ public class AlbumGridViewAdapter extends BaseAdapter implements
 
 	@Override
 	public void onClick(View view) {
-		if (view instanceof ToggleButton) {
-			ToggleButton toggleButton = (ToggleButton) view;
-			int position = (Integer) toggleButton.getTag();
-			if (dataList != null && mOnItemClickListener != null
-					&& position < dataList.size()) {
-				mOnItemClickListener.onItemClick(toggleButton, position,
-						dataList.get(position), toggleButton.isChecked());
-			}
+		ToggleButton toggleButton = (ToggleButton) view
+				.findViewById(R.id.toggle_button);
+		int position = (Integer) toggleButton.getTag();
+		if (dataList != null && mOnItemClickListener != null
+				&& position < dataList.size()) {
+			mOnItemClickListener.onItemClick(toggleButton, position,
+					dataList.get(position), toggleButton.isChecked());
 		}
 	}
 

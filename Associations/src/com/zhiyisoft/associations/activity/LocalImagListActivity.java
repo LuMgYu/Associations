@@ -13,9 +13,11 @@ import android.widget.ListView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.util.LocalPhotoHelper.adapter.ImageListAdapter;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImage;
 import com.zhiyisoft.associations.util.localImageHelper.PhotoDirInfo;
+import com.zhiyisoft.associations.util.localImageHelper.adapter.ImageListAdapter;
 
 /**
  * author：qiuchunjia time：下午4:01:50 类描述：这个类是实现
@@ -35,7 +37,7 @@ public class LocalImagListActivity extends BaseActivity {
 
 	@Override
 	public String setCenterTitle() {
-		return "本地相册";
+		return "相册";
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class LocalImagListActivity extends BaseActivity {
 				Bundle bundle = new Bundle();
 				bundle.putString("bucketId", photoDirInfo.getDirId());
 				intent.putExtras(bundle);
-				startActivityForResult(intent, 0);
+				startActivityForResult(intent, GET_DATA_FROM_ACTIVITY);
 			}
 		});
 
@@ -78,4 +80,20 @@ public class LocalImagListActivity extends BaseActivity {
 
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data == null) {
+				return;
+			}
+			Bundle bundle = data.getExtras();
+			ArrayList<String> list = (ArrayList<String>) bundle
+					.get(Config.GET_ACTIVITY_DATA);
+			if (list != null) {
+				onReturnResult(list);
+				onBackPressed();
+			}
+		}
+	}
 }

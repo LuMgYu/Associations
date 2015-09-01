@@ -10,13 +10,15 @@
         android:adjustViewBounds="true"
         android:scaleType="centerCrop" />
 
-    <ImageView
-        android:id="@+id/image_view_choose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ToggleButton
+        android:id="@+id/toggle_button"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:textOn=""
+        android:textOff=""
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_margin="@dimen/margin_left_small"
-        android:src="@drawable/notchose" />
+        android:background="@drawable/notchose" />
 
 </RelativeLayout>

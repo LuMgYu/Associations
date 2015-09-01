@@ -6,6 +6,10 @@ package com.zhiyisoft.associations.activity.base;
  * Purpose: Defines the Class BaseActivity
  ***********************************************************************/
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.R.string;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -437,6 +441,22 @@ public abstract class BaseActivity extends FragmentActivity implements
 		Intent intent = new Intent();
 		Bundle bundle = new Bundle();
 		bundle.putSerializable(Config.GET_ACTIVITY_DATA, model);
+		intent.putExtras(bundle);
+		this.setResult(this.GET_DATA_FROM_ACTIVITY, intent);
+		// Intent intent = new Intent();
+		// Bundle bundle = new Bundle();
+		// bundle.putStringArrayList(Config.GET_ACTIVITY_DATA,
+		// selectedDataList);
+		// intent.putExtras(bundle
+	}
+
+	/**
+	 * 设置返回的结果
+	 */
+	public void onReturnResult(ArrayList<String> list) {
+		Intent intent = new Intent();
+		Bundle bundle = new Bundle();
+		bundle.putStringArrayList(Config.GET_ACTIVITY_DATA, list);
 		intent.putExtras(bundle);
 		this.setResult(this.GET_DATA_FROM_ACTIVITY, intent);
 	}

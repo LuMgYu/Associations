@@ -1,24 +1,23 @@
 package com.zhiyisoft.associations.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ToggleButton;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.util.ToastUtils;
-import com.zhiyisoft.associations.util.LocalPhotoHelper.adapter.AlbumGridViewAdapter;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImage;
+import com.zhiyisoft.associations.util.localImageHelper.adapter.AlbumGridViewAdapter;
+import com.zhiyisoft.associations.util.localImageHelper.adapter.AlbumGridViewAdapter.OnItemClickListener;
 
 /**
  * author：qiuchunjia time：下午4:17:40 类描述：这个类是实现
@@ -26,24 +25,37 @@ import com.zhiyisoft.associations.util.localImageHelper.LocalImage;
  */
 
 public class LocalAlbumActivity extends BaseActivity {
+	public static final int PHOTO_COUNT = 6; // 最多允许选六张
 	private GridView gridView;
 	private ArrayList<String> dataList = new ArrayList<String>();
-	private HashMap<String, ImageView> hashMap = new HashMap<String, ImageView>();
 	private ArrayList<String> selectedDataList = new ArrayList<String>();
 	private String bucketId = "";
 	private ProgressBar progressBar;
 	private AlbumGridViewAdapter gridImageAdapter;
-	private LinearLayout selectedImageLayout;
 	private Context mContext;
+
+	private Button mNext;
+
+	@Override
+	protected void onCreate(Bundle arg0) {
+		super.onCreate(arg0);
+		setAlltitle("手机相册", "最近相册", "取消");
+	}
 
 	@Override
 	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.next:
+			onReturnResult(selectedDataList);
+			onBackPressed();
+			break;
 
+		}
 	}
 
 	@Override
 	public String setCenterTitle() {
-		return "本地相册";
+		return "最近相册";
 	}
 
 	@Override
@@ -62,65 +74,20 @@ public class LocalAlbumActivity extends BaseActivity {
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		bucketId = bundle.getString("bucketId");
-		init();
-		initListener();
-	}
-
-	private void init() {
-
 		progressBar = (ProgressBar) findViewById(R.id.progressbar);
 		progressBar.setVisibility(View.GONE);
 		gridView = (GridView) findViewById(R.id.myGrid);
+		mNext = (Button) findViewById(R.id.next);
 		gridImageAdapter = new AlbumGridViewAdapter(this, dataList,
 				selectedDataList);
 		gridView.setAdapter(gridImageAdapter);
 		refreshData();
+		initListener();
 	}
 
-	@Override
-	public void initListener() {
-		gridImageAdapter
-				.setOnItemClickListener(new AlbumGridViewAdapter.OnItemClickListener() {
-
-					@Override
-					public void onItemClick(final ToggleButton toggleButton,
-							int position, final String path, boolean isChecked) {
-
-						if (selectedDataList.size() >= 8) {
-							toggleButton.setChecked(false);
-							if (!removePath(path)) {
-								ToastUtils.showToast("只能选择8张");
-							}
-							return;
-						} else {
-							removePath(path);
-						}
-
-					}
-				});
-
-	}
-
-	private boolean removePath(String path) {
-		if (hashMap.containsKey(path)) {
-			selectedImageLayout.removeView(hashMap.get(path));
-			hashMap.remove(path);
-			removeOneData(selectedDataList, path);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private void removeOneData(ArrayList<String> arrayList, String s) {
-		for (int i = 0; i < arrayList.size(); i++) {
-			if (arrayList.get(i).equals(s)) {
-				arrayList.remove(i);
-				return;
-			}
-		}
-	}
-
+	/**
+	 * 刷新数据
+	 */
 	private void refreshData() {
 
 		new AsyncTask<Void, Void, ArrayList<String>>() {
@@ -158,5 +125,47 @@ public class LocalAlbumActivity extends BaseActivity {
 
 		}.execute();
 
+	}
+
+	@Override
+	public void initListener() {
+		mNext.setOnClickListener(this);
+		gridImageAdapter.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(ToggleButton view, int position,
+					String path, boolean isChecked) {
+				if (isChecked) {
+					if (selectedDataList.size() > PHOTO_COUNT) {
+						ToastUtils.showToast("最多只能选六张");
+						return;
+					}
+					view.setBackgroundResource(R.drawable.choseed);
+					selectedDataList.add(path);
+				} else {
+					view.setBackgroundResource(R.drawable.notchose);
+					removeOneData(selectedDataList, path);
+				}
+			}
+
+		});
+	}
+
+	/**
+	 * 移掉路径
+	 * 
+	 * @param arrayList
+	 *            需要移掉的list
+	 * @param s
+	 *            被移掉的文件路径
+	 */
+	private void removeOneData(ArrayList<String> arrayList, String s) {
+		if (arrayList != null) {
+			for (int i = 0; i < arrayList.size(); i++) {
+				if (arrayList.get(i).equals(s)) {
+					arrayList.remove(i);
+					return;
+				}
+			}
+		}
 	}
 }

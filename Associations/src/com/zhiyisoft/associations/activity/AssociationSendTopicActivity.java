@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -23,7 +25,9 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
 import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
-import com.zhiyisoft.associations.util.UIUtils;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.util.ToastUtils;
+import com.zhiyisoft.associations.util.localImageHelper.LocalImageManager;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -39,6 +43,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private ImageView topic_expression;
 
 	private Bitmap mBitmap; // 获取本地的bitmap
+
+	private LocalImageManager mImageManager;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -61,12 +67,6 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		return R.layout.activity_association_send_topic;
 	}
 
-	// private RoundImageView topic_title;
-	// private EditText topic_content;
-	// private TextView topic_iv_big_image;
-	// private RelativeLayout topic_iv_delete_image;
-	// private RelativeLayout topic_image;
-	// private TextView topic_expression;
 	@Override
 	public void initView() {
 		topic_title = (EditText) findViewById(R.id.topic_title);
@@ -75,6 +75,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		ll_ScrollView = (LinearLayout) findViewById(R.id.ll_ScrollView);
 		topic_image = (ImageView) findViewById(R.id.topic_image);
 		topic_expression = (ImageView) findViewById(R.id.topic_expression);
+		mImageManager = LocalImageManager.from(mApp);
 		addImageToHsv(null, ADDPHOTO);
 	}
 
@@ -84,14 +85,15 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private final int ADDPHOTO = 0;
 	private final int PHOTO = 1;
 
-	private void addImageToHsv(Bitmap bitmap, int type) {
+	private void addImageToHsv(String path, int type) {
 		View itemView = mInflater.inflate(R.layout.hsv_img_item, null);
 		ImageView big_image = (ImageView) itemView.findViewById(R.id.big_image);
 		ImageView delete_image = (ImageView) itemView
 				.findViewById(R.id.delete_image);
 		if (type == PHOTO) {
-			if (bitmap != null) {
-				big_image.setImageBitmap(bitmap);
+			if (path != null) {
+				mImageManager.displayImage(big_image, path,
+						R.drawable.default_image_small, 100, 100);
 				delete_image.setTag(itemView);
 				ll_ScrollView.addView(itemView);
 				changeThePosition(ll_ScrollView, itemView);
@@ -105,7 +107,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				});
 			}
 		} else if (type == ADDPHOTO) {
-			big_image.setImageResource(R.drawable.add);
+			big_image.setBackgroundResource(R.drawable.add);
 			itemView.setTag("tag");
 			delete_image.setVisibility(View.GONE);
 			ll_ScrollView.addView(itemView);
@@ -113,8 +115,9 @@ public class AssociationSendTopicActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					mApp.startActivity(AssociationSendTopicActivity.this,
-							AssociationPhoneAlbumActivity.class, null);
+					mApp.startActivityForResult(
+							AssociationSendTopicActivity.this,
+							LocalImagListActivity.class, null);
 				}
 			});
 		}
@@ -141,16 +144,6 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	}
 
 	@Override
-	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
-		mBitmap = super.compressPhotoAndDisplay(originBitmap);
-		mBitmap = Bitmap.createScaledBitmap(mBitmap,
-				UIUtils.getWindowWidth(getApplicationContext()) / 4,
-				UIUtils.getWindowWidth(getApplicationContext()) / 4, true);
-		addImageToHsv(mBitmap, PHOTO);
-		return mBitmap;
-	}
-
-	@Override
 	public void initListener() {
 		topic_image.setOnClickListener(this);
 		topic_expression.setOnClickListener(this);
@@ -161,7 +154,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.topic_image:
 			Bundle data2 = new Bundle();
-			mApp.startActivity(this, LocalImagListActivity.class, data2);
+			mApp.startActivityForResult(this, LocalImagListActivity.class,
+					data2);
 			break;
 		case R.id.topic_expression:
 			initPopWindow();
@@ -169,6 +163,27 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			break;
 		}
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data == null) {
+				return;
+			}
+			Bundle bundle = data.getExtras();
+			ArrayList<String> list = (ArrayList<String>) bundle
+					.get(Config.GET_ACTIVITY_DATA);
+			for (String str : list) {
+				if (ll_ScrollView.getChildCount() > 6) {
+					ToastUtils.showToast("最多只能选六张！");
+					return;
+				}
+				addImageToHsv(str, PHOTO);
+				// TODO 这里还需要把bitmap获取出来
+			}
+		}
 	}
 
 	// --------------------------PopupWindow的界面控件-----------------------------------------
