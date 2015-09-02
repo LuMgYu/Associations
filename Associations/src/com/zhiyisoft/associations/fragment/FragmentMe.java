@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.youku.uploader.YouKuGetCodeActivity;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MeSettingDataActivity;
 import com.zhiyisoft.associations.activity.MeSettingSignatureActivity;
@@ -88,7 +89,8 @@ public class FragmentMe extends BaseFragment {
 			break;
 
 		case R.id.me_iv_icon:
-			openTheGalley();
+			mApp.startActivity(getActivity(), YouKuGetCodeActivity.class, null);
+			// openTheGalley();
 			break;
 		case R.id.me_iv_photo:
 			openTheGalley();

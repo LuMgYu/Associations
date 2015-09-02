@@ -128,6 +128,10 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.widget.XScrollViewActivity" >
         </activity>
+        <activity android:name="com.youku.uploader.YouKuGetCodeActivity" >
+        </activity>
+        <activity android:name="com.youku.uploader.YoukuMainActivity" >
+        </activity>
 
         <meta-data
             android:name="UMENG_APPKEY"
