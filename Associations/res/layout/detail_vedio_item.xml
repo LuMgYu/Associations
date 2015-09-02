@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/main_white_pure_color"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/rl_vedio_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="vertical" >
+
+        <com.zhiyisoft.associations.img.SmartImageView
+            android:id="@+id/iv_vedio"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:background="@drawable/vedio_bg" />
+
+        <ImageView
+            android:id="@+id/iv_vedio_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/video03" />
+    </FrameLayout>
+
+</LinearLayout>

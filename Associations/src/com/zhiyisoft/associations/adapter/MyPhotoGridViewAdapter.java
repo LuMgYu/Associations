@@ -42,10 +42,10 @@ public class MyPhotoGridViewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		SmartImageView imageView = new SmartImageView(mContext);
-		int width = UIUtils.getWindowWidth(mContext)-10;
-		imageView.setImageResource(mStr[position]);
+		int width = UIUtils.getWindowWidth(mContext) - 10;
 		imageView.setLayoutParams(new AbsListView.LayoutParams(width / 3,
 				width / 3));
+		imageView.setBackgroundResource(mStr[position]);
 		return imageView;
 	}
 }

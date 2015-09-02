@@ -1,17 +1,11 @@
 package com.zhiyisoft.associations.listview;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.activity.AssociationMainActivity;
-import com.zhiyisoft.associations.activity.AssociationSingleActivity;
-import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 
 /**
@@ -36,8 +30,5 @@ public class MoveWorksListview extends BaseListView {
 
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
-		Bundle data = new Bundle();
-		mApp.startActivity(mApp.getActivity(),
-				AssociationTopicDetailActivity.class, data);
 	}
 }

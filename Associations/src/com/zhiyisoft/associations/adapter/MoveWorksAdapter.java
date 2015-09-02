@@ -3,19 +3,25 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.Anim;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -48,27 +54,60 @@ public class MoveWorksAdapter extends BAdapter {
 			mEssayView = mInflater
 					.inflate(R.layout.move_works_essay_item, null);
 			initEssayWorks();
+			setstartActivity(mEssayView,
+					AssociationTopicDetailActivity.FLAG_ESSAY);
 			return mEssayView;
 		}
 		if (position % 4 == 1) {
 			mMusicView = mInflater
 					.inflate(R.layout.move_works_music_item, null);
 			initMusicWorks();
+			setstartActivity(mMusicView,
+					AssociationTopicDetailActivity.FLAG_MUSIC);
 			return mMusicView;
 		}
 		if (position % 4 == 2) {
 			mPhotoView = mInflater
 					.inflate(R.layout.move_works_photo_item, null);
 			initPhotoWorks();
+			setstartActivity(mPhotoView,
+					AssociationTopicDetailActivity.FLAG_MANYPHOTO);
 			return mPhotoView;
 		}
 		if (position % 4 == 3) {
 			mVedioView = mInflater
 					.inflate(R.layout.move_works_vedio_item, null);
 			initVedioWorks();
+			setstartActivity(mVedioView,
+					AssociationTopicDetailActivity.FLAG_VIDEO);
 			return mVedioView;
 		}
 		return null;
+	}
+
+	/**
+	 * @param view
+	 *            点击的view
+	 * @param flag
+	 *            跳转的到后需要显示的画面
+	 */
+	private void setstartActivity(View view, int flag) {
+		view.setTag(flag);
+		view.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				int flags = (Integer) v.getTag();
+				Intent intent = new Intent();
+				Bundle bundle = new Bundle();
+				bundle.putInt(Config.SEND_ACTIVITY_DATA, flags);
+				intent.putExtras(bundle);
+				intent.setClass(mBaseActivity,
+						AssociationTopicDetailActivity.class);
+				mBaseActivity.startActivity(intent);
+				Anim.in(mBaseActivity);
+			}
+		});
 	}
 
 	/**

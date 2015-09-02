@@ -70,7 +70,7 @@
                 android:id="@+id/content_rl_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/main_white_bg_color" >
+                android:background="@color/main_white_pure_color" >
 
                 <TextView
                     android:id="@+id/content_tv_content"
@@ -83,13 +83,14 @@
                     android:text="旅行路中,我们手中的相机除了记录美好的风景还可以记录自己从衣服配色到场景选择，以及天气好姿势"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
+                <!-- 图片及其它部分 -->
 
                 <LinearLayout
-                    android:id="@+id/content_ll_photo"
+                    android:id="@+id/content_ll_main"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/content_tv_content"
-                    android:background="@color/main_gray_color"
+                    android:background="@color/main_white_pure_color"
                     android:orientation="vertical" >
                 </LinearLayout>
             </RelativeLayout>
