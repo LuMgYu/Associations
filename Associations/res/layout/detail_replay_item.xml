@@ -69,6 +69,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:paddingBottom="@dimen/margin_bottom"
         android:id="@+id/replay_rl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,25 +95,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/replay_content_tv"
             android:orientation="vertical" >
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/line_height"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/main_gray_color" />
-
-            <TextView
-                android:id="@+id/other_tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="@dimen/margin_right_small"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
-                android:text="牛牛哥：真牛，我信，呵呵哒，不管你信不信反正我行了，孩子们！ 9月10日"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
         </LinearLayout>
 
         <TextView
@@ -120,14 +102,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/replay_other_ll"
-            android:layout_marginBottom="@dimen/margin_bottom"
-            android:layout_marginLeft="5dp"
+            android:layout_alignTop="@dimen/margin_top"
+            android:layout_below="@id/replay_other_ll"
             android:layout_marginRight="@dimen/margin_right_small"
-            android:gravity="center_vertical"
             android:text="更多四条内容"
             android:textColor="@color/main_href_color"
             android:textSize="@dimen/text_verysmall" />
     </RelativeLayout>
+
+    <include layout="@layout/view_line_vertical" />
 
 </LinearLayout>

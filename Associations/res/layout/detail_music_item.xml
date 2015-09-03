@@ -1,6 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_height" >
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_top_big"
+    android:paddingTop="@dimen/margin_bottom_big" >
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,6 +1,11 @@
 package com.zhiyisoft.associations.activity;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -95,9 +100,47 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		// TODO 这里只是显示数据而已，并没有什么卵用
 		int totalNum = 5;
 		for (int i = 0; i < totalNum; i++) {
+			int otherReplay = 2;
 			View view = mInflater.inflate(R.layout.detail_replay_item, null);
 			// TODO 这里以后需要初始化控件，然后把数据添加上去
+			LinearLayout replay_other_ll = (LinearLayout) view
+					.findViewById(R.id.replay_other_ll);
+			addOtherReplayLayout(replay_other_ll, otherReplay);
 			ll_detail_all.addView(view);
+		}
+	}
+
+	/**
+	 * @param parent
+	 *            父布局
+	 * @param otherReplay
+	 *            其它回复的数量
+	 */
+	private void addOtherReplayLayout(LinearLayout parent, int otherReplay) {
+		for (int i = 0; i < otherReplay; i++) {
+			View view = mInflater.inflate(R.layout.detail_other_replay_item,
+					null);
+			// TODO 以后这些数据就是从网上获取
+			String username = "牛牛哥:";
+			String content = "真牛，我信，呵呵哒，不管你信不信反正我行了，孩子们！ 9月10日";
+			String time = "  20小时前";
+			TextView textView = (TextView) view
+					.findViewById(R.id.other_tv_content);
+			SpannableString ssName = new SpannableString(username);
+			ForegroundColorSpan colorSpan = new ForegroundColorSpan(0xff2f7dff);
+			ssName.setSpan(colorSpan, 0, ssName.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			textView.setText(ssName);
+			textView.append(content);
+			SpannableString ssTime = new SpannableString(time);
+			AbsoluteSizeSpan sizeSpan = new AbsoluteSizeSpan(10, true);
+			ssTime.setSpan(sizeSpan, 0, ssTime.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			ForegroundColorSpan timeSpan = new ForegroundColorSpan(0xff999999);
+			ssTime.setSpan(timeSpan, 0, ssTime.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			textView.append(ssTime);
+			parent.addView(view);
 		}
 	}
 
@@ -150,8 +193,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	 */
 	private void initManyPhoto() {
 		int[] photoArray = new int[] { R.drawable.detail_single_photo,
-				R.drawable.association_icon, R.drawable.detail_single_photo,
-				R.drawable.association_icon, R.drawable.detail_single_photo,
+				R.drawable.detail_single_photo, R.drawable.detail_single_photo,
+				R.drawable.detail_single_photo, R.drawable.detail_single_photo,
 				R.drawable.detail_single_photo };
 		mNeedView = addViewToContent(content_ll_main,
 				R.layout.detail_many_photo_item);
