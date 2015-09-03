@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -18,6 +17,7 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.util.UIUtils;
+import com.zhiyisoft.associations.widget.MyGridView;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -25,6 +25,8 @@ import com.zhiyisoft.associations.util.UIUtils;
  */
 
 public class AssociationTopicDetailActivity extends BaseActivity {
+	private LinearLayout ll_detail_all;
+
 	private TextView content_tv_title;
 	private RoundImageView user_icon;
 	private TextView content_tv_user;
@@ -71,6 +73,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
+		ll_detail_all = (LinearLayout) findViewById(R.id.ll_detail_all);
 		content_tv_title = (TextView) findViewById(R.id.content_tv_title);
 		user_icon = (RoundImageView) findViewById(R.id.user_icon);
 		content_tv_user = (TextView) findViewById(R.id.content_tv_user);
@@ -82,6 +85,20 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		fill_content = (EditText) findViewById(R.id.fill_content);
 		btn_return = (Button) findViewById(R.id.btn_return);
 		initContentViewData(mCurrentFlag);
+		initReplayView();
+	}
+
+	/**
+	 * 初始化 评论的条数
+	 */
+	private void initReplayView() {
+		// TODO 这里只是显示数据而已，并没有什么卵用
+		int totalNum = 5;
+		for (int i = 0; i < totalNum; i++) {
+			View view = mInflater.inflate(R.layout.detail_replay_item, null);
+			// TODO 这里以后需要初始化控件，然后把数据添加上去
+			ll_detail_all.addView(view);
+		}
 	}
 
 	/**
@@ -138,20 +155,11 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				R.drawable.detail_single_photo };
 		mNeedView = addViewToContent(content_ll_main,
 				R.layout.detail_many_photo_item);
-		GridView gridView = (GridView) mNeedView
+		MyGridView gridView = (MyGridView) mNeedView
 				.findViewById(R.id.detail_gv_many_photo);
 		MyPhotoGridViewAdapter adapter = new MyPhotoGridViewAdapter(photoArray,
 				this);
 		gridView.setAdapter(adapter);
-		int count = gridView.getChildCount();
-		int num = 0;
-		if (count % 3 > 0) {
-			num = count / 3 + 1;
-		}
-		num = count / 3;
-		mNeedView.setLayoutParams(new LinearLayout.LayoutParams(
-				android.view.ViewGroup.LayoutParams.MATCH_PARENT, UIUtils
-						.getWindowWidth(mApp) / 3 * num));
 
 	}
 

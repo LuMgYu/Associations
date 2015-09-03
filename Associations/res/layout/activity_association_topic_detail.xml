@@ -9,9 +9,10 @@
         android:background="@color/main_white_bg_color" >
 
         <LinearLayout
+            android:id="@+id/ll_detail_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/main_white_pure_color"
+            android:background="@color/main_white_bg_color"
             android:orientation="vertical" >
 
             <!-- 详情内容标题部分 -->
@@ -104,131 +105,6 @@
                 android:layout_marginBottom="@dimen/margin_bottom"
                 android:layout_marginTop="@dimen/margin_top_big"
                 android:background="@color/main_gray_color" />
-
-            <LinearLayout
-                android:id="@+id/replay_ll"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:id="@+id/replay_rl_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp" >
-
-                    <com.zhiyisoft.associations.img.RoundImageView
-                        android:id="@+id/item_user_icon"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin_left_small"
-                        android:src="@drawable/association_icon" />
-
-                    <TextView
-                        android:id="@+id/item_user_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/item_user_icon"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@id/item_user_icon"
-                        android:gravity="center_vertical"
-                        android:text="千年的牛牛"
-                        android:textColor="@color/text_gray"
-                        android:textSize="@dimen/text_small" />
-
-                    <TextView
-                        android:id="@+id/item_user_tv_a"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/item_user_tv"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@id/item_user_icon"
-                        android:text="#2"
-                        android:textColor="@color/text_more_gray"
-                        android:textSize="@dimen/text_verysmall" />
-
-                    <TextView
-                        android:id="@+id/item_user_tv_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/item_user_tv"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@id/item_user_tv_a"
-                        android:text="20小时前"
-                        android:textColor="@color/text_more_gray"
-                        android:textSize="@dimen/text_verysmall" />
-
-                    <Button
-                        android:id="@+id/replay_btn"
-                        android:layout_width="45dp"
-                        android:layout_height="20dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin_left_small"
-                        android:layout_marginRight="@dimen/margin_right_small"
-                        android:background="@drawable/huifu"
-                        android:gravity="center"
-                        android:text="  回复"
-                        android:textColor="@color/text_white"
-                        android:textSize="@dimen/text_small" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/replay_rl_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="@dimen/margin_top" >
-
-                    <TextView
-                        android:id="@+id/replay_content_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
-                        android:text="有父母是闪电多年的亲戚么没哦，我要加这个软件来试一试，呵呵哒"
-                        android:textColor="@color/text_gray"
-                        android:textSize="@dimen/text_small" />
-                    <!-- 其它回复的内容 -->
-
-                    <LinearLayout
-                        android:id="@+id/replay_other_ll"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/replay_content_tv"
-                        android:orientation="vertical" >
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/line_height"
-                            android:layout_marginTop="5dp"
-                            android:background="@color/main_gray_color" />
-
-                        <TextView
-                            android:id="@+id/test_tv_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:gravity="center_vertical"
-                            android:text="牛牛哥：真牛，我信，呵呵哒，不管你信不信反正我行了，孩子们！ 9月10日"
-                            android:textColor="@color/text_gray"
-                            android:textSize="@dimen/text_small" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/test_more"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_below="@+id/replay_other_ll"
-                        android:layout_marginLeft="5dp"
-                        android:gravity="center_vertical"
-                        android:text="更多四条内容"
-                        android:textColor="@color/main_href_color"
-                        android:textSize="@dimen/text_verysmall" />
-                </RelativeLayout>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <!-- 回复输入框部分，实在在底部 -->
