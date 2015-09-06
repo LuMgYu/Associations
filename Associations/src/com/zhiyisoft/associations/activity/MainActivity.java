@@ -211,7 +211,7 @@ public class MainActivity extends BaseActivity {
 
 				@Override
 				public void onClick(View v) {
-					showPop(iv_title_right3, 0, 20);
+					showPop(iv_title_right3, 0, 40);
 				}
 			});
 			initFragmentMove();

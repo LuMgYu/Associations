@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import android.view.View;
 
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelAssociation;

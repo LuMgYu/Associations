@@ -5,9 +5,11 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.TextAppearanceSpan;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -186,6 +188,14 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		imageView.setLayoutParams(params);
 		imageView.setBackgroundResource(R.drawable.detail_single_photo);
 		content_ll_main.addView(imageView);
+		imageView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mApp.startActivity(AssociationTopicDetailActivity.this,
+						AssociationTopicDetailPhotoActivity.class, null);
+			}
+		});
 	}
 
 	/**
@@ -203,6 +213,16 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		MyPhotoGridViewAdapter adapter = new MyPhotoGridViewAdapter(photoArray,
 				this);
 		gridView.setAdapter(adapter);
+		gridView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mApp.startActivity(AssociationTopicDetailActivity.this,
+						AssociationTopicDetailPhotoActivity.class, null);
+			}
+
+		});
 
 	}
 

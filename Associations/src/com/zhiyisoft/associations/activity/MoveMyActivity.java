@@ -38,7 +38,6 @@ public class MoveMyActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAllImagetitle(0, 0, 0, R.drawable.more);
 	}
 
 	@Override
