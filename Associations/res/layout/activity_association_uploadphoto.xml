@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_bg_color"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/photo_detail"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/main_white_pure_color"
+        android:gravity="left|top"
+        android:hint="添加照片描述"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingTop="@dimen/margin_top"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+    <!-- 上传到的位置 -->
+
+    <RelativeLayout
+        android:id="@+id/rl_album_location"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_white_pure_color" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:gravity="center"
+            android:text="上传到"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:id="@+id/x_next"
+            android:layout_width="wrap_content"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/x" />
+
+        <TextView
+            android:id="@+id/tv_album_location"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_toLeftOf="@id/x_next"
+            android:gravity="center"
+            android:text="当前相册"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/gv_fill_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:verticalSpacing="5dp"
+        android:numColumns="4" >
+    </GridView>
+
+</LinearLayout>

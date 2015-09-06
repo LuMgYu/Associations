@@ -80,6 +80,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationDisplayActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationUploadPhotoActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailPhotoActivity" >
         </activity>
         <activity
