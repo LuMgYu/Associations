@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_gray_color" >
 
-    <com.zhiyisoft.associations.widget.XScrollView
+    <com.zhiyisoft.associations.widget.xlistview.XScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

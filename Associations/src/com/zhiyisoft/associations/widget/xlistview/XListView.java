@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.widget;
+package com.zhiyisoft.associations.widget.xlistview;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

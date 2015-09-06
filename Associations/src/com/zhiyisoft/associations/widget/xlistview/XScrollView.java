@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.widget;
+package com.zhiyisoft.associations.widget.xlistview;
 
 
 
@@ -24,11 +24,11 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 
 /**
- * XScrollView, modified from {@link com.markmao.pulltorefresh.widget.XListView}
+ * XScrollView, modified from {@link com.zhiyisoft.associations.widget.xlistview.markmao.pulltorefresh.widget.XListView}
  *
  * @author markmjw
  * @date 2013-10-08
- * @see com.markmao.pulltorefresh.widget.XListView
+ * @see com.zhiyisoft.associations.widget.xlistview.markmao.pulltorefresh.widget.XListView
  */
 public class XScrollView extends ScrollView implements OnScrollListener {
 //    private static final String TAG = "XScrollView";

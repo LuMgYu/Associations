@@ -130,7 +130,7 @@
             android:name="com.zhiyisoft.associations.activity.MainActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" >
         </activity>
-        <activity android:name="com.zhiyisoft.associations.widget.XScrollViewActivity" >
+        <activity android:name="com.zhiyisoft.associations.widget.xlistview.XScrollViewActivity" >
         </activity>
         <activity android:name="com.youku.uploader.YouKuGetCodeActivity" >
         </activity>

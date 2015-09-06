@@ -1,4 +1,4 @@
-package com.zhiyisoft.associations.widget;
+package com.zhiyisoft.associations.widget.xlistview;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.NotifyDetailActivity;
 import com.zhiyisoft.associations.listview.base.BaseListView;
-import com.zhiyisoft.associations.widget.XScrollViewActivity;
+import com.zhiyisoft.associations.widget.xlistview.XScrollViewActivity;
 
 /**
  * author：qiuchunjia time：上午10:37:57 类描述：这个类是实现
