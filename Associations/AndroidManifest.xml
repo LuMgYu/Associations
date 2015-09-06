@@ -100,7 +100,9 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationVedioDisplayActivity" >
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveCreateActivity" >
+        <activity
+            android:name="com.zhiyisoft.associations.activity.MoveCreateActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity" >
         </activity>
