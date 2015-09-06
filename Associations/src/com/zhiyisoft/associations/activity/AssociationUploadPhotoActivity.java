@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,9 +18,10 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.UploadPhotoGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
- * author：qiuchunjia time：上午10:49:20 类描述：这个类是实现
+ * author：qiuchunjia time：上午10:49:20 类描述：这个类是实现照片上传
  *
  */
 
@@ -79,7 +81,9 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				String str = (String) view.getTag();
+				ViewHolder holder = (ViewHolder) view.getTag();
+				ImageView imageView = holder.iv_upload_photo;
+				String str = (String) imageView.getTag();
 				if (str.equals(ADDPHOTO)) {
 					mApp.startActivityForResult(
 							AssociationUploadPhotoActivity.this,

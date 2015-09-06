@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.util;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -156,4 +157,11 @@ public class ViewHolder {
 	public TextView tv_vedio_commit;
 
 	/******************************** 活动作品展示end ********************************************/
+	/******************************** 上传照片的item ********************************************/
+	public ImageView iv_upload_photo;
+	public TextView tv_progress_bg;
+	public TextView tv_progress;
+	public FrameLayout fl_progress;
+
+	/******************************** 上传照片的item end ********************************************/
 }

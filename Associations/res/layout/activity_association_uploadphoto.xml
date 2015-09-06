@@ -61,8 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left_small"
         android:layout_marginRight="@dimen/margin_right_small"
-        android:verticalSpacing="5dp"
-        android:numColumns="4" >
+        android:numColumns="4"
+        android:paddingTop="@dimen/margin_top"
+        android:verticalSpacing="5dp" >
     </GridView>
 
 </LinearLayout>
