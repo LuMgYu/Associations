@@ -52,6 +52,13 @@ public class MoveCreateActivity extends BaseActivity {
 	private RelativeLayout move_rl_scope;
 	private RelativeLayout move_rl_work_end;
 	private RelativeLayout move_rl_commmit_work;
+	// 新添加的的控件
+	private ImageView move_iv_vetify_work_no;
+	private ImageView move_iv_commit_yes_master;
+	private ImageView move_iv_commit_all;
+	private ImageView move_iv_vetify_yes;
+	private ImageView move_iv_vedio_yes;
+
 	public String[] mYear = new String[40];
 	public String[] mMonth = new String[12];
 	public String[] mDay = new String[31];
@@ -108,6 +115,13 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_work_end = (RelativeLayout) findViewById(R.id.move_rl_work_end);
 		move_rl_enter_end = (RelativeLayout) findViewById(R.id.move_rl_enter_end);
 		move_rl_commmit_work = (RelativeLayout) findViewById(R.id.move_rl_commmit_work);
+		// 新增控件
+		move_iv_vetify_work_no = (ImageView) findViewById(R.id.move_iv_vetify_work_no);
+		move_iv_commit_yes_master = (ImageView) findViewById(R.id.move_iv_commit_yes_master);
+		move_iv_commit_all = (ImageView) findViewById(R.id.move_iv_commit_all);
+		move_iv_vetify_yes = (ImageView) findViewById(R.id.move_iv_vetify_yes);
+		move_iv_vedio_yes = (ImageView) findViewById(R.id.move_iv_vedio_yes);
+
 		mTvViews = new TextView[] { move_tv_start_time, move_tv_start_end,
 				move_tv_enter_time, move_tv_enter_end_time,
 				move_tv_commmit_work_Start_time, move_tv_workr_end_time };
@@ -123,11 +137,29 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_enter_end.setOnClickListener(this);
 		move_rl_work_end.setOnClickListener(this);
 		move_rl_commmit_work.setOnClickListener(this);
+		// -------------------------
+		move_icon.setOnClickListener(this);
+		move_rl_welfare.setOnClickListener(this);
+		move_iv_yes.setOnClickListener(this);
+		move_iv_no.setOnClickListener(this);
+		move_iv_vetify_work_yes.setOnClickListener(this);
+		move_iv_vetify_work_no.setOnClickListener(this);
+		move_iv_commit_yes_master.setOnClickListener(this);
+		move_iv_commit_all.setOnClickListener(this);
+		move_iv_vetify_yes.setOnClickListener(this);
+		move_iv_vetify_no.setOnClickListener(this);
+		move_iv_title_yes.setOnClickListener(this);
+		move_iv_photo_yes.setOnClickListener(this);
+		move_iv_vedio_yes.setOnClickListener(this);
+		move_iv_music_yes.setOnClickListener(this);
+		move_rl_scope.setOnClickListener(this);
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		// ----------------------------------时间选择部分------------------------------------------
 		case R.id.move_rl_main:
 			showPop(move_rl_welfare, 0, 0);
 			mFlag[0] = true;
@@ -152,27 +184,78 @@ public class MoveCreateActivity extends BaseActivity {
 			showPop(move_rl_welfare, 0, 0);
 			mFlag[5] = true;
 			break;
-
-		case R.id.rl_activity:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, AssociationMoveActivity.class, data2);
+		// ----------------------------------------------------------------------------
+		case R.id.move_icon:
 			break;
-		case R.id.iv_title:
+		case R.id.move_rl_welfare:
 			break;
-		case R.id.rl_album:
-			Bundle data4 = new Bundle();
-			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
+		// 活动时间
+		case R.id.move_iv_yes:
+			resetmove_iv_yes();
+			move_iv_yes.setImageResource(R.drawable.yes);
 			break;
-		case R.id.rl_file_share:
-			Bundle data3 = new Bundle();
-			mApp.startActivity(this, AssociationWordActivity.class, data3);
+		case R.id.move_iv_no:
+			resetmove_iv_yes();
+			move_iv_no.setImageResource(R.drawable.yes);
 			break;
-		case R.id.main_ll_join:
+		case R.id.move_iv_vetify_work_yes:
+			resetmove_iv_vetify_work_yes();
+			move_iv_vetify_work_yes.setImageResource(R.drawable.yes);
 			break;
-		case R.id.rl_phone:
+		case R.id.move_iv_vetify_work_no:
+			resetmove_iv_vetify_work_yes();
+			move_iv_vetify_work_no.setImageResource(R.drawable.yes);
+			break;
+		case R.id.move_iv_commit_yes_master:
+			resetmove_iv_commit_yes_master();
+			move_iv_commit_yes_master.setImageResource(R.drawable.yes);
+			break;
+		case R.id.move_iv_commit_all:
+			resetmove_iv_commit_yes_master();
+			move_iv_commit_all.setImageResource(R.drawable.yes);
+			break;
+		case R.id.move_iv_vetify_yes:
+			resetmove_iv_vetify_yes();
+			move_iv_vetify_yes.setImageResource(R.drawable.yes);
+			break;
+		case R.id.move_iv_vetify_no:
+			resetmove_iv_vetify_yes();
+			move_iv_vetify_no.setImageResource(R.drawable.yes);
+			break;
+		case R.id.move_iv_title_yes:
+			break;
+		case R.id.move_iv_photo_yes:
+			break;
+		case R.id.move_iv_vedio_yes:
+			break;
+		case R.id.move_iv_music_yes:
+			break;
+		case R.id.move_rl_scope:
 			break;
 		}
 
+	}
+
+	private void resetmove_iv_vetify_yes() {
+		move_iv_vetify_yes.setImageResource(R.drawable.no);
+		move_iv_vetify_no.setImageResource(R.drawable.no);
+
+	}
+
+	private void resetmove_iv_commit_yes_master() {
+		move_iv_commit_yes_master.setImageResource(R.drawable.no);
+		move_iv_commit_all.setImageResource(R.drawable.no);
+
+	}
+
+	private void resetmove_iv_vetify_work_yes() {
+		move_iv_vetify_work_yes.setImageResource(R.drawable.no);
+		move_iv_vetify_work_no.setImageResource(R.drawable.no);
+	}
+
+	private void resetmove_iv_yes() {
+		move_iv_yes.setImageResource(R.drawable.no);
+		move_iv_no.setImageResource(R.drawable.no);
 	}
 
 	/**
@@ -253,9 +336,12 @@ public class MoveCreateActivity extends BaseActivity {
 
 	private String cacluteDate() {
 		mCurrentYear = mYear[wv_date_year.getCurrentItem()];
+		mCurrentYear = mCurrentYear.trim();
 		mCurrentMonth = mMonth[wv_date_month.getCurrentItem()];
+		mCurrentMonth = mCurrentMonth.trim();
 		mCurrentDay = mDay[wv_date_day.getCurrentItem()];
-		return mCurrentYear + "-" + mCurrentMonth + "-" + mCurrentDay;
+		mCurrentDay = mCurrentDay.trim();
+		return mCurrentYear + "年" + mCurrentMonth + "月" + mCurrentDay + "号";
 	}
 
 	/**
@@ -263,6 +349,7 @@ public class MoveCreateActivity extends BaseActivity {
 	 */
 	private void addDateToTextView() {
 		String date = cacluteDate();
+		date = date.trim();
 		for (int i = 0; i < mFlag.length; i++) {
 			if (mFlag[i]) {
 				mTvViews[i].setText(date + "");

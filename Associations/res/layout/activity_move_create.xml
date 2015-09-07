@@ -475,7 +475,7 @@
                 android:textSize="@dimen/text_common" />
 
             <ImageView
-                android:id="@+id/move_iv_commit_yes"
+                android:id="@+id/move_iv_commit_yes_master"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -489,13 +489,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/move_iv_commit_yes"
+                android:layout_toRightOf="@id/move_iv_commit_yes_master"
                 android:text="仅发起人"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_common" />
 
             <ImageView
-                android:id="@+id/move_iv_commit_no"
+                android:id="@+id/move_iv_commit_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -509,7 +509,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/move_iv_commit_no"
+                android:layout_toRightOf="@id/move_iv_commit_all"
                 android:text="所有活动成员"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_common" />
@@ -670,7 +670,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_left_small"
-                android:text="活动类型范围："
+                android:text="活动内容类型："
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/text_common" />
 
