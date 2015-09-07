@@ -1,8 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
@@ -22,7 +19,6 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
-import com.zhiyisoft.associations.widget.wheelview.OnWheelChangedListener;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
 
 /**
@@ -46,17 +42,23 @@ public class MoveCreateActivity extends BaseActivity {
 	private RelativeLayout move_rl_enter_end;
 	private TextView move_tv_enter_end_time;
 	private ImageView move_iv_vetify_work_yes;
-
+	private TextView move_tv_commmit_work_Start_time;
+	private TextView move_tv_workr_end_time;
 	private ImageView move_iv_vetify_no;
 	private ImageView move_iv_title_yes;
 	private TextView move_tv_photo;
 	private ImageView move_iv_photo_yes;
 	private ImageView move_iv_music_yes;
 	private RelativeLayout move_rl_scope;
-
+	private RelativeLayout move_rl_work_end;
+	private RelativeLayout move_rl_commmit_work;
 	public String[] mYear = new String[40];
 	public String[] mMonth = new String[12];
-	public String mDay[] = new String[31];
+	public String[] mDay = new String[31];
+	// 定义六个布尔类型，分别从上到下表示这个六个时间选择器
+	private boolean[] mFlag = new boolean[] { false, false, false, false,
+			false, false };
+	private TextView[] mTvViews;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -100,75 +102,57 @@ public class MoveCreateActivity extends BaseActivity {
 		move_tv_photo = (TextView) findViewById(R.id.move_tv_photo);
 		move_iv_music_yes = (ImageView) findViewById(R.id.move_iv_music_yes);
 		move_rl_scope = (RelativeLayout) findViewById(R.id.move_rl_scope);
+		move_tv_commmit_work_Start_time = (TextView) findViewById(R.id.move_tv_commmit_work_Start_time);
+		move_tv_workr_end_time = (TextView) findViewById(R.id.move_tv_workr_end_time);
+		move_tv_enter_time = (TextView) findViewById(R.id.move_tv_enter_time);
+		move_rl_work_end = (RelativeLayout) findViewById(R.id.move_rl_work_end);
+		move_rl_enter_end = (RelativeLayout) findViewById(R.id.move_rl_enter_end);
+		move_rl_commmit_work = (RelativeLayout) findViewById(R.id.move_rl_commmit_work);
+		mTvViews = new TextView[] { move_tv_start_time, move_tv_start_end,
+				move_tv_enter_time, move_tv_enter_end_time,
+				move_tv_commmit_work_Start_time, move_tv_workr_end_time };
 		genateYearMouthDay();
+		initPopWindow();
 	}
 
 	@Override
 	public void initListener() {
 		move_rl_main.setOnClickListener(this);
-		// association_rl_school.setOnClickListener(this);
-		// association_iv_welfare.setOnClickListener(this);
-		// association_iv_yes.setOnClickListener(this);
-		// association_iv_no.setOnClickListener(this);
-		// association_rl_main.setOnClickListener(this);
-		// association_btn_commit.setOnClickListener(this);
-
+		move_rl_end.setOnClickListener(this);
+		move_rl_enter.setOnClickListener(this);
+		move_rl_enter_end.setOnClickListener(this);
+		move_rl_work_end.setOnClickListener(this);
+		move_rl_commmit_work.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.move_rl_main:
-			initPopWindow();
 			showPop(move_rl_welfare, 0, 0);
-			// // 创建会话框
-			// final AlertDialog dialog = new
-			// AlertDialog.Builder(this).create();
-			// dialog.setTitle("消费类别：");
-			//
-			// // 创建布局
-			// final LinearLayout ll = new LinearLayout(this);
-			// // 设置布局方式：水平
-			// ll.setOrientation(LinearLayout.HORIZONTAL);
-			//
-			// final WheelView category1 = new WheelView(this);
-			// category1.setVisibleItems(5);
-			// category1.setCyclic(true);
-			// category1.setAdapter(new
-			// ArrayWheelAdapter<String>(category_str1));
-			// final WheelView category2 = new WheelView(this);
-			// category2.setVisibleItems(5);
-			// category2.setCyclic(true);
-			// category2
-			// .setAdapter(new ArrayWheelAdapter<String>(category_str2[0]));
-			// // 创建参数
-			// LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
-			// LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			// lp1.gravity = Gravity.LEFT;
-			// // lp1.weight = (float) 0.6;
-			// LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(
-			// LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			// lp2.weight = (float) 0.6;
-			// lp2.gravity = Gravity.RIGHT;
-			// lp2.leftMargin = 10;
-			// ll.addView(category1, lp1);
-			// ll.addView(category2, lp2);
-			// // 为category1添加监听
-			// category1.addChangingListener(new OnWheelChangedListener() {
-			// public void onChanged(WheelView wheel, int oldValue,
-			// int newValue) {
-			// category2.setAdapter(new ArrayWheelAdapter<String>(
-			// category_str2[newValue]));
-			// category2
-			// .setCurrentItem(category_str2[newValue].length / 2);
-			// }
-			// });
+			mFlag[0] = true;
+			break;
+		case R.id.move_rl_end:
+			showPop(move_rl_welfare, 0, 0);
+			mFlag[1] = true;
+			break;
+		case R.id.move_rl_enter:
+			showPop(move_rl_welfare, 0, 0);
+			mFlag[2] = true;
+			break;
+		case R.id.move_rl_enter_end:
+			showPop(move_rl_welfare, 0, 0);
+			mFlag[3] = true;
+			break;
+		case R.id.move_rl_commmit_work:
+			showPop(move_rl_welfare, 0, 0);
+			mFlag[4] = true;
+			break;
+		case R.id.move_rl_work_end:
+			showPop(move_rl_welfare, 0, 0);
+			mFlag[5] = true;
+			break;
 
-			break;
-		case R.id.rl_new:
-			Bundle data1 = new Bundle();
-			mApp.startActivity(this, AssociationNewActivity.class, data1);
-			break;
 		case R.id.rl_activity:
 			Bundle data2 = new Bundle();
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
@@ -195,15 +179,14 @@ public class MoveCreateActivity extends BaseActivity {
 	 * 生成年月日
 	 */
 	private void genateYearMouthDay() {
-		mYear = new String[] {};
 		for (int i = 0; i < mYear.length; i++) {
-			mYear[i] = (2015 + i) + "";
+			mYear[i] = "  " + (2015 + i) + "  ";
 		}
 		for (int i = 0; i < mMonth.length; i++) {
-			mMonth[i] = (1 + i) + "";
+			mMonth[i] = "  " + ((1 + i)) + "  ";
 		}
 		for (int i = 0; i < mDay.length; i++) {
-			mDay[i] = (1 + i) + "";
+			mDay[i] = "  " + ((1 + i)) + "  ";
 		}
 	}
 
@@ -255,11 +238,37 @@ public class MoveCreateActivity extends BaseActivity {
 	 */
 	private void setPopListener() {
 		PopWindowItemListener listener = new PopWindowItemListener();
+
 		tv_date_cancle.setOnClickListener(listener);
 		tv_date_sure.setOnClickListener(listener);
 		wv_date_year.setOnClickListener(listener);
 		wv_date_month.setOnClickListener(listener);
 		wv_date_day.setOnClickListener(listener);
+
+	}
+
+	private String mCurrentYear; // 当前的年
+	private String mCurrentMonth;// 当前的月
+	private String mCurrentDay;// 当前的日
+
+	private String cacluteDate() {
+		mCurrentYear = mYear[wv_date_year.getCurrentItem()];
+		mCurrentMonth = mMonth[wv_date_month.getCurrentItem()];
+		mCurrentDay = mDay[wv_date_day.getCurrentItem()];
+		return mCurrentYear + "-" + mCurrentMonth + "-" + mCurrentDay;
+	}
+
+	/**
+	 * 把时间添加到textview里面去
+	 */
+	private void addDateToTextView() {
+		String date = cacluteDate();
+		for (int i = 0; i < mFlag.length; i++) {
+			if (mFlag[i]) {
+				mTvViews[i].setText(date + "");
+				mFlag[i] = false;
+			}
+		}
 	}
 
 	/**
@@ -274,16 +283,15 @@ public class MoveCreateActivity extends BaseActivity {
 		wv_date_year = (WheelView) popView.findViewById(R.id.wv_date_year);
 		wv_date_month = (WheelView) popView.findViewById(R.id.wv_date_month);
 		wv_date_day = (WheelView) popView.findViewById(R.id.wv_date_day);
-
-		wv_date_year.setAdapter(new ArrayWheelAdapter<String>(mYear));
 		wv_date_year.setVisibleItems(5);
 		wv_date_year.setCyclic(true);
-		wv_date_month.setAdapter(new ArrayWheelAdapter<String>(mMonth));
+		wv_date_year.setAdapter(new ArrayWheelAdapter<String>(mYear));
 		wv_date_month.setVisibleItems(5);
 		wv_date_month.setCyclic(true);
-		wv_date_day.setAdapter(new ArrayWheelAdapter<String>(mDay));
+		wv_date_month.setAdapter(new ArrayWheelAdapter<String>(mMonth));
 		wv_date_day.setVisibleItems(5);
 		wv_date_day.setCyclic(true);
+		wv_date_day.setAdapter(new ArrayWheelAdapter<String>(mDay));
 	}
 
 	private class PopWindowItemListener implements OnClickListener {
@@ -291,14 +299,14 @@ public class MoveCreateActivity extends BaseActivity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.me_join:
-				// mApp.startActivity(MainActivity.this, MoveMyActivity.class,
-				// null);
+			case R.id.tv_date_sure:
+				// TODO 把日期加载到textview里面
+				addDateToTextView();
+				mPopupWindow.dismiss();
 				break;
 
-			case R.id.me_create:
-				// mApp.startActivity(MainActivity.this, MoveMyActivity.class,
-				// null);
+			case R.id.tv_date_cancle:
+				mPopupWindow.dismiss();
 
 			}
 		}

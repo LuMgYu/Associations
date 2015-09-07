@@ -58,15 +58,17 @@ public class WheelView extends View {
 	private static final int MIN_DELTA_FOR_SCROLLING = 1;
 
 	/** Current value & label text color */
-	private static final int VALUE_TEXT_COLOR = 0xF0FF6347;
+	private static final int VALUE_TEXT_COLOR = 0xFff00000;
+	// private static final int VALUE_TEXT_COLOR = 0xF0FF6347;
 
 	/** Items text color */
-	private static final int ITEMS_TEXT_COLOR = 0xFF000000;
+	private static final int ITEMS_TEXT_COLOR = 0xFF999999;
 
 	/** Top and bottom shadows colors */
-	private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111,
-			0x00AAAAAA, 0x00AAAAAA };
-
+	// private static final int[] SHADOWS_COLORS = new int[] { 0xFF111111,
+	// 0x00AAAAAA, 0x00AAAAAA };
+	private static final int[] SHADOWS_COLORS = new int[] { 0xFFffffff,
+			0x00ffffff, 0x00ffffff };
 	/** Additional items height (is added to standard text item height) */
 	private static final int ADDITIONAL_ITEM_HEIGHT = 15;
 
