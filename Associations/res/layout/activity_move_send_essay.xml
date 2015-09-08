@@ -21,6 +21,7 @@
             android:hint="标题（必填）"
             android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_big" />
     </RelativeLayout>
 
@@ -42,8 +43,8 @@
             android:hint="请输入内容哦。。。"
             android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_big" />
-
 
         <ImageView
             android:id="@+id/essay_expression"
@@ -53,7 +54,6 @@
             android:layout_marginBottom="@dimen/margin_bottom"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:src="@drawable/face" />
-
     </RelativeLayout>
 
 </LinearLayout>

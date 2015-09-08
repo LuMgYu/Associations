@@ -11,6 +11,7 @@
         android:layout_marginTop="@dimen/margin_top" >
 
         <EditText
+             android:textCursorDrawable="@null"
             android:id="@+id/vedio_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -33,6 +34,7 @@
         android:layout_marginRight="@dimen/margin_right_small" >
 
         <EditText
+             android:textCursorDrawable="@null"
             android:id="@+id/vedio_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

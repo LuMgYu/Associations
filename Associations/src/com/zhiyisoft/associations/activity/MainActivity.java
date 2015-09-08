@@ -24,7 +24,6 @@ import com.zhiyisoft.associations.fragment.FragmentMove;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
-import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
 public class MainActivity extends BaseActivity {
@@ -136,7 +135,6 @@ public class MainActivity extends BaseActivity {
 		ll_association.setOnClickListener(this);
 		ll_notify.setOnClickListener(this);
 		ll_me.setOnClickListener(this);
-		tv_title_right.setOnClickListener(this);
 
 	}
 
@@ -220,6 +218,18 @@ public class MainActivity extends BaseActivity {
 			mCurrentState = ASSOCIATION;
 			setAlltitle(null, null, "创建");
 			tv_title_right.setVisibility(View.VISIBLE);
+			tv_title_right.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if (IsLogin()) {
+						mApp.startActivity(MainActivity.this,
+								AssociationCreateActivity.class, null);
+					} else {
+						addLogin();
+					}
+				}
+			});
 			initFragmentAssociation();
 
 			break;
@@ -233,18 +243,18 @@ public class MainActivity extends BaseActivity {
 			initFragmentMe();
 
 			break;
-		case R.id.tv_title_right:
-			tv_title_right.setVisibility(View.VISIBLE);
-
-			switch (mCurrentState) {
-			case 1:
-				mApp.startActivity(this, MoveCreateActivity.class, null);
-				break;
-			case 2:
-				mApp.startActivity(this, AssociationCreateActivity.class, null);
-				break;
-			}
-			break;
+		// case R.id.tv_title_right:
+		// tv_title_right.setVisibility(View.VISIBLE);
+		//
+		// switch (mCurrentState) {
+		// case 1:
+		// mApp.startActivity(this, MoveCreateActivity.class, null);
+		// break;
+		// case 2:
+		// mApp.startActivity(this, AssociationCreateActivity.class, null);
+		// break;
+		// }
+		// break;
 		}
 	}
 
@@ -268,13 +278,28 @@ public class MainActivity extends BaseActivity {
 				}
 			});
 		} else {
-			if (mLoginFragment == null) {
-				mLoginFragment = new FragmentLogin();
-			}
-			replaceFragment(mLoginFragment);
-			setAlltitle("", "登录", "忘记密码？");
-			iv_title_right2.setVisibility(View.GONE);
+			addLogin();
 		}
+	}
+
+	/**
+	 * 添加登陆
+	 */
+	private void addLogin() {
+		if (mLoginFragment == null) {
+			mLoginFragment = new FragmentLogin();
+		}
+		replaceFragment(mLoginFragment);
+		setAlltitle("", "登录", "忘记密码？");
+		tv_title_right.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				mApp.startActivity(MainActivity.this,
+						ForgetPwdPhoneActivity.class, null);
+			}
+		});
+		iv_title_right2.setVisibility(View.GONE);
 	}
 
 	/**

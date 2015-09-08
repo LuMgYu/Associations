@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationNewActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
+import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.activity.MoveDisplayActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
 import com.zhiyisoft.associations.activity.MoveWorksDisplayActivity;
@@ -201,7 +202,7 @@ public class HomeAdapter extends BAdapter {
 					Bundle bundle = new Bundle();
 					bundle.putString(Config.HOTCATEGORY, (String) v.getTag());
 					mApp.startActivity(mBaseActivity,
-							MoveDisplayActivity.class, bundle);
+							AssociationTopicDetailActivity.class, bundle);
 
 				}
 			});
@@ -223,11 +224,12 @@ public class HomeAdapter extends BAdapter {
 				@Override
 				public void onClick(View v) {
 					mApp.startActivity(mBaseActivity,
-							MoveWorksDisplayActivity.class, null);
+							AssociationTopicDetailActivity.class, null);
 
 				}
 			});
 		}
+		// 热门活动
 		for (int i = 0; i < mHotItemViewArray.length; i++) {
 			mHotItemViewArray[i].setOnClickListener(new OnClickListener() {
 
@@ -239,13 +241,14 @@ public class HomeAdapter extends BAdapter {
 				}
 			});
 		}
+		// 新鲜事
 		for (int i = 0; i < mNewsItemViewArray.length; i++) {
 			mNewsItemViewArray[i].setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					mApp.startActivity(mBaseActivity,
-							AssociationNewActivity.class, null);
+							AssociationTopicDetailActivity.class, null);
 
 				}
 			});

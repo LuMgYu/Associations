@@ -84,8 +84,8 @@ public class MeSettingActivity extends BaseActivity {
 		case R.id.setting_rl_cache:
 			break;
 		case R.id.setting_rl_article:
-			// Bundle data2 = new Bundle();
-			// mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
+			Bundle data2 = new Bundle();
+			mApp.startActivity(this, MeUseAgreementActivity.class, data2);
 			break;
 		case R.id.setting_rl_edition:
 			break;
@@ -105,7 +105,7 @@ public class MeSettingActivity extends BaseActivity {
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.clear();
 		editor.commit();
-		ToastUtils.showToast("退出登录成功！");
+		onBackPressed();
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package com.zhiyisoft.associations.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
 
@@ -58,6 +62,7 @@ public class MoveCreateActivity extends BaseActivity {
 	private ImageView move_iv_commit_all;
 	private ImageView move_iv_vetify_yes;
 	private ImageView move_iv_vedio_yes;
+	private TextView move_tv_scope_name;
 
 	public String[] mYear = new String[40];
 	public String[] mMonth = new String[12];
@@ -66,6 +71,12 @@ public class MoveCreateActivity extends BaseActivity {
 	private boolean[] mFlag = new boolean[] { false, false, false, false,
 			false, false };
 	private TextView[] mTvViews;
+
+	// 多选标志
+	private boolean mIsChoose1 = false;
+	private boolean mIsChoose2 = false;
+	private boolean mIsChoose3 = false;
+	private boolean mIsChoose4 = false;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -121,12 +132,21 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_commit_all = (ImageView) findViewById(R.id.move_iv_commit_all);
 		move_iv_vetify_yes = (ImageView) findViewById(R.id.move_iv_vetify_yes);
 		move_iv_vedio_yes = (ImageView) findViewById(R.id.move_iv_vedio_yes);
+		move_tv_scope_name = (TextView) findViewById(R.id.move_tv_scope_name);
 
 		mTvViews = new TextView[] { move_tv_start_time, move_tv_start_end,
 				move_tv_enter_time, move_tv_enter_end_time,
 				move_tv_commmit_work_Start_time, move_tv_workr_end_time };
 		genateYearMouthDay();
 		initPopWindow();
+		initManyChoose();
+	}
+
+	/**
+	 * 初始化多选
+	 */
+	private void initManyChoose() {
+		mIsChoose1 = true;
 	}
 
 	@Override
@@ -223,17 +243,41 @@ public class MoveCreateActivity extends BaseActivity {
 			move_iv_vetify_no.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_title_yes:
+			changeTheViewImage(move_iv_title_yes, mIsChoose1);
+			mIsChoose1 = (mIsChoose1 == true) ? false : true;
 			break;
 		case R.id.move_iv_photo_yes:
+			changeTheViewImage(move_iv_photo_yes, mIsChoose2);
+			mIsChoose2 = (mIsChoose2 == true) ? false : true;
 			break;
 		case R.id.move_iv_vedio_yes:
+			changeTheViewImage(move_iv_vedio_yes, mIsChoose3);
+			mIsChoose3 = (mIsChoose3 == true) ? false : true;
 			break;
 		case R.id.move_iv_music_yes:
+			changeTheViewImage(move_iv_music_yes, mIsChoose4);
+			mIsChoose4 = (mIsChoose4 == true) ? false : true;
 			break;
 		case R.id.move_rl_scope:
+			mApp.startActivityForResult(this, MeSettingProvinceActivity.class,
+					null);
 			break;
 		}
 
+	}
+
+	/**
+	 * 改变图片的状态
+	 * 
+	 * @param view
+	 * @param mIsChoose12
+	 */
+	private void changeTheViewImage(ImageView view, boolean mIsChoose12) {
+		if (mIsChoose12) {
+			view.setImageResource(R.drawable.xz02);
+		} else {
+			view.setImageResource(R.drawable.xz01);
+		}
 	}
 
 	private void resetmove_iv_vetify_yes() {
@@ -270,6 +314,22 @@ public class MoveCreateActivity extends BaseActivity {
 		}
 		for (int i = 0; i < mDay.length; i++) {
 			mDay[i] = "  " + ((1 + i)) + "  ";
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data == null) {
+				return;
+			}
+			Bundle bundle = data.getExtras();
+			ModelSchool model = (ModelSchool) bundle
+					.get(Config.GET_ACTIVITY_DATA);
+			if (model != null) {
+				move_tv_scope_name.setText(model.getName() + "");
+			}
 		}
 	}
 

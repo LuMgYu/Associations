@@ -48,6 +48,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.MeUseAgreementActivity" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeModifyGenderActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingSignatureActivity" >
@@ -105,6 +107,8 @@
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.ModifyPwdActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MoveWorksDisplayActivity" >
         </activity>

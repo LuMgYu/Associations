@@ -6,7 +6,14 @@ package com.zhiyisoft.associations.fragment.base;
  * Purpose: Defines the Class BaseFragment
  ***********************************************************************/
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -14,13 +21,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -63,14 +73,11 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			mActivity = (BaseActivity) getActivity();
 			mView = inflater.inflate(getLayoutId(), null);
 			mInflater = inflater;
-			if (checkTheUser()) {
-				initIntentData();
-				initView();
-				initListener();
-				initData();
-			} else {
-				mApp.startActivity(getActivity(), LoginActivity.class, null);
-			}
+			initIntentData();
+			initView();
+			initListener();
+			initData();
+			// 新鲜事
 		} else {
 			// 当存在mview的时候就调用清零
 			ViewGroup parent = (ViewGroup) mView.getParent();
@@ -151,6 +158,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	}
 
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
+	public static final int CAPTURE_CODE = 2; // 取照片的时做的标记
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -166,14 +174,39 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 							originalUri);
 					compressPhotoAndDisplay(bitmap);
 				}
+			} else if (requestCode == CAPTURE_CODE) {
+				String sdStatus = Environment.getExternalStorageState();
+				if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+					Log.i("TestFile",
+							"SD card is not avaiable/writeable right now.");
+					return;
+				}
+				String name = new DateFormat().format("yyyyMMdd_hhmmss",
+						Calendar.getInstance(Locale.CHINA)) + ".jpg";
+				Toast.makeText(getActivity(), name, Toast.LENGTH_LONG).show();
+				Bundle bundle = data.getExtras();
+				Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
+
+				FileOutputStream b = null;
+				// ???????????????????????????????为什么不能直接保存在系统相册位置呢？？？？？？？？？？？？
+				File file = new File("/sdcard/myImage/");
+				file.mkdirs();// 创建文件夹
+				String fileName = "/sdcard/myImage/" + name;
+
+				try {
+					b = new FileOutputStream(fileName);
+					compressOutStream2Bitmap(bitmap, b);// 把数据写入文件
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						b.flush();
+						b.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
-			// else if (requestCode == CAPTURE_CODE && resultCode == RESULT_OK)
-			// {
-			// Bundle bundle = data.getExtras();
-			// if (bundle != null) {
-			// mBitmap = (Bitmap) bundle.get("data");
-			// association_icon.setImageBitmap(mBitmap);
-			// }
 		} catch (Exception e) {
 			Log.i("tag", e.toString() + "");
 			ToastUtils.showToast("获取图片抛出了异常！！");
@@ -197,6 +230,11 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		return originBitmap;
 	}
 
+	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+		return bitmap;
+	}
+
 	/**
 	 * 打开相册
 	 */
@@ -204,6 +242,14 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 		Intent intent = new Intent(Intent.ACTION_PICK,
 				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(intent, IMAGE_CODE);
+	}
+
+	/**
+	 * 打开照相机
+	 */
+	public void openTheCamera() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		startActivityForResult(intent, CAPTURE_CODE);
 	}
 	// ----------------------------------我是本区域邪恶的分界线------------------------------------------------------
 

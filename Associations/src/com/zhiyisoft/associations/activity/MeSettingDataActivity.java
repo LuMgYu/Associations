@@ -13,7 +13,6 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.util.Anim;
-import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -123,7 +122,7 @@ public class MeSettingDataActivity extends BaseActivity {
 		case R.id.rl_phone:
 			break;
 		case R.id.rl_modify_pwd:
-			mApp.startActivity(this, ForgetPwdPhoneActivity.class, null);
+			mApp.startActivity(this, ModifyPwdActivity.class, null);
 			break;
 		}
 

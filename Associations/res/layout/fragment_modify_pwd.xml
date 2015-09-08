@@ -1,0 +1,80 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_bg_color"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/main_gray_color" />
+    <!-- 获取验证码 -->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right" >
+
+        <EditText
+            android:id="@+id/et_old_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="输入原密码"
+            android:textColor="@color/text_black"
+            android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small" />
+    </FrameLayout>
+    <!-- 新密码 -->
+
+    <include layout="@layout/view_line_vertical" />
+
+    <EditText
+        android:id="@+id/et_new_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:background="@null"
+        android:hint="新密码"
+        android:password="true"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/text_gray"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/text_small" />
+
+    <include layout="@layout/view_line_vertical" />
+
+    <!-- 确认新密码 -->
+
+    <EditText
+        android:id="@+id/et_sure_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:background="@null"
+        android:hint="确认密码"
+        android:password="true"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/text_gray"
+        android:textCursorDrawable="@null"
+        android:textSize="@dimen/text_small" />
+
+    <include layout="@layout/view_line_vertical" />
+
+    <Button
+        android:id="@+id/btn_done_modify"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="@dimen/margin_left"
+        android:layout_marginRight="@dimen/margin_right"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_red"
+        android:text="修改密码"
+        android:textColor="@color/main_white_pure_color" />
+
+</LinearLayout>

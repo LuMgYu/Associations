@@ -46,7 +46,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="名称:"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <EditText
                 android:id="@+id/move_et_name"
@@ -60,7 +60,7 @@
                 android:hint="五星摄影大赛"
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -80,7 +80,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="类别："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_welfare_name"
@@ -92,7 +92,7 @@
                 android:background="@null"
                 android:text="赛事"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_welfare"
@@ -121,7 +121,7 @@
                 android:layout_marginTop="@dimen/margin_top"
                 android:text="简介："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <EditText
                 android:id="@+id/move_et_about"
@@ -137,7 +137,7 @@
                 android:maxLines="5"
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -156,7 +156,7 @@
             android:gravity="center_vertical"
             android:text="活动时间"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
 
         <RelativeLayout
             android:id="@+id/move_rl_main"
@@ -172,7 +172,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="开始时间："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_start_time"
@@ -183,7 +183,7 @@
                 android:layout_toRightOf="@id/move_tv_start"
                 android:text="2015年7月30号"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_start_time"
@@ -211,7 +211,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="结束时间："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_start_end"
@@ -222,7 +222,7 @@
                 android:layout_toRightOf="@id/move_tv_end"
                 android:text="2015年7月30号"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_end_time"
@@ -244,7 +244,7 @@
             android:gravity="center_vertical"
             android:text="报名"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
 
         <include layout="@layout/view_line_vertical" />
 
@@ -263,7 +263,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="是否验证："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_yes"
@@ -283,7 +283,7 @@
                 android:layout_toRightOf="@id/move_iv_yes"
                 android:text="是"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_no"
@@ -303,7 +303,7 @@
                 android:layout_toRightOf="@id/move_iv_no"
                 android:text="否"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -322,7 +322,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="开始时间："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_enter_time"
@@ -333,7 +333,7 @@
                 android:layout_toRightOf="@id/move_tv_entertime"
                 android:text="2015年7月30号"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_enter_start_time"
@@ -361,7 +361,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="结束时间："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_enter_end_time"
@@ -372,7 +372,7 @@
                 android:layout_toRightOf="@id/move_tv_enter_endTime"
                 android:text="2015年7月30号"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_enter_end_time"
@@ -393,7 +393,7 @@
             android:gravity="center_vertical"
             android:text="提交作品"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_common" />
+            android:textSize="@dimen/text_small" />
 
         <include layout="@layout/view_line_vertical" />
 
@@ -412,7 +412,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="是否验证："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_vetify_work_yes"
@@ -432,7 +432,7 @@
                 android:layout_toRightOf="@id/move_iv_vetify_work_yes"
                 android:text="是"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_vetify_work_no"
@@ -452,7 +452,7 @@
                 android:layout_toRightOf="@id/move_iv_vetify_work_no"
                 android:text="否"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -472,7 +472,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="允许上传权限"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_commit_yes_master"
@@ -492,7 +492,7 @@
                 android:layout_toRightOf="@id/move_iv_commit_yes_master"
                 android:text="仅发起人"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_commit_all"
@@ -512,7 +512,7 @@
                 android:layout_toRightOf="@id/move_iv_commit_all"
                 android:text="所有活动成员"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -531,7 +531,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="开始时间："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_commmit_work_Start_time"
@@ -542,7 +542,7 @@
                 android:layout_toRightOf="@id/move_tv_commmit_worktime"
                 android:text="2015年7月30号"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_work_time"
@@ -570,7 +570,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="结束时间："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_workr_end_time"
@@ -581,7 +581,7 @@
                 android:layout_toRightOf="@id/move_tv_work_endTime"
                 android:text="2015年7月30号"
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_work_end_time"
@@ -612,7 +612,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="是否验证："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_vetify_yes"
@@ -632,7 +632,7 @@
                 android:layout_toRightOf="@id/move_iv_vetify_yes"
                 android:text="是"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_vetify_no"
@@ -652,7 +652,7 @@
                 android:layout_toRightOf="@id/move_iv_vetify_no"
                 android:text="否"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
         <!-- 活动类容类型 -->
 
@@ -672,7 +672,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="活动内容类型："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_title_yes"
@@ -690,7 +690,7 @@
                 android:layout_toRightOf="@id/move_iv_title_yes"
                 android:text="文章"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_photo_yes"
@@ -709,7 +709,7 @@
                 android:layout_toRightOf="@id/move_iv_photo_yes"
                 android:text="图片"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_vedio_yes"
@@ -728,7 +728,7 @@
                 android:layout_toLeftOf="@+id/move_iv_photo_yes"
                 android:text="视频"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_music_yes"
@@ -749,7 +749,7 @@
                 android:layout_toRightOf="@id/move_iv_music_yes"
                 android:text="音频"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -768,7 +768,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:text="开放范围："
                 android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <TextView
                 android:id="@+id/move_tv_scope_name"
@@ -780,7 +780,7 @@
                 android:background="@null"
                 android:text="指定学校"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_common" />
+                android:textSize="@dimen/text_small" />
 
             <ImageView
                 android:id="@+id/move_iv_scope"
