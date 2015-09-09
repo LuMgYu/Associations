@@ -516,12 +516,20 @@ public class MainActivity extends BaseActivity {
 						bundle3);
 				break;
 			case R.id.create_online_move:
+				mPopupWindow.dismiss();
+				Bundle online = new Bundle();
+				online.putInt(Config.SEND_ACTIVITY_DATA,
+						MoveCreateActivity.ONLINE);
 				mApp.startActivity(MainActivity.this, MoveCreateActivity.class,
-						null);
+						online);
 				break;
 			case R.id.create_notOnline_move:
+				mPopupWindow.dismiss();
+				Bundle notonline = new Bundle();
+				notonline.putInt(Config.SEND_ACTIVITY_DATA,
+						MoveCreateActivity.NOT_ONLINE);
 				mApp.startActivity(MainActivity.this, MoveCreateActivity.class,
-						null);
+						notonline);
 				break;
 
 			}

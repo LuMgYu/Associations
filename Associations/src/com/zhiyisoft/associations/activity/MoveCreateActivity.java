@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,7 +25,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelSchool;
-import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
 
@@ -34,6 +35,9 @@ import com.zhiyisoft.associations.widget.wheelview.WheelView;
  */
 
 public class MoveCreateActivity extends BaseActivity {
+	public final static int ONLINE = 0;
+	public final static int NOT_ONLINE = 1;
+	private boolean isOnline = true;
 	private FrameLayout fl_icon;
 	private ImageView move_icon;
 	private EditText move_et_name;
@@ -53,6 +57,7 @@ public class MoveCreateActivity extends BaseActivity {
 	private TextView move_tv_workr_end_time;
 	private ImageView move_iv_vetify_no;
 	private ImageView move_iv_title_yes;
+	private TextView move_tv_welfare_name;
 	private TextView move_tv_photo;
 	private ImageView move_iv_photo_yes;
 	private ImageView move_iv_music_yes;
@@ -67,9 +72,18 @@ public class MoveCreateActivity extends BaseActivity {
 	private ImageView move_iv_vedio_yes;
 	private TextView move_tv_scope_name;
 
+	private TextView move_tv_enter;
+	private TextView move_tv_work;
+	private RelativeLayout move_rl_public;
+	private RelativeLayout move_rl_work;
+	private RelativeLayout move_rl_commit;
+	private RelativeLayout move_rl_vetify;
+	private Button btn_move_commit;
+
 	public String[] mYear = new String[40];
 	public String[] mMonth = new String[12];
 	public String[] mDay = new String[31];
+
 	// 定义六个布尔类型，分别从上到下表示这个六个时间选择器
 	private boolean[] mFlag = new boolean[] { false, false, false, false,
 			false, false };
@@ -95,7 +109,11 @@ public class MoveCreateActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			int i = bundle.getInt(Config.SEND_ACTIVITY_DATA);
+			isOnline = (i == 0) ? true : false;
+		}
 	}
 
 	@Override
@@ -137,7 +155,15 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_vetify_yes = (ImageView) findViewById(R.id.move_iv_vetify_yes);
 		move_iv_vedio_yes = (ImageView) findViewById(R.id.move_iv_vedio_yes);
 		move_tv_scope_name = (TextView) findViewById(R.id.move_tv_scope_name);
-
+		move_tv_welfare_name = (TextView) findViewById(R.id.move_tv_welfare_name);
+		move_tv_enter = (TextView) findViewById(R.id.move_tv_enter);
+		move_tv_work = (TextView) findViewById(R.id.move_tv_work);
+		move_rl_public = (RelativeLayout) findViewById(R.id.move_rl_public);
+		move_rl_work = (RelativeLayout) findViewById(R.id.move_rl_work);
+		move_rl_commit = (RelativeLayout) findViewById(R.id.move_rl_commit);
+		move_rl_vetify = (RelativeLayout) findViewById(R.id.move_rl_vetify);
+		btn_move_commit = (Button) findViewById(R.id.btn_move_commit);
+		judgeIsOnline();
 		mTvViews = new TextView[] { move_tv_start_time, move_tv_start_end,
 				move_tv_enter_time, move_tv_enter_end_time,
 				move_tv_commmit_work_Start_time, move_tv_workr_end_time };
@@ -145,6 +171,28 @@ public class MoveCreateActivity extends BaseActivity {
 		initPopWindow();
 		initManyChoose();
 		initCameraPopWindow();
+		initCategoryPopWindow();
+	}
+
+	/**
+	 * 判断是否是创建线上内容，否则就是线下内容
+	 */
+	private void judgeIsOnline() {
+		// TODO 隐藏部分控件
+		if (!isOnline) {
+			move_tv_enter.setVisibility(View.GONE);
+			move_rl_public.setVisibility(View.GONE);
+			move_rl_enter.setVisibility(View.GONE);
+			move_rl_enter_end.setVisibility(View.GONE);
+			move_tv_work.setVisibility(View.GONE);
+			move_rl_work.setVisibility(View.GONE);
+			move_rl_commit.setVisibility(View.GONE);
+			move_rl_commmit_work.setVisibility(View.GONE);
+			move_rl_work_end.setVisibility(View.GONE);
+			move_rl_vetify.setVisibility(View.GONE);
+			btn_move_commit.setVisibility(View.VISIBLE);
+			btn_move_commit.setOnClickListener(this);
+		}
 	}
 
 	/**
@@ -162,6 +210,7 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_enter_end.setOnClickListener(this);
 		move_rl_work_end.setOnClickListener(this);
 		move_rl_commmit_work.setOnClickListener(this);
+		move_rl_welfare.setOnClickListener(this);
 		// -------------------------
 		move_icon.setOnClickListener(this);
 		move_rl_welfare.setOnClickListener(this);
@@ -178,6 +227,7 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_vedio_yes.setOnClickListener(this);
 		move_iv_music_yes.setOnClickListener(this);
 		move_rl_scope.setOnClickListener(this);
+		tv_title_right.setOnClickListener(this);
 
 	}
 
@@ -224,11 +274,12 @@ public class MoveCreateActivity extends BaseActivity {
 			showPop(move_rl_welfare, 0, 0);
 			mFlag[5] = true;
 			break;
+		case R.id.move_rl_welfare:
+			showCategoryPop(move_rl_welfare, 0, 0);
+			break;
 		// ----------------------------------------------------------------------------
 		case R.id.move_icon:
 			showCameraPop(move_icon, 0, 0);
-			break;
-		case R.id.move_rl_welfare:
 			break;
 		// 活动时间
 		case R.id.move_iv_yes:
@@ -282,6 +333,13 @@ public class MoveCreateActivity extends BaseActivity {
 		case R.id.move_rl_scope:
 			mApp.startActivityForResult(this, MeSettingProvinceActivity.class,
 					null);
+
+			break;
+		case R.id.tv_title_right:
+			ToastUtils.showToast("提交了！呵呵哒");
+			break;
+		case R.id.btn_move_commit:
+			ToastUtils.showToast("提交了！呵呵哒");
 			break;
 		}
 
@@ -428,7 +486,7 @@ public class MoveCreateActivity extends BaseActivity {
 	/**
 	 * 把时间添加到textview里面去
 	 */
-	private void addDateToTextView() {
+	private void addDataToTextView() {
 		String date = cacluteDate();
 		date = date.trim();
 		for (int i = 0; i < mFlag.length; i++) {
@@ -469,11 +527,12 @@ public class MoveCreateActivity extends BaseActivity {
 			switch (v.getId()) {
 			case R.id.tv_date_sure:
 				// TODO 把日期加载到textview里面
-				addDateToTextView();
+				addDataToTextView();
 				mPopupWindow.dismiss();
 				break;
 
 			case R.id.tv_date_cancle:
+
 				mPopupWindow.dismiss();
 
 			}
@@ -495,4 +554,100 @@ public class MoveCreateActivity extends BaseActivity {
 		mPopupWindow.update();
 		setWindowAlpha(0.7f);
 	}
+
+	// --------------------------类别选择PopupWindow的界面控件-----------------------------------------
+	private PopupWindow mCategoryPW;
+	private WheelView wv_category;
+	private String[] mCategory = new String[] { "  科技  ", "  人文  ", "  数学  ",
+			"  人文  ", "  艺术  ", "  教育  " };
+
+	/**
+	 * 初始化popWindow
+	 * */
+	private void initCategoryPopWindow() {
+		if (mCategoryPW == null) {
+			View popView = mInflater.inflate(R.layout.category_picker_item,
+					null);
+			mCategoryPW = new PopupWindow(popView, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+			mCategoryPW.setBackgroundDrawable(new ColorDrawable(0));
+			mCategoryPW.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+					setWindowAlpha(1.0f);
+
+				}
+			});
+			// 设置popwindow出现和消失动画
+			initCategoryPopWidge(popView);
+			setCategoryPopListener();
+		}
+	}
+
+	/**
+	 * 设置popWindow监听器
+	 */
+	private void setCategoryPopListener() {
+		PopCategoryWindowItemListener listener = new PopCategoryWindowItemListener();
+		tv_date_cancle.setOnClickListener(listener);
+		tv_date_sure.setOnClickListener(listener);
+		wv_category.setOnClickListener(listener);
+
+	}
+
+	/**
+	 * 把时间添加到textview里面去
+	 */
+
+	/**
+	 * 初始化popwindow里面的控件
+	 * 
+	 * @param popView
+	 */
+
+	private void initCategoryPopWidge(View popView) {
+		tv_date_cancle = (TextView) popView.findViewById(R.id.tv_date_cancle);
+		tv_date_sure = (TextView) popView.findViewById(R.id.tv_date_sure);
+		wv_category = (WheelView) popView.findViewById(R.id.wv_category);
+		wv_category.setVisibleItems(5);
+		wv_category.setCyclic(true);
+		wv_category.setAdapter(new ArrayWheelAdapter<String>(mCategory));
+	}
+
+	private class PopCategoryWindowItemListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.tv_date_sure:
+				// TODO 把日期加载到textview里面
+				move_tv_welfare_name.setText(mCategory[wv_category
+						.getCurrentItem()] + "");
+				mCategoryPW.dismiss();
+				break;
+
+			case R.id.tv_date_cancle:
+				mCategoryPW.dismiss();
+
+			}
+		}
+
+	}
+
+	/**
+	 * 显示popWindow
+	 * */
+	@SuppressLint("NewApi")
+	public void showCategoryPop(View parent, int x, int y) {
+		// 设置popwindow显示位置
+		mCategoryPW.showAtLocation(parent, Gravity.BOTTOM, x, y);
+		// 获取popwindow焦点
+		mCategoryPW.setFocusable(true);
+		// 设置popwindow如果点击外面区域，便关闭。
+		mCategoryPW.setOutsideTouchable(true);
+		mCategoryPW.update();
+		setWindowAlpha(0.7f);
+	}
+
 }

@@ -2,15 +2,23 @@ package com.zhiyisoft.associations.activity;
 
 import java.io.OutputStream;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +28,8 @@ import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.util.Anim;
+import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
+import com.zhiyisoft.associations.widget.wheelview.WheelView;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -97,6 +107,7 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_tv_commit_yes.getPaint()
 				.setFlags(Paint.UNDERLINE_TEXT_FLAG); // 下划线
 		initCameraPopWindow();
+		initPopWindow();
 	}
 
 	@Override
@@ -109,7 +120,7 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_rl_main.setOnClickListener(this);
 		association_btn_commit.setOnClickListener(this);
 		association_tv_commit_yes.setOnClickListener(this);
-
+		association_rl_welfare.setOnClickListener(this);
 	}
 
 	@Override
@@ -130,6 +141,9 @@ public class AssociationCreateActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.association_rl_welfare:
+			showPop(association_rl_welfare, 0, 0);
+			break;
 		case R.id.association_icon:
 			showCameraPop(association_icon, 0, 0);
 			break;
@@ -202,5 +216,115 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_iv_yes.setImageResource(R.drawable.no);
 		association_iv_no.setImageResource(R.drawable.no);
 
+	}
+
+	// --------------------------PopupWindow的界面控件-----------------------------------------
+	private PopupWindow mPopupWindow;
+	private TextView tv_date_cancle;
+	private TextView tv_date_sure;
+	private WheelView wv_category;
+	private String[] mCategory = new String[] { "  科技  ", "  人文  ", "  数学  ",
+			"  人文  ", "  艺术  ", "  教育  " };
+
+	/**
+	 * 初始化popWindow
+	 * */
+	private void initPopWindow() {
+		if (mPopupWindow == null) {
+			View popView = mInflater.inflate(R.layout.category_picker_item,
+					null);
+			mPopupWindow = new PopupWindow(popView, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+			mPopupWindow.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+					setWindowAlpha(1.0f);
+
+				}
+			});
+			// 设置popwindow出现和消失动画
+			initPopWidge(popView);
+			setPopListener();
+		}
+	}
+
+	/**
+	 * 设置屏幕的透明度
+	 * 
+	 * @param alpha
+	 *            需要设置透明度
+	 */
+	private void setWindowAlpha(float alpha) {
+		WindowManager.LayoutParams params = getWindow().getAttributes();
+		params.alpha = alpha;
+		getWindow().setAttributes(params);
+	}
+
+	/**
+	 * 设置popWindow监听器
+	 */
+	private void setPopListener() {
+		PopWindowItemListener listener = new PopWindowItemListener();
+
+		tv_date_cancle.setOnClickListener(listener);
+		tv_date_sure.setOnClickListener(listener);
+		wv_category.setOnClickListener(listener);
+
+	}
+
+	/**
+	 * 把时间添加到textview里面去
+	 */
+
+	/**
+	 * 初始化popwindow里面的控件
+	 * 
+	 * @param popView
+	 */
+
+	private void initPopWidge(View popView) {
+		tv_date_cancle = (TextView) popView.findViewById(R.id.tv_date_cancle);
+		tv_date_sure = (TextView) popView.findViewById(R.id.tv_date_sure);
+		wv_category = (WheelView) popView.findViewById(R.id.wv_category);
+		wv_category.setVisibleItems(5);
+		wv_category.setCyclic(true);
+		wv_category.setAdapter(new ArrayWheelAdapter<String>(mCategory));
+	}
+
+	private class PopWindowItemListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.tv_date_sure:
+				// TODO 把日期加载到textview里面
+				association_tv_welfare_name.setText(mCategory[wv_category
+						.getCurrentItem()] + "");
+				mPopupWindow.dismiss();
+				break;
+
+			case R.id.tv_date_cancle:
+				mPopupWindow.dismiss();
+
+			}
+		}
+
+	}
+
+	/**
+	 * 显示popWindow
+	 * */
+	@SuppressLint("NewApi")
+	public void showPop(View parent, int x, int y) {
+		// 设置popwindow显示位置
+		mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, x, y);
+		// 获取popwindow焦点
+		mPopupWindow.setFocusable(true);
+		// 设置popwindow如果点击外面区域，便关闭。
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.update();
+		setWindowAlpha(0.7f);
 	}
 }
