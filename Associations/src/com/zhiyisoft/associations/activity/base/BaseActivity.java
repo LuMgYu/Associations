@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -27,17 +29,23 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.media.UMImage;
@@ -462,7 +470,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 				try {
 					b = new FileOutputStream(fileName);
-					bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+					compressOutStream2Bitmap(bitmap, b);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} finally {
@@ -550,6 +558,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 		initQQShare();
 		initQQZoneShare();
 		initWeiXinShare();
+		// 设置分享面板上显示的平台
+		mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN,
+				SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
+				SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT, SHARE_MEDIA.RENREN);
 	}
 
 	/**
@@ -595,6 +607,108 @@ public abstract class BaseActivity extends FragmentActivity implements
 		mController.openShare(this, false);
 	}
 
-	// ------------------------------------友盟初始化qq微信，微博，人人end------------------
+	// ------------------------------------友盟初始化qq微信，微博，人人end------------------z
+	// --------------------------PopupWindow的界面控件-----------------------------------------
+	private PopupWindow mPopupWindow;
+	private TextView btn_openTheCamera;
+	private TextView btn_openTheGallery;
+	private TextView btn_cancle;
 
+	/**
+	 * 初始化popWindow
+	 * */
+	public void initCameraPopWindow() {
+		if (mPopupWindow == null) {
+			View popView = mInflater.inflate(R.layout.upload_icon_item, null);
+			mPopupWindow = new PopupWindow(popView, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
+			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+			mPopupWindow.setOnDismissListener(new OnDismissListener() {
+
+				@Override
+				public void onDismiss() {
+					setWindowAlpha(1.0f);
+
+				}
+			});
+			// 设置popwindow出现和消失动画
+			initPopWidge(popView);
+			setPopListener();
+		}
+	}
+
+	/**
+	 * 设置屏幕的透明度
+	 * 
+	 * @param alpha
+	 *            需要设置透明度
+	 */
+	private void setWindowAlpha(float alpha) {
+		WindowManager.LayoutParams params = getWindow().getAttributes();
+		params.alpha = alpha;
+		getWindow().setAttributes(params);
+	}
+
+	/**
+	 * 设置popWindow监听器
+	 */
+	private void setPopListener() {
+		PopWindowItemListener listener = new PopWindowItemListener();
+		btn_openTheCamera.setOnClickListener(listener);
+		btn_openTheGallery.setOnClickListener(listener);
+		btn_cancle.setOnClickListener(listener);
+	}
+
+	/**
+	 * 初始化popwindow里面的控件
+	 * 
+	 * @param popView
+	 */
+	private void initPopWidge(View popView) {
+		btn_openTheCamera = (TextView) popView
+				.findViewById(R.id.btn_openTheCamera);
+		btn_openTheGallery = (TextView) popView
+				.findViewById(R.id.btn_openTheGallery);
+		btn_cancle = (TextView) popView.findViewById(R.id.btn_cancle);
+
+	}
+
+	private class PopWindowItemListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btn_openTheCamera:
+				openTheCamera();
+				mPopupWindow.dismiss();
+				break;
+
+			case R.id.btn_openTheGallery:
+				mPopupWindow.dismiss();
+				openTheGalley();
+				break;
+			case R.id.btn_cancle:
+				mPopupWindow.dismiss();
+				break;
+
+			}
+		}
+
+	}
+
+	/**
+	 * 显示popWindow
+	 * */
+	@SuppressLint("NewApi")
+	public void showCameraPop(View parent, int x, int y) {
+		// 设置popwindow显示位置
+		mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, x, y);
+		// 获取popwindow焦点
+		mPopupWindow.setFocusable(true);
+		// 设置popwindow如果点击外面区域，便关闭。
+		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
+		mPopupWindow.update();
+		setWindowAlpha(0.7f);
+	}
 }

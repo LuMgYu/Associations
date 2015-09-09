@@ -1,7 +1,1 @@
-package com.zhiyisoft.associations.wxapi;
-
-import com.umeng.socialize.weixin.view.WXCallbackActivity;
-
-public class WXEntryActivity extends WXCallbackActivity {
-	
-}
+package com.zhiyisoft.associations.wxapi;import com.umeng.socialize.weixin.view.WXCallbackActivity;public class WXEntryActivity extends WXCallbackActivity {}

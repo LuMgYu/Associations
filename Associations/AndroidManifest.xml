@@ -1,201 +1,161 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zhiyisoft.associations"
-    android:versionCode="1"
-    android:versionName="1.0" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.zhiyisoft.associations">
 
-    <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="19"/>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-    <application
-        android:name="com.zhiyisoft.associations.application.Association"
-        android:allowBackup="true"
-        android:icon="@drawable/association"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.zhiyisoft.associations.activity.SplashActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+    <application android:allowBackup="true" android:icon="@drawable/association" android:label="@string/app_name" android:name="com.zhiyisoft.associations.application.Association" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="com.zhiyisoft.associations.activity.SplashActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.ForgetPwdActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.ForgetPwdActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.RegisterFillInformationActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.RegisterFillInformationActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.ForgetPwdPhoneActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.ForgetPwdPhoneActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.RegisterActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.RegisterActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.RegisterPhoneActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.RegisterPhoneActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.LoginActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.LoginActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailContentActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailContentActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeSettingDataActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingDataActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeSettingNickActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingNickActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeSettingActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeUseAgreementActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeUseAgreementActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeModifyGenderActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeModifyGenderActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeSettingSignatureActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingSignatureActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeSettingSchoolActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingSchoolActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MeSettingProvinceActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MeSettingProvinceActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationMainActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMainActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationNewActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationNewActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationSingleActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationSingleActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationWordActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationWordActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationMemberActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMemberActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationMoveActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationMoveActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateAlbumActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateAlbumActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationAgreementActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationAgreementActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumSingleActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationAlbumSingleActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoDisplayActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhotoDisplayActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationDisplayActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationDisplayActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationUploadPhotoActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationUploadPhotoActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailPhotoActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailPhotoActivity">
         </activity>
-        <activity
-            android:name="com.zhiyisoft.associations.activity.AssociationCreateActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationCreateActivity" android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity">
         </activity>
-        <activity
-            android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity" android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhoneAlbumActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationPhoneAlbumActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationInformationActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationVedioDisplayActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationVedioDisplayActivity">
         </activity>
-        <activity
-            android:name="com.zhiyisoft.associations.activity.MoveCreateActivity"
-            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveCreateActivity" android:windowSoftInputMode="stateHidden|stateUnchanged">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveMainActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.ModifyPwdActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.ModifyPwdActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveWorksDisplayActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveWorksDisplayActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveSendEssayActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendEssayActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveSendMusicActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendMusicActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveSendPhotoActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendPhotoActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveMemberActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveMemberActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveDisplayActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveDisplayActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveSendVedioActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveSendVedioActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.MoveMyActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.MoveMyActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.LocalFileActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.LocalFileActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.LocalImagListActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.LocalImagListActivity">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.LocalAlbumActivity" >
+        <activity android:name="com.zhiyisoft.associations.activity.LocalAlbumActivity">
         </activity>
-        <activity
-            android:name="com.zhiyisoft.associations.activity.MainActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize" >
+        <activity android:name="com.zhiyisoft.associations.activity.MainActivity" android:windowSoftInputMode="adjustPan|adjustResize">
         </activity>
-        <activity android:name="com.zhiyisoft.associations.widget.xlistview.XScrollViewActivity" >
+        <activity android:name="com.zhiyisoft.associations.widget.xlistview.XScrollViewActivity">
         </activity>
-        <activity android:name="com.youku.uploader.YouKuGetCodeActivity" >
+        <activity android:name="com.youku.uploader.YouKuGetCodeActivity">
         </activity>
-        <activity android:name="com.youku.uploader.YoukuMainActivity" >
+        <activity android:name="com.youku.uploader.YoukuMainActivity">
         </activity>
 
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="55deab9f67e58e64030003f4" />
+        <meta-data android:name="UMENG_APPKEY" android:value="55deab9f67e58e64030003f4"/>
 
-        <activity
-            android:name="com.umeng.socialize.view.ShareActivity"
-            android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:theme="@style/Theme.UMDialog"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:configChanges="orientation|keyboard" android:launchMode="singleTask" android:name="com.umeng.socialize.view.ShareActivity" android:noHistory="true" android:theme="@style/Theme.UMDialog" android:windowSoftInputMode="stateVisible|adjustResize"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:name=".wxapi.WXEntryActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <!-- ###################注册SDK使用的Activity###################### -->
         <!-- 分享编辑页 -->
 
 
         <!-- ############ QQ空间和QQ SSO授权的Activity注册 ############ -->
-        <activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
+        <activity android:launchMode="singleTask" android:name="com.tencent.tauth.AuthActivity" android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID -->
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent100424468"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        <activity android:name="com.tencent.connect.common.AssistActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
 </manifest>

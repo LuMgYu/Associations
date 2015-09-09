@@ -9,7 +9,7 @@
         android:id="@+id/association_ll_data"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginTop="25dp"
         android:background="@color/main_gray_color"
         android:gravity="center"
         android:orientation="horizontal" >

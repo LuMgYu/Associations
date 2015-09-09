@@ -1,7 +1,9 @@
 package com.zhiyisoft.associations.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -142,6 +144,13 @@ public class MainActivity extends BaseActivity {
 	protected void onResume() {
 		if (mCurrentState == ME) {
 			initFragmentMe();
+		}
+		if (mCurrentState == ASSOCIATION) {
+			mAssociationFragment = new FragmentAssociation();
+			replaceFragment(mAssociationFragment);
+			changeTheTitle("社团");
+			changeTheColor(iv_association, tv_association,
+					R.drawable.corporation_c);
 		}
 		super.onResume();
 	}
@@ -483,17 +492,28 @@ public class MainActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.me_join:
+				mPopupWindow.dismiss();
+				Bundle bundle = new Bundle();
+				bundle.putInt(Config.SEND_ACTIVITY_DATA, MoveMyActivity.MY_JOIN);
 				mApp.startActivity(MainActivity.this, MoveMyActivity.class,
-						null);
+						bundle);
 				break;
 
 			case R.id.me_create:
+				mPopupWindow.dismiss();
+				Bundle bundle2 = new Bundle();
+				bundle2.putInt(Config.SEND_ACTIVITY_DATA,
+						MoveMyActivity.MY_CREATE);
 				mApp.startActivity(MainActivity.this, MoveMyActivity.class,
-						null);
+						bundle2);
 				break;
 			case R.id.me_watch:
+				mPopupWindow.dismiss();
+				Bundle bundle3 = new Bundle();
+				bundle3.putInt(Config.SEND_ACTIVITY_DATA,
+						MoveMyActivity.MY_WATCH);
 				mApp.startActivity(MainActivity.this, MoveMyActivity.class,
-						null);
+						bundle3);
 				break;
 			case R.id.create_online_move:
 				mApp.startActivity(MainActivity.this, MoveCreateActivity.class,
@@ -506,7 +526,6 @@ public class MainActivity extends BaseActivity {
 
 			}
 		}
-
 	}
 
 	/**

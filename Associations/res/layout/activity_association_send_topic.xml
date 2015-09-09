@@ -21,6 +21,7 @@
             android:hint="标题（必填）"
             android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_big" />
     </RelativeLayout>
 
@@ -42,6 +43,7 @@
             android:hint="请输入内容哦。。。"
             android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_big" />
 
         <ImageView

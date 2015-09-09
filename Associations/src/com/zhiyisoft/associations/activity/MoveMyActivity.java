@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyViewPagerAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.FragmentMoveMyCreate;
 import com.zhiyisoft.associations.fragment.FragmentMoveMyJoin;
 import com.zhiyisoft.associations.fragment.FragmentMoveMyWatch;
@@ -34,6 +35,12 @@ public class MoveMyActivity extends BaseActivity {
 	private ViewPager mViewPager;
 	private List<BaseFragment> mFragments = new ArrayList<BaseFragment>();
 	private float moveWidth;
+	private int mCurrentPos = 0;
+	private float mCurrentDes = 0;
+
+	public final static int MY_JOIN = 0;
+	public final static int MY_WATCH = 1;
+	public final static int MY_CREATE = 2;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -47,7 +54,10 @@ public class MoveMyActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mCurrentPos = bundle.getInt(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -63,7 +73,7 @@ public class MoveMyActivity extends BaseActivity {
 		mTextBottemLine = (TextView) findViewById(R.id.bottom_line);
 		moveWidth = UIUtils.getWindowWidth(getApplicationContext()) / 3;
 		initTextLIneWidth();
-
+		setBottomLinePos(mCurrentPos);
 		initViewPager();
 	}
 
@@ -83,34 +93,14 @@ public class MoveMyActivity extends BaseActivity {
 		mFragments.add(new FragmentMoveMyWatch());
 		mFragments.add(new FragmentMoveMyCreate());
 		mViewPager.setAdapter(new MyViewPagerAdapter(mFManager, mFragments));
-		mViewPager.setCurrentItem(0);
+		mViewPager.setCurrentItem(mCurrentPos);
 		mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-
-			private float mCurrentDes = 0;
 
 			@Override
 			public void onPageSelected(int pos) {
+				mCurrentPos = pos;
 				mViewPager.setCurrentItem(pos);
-				Animation animation = null;
-				switch (pos) {
-				case 0:
-					animation = new TranslateAnimation(mCurrentDes, 0, 0, 0);
-					mCurrentDes = 0 * moveWidth;
-					break;
-				case 1:
-					animation = new TranslateAnimation(mCurrentDes, moveWidth,
-							0, 0);
-					mCurrentDes = 1 * moveWidth;
-					break;
-				case 2:
-					animation = new TranslateAnimation(mCurrentDes,
-							moveWidth * 2, 0, 0);
-					mCurrentDes = 2 * moveWidth;
-					break;
-				}
-				animation.setFillAfter(true);
-				animation.setDuration(300);
-				mTextBottemLine.startAnimation(animation);
+				setBottomLinePos(mCurrentPos);
 
 			}
 
@@ -124,6 +114,32 @@ public class MoveMyActivity extends BaseActivity {
 
 			}
 		});
+	}
+
+	/**
+	 * 设置下划线的移动位置
+	 * 
+	 * @param pos
+	 */
+	private void setBottomLinePos(int pos) {
+		Animation animation = null;
+		switch (pos) {
+		case 0:
+			animation = new TranslateAnimation(mCurrentDes, 0, 0, 0);
+			mCurrentDes = 0 * moveWidth;
+			break;
+		case 1:
+			animation = new TranslateAnimation(mCurrentDes, moveWidth, 0, 0);
+			mCurrentDes = 1 * moveWidth;
+			break;
+		case 2:
+			animation = new TranslateAnimation(mCurrentDes, moveWidth * 2, 0, 0);
+			mCurrentDes = 2 * moveWidth;
+			break;
+		}
+		animation.setFillAfter(true);
+		animation.setDuration(300);
+		mTextBottemLine.startAnimation(animation);
 	}
 
 	@Override

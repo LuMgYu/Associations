@@ -25,6 +25,7 @@
             android:hint="请输入验证码"
             android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_small" />
 
         <Button
@@ -53,6 +54,7 @@
         android:password="true"
         android:textColor="@color/text_black"
         android:textColorHint="@color/text_gray"
+        android:textCursorDrawable="@null"
         android:textSize="@dimen/text_small" />
 
     <include layout="@layout/view_line_vertical" />
@@ -70,6 +72,7 @@
         android:password="true"
         android:textColor="@color/text_black"
         android:textColorHint="@color/text_gray"
+        android:textCursorDrawable="@null"
         android:textSize="@dimen/text_small" />
 
     <include layout="@layout/view_line_vertical" />

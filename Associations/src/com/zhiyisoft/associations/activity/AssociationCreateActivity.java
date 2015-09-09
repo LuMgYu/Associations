@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.OutputStream;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
@@ -94,6 +96,7 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_btn_commit = (Button) findViewById(R.id.association_btn_commit);
 		association_tv_commit_yes.getPaint()
 				.setFlags(Paint.UNDERLINE_TEXT_FLAG); // 下划线
+		initCameraPopWindow();
 	}
 
 	@Override
@@ -117,10 +120,18 @@ public class AssociationCreateActivity extends BaseActivity {
 	}
 
 	@Override
+	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
+		// TODO Auto-generated method stub
+		mBitmap = super.compressOutStream2Bitmap(bitmap, stream);
+		association_icon.setImageBitmap(mBitmap);
+		return mBitmap;
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.association_icon:
-			super.openTheGalley();
+			showCameraPop(association_icon, 0, 0);
 			break;
 		case R.id.association_rl_school:
 			Bundle data1 = new Bundle();

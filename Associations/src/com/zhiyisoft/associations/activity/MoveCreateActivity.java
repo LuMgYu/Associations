@@ -1,7 +1,10 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.OutputStream;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -77,6 +80,7 @@ public class MoveCreateActivity extends BaseActivity {
 	private boolean mIsChoose2 = false;
 	private boolean mIsChoose3 = false;
 	private boolean mIsChoose4 = false;
+	private Bitmap mBitmap;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -140,6 +144,7 @@ public class MoveCreateActivity extends BaseActivity {
 		genateYearMouthDay();
 		initPopWindow();
 		initManyChoose();
+		initCameraPopWindow();
 	}
 
 	/**
@@ -177,6 +182,21 @@ public class MoveCreateActivity extends BaseActivity {
 	}
 
 	@Override
+	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
+		mBitmap = super.compressPhotoAndDisplay(originBitmap);
+		move_icon.setImageBitmap(mBitmap);
+		return mBitmap;
+	}
+
+	@Override
+	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
+		// TODO Auto-generated method stub
+		mBitmap = super.compressOutStream2Bitmap(bitmap, stream);
+		move_icon.setImageBitmap(mBitmap);
+		return mBitmap;
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		// ----------------------------------时间选择部分------------------------------------------
@@ -206,6 +226,7 @@ public class MoveCreateActivity extends BaseActivity {
 			break;
 		// ----------------------------------------------------------------------------
 		case R.id.move_icon:
+			showCameraPop(move_icon, 0, 0);
 			break;
 		case R.id.move_rl_welfare:
 			break;
