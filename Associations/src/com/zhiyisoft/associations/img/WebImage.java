@@ -1,12 +1,7 @@
 package com.zhiyisoft.associations.img;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class WebImage implements SmartImage {
 	private static final int CONNECT_TIMEOUT = 5000;
@@ -38,5 +33,4 @@ public class WebImage implements SmartImage {
 
 		return bitmap;
 	}
-
 }

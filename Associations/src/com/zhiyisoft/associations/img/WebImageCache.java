@@ -2,8 +2,6 @@ package com.zhiyisoft.associations.img;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,11 +20,11 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.zhiyisoft.associations.cache.base.DiskLruCache;
-import com.zhiyisoft.associations.util.StreamTool;
 
 public class WebImageCache {
 	private static DiskLruCache mDiskCache;
-	private int mDiskCacheSize = 30 * 1024;
+	// 让内存有30m 最开始把单位设置错了设置为8b，导致存不进去，卧槽 ，fuck，浪费老子两个小时！
+	private int mDiskCacheSize = 30 * 1024 * 1024;
 	private String mFileName = "Association";
 	private Context mContext;
 
@@ -56,9 +54,14 @@ public class WebImageCache {
 			if (snapShot != null) {
 				InputStream is = snapShot.getInputStream(0);
 				bitmap = BitmapFactory.decodeStream(is);
+				// 如果是大图片的时候就 压缩一下
+				if (bitmap == null) {
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inSampleSize = 10;
+					bitmap = BitmapFactory.decodeStream(is, null, options);
+				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -173,6 +176,7 @@ public class WebImageCache {
 			}
 			return true;
 		} catch (final IOException e) {
+			System.out.println("-------" + e.toString());
 			e.printStackTrace();
 		} finally {
 			if (urlConnection != null) {

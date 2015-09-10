@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MeSettingDataActivity;
 import com.zhiyisoft.associations.activity.MeSettingSignatureActivity;
-import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.listview.MeAssociationListview;
@@ -67,8 +66,11 @@ public class FragmentMe extends BaseFragment {
 		me_iv_default = (ImageView) findViewById(R.id.me_iv_default);
 		me_lv_association = (MeAssociationListview) findViewById(R.id.me_lv_association);
 		initPopWindow();
-		me_iv_icon.setImageUrl("http://stimg1.tuicool.com/3URZ7v.png");
+		me_iv_icon
+				.setImageUrl("http://pic19.nipic.com/20120308/7491614_141057681000_2.png");
 		// me_iv_icon.setImageUrl("http://stimg1.tuicool.com/3URZ7v.png");
+		// me_iv_icon
+		// .setImageUrl(" http://img1.imgtn.bdimg.com/it/u=1494112507,2283095784&fm=21&gp=0.jpg");
 	}
 
 	@Override
