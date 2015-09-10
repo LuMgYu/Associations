@@ -1,16 +1,29 @@
 package com.zhiyisoft.associations.fragment;
 
+import java.util.Map;
+import java.util.Set;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.controller.listener.SocializeListeners.UMAuthListener;
+import com.umeng.socialize.controller.listener.SocializeListeners.UMDataListener;
+import com.umeng.socialize.exception.SocializeException;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.ForgetPwdPhoneActivity;
 import com.zhiyisoft.associations.activity.MainActivity;
@@ -148,10 +161,10 @@ public class FragmentLogin extends BaseFragment {
 			mApp.startActivity(getActivity(), RegisterPhoneActivity.class, null);
 			break;
 		case R.id.iv_qq:
-
+			qqLogin();
 			break;
 		case R.id.iv_weibo:
-
+			sinaLogin();
 			break;
 		}
 
@@ -200,4 +213,131 @@ public class FragmentLogin extends BaseFragment {
 		// TODO Auto-generated method stub
 
 	};
+
+	// ----------------------------------实现第三方登陆----------------------------------------------
+	UMSocialService mController = UMServiceFactory
+			.getUMSocialService("com.umeng.login");
+
+	/**
+	 * 新浪登陆
+	 */
+	public void sinaLogin() {
+		mController.doOauthVerify(getActivity(), SHARE_MEDIA.SINA,
+				new UMAuthListener() {
+					@Override
+					public void onError(SocializeException e,
+							SHARE_MEDIA platform) {
+					}
+
+					@Override
+					public void onComplete(Bundle value, SHARE_MEDIA platform) {
+						if (value != null
+								&& !TextUtils.isEmpty(value.getString("uid"))) {
+							Toast.makeText(getActivity(), "授权成功.",
+									Toast.LENGTH_SHORT).show();
+							getSinaMessage();
+						} else {
+							Toast.makeText(getActivity(), "授权失败",
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+
+					@Override
+					public void onCancel(SHARE_MEDIA platform) {
+					}
+
+					@Override
+					public void onStart(SHARE_MEDIA platform) {
+					}
+				});
+	}
+
+	private void getSinaMessage() {
+		mController.getPlatformInfo(getActivity(), SHARE_MEDIA.SINA,
+				new UMDataListener() {
+					@Override
+					public void onStart() {
+						Toast.makeText(getActivity(), "获取平台数据开始...",
+								Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onComplete(int status, Map<String, Object> info) {
+						if (status == 200 && info != null) {
+							StringBuilder sb = new StringBuilder();
+							Set<String> keys = info.keySet();
+							for (String key : keys) {
+								sb.append(key + "=" + info.get(key).toString()
+										+ "\r\n");
+							}
+							Log.d("TestData", sb.toString());
+						} else {
+							Log.d("TestData", "发生错误：" + status);
+						}
+					}
+				});
+	}
+
+	public void qqLogin() {
+		// 参数1为当前Activity， 参数2为开发者在QQ互联申请的APP ID，参数3为开发者在QQ互联申请的APP kEY.
+		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(getActivity(),
+				"1104831952", "ioLElezMMAJ94NHm");
+		qqSsoHandler.addToSocialSDK();
+		mController.doOauthVerify(getActivity(), SHARE_MEDIA.QQ,
+				new UMAuthListener() {
+					@Override
+					public void onStart(SHARE_MEDIA platform) {
+						Toast.makeText(getActivity(), "授权开始",
+								Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onError(SocializeException e,
+							SHARE_MEDIA platform) {
+						Toast.makeText(getActivity(), "授权错误",
+								Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onComplete(Bundle value, SHARE_MEDIA platform) {
+						Toast.makeText(getActivity(), "授权完成",
+								Toast.LENGTH_SHORT).show();
+						getQQMessage();
+					}
+
+					@Override
+					public void onCancel(SHARE_MEDIA platform) {
+						Toast.makeText(getActivity(), "授权取消",
+								Toast.LENGTH_SHORT).show();
+					}
+				});
+	}
+
+	private void getQQMessage() {
+		// 获取相关授权信息
+		mController.getPlatformInfo(getActivity(), SHARE_MEDIA.QQ,
+				new UMDataListener() {
+					@Override
+					public void onStart() {
+						Toast.makeText(getActivity(), "获取平台数据开始...",
+								Toast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void onComplete(int status, Map<String, Object> info) {
+						if (status == 200 && info != null) {
+							StringBuilder sb = new StringBuilder();
+							Set<String> keys = info.keySet();
+							for (String key : keys) {
+								sb.append(key + "=" + info.get(key).toString()
+										+ "\r\n");
+							}
+							Log.d("TestData", sb.toString());
+						} else {
+							Log.d("TestData", "发生错误：" + status);
+						}
+					}
+				});
+	}
+
 }

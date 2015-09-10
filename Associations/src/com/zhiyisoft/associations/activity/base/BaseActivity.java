@@ -606,6 +606,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void preformShare() {
 		mController.openShare(this, false);
 	}
+	
+	
 
 	// ------------------------------------友盟初始化qq微信，微博，人人end------------------z
 	// --------------------------PopupWindow的界面控件-----------------------------------------
