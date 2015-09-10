@@ -36,6 +36,7 @@ public class MeSettingSchoolAdapter extends BAdapter {
 			ModelSchool modelSchool) {
 		super(fragment, list);
 		this.school = modelSchool;
+	
 	}
 
 	@Override

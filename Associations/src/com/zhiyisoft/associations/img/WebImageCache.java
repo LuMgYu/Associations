@@ -1,161 +1,194 @@
 package com.zhiyisoft.associations.img;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.ref.SoftReference;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
-import com.zhiyisoft.associations.application.Association;
+import com.zhiyisoft.associations.cache.base.DiskLruCache;
+import com.zhiyisoft.associations.util.StreamTool;
 
 public class WebImageCache {
-	private static final String DISK_CACHE_PATH = "/web_image_cache/";
-
-	private ConcurrentHashMap<String, SoftReference<Bitmap>> memoryCache;
-	private String diskCachePath;
-	private boolean diskCacheEnabled = false;
-	private ExecutorService writeThread;
+	private static DiskLruCache mDiskCache;
+	private int mDiskCacheSize = 30 * 1024;
+	private String mFileName = "Association";
+	private Context mContext;
 
 	public WebImageCache(Context context) {
-		// Set up in-memory cache store
-		memoryCache = new ConcurrentHashMap<String, SoftReference<Bitmap>>();
-
-		// Set up disk cache store
-		Context appContext = context.getApplicationContext();
-		diskCachePath = Association.getCache_path() + DISK_CACHE_PATH;
-		File outFile = new File(diskCachePath);
-		outFile.mkdirs();
-		diskCacheEnabled = outFile.exists();
-		// Set up threadpool for image fetching tasks
-		writeThread = Executors.newSingleThreadExecutor();
+		this.mContext = context;
+		if (mDiskCache == null) {
+			File file = getDiskCacheDir(context, mFileName);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			try {
+				mDiskCache = DiskLruCache.open(file, getAppVersion(context), 1,
+						mDiskCacheSize);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
-	public Bitmap get(final String url) {
+	public Bitmap get(String url) {
 		Bitmap bitmap = null;
 
-		// Check for image in memory
-		bitmap = getBitmapFromMemory(url);
-
-		// Check for image on disk cache
-		if (bitmap == null) {
-			bitmap = getBitmapFromDisk(url);
-
-			// Write bitmap back into memory cache
-			if (bitmap != null) {
-				cacheBitmapToMemory(url, bitmap);
+		try {
+			String path = hashKeyForDisk(url);
+			DiskLruCache.Snapshot snapShot = mDiskCache.get(path);
+			if (snapShot != null) {
+				InputStream is = snapShot.getInputStream(0);
+				bitmap = BitmapFactory.decodeStream(is);
 			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return bitmap;
 	}
 
-	public void put(String url, Bitmap bitmap) {
-		cacheBitmapToMemory(url, bitmap);
-		cacheBitmapToDisk(url, bitmap);
-	}
-
-	public void remove(String url) {
-		if (url == null) {
-			return;
-		}
-
-		// Remove from memory cache
-		memoryCache.remove(getCacheKey(url));
-
-		// Remove from file cache
-		File f = new File(diskCachePath, getCacheKey(url));
-		if (f.exists() && f.isFile()) {
-			f.delete();
+	public void put(String url) {
+		try {
+			String path = hashKeyForDisk(url);
+			DiskLruCache.Editor editor = mDiskCache.edit(path);
+			if (editor != null) {
+				OutputStream outputStream = editor.newOutputStream(0);
+				if (downloadUrlToStream(url, outputStream)) {
+					editor.commit();
+				} else {
+					editor.abort();
+				}
+			}
+			mDiskCache.flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
 	public void clear() {
-		// Remove everything from memory cache
-		memoryCache.clear();
-
-		// Remove everything from file cache
-		File cachedFileDir = new File(diskCachePath);
-		if (cachedFileDir.exists() && cachedFileDir.isDirectory()) {
-			File[] cachedFiles = cachedFileDir.listFiles();
-			for (File f : cachedFiles) {
-				if (f.exists() && f.isFile()) {
-					f.delete();
-				}
-			}
-		}
 	}
 
-	private void cacheBitmapToMemory(final String url, final Bitmap bitmap) {
-		memoryCache.put(getCacheKey(url), new SoftReference<Bitmap>(bitmap));
-	}
-
-	private void cacheBitmapToDisk(final String url, final Bitmap bitmap) {
-		writeThread.execute(new Runnable() {
-			@Override
-			public void run() {
-				if (diskCacheEnabled) {
-					BufferedOutputStream ostream = null;
-					try {
-						ostream = new BufferedOutputStream(
-								new FileOutputStream(new File(diskCachePath,
-										getCacheKey(url))), 2 * 1024);
-						bitmap.compress(CompressFormat.PNG, 100, ostream);
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} finally {
-						try {
-							if (ostream != null) {
-								ostream.flush();
-								ostream.close();
-							}
-						} catch (IOException e) {
-						}
-					}
-				}
-			}
-		});
-	}
-
-	private Bitmap getBitmapFromMemory(String url) {
-		Bitmap bitmap = null;
-		SoftReference<Bitmap> softRef = memoryCache.get(getCacheKey(url));
-		if (softRef != null) {
-			bitmap = softRef.get();
-		}
-
-		return bitmap;
-	}
-
-	private Bitmap getBitmapFromDisk(String url) {
-		Bitmap bitmap = null;
-		if (diskCacheEnabled) {
-			String filePath = getFilePath(url);
-			File file = new File(filePath);
-			if (file.exists()) {
-				bitmap = BitmapFactory.decodeFile(filePath);
-			}
-		}
-		return bitmap;
-	}
-
-	private String getFilePath(String url) {
-		return diskCachePath + getCacheKey(url);
-	}
-
-	private String getCacheKey(String url) {
-		if (url == null) {
-			throw new RuntimeException("Null url passed in");
+	/**
+	 * 获取内存卡路径
+	 * 
+	 * @param context
+	 * @param uniqueName
+	 * @return
+	 */
+	@SuppressLint("NewApi")
+	private File getDiskCacheDir(Context context, String uniqueName) {
+		String cachePath;
+		if (Environment.MEDIA_MOUNTED.equals(Environment
+				.getExternalStorageState())
+				|| !Environment.isExternalStorageRemovable()) {
+			cachePath = context.getExternalCacheDir().getPath();
 		} else {
-			return url.replaceAll("[.:/,%?&=]", "+").replaceAll("[+]+", "+");
+			cachePath = context.getCacheDir().getPath();
 		}
+		return new File(cachePath + File.separator + uniqueName);
+	}
+
+	/**
+	 * 获取app版本号
+	 * 
+	 * @param context
+	 * @return
+	 */
+	private int getAppVersion(Context context) {
+		try {
+			PackageInfo info = context.getPackageManager().getPackageInfo(
+					context.getPackageName(), 0);
+			return info.versionCode;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
+	// private String getFilePath(String url) {
+	// return url;
+	// // return diskCachePath + getCacheKey(url);
+	// }
+
+	public String hashKeyForDisk(String key) {
+		String cacheKey;
+		try {
+			final MessageDigest mDigest = MessageDigest.getInstance("MD5");
+			mDigest.update(key.getBytes());
+			cacheKey = bytesToHexString(mDigest.digest());
+		} catch (NoSuchAlgorithmException e) {
+			cacheKey = String.valueOf(key.hashCode());
+		}
+		return cacheKey;
+	}
+
+	private String bytesToHexString(byte[] bytes) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < bytes.length; i++) {
+			String hex = Integer.toHexString(0xFF & bytes[i]);
+			if (hex.length() == 1) {
+				sb.append('0');
+			}
+			sb.append(hex);
+		}
+		return sb.toString();
+	}
+
+	private boolean downloadUrlToStream(String urlString,
+			OutputStream outputStream) {
+		HttpURLConnection urlConnection = null;
+		BufferedOutputStream out = null;
+		BufferedInputStream in = null;
+		try {
+			final URL url = new URL(urlString);
+			urlConnection = (HttpURLConnection) url.openConnection();
+			in = new BufferedInputStream(urlConnection.getInputStream(),
+					8 * 1024);
+			out = new BufferedOutputStream(outputStream, 8 * 1024);
+			int b;
+			while ((b = in.read()) != -1) {
+				out.write(b);
+			}
+			return true;
+		} catch (final IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (urlConnection != null) {
+				urlConnection.disconnect();
+			}
+			try {
+				if (out != null) {
+					out.close();
+				}
+				if (in != null) {
+					in.close();
+				}
+			} catch (final IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 }

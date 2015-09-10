@@ -1,7 +1,5 @@
 package com.zhiyisoft.associations.img;
 
-
-
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -33,37 +31,12 @@ public class WebImage implements SmartImage {
 		if (url != null) {
 			bitmap = webImageCache.get(url);
 			if (bitmap == null) {
-				bitmap = getBitmapFromUrl(url);
-				if (bitmap != null) {
-					webImageCache.put(url, bitmap);
-				}
+				webImageCache.put(url);
+				bitmap = webImageCache.get(url);
 			}
 		}
 
 		return bitmap;
 	}
 
-	private Bitmap getBitmapFromUrl(String url) {
-		Bitmap bitmap = null;
-
-		try {
-			URLConnection conn = new URL(url).openConnection();
-			conn.setConnectTimeout(CONNECT_TIMEOUT);
-			conn.setReadTimeout(READ_TIMEOUT);
-			BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inSampleSize = 2;
-			bitmap = BitmapFactory.decodeStream(
-					(InputStream) conn.getContent(), null, options);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return bitmap;
-	}
-
-	public static void removeFromCache(String url) {
-		if (webImageCache != null) {
-			webImageCache.remove(url);
-		}
-	}
 }

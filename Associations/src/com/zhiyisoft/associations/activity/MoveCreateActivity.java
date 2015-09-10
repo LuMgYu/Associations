@@ -190,6 +190,7 @@ public class MoveCreateActivity extends BaseActivity {
 			move_rl_commmit_work.setVisibility(View.GONE);
 			move_rl_work_end.setVisibility(View.GONE);
 			move_rl_vetify.setVisibility(View.GONE);
+			tv_title_right.setVisibility(View.GONE);
 			btn_move_commit.setVisibility(View.VISIBLE);
 			btn_move_commit.setOnClickListener(this);
 		}

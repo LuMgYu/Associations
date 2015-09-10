@@ -54,6 +54,7 @@ public class StreamTool {
 		StringBuffer out = new StringBuffer();
 		byte[] b = new byte[4096];
 		for (int n; (n = in.read(b)) != -1;) {
+			System.out.println("n==" + n + "-----------------------------");
 			out.append(new String(b, 0, n));
 		}
 		return out.toString();

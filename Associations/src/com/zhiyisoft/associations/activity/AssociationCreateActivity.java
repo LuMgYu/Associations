@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LeagueIm;
+import com.zhiyisoft.associations.cache.BaseCache;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.util.Anim;
@@ -73,6 +74,7 @@ public class AssociationCreateActivity extends BaseActivity {
 	@Override
 	public String setCenterTitle() {
 		return "申请社团";
+
 	}
 
 	@Override

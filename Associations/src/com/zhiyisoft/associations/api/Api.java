@@ -1,6 +1,5 @@
 package com.zhiyisoft.associations.api;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -8,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import android.view.View;
 
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelAssociation;
@@ -34,6 +32,7 @@ public class Api {
 
 	public static final String MOD = "mod";
 	public static final String ACT = "act";
+
 
 	public static final class RegisterImpl implements RegisterIm {
 

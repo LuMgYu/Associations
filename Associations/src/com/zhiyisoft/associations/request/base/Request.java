@@ -15,6 +15,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import android.util.Log;
 
 import com.zhiyisoft.associations.application.Association;
+import com.zhiyisoft.associations.cache.BaseCache;
 import com.zhiyisoft.associations.util.StreamTool;
 
 /***********************************************************************
@@ -25,6 +26,7 @@ import com.zhiyisoft.associations.util.StreamTool;
 
 /** 定制網絡請求 */
 public abstract class Request {
+	BaseCache mCache;
 	private HttpClient mClient; // 客服端
 								// 需要在application类或者其子类获取,保证访问网络的时候就用这个客服端，避免资源浪费
 	/** host的基本地址 */
@@ -51,6 +53,7 @@ public abstract class Request {
 		mHostUrl = getTheHostUrl();
 		mParams = new ArrayList<NameValuePair>();
 		mHeadMap = new HashMap<String, Object>();
+		mCache = BaseCache.getInstance(Association.getContext());
 	}
 
 	/**
@@ -79,6 +82,15 @@ public abstract class Request {
 	/** 獲取網絡數據，并返回object類型，方便具體用時，具體解析 */
 	public Object run() {
 		HttpRequestBase requestBase = GetRequestObject();
+		// 从缓存中获取数据
+		if (mCache != null) {
+			Log.i("cache", requestBase.getURI().toString() + "");
+			Object object = mCache.getTheData(requestBase.getURI().toString());
+			if (object != null) {
+				return object;
+			}
+		}
+		// 从网络中获取数据
 		Log.i("getSchools", "request.run()---");
 		if (requestBase != null && mClient != null) {
 			try {
@@ -91,6 +103,7 @@ public abstract class Request {
 					if (stream != null) {
 						stream.close(); // 关闭数据流 如果不关闭的话，程序偶尔会出现不可预测的崩溃
 					}
+					mCache.addTheData(result, requestBase.getURI().toString());
 					return result;
 				}
 				Log.i("request", "status=" + status);

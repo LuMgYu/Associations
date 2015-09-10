@@ -313,7 +313,7 @@ public abstract class BAdapter extends BaseAdapter {
 	private List<Model> firstRefreshData() {
 		mCache = getCache();
 		if (mCache != null) {
-			return mCache.getTheData(0);
+//			return mCache.getTheData(0);
 		}
 		// TODO 这里要先检查网络是否有，如果没有的话 就return；
 		List<Model> list = refreshNew();

@@ -67,6 +67,8 @@ public class FragmentMe extends BaseFragment {
 		me_iv_default = (ImageView) findViewById(R.id.me_iv_default);
 		me_lv_association = (MeAssociationListview) findViewById(R.id.me_lv_association);
 		initPopWindow();
+		me_iv_icon.setImageUrl("http://stimg1.tuicool.com/3URZ7v.png");
+		// me_iv_icon.setImageUrl("http://stimg1.tuicool.com/3URZ7v.png");
 	}
 
 	@Override
