@@ -5,6 +5,9 @@ import java.util.List;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.adapter.NotifyNfyAdapter;
@@ -13,6 +16,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.NotifyNfyListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -47,6 +51,16 @@ public class FragmentNotify extends BaseFragment {
 			mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
 			mAdapter = new NotifyNfyAdapter(this, mlist);
 			mListView.setAdapter(mAdapter);
+			mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+				@Override
+				public boolean onItemLongClick(AdapterView<?> parent,
+						View view, int position, long id) {
+					TextView tv = (TextView) view.findViewById(R.id.tv_del);
+					tv.setVisibility(View.VISIBLE);
+					return true;
+				}
+			});
 		}
 	}
 

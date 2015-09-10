@@ -164,4 +164,15 @@ public class ViewHolder {
 	public FrameLayout fl_progress;
 
 	/******************************** 上传照片的item end ********************************************/
+	/******************************** 通知模块 ********************************************/
+	public RelativeLayout rl_notify;
+	public FrameLayout fl_icon;
+	public ImageView iv_icon;
+	public ImageView iv_remind;
+	public TextView tv_nick;
+	public TextView tv_msg;
+	public TextView tv_date;
+	public TextView tv_del;
+
+	/******************************** 通知模块 end ********************************************/
 }

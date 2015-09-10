@@ -6,6 +6,10 @@ import java.util.List;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -15,6 +19,7 @@ import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午10:47:11
@@ -24,6 +29,9 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class NotifyNfyAdapter extends BAdapter {
+	private View mView;
+	float x, ux;
+	private TextView mCurdelTv;
 
 	public NotifyNfyAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
@@ -35,7 +43,56 @@ public class NotifyNfyAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.notify_notify_iem, null);
+		if (convertView == null) {
+			convertView = mInflater.inflate(R.layout.notify_notify_iem, null);
+			convertView.setTag(mHolder);
+			mView = convertView;
+			initView(mView);
+		} else {
+			mHolder = (ViewHolder) convertView.getTag();
+		}
+		// convertView.setOnTouchListener(new OnTouchListener() {
+		//
+		// @Override
+		// public boolean onTouch(View v, MotionEvent event) {
+		// mHolder = (ViewHolder) v.getTag();
+		// if (event.getAction() == MotionEvent.ACTION_DOWN) {
+		// x = event.getX();
+		// // 判断之前是否出现了删除按钮如果存在就隐藏
+		// if (mCurdelTv != null) {
+		// if (mCurdelTv.getVisibility() == View.VISIBLE) {
+		// mCurdelTv.setVisibility(View.GONE);
+		// return true;
+		// }
+		// }
+		// return true;
+		// } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+		// return true;
+		// } else if (event.getAction() == MotionEvent.ACTION_UP) {
+		// ux = event.getX();
+		// if (Math.abs(x - ux) > 50) {
+		// mHolder.tv_del.setVisibility(View.VISIBLE);
+		// }
+		// }
+		//
+		// return false;
+		// }
+		// });
+		return convertView;
+	}
+
+	private void initView(View view) {
+		if (view != null) {
+			mHolder.rl_notify = (RelativeLayout) view
+					.findViewById(R.id.rl_notify);
+			mHolder.fl_icon = (FrameLayout) view.findViewById(R.id.fl_icon);
+			mHolder.iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+			mHolder.iv_remind = (ImageView) view.findViewById(R.id.iv_remind);
+			mHolder.tv_nick = (TextView) view.findViewById(R.id.tv_nick);
+			mHolder.tv_msg = (TextView) view.findViewById(R.id.tv_msg);
+			mHolder.tv_date = (TextView) view.findViewById(R.id.tv_date);
+			mHolder.tv_del = (TextView) view.findViewById(R.id.tv_del);
+		}
 	}
 
 	@Override
