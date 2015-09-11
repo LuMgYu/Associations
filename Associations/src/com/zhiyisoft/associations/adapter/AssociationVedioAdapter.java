@@ -6,7 +6,6 @@ import java.util.List;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
@@ -16,7 +15,6 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.base.Model;
-import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**

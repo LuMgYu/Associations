@@ -25,7 +25,6 @@ import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
-import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.MyGridView;
 
@@ -124,15 +123,16 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			LinearLayout replay_other_ll = (LinearLayout) view
 					.findViewById(R.id.replay_other_ll);
 			addOtherReplayLayout(replay_other_ll, otherReplay);
+			// -----------------------------------------------------
 			ll_detail_all.addView(view);
 			replay_btn.setTag(fill_content);
 			replay_btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					View view = (View) v.getTag();
-					ToastUtils.showToast("点击了回复按钮，并弹出输入框");
 					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-					imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+					imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+					imm.showSoftInput(view, InputMethodManager.HIDE_NOT_ALWAYS);
 				}
 			});
 		}

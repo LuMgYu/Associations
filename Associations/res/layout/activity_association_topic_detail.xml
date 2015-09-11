@@ -1,11 +1,60 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/main_white_bg_color" >
 
+    <!-- 回复输入框部分，实在在底部 -->
+
+    <RelativeLayout
+        android:id="@+id/rl_inputManager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/main_white_pure_color" >
+
+        <ImageView
+            android:id="@+id/phiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:src="@drawable/face" />
+
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@drawable/btn_red"
+            android:text="回复"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_small" />
+
+        <EditText
+            android:id="@+id/fill_content"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toLeftOf="@id/btn_return"
+            android:layout_toRightOf="@id/phiz"
+            android:background="@drawable/et_border"
+            android:hint="回复牛牛哥："
+            android:paddingLeft="@dimen/margin_left_small"
+            android:textColor="@color/text_gray"
+            android:textColorHint="@color/text_gray"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/rl_inputManager"
+        android:layout_alignParentTop="true"
         android:background="@color/main_white_bg_color"
         android:scrollbars="none" >
 
@@ -78,9 +127,9 @@
                     android:id="@+id/content_tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_top"
-                    android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_marginLeft="@dimen/margin_left_small"
+                    android:layout_marginRight="@dimen/margin_right_small"
+                    android:layout_marginTop="@dimen/margin_top"
                     android:ellipsize="end"
                     android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
                     android:maxLines="2"
@@ -109,49 +158,5 @@
                 android:background="@color/main_gray_color" />
         </LinearLayout>
     </ScrollView>
-    <!-- 回复输入框部分，实在在底部 -->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height"
-        android:layout_gravity="bottom"
-        android:background="@color/main_white_pure_color" >
-
-        <ImageView
-            android:id="@+id/phiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:src="@drawable/face" />
-
-        <Button
-            android:id="@+id/btn_return"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="@dimen/margin_right_small"
-            android:background="@drawable/btn_red"
-            android:text="回复"
-            android:textColor="@color/text_white"
-            android:textSize="@dimen/text_small" />
-
-        <EditText
-            android:id="@+id/fill_content"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_toLeftOf="@id/btn_return"
-            android:layout_toRightOf="@id/phiz"
-            android:background="@drawable/et_border"
-            android:hint="回复牛牛哥："
-            android:paddingLeft="@dimen/margin_left_small"
-            android:textColor="@color/text_gray"
-            android:textColorHint="@color/text_gray"
-            android:textSize="@dimen/text_small" />
-    </RelativeLayout>
-
-</FrameLayout>
+</RelativeLayout>
