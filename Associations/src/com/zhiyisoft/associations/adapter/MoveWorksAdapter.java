@@ -37,6 +37,13 @@ public class MoveWorksAdapter extends BAdapter {
 	private View mMusicView; // 音乐view
 	private View mPhotoView; // 照片view
 	private View mVedioView; // 视频view
+	// 多个item加载时做缓存的方法
+	private final int VIEW_TYPE = 4;
+	private final int TYPE_ESSAY = 0;
+	private final int TYPE_MUSIC = 1;
+	private final int TYPE_PHOTO = 2;
+	private final int TYPE_VEDIO = 3;
+
 	private ViewHolder mViewHolder = new ViewHolder();
 
 	public MoveWorksAdapter(BaseActivity activity, List<Model> list) {
@@ -50,39 +57,91 @@ public class MoveWorksAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (position % 4 == 0) {
+		int type = judgeTheViewType(position);
+		if (convertView == null) {
+			convertView = initConvertView(convertView, type);
+		} else {
+			// convertView不为空的时候就
+			mViewHolder = (ViewHolder) convertView.getTag();
+
+		}
+		bundleDataToView(position, mViewHolder, type);
+		return convertView;
+	}
+
+	/**
+	 * 把数据绑定到View里面
+	 *
+	 * @param position
+	 *            位置
+	 * @param mViewHolder2
+	 * @param type
+	 *            类型
+	 */
+	private void bundleDataToView(int position, ViewHolder holder, int type) {
+		// TODO 获取数据源，然后加载到上面
+		Model model = mList.get(position);
+		switch (type) {
+		case TYPE_ESSAY:
+
+			break;
+
+		case TYPE_MUSIC:
+
+			break;
+		case TYPE_PHOTO:
+
+			break;
+		case TYPE_VEDIO:
+
+			break;
+		}
+	}
+
+	/**
+	 * 初始化缓存converView
+	 * 
+	 * @param convertView
+	 * @param type
+	 * @return
+	 */
+	private View initConvertView(View convertView, int type) {
+		if (type == TYPE_ESSAY) {
 			mEssayView = mInflater
 					.inflate(R.layout.move_works_essay_item, null);
+			convertView = mEssayView;
 			initEssayWorks();
 			setstartActivity(mEssayView,
 					AssociationTopicDetailActivity.FLAG_ESSAY);
-			return mEssayView;
-		}
-		if (position % 4 == 1) {
+		} else if (type == TYPE_MUSIC) {
 			mMusicView = mInflater
 					.inflate(R.layout.move_works_music_item, null);
 			initMusicWorks();
+			convertView = mMusicView;
 			setstartActivity(mMusicView,
 					AssociationTopicDetailActivity.FLAG_MUSIC);
-			return mMusicView;
-		}
-		if (position % 4 == 2) {
+		} else if (type == TYPE_PHOTO) {
 			mPhotoView = mInflater
 					.inflate(R.layout.move_works_photo_item, null);
 			initPhotoWorks();
+			convertView = mPhotoView;
 			setstartActivity(mPhotoView,
 					AssociationTopicDetailActivity.FLAG_MANYPHOTO);
-			return mPhotoView;
-		}
-		if (position % 4 == 3) {
+		} else if (type == TYPE_VEDIO) {
 			mVedioView = mInflater
 					.inflate(R.layout.move_works_vedio_item, null);
 			initVedioWorks();
+			convertView = mVedioView;
 			setstartActivity(mVedioView,
 					AssociationTopicDetailActivity.FLAG_VIDEO);
-			return mVedioView;
 		}
-		return null;
+		convertView.setTag(mViewHolder);
+		return convertView;
+	}
+
+	private int judgeTheViewType(int pos) {
+		// 这里以后需要判断呢，更加判断来返回哪一种数据
+		return pos % 4;
 	}
 
 	/**
@@ -92,12 +151,13 @@ public class MoveWorksAdapter extends BAdapter {
 	 *            跳转的到后需要显示的画面
 	 */
 	private void setstartActivity(View view, int flag) {
-		view.setTag(flag);
+		// R.id.album只是一个静态数据而已，作为一个取值的凭证
+		view.setTag(R.id.album, flag);
 		view.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				int flags = (Integer) v.getTag();
+				int flags = (Integer) v.getTag(R.id.album);
 				Intent intent = new Intent();
 				Bundle bundle = new Bundle();
 				bundle.putInt(Config.SEND_ACTIVITY_DATA, flags);
@@ -256,6 +316,16 @@ public class MoveWorksAdapter extends BAdapter {
 	public int getTheCacheType() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return VIEW_TYPE;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return judgeTheViewType(position);
 	}
 
 }

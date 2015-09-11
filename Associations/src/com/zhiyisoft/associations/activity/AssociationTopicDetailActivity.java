@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -8,6 +9,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -23,6 +25,7 @@ import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.MyGridView;
 
@@ -105,10 +108,33 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			int otherReplay = 2;
 			View view = mInflater.inflate(R.layout.detail_replay_item, null);
 			// TODO 这里以后需要初始化控件，然后把数据添加上去
+			RoundImageView item_user_icon = (RoundImageView) view
+					.findViewById(R.id.item_user_icon);
+			TextView item_user_tv = (TextView) view
+					.findViewById(R.id.item_user_tv);
+			TextView item_user_tv_a = (TextView) view
+					.findViewById(R.id.item_user_tv_a);
+			TextView item_user_tv_date = (TextView) view
+					.findViewById(R.id.item_user_tv_date);
+			Button replay_btn = (Button) view.findViewById(R.id.replay_btn);
+			TextView replay_content_tv = (TextView) view
+					.findViewById(R.id.replay_content_tv);
+			TextView other_more = (TextView) view.findViewById(R.id.other_more);
+
 			LinearLayout replay_other_ll = (LinearLayout) view
 					.findViewById(R.id.replay_other_ll);
 			addOtherReplayLayout(replay_other_ll, otherReplay);
 			ll_detail_all.addView(view);
+			replay_btn.setTag(fill_content);
+			replay_btn.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					View view = (View) v.getTag();
+					ToastUtils.showToast("点击了回复按钮，并弹出输入框");
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
+				}
+			});
 		}
 	}
 

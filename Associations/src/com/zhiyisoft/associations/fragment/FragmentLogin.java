@@ -300,6 +300,10 @@ public class FragmentLogin extends BaseFragment {
 
 					@Override
 					public void onComplete(Bundle value, SHARE_MEDIA platform) {
+						if (value != null
+								&& !TextUtils.isEmpty(value.getString("uid"))) {
+							Log.d("TestData", value.getString("uid"));
+						}
 						Toast.makeText(getActivity(), "授权完成",
 								Toast.LENGTH_SHORT).show();
 						getQQMessage();
