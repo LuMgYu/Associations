@@ -119,7 +119,17 @@ public class ViewHolder {
 	public TextView member_tv_school;
 
 	/**************** association_member_item end ********************************************/
+	/**************** association文件item ********************************************/
+	public RoundImageView iv_file_user_icon;
+//	public TextView tv_user_name;
+//	public TextView tv_user_send;
+	public TextView tv_file_title;
+	public TextView iv_file;
+	public TextView tv_file_name;
+	public TextView tv_file_date;
+	public TextView tv_file_commit;
 
+	/**************** association文件item end ********************************************/
 	/**************** 活动作品展示 ********************************************/
 	// 文章部分
 	public RoundImageView iv_essay_user_icon;

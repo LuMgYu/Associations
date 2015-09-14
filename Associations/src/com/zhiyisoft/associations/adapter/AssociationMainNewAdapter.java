@@ -30,6 +30,11 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class AssociationMainNewAdapter extends BAdapter {
+
+	private final int TYPE_COUNT = 2;
+	private final int TYPE_FIRSTVIEW = 0;
+	private final int TYPE_OTHERVIEW = 1;
+
 	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
@@ -46,16 +51,63 @@ public class AssociationMainNewAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (position == 0) {
+		int type = judgeTheViewType(position);
+		if (convertView == null) {
+			convertView = initConvertView(convertView, type);
+		} else {
+			mViewHolder = (ViewHolder) convertView.getTag();
+		}
+		bundledataToView(position, mViewHolder);
+		return convertView;
+	}
+
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
+	}
+
+	/**
+	 * 加载缓存view
+	 * 
+	 * @param view
+	 * @param type
+	 * @return
+	 */
+	public View initConvertView(View view, int type) {
+		if (type == TYPE_FIRSTVIEW) {
 			mFirstView = mInflater.inflate(
 					R.layout.copyofactivity_association_single, null);
 			initFirstView();
 			initListener();
-			return mFirstView;
+			view = mFirstView;
+		} else if (type == TYPE_OTHERVIEW) {
+			mOtherView = mInflater.inflate(R.layout.association_single_item,
+					null);
+			initOtherView();
+			view = mOtherView;
 		}
-		mOtherView = mInflater.inflate(R.layout.association_single_item, null);
-		initOtherView();
-		return mOtherView;
+		view.setTag(mViewHolder);
+		return view;
+	}
+
+	/**
+	 * 根据返回的数据类型类判断到底要加载哪一个item layout
+	 * 
+	 * @param pos
+	 * @return
+	 */
+	private int judgeTheViewType(int pos) {
+		if (pos == 0) {
+			return 0;
+		}
+		return 1;
 	}
 
 	/**
@@ -154,6 +206,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 		});
 	}
 
+	// -------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
@@ -179,6 +232,16 @@ public class AssociationMainNewAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		return items;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return TYPE_COUNT;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return judgeTheViewType(position);
 	}
 
 	@Override

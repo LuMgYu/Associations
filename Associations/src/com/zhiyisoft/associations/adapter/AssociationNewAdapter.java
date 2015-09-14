@@ -51,7 +51,20 @@ public class AssociationNewAdapter extends BAdapter {
 		} else {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
+		bundledataToView(position, mViewHolder);
 		return convertView;
+	}
+
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
 	}
 
 	/**

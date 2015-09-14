@@ -45,7 +45,7 @@ public class AssociationAdapter extends BAdapter {
 			mHolder = (ViewHolder) convertView.getTag();
 			// TODO 获取list里面的数据，然后添加数据
 		}
-		bundledataToView(position, mHolder);
+		bundleDataToView(position, mHolder);
 		return convertView;
 	}
 
@@ -55,7 +55,7 @@ public class AssociationAdapter extends BAdapter {
 	 * @param position
 	 * @param mHolder
 	 */
-	private void bundledataToView(int position, ViewHolder holder) {
+	private void bundleDataToView(int position, ViewHolder holder) {
 		Model model = mList.get(position);
 		// TODO 把数据绑定到界面
 

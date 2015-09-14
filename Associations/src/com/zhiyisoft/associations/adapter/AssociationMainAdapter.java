@@ -21,6 +21,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -32,6 +33,10 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class AssociationMainAdapter extends BAdapter {
+	private final int TYPE_COUNT = 2;
+	private final int TYPE_FIRSTVIEW = 0;
+	private final int TYPE_OTHERVIEW = 1;
+
 	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
@@ -50,18 +55,54 @@ public class AssociationMainAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (position == 0) {
-			mFirstView = mInflater.inflate(R.layout.copyoffragment_association,
-					null);
-			initView();
-			addHotSorting();
-			initListener();
-			return mFirstView;
+		int type = judgeTheViewType(position);
+		if (convertView == null) {
+			convertView = initConvertView(convertView, type);
+		} else {
+			mViewHolder = (ViewHolder) convertView.getTag();
 		}
-		return mInflater.inflate(R.layout.listview_me_association_item, null);
+		bundledataToView(position, mViewHolder);
+		return convertView;
 	}
 
-	private void initView() {
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
+	}
+
+	/**
+	 * 加载缓存view
+	 * 
+	 * @param view
+	 * @param type
+	 * @return
+	 */
+	public View initConvertView(View view, int type) {
+		if (type == TYPE_FIRSTVIEW) {
+			mFirstView = mInflater.inflate(R.layout.copyoffragment_association,
+					null);
+			initmFirstView();
+			addHotSorting();
+			initListener();
+			view = mFirstView;
+		} else if (type == TYPE_OTHERVIEW) {
+			mOtherView = mInflater.inflate(
+					R.layout.listview_me_association_item, null);
+			initOtherView();
+			view = mOtherView;
+		}
+		view.setTag(mViewHolder);
+		return view;
+	}
+
+	private void initmFirstView() {
 		mViewHolder.school_ll = (LinearLayout) mFirstView
 				.findViewById(R.id.school_ll);
 		mViewHolder.school_rl_change = (RelativeLayout) mFirstView
@@ -71,6 +112,30 @@ public class AssociationMainAdapter extends BAdapter {
 		mViewHolder.school_tv = (TextView) mFirstView
 				.findViewById(R.id.school_tv);
 		getCurrentSchool(mViewHolder.school_tv);
+	}
+
+	private void initOtherView() {
+		mViewHolder.association_iv_icon = (RoundImageView) mFirstView
+				.findViewById(R.id.association_iv_icon);
+		mViewHolder.association_tv_title = (TextView) mFirstView
+				.findViewById(R.id.association_tv_title);
+		mViewHolder.association_tv_member = (TextView) mFirstView
+				.findViewById(R.id.association_tv_member);
+		mViewHolder.association_tv_content = (TextView) mFirstView
+				.findViewById(R.id.association_tv_content);
+	}
+
+	/**
+	 * 根据返回的数据类型类判断到底要加载哪一个item layout
+	 * 
+	 * @param pos
+	 * @return
+	 */
+	private int judgeTheViewType(int pos) {
+		if (pos == 0) {
+			return 0;
+		}
+		return 1;
 	}
 
 	private void initListener() {
@@ -146,6 +211,7 @@ public class AssociationMainAdapter extends BAdapter {
 		tv.setVisibility(View.GONE);
 	}
 
+	// ----------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
@@ -176,6 +242,16 @@ public class AssociationMainAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		return items;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return TYPE_COUNT;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return judgeTheViewType(position);
 	}
 
 	@Override

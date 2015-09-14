@@ -25,11 +25,7 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class AssociationVedioAdapter extends BAdapter {
-	private View mEssayView; // 文章view
-	private View mMusicView; // 音乐view
-	private View mPhotoView; // 照片view
 	private View mVedioView; // 视频view
-	private ViewHolder mViewHolder = new ViewHolder();
 
 	public AssociationVedioAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
@@ -42,10 +38,28 @@ public class AssociationVedioAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		if (convertView == null) {
+			mVedioView = mInflater
+					.inflate(R.layout.move_works_vedio_item, null);
+			initVedioWorks();
+			convertView = mVedioView;
+		} else {
+			mHolder = (ViewHolder) convertView.getTag();
+		}
+		bundledataToView(position, mHolder);
+		return convertView;
+	}
 
-		mVedioView = mInflater.inflate(R.layout.move_works_vedio_item, null);
-		initVedioWorks();
-		return mVedioView;
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
 	}
 
 	/**
@@ -53,21 +67,21 @@ public class AssociationVedioAdapter extends BAdapter {
 	 */
 	private void initVedioWorks() {
 		if (mVedioView != null) {
-			mViewHolder.iv_vedio_user_icon = (RoundImageView) mVedioView
+			mHolder.iv_vedio_user_icon = (RoundImageView) mVedioView
 					.findViewById(R.id.iv_vedio_user_icon);
-			mViewHolder.tv_user_name = (TextView) mVedioView
+			mHolder.tv_user_name = (TextView) mVedioView
 					.findViewById(R.id.tv_user_name);
-			mViewHolder.tv_user_send = (TextView) mVedioView
+			mHolder.tv_user_send = (TextView) mVedioView
 					.findViewById(R.id.tv_user_send);
-			mViewHolder.tv_vedio_title = (TextView) mVedioView
+			mHolder.tv_vedio_title = (TextView) mVedioView
 					.findViewById(R.id.tv_music_name);
-			mViewHolder.iv_vedio = (SmartImageView) mVedioView
+			mHolder.iv_vedio = (SmartImageView) mVedioView
 					.findViewById(R.id.iv_vedio);
-			mViewHolder.iv_vedio_click = (ImageView) mVedioView
+			mHolder.iv_vedio_click = (ImageView) mVedioView
 					.findViewById(R.id.iv_vedio_click);
-			mViewHolder.tv_vedio_date = (TextView) mVedioView
+			mHolder.tv_vedio_date = (TextView) mVedioView
 					.findViewById(R.id.tv_vedio_date);
-			mViewHolder.tv_vedio_commit = (TextView) mVedioView
+			mHolder.tv_vedio_commit = (TextView) mVedioView
 					.findViewById(R.id.tv_vedio_commit);
 
 		}
