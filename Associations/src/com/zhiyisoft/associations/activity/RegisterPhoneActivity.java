@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -20,6 +21,7 @@ public class RegisterPhoneActivity extends BaseActivity implements
 		OnClickListener {
 	private EditText et_number;
 	private Button bt_next;
+	private ModelUser mUser;
 
 	@Override
 	public String setCenterTitle() {
@@ -28,6 +30,8 @@ public class RegisterPhoneActivity extends BaseActivity implements
 
 	@Override
 	public void initIntent() {
+		Bundle data = getIntent().getExtras();
+		mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
 
 	}
 
@@ -55,7 +59,8 @@ public class RegisterPhoneActivity extends BaseActivity implements
 			Bundle data = new Bundle();
 			String phoneNumber = et_number.getText().toString();
 			if (checkThePhoneNumber(phoneNumber)) {
-				data.putString(Config.PHONE_NUMBER, phoneNumber);
+				mUser.setMobile(phoneNumber);
+				data.putSerializable(Config.SEND_ACTIVITY_DATA, mUser);
 				mApp.startActivity(this, RegisterActivity.class, data);
 			} else {
 				ToastUtils.showToast("手机号码为空或不合法");

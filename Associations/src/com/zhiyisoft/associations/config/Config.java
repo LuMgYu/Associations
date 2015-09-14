@@ -16,7 +16,10 @@ public class Config {
 	public static final String USER_DATA = "user_data";
 	public static final String MOBILE = "mobile";
 	public static final String PWD = "pwd";
-	public static final String USERAUTH = "userauth";
+	public static final String USERID = "userid";
+	public static final String OAUTH_TOKEN = "oauth_token";
+	public static final String OAUTH_TOKEN_SECRET = "oauth_token_secret";
+
 	public static final String OPEN_MESSAGE = "open_message";
 	public static final String CURRENT_PROVINCE = "current_province";
 	public static final String CURRENT_SCHOOL = "current_school";

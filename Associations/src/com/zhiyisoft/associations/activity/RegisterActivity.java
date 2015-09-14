@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.RegisterIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelRegister;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 
@@ -63,10 +65,13 @@ public class RegisterActivity extends BaseActivity {
 		return "注册用户";
 	}
 
+	private ModelUser mUser;
+
 	@Override
 	public void initIntent() {
-		mBundle = getIntent().getExtras();
-		mPhoneNumber = mBundle.getString(Config.PHONE_NUMBER);
+		Bundle data = getIntent().getExtras();
+		mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
+
 	}
 
 	@Override

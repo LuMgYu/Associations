@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.fragment;
 import java.util.Map;
 import java.util.Set;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,11 +49,14 @@ public class FragmentLogin extends BaseFragment {
 	private Button bt_register;
 	private ImageView iv_qq;
 	private ImageView iv_weibo;
+
+	private ModelUser modelUser;
+
 	private static final int LOGIN = 1;
-	private static final int FORGET_PWD = 2;
-	private static final int REGISTER = 3;
-	private static final int LOGIN_QQ = 4;
-	private static final int LOGING_WEIBO = 5;
+	private static final int OTHER_LOGIN = 2;
+	// 第三方登录标志
+	private static final String TENGXUN_QQ = "QQ";
+	private static final String SINA_WEIBO = "SinaWeb";
 
 	private Handler mHandle = new Handler() {
 
@@ -70,20 +74,27 @@ public class FragmentLogin extends BaseFragment {
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.setClass(mActivity, MainActivity.class);
 					mActivity.startActivity(intent);
-					// mApp.startActivity(mActivity, MainActivity.class, null,
-					// Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				} else {
 					ToastUtils.showToast("登录失败");
 				}
 				break;
 
-			case FORGET_PWD:
-				break;
-			case REGISTER:
-				break;
-			case LOGIN_QQ:
-				break;
-			case LOGING_WEIBO:
+			case OTHER_LOGIN:
+				ModelUser user1 = (ModelUser) msg.obj;
+				if (user1 != null) {
+					// 进入到注册页面，让用户注册，并且绑定手机号码
+					Bundle data = new Bundle();
+					data.putSerializable(Config.SEND_ACTIVITY_DATA, modelUser);
+					mApp.startActivity(mActivity, RegisterPhoneActivity.class,
+							data);
+				} else {
+					// 直接登录 并把这些信息保存到本地里面
+//					saveToSharePreference(user1);
+					Intent intent = new Intent();
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					intent.setClass(mActivity, MainActivity.class);
+					mActivity.startActivity(intent);
+				}
 				break;
 			}
 
@@ -148,7 +159,7 @@ public class FragmentLogin extends BaseFragment {
 						user.setPwd(pwd);
 						LoginIm loginIm = mApp.getLoginIm();
 						ModelUser modelUser = (ModelUser) loginIm
-								.appUserMobileLogin(user);
+								.authorize(user);
 						Message message = Message.obtain();
 						message.what = LOGIN;
 						message.obj = modelUser;
@@ -196,9 +207,17 @@ public class FragmentLogin extends BaseFragment {
 		SharedPreferences preferences = mActivity.getSharedPreferences(
 				Config.USER_DATA, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
-		editor.putString(Config.MOBILE, user.getMobile());
-		editor.putString(Config.PWD, user.getPwd());
-		editor.putString(Config.USERAUTH, user.getUserauth());
+		if (user.getMobile() != null) {
+			editor.putString(Config.MOBILE, user.getMobile());
+		}
+		if (user.getPwd() != null) {
+			editor.putString(Config.PWD, user.getPwd());
+		}
+
+		editor.putString(Config.USERID, user.getUserid());
+		editor.putString(Config.OAUTH_TOKEN, user.getOauth_token());
+		editor.putString(Config.OAUTH_TOKEN_SECRET,
+				user.getOauth_token_secret());
 		editor.commit();
 	}
 
@@ -271,6 +290,13 @@ public class FragmentLogin extends BaseFragment {
 										+ "\r\n");
 							}
 							Log.d("TestData", sb.toString());
+							modelUser = new ModelUser();
+							modelUser.setType(SINA_WEIBO);
+							modelUser.setType_uid(String.valueOf(info
+									.get("uid")));
+							modelUser.setAccess_token(String.valueOf(info
+									.get("access_token")));
+							isOtherLogined(modelUser);
 						} else {
 							Log.d("TestData", "发生错误：" + status);
 						}
@@ -298,15 +324,22 @@ public class FragmentLogin extends BaseFragment {
 								Toast.LENGTH_SHORT).show();
 					}
 
+					@SuppressLint("NewApi")
 					@Override
 					public void onComplete(Bundle value, SHARE_MEDIA platform) {
 						if (value != null
 								&& !TextUtils.isEmpty(value.getString("uid"))) {
-							Log.d("TestData", value.getString("uid"));
+							modelUser = new ModelUser();
+							modelUser.setType(TENGXUN_QQ);
+							modelUser.setType_uid(String.valueOf(value
+									.getString("uid")));
+							modelUser.setAccess_token(String.valueOf(value
+									.getString("access_token")));
+							isOtherLogined(modelUser);
 						}
 						Toast.makeText(getActivity(), "授权完成",
 								Toast.LENGTH_SHORT).show();
-						getQQMessage();
+						// getQQMessage();
 					}
 
 					@Override
@@ -317,31 +350,57 @@ public class FragmentLogin extends BaseFragment {
 				});
 	}
 
-	private void getQQMessage() {
-		// 获取相关授权信息
-		mController.getPlatformInfo(getActivity(), SHARE_MEDIA.QQ,
-				new UMDataListener() {
-					@Override
-					public void onStart() {
-						Toast.makeText(getActivity(), "获取平台数据开始...",
-								Toast.LENGTH_SHORT).show();
-					}
+	/**
+	 * 判断是否曾经第三方登录过，如果登陆了就就不绑定了，直接进入主页
+	 * 
+	 * ，如果没有登录过，还需要进入注册页面进行手机号码和第三方登录进行绑定
+	 * 
+	 * @return
+	 */
+	private void isOtherLogined(final ModelUser user) {
+		if (user != null) {
+			Log.i("otherLogin", user.toString() + "");
+			mApp.getExecutor().execute(new Runnable() {
 
-					@Override
-					public void onComplete(int status, Map<String, Object> info) {
-						if (status == 200 && info != null) {
-							StringBuilder sb = new StringBuilder();
-							Set<String> keys = info.keySet();
-							for (String key : keys) {
-								sb.append(key + "=" + info.get(key).toString()
-										+ "\r\n");
-							}
-							Log.d("TestData", sb.toString());
-						} else {
-							Log.d("TestData", "发生错误：" + status);
-						}
-					}
-				});
+				@Override
+				public void run() {
+					LoginIm loginIm = mApp.getLoginIm();
+					ModelUser modelUser = (ModelUser) loginIm
+							.getOtherLoginInfo(user);
+					Message message = Message.obtain();
+					message.what = OTHER_LOGIN;
+					message.obj = modelUser;
+					mHandle.sendMessage(message);
+				}
+			});
+		}
+
 	}
+	// private void getQQMessage() {
+	// // 获取相关授权信息
+	// mController.getPlatformInfo(getActivity(), SHARE_MEDIA.QQ,
+	// new UMDataListener() {
+	// @Override
+	// public void onStart() {
+	// Toast.makeText(getActivity(), "获取平台数据开始...",
+	// Toast.LENGTH_SHORT).show();
+	// }
+	//
+	// @Override
+	// public void onComplete(int status, Map<String, Object> info) {
+	// if (status == 200 && info != null) {
+	// StringBuilder sb = new StringBuilder();
+	// Set<String> keys = info.keySet();
+	// for (String key : keys) {
+	// sb.append(key + "=" + info.get(key).toString()
+	// + "\r\n");
+	// }
+	// Log.d("TestData", sb.toString());
+	// } else {
+	// Log.d("TestData", "发生错误：" + status);
+	// }
+	// }
+	// });
+	// }
 
 }

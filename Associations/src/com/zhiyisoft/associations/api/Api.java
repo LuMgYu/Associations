@@ -29,10 +29,11 @@ import com.zhiyisoft.associations.util.JsonUtils;
  */
 
 public class Api {
-
+	public static final String APP = "app";
 	public static final String MOD = "mod";
 	public static final String ACT = "act";
-
+	// 由于这个基本上都用到，就写到这里吧
+	public static final String API = "api";
 
 	public static final class RegisterImpl implements RegisterIm {
 
@@ -73,80 +74,77 @@ public class Api {
 	public static final class LoginImpl implements LoginIm {
 
 		@Override
-		public Model appUserMobileLogin(ModelUser model) {
-			Request post = new Post();
-			post.setHostUrlFooter(Config.appUserMobileLogin);
-			post.addBodyParam(MOBILE, model.getMobile());
-			post.addBodyParam(PWD, model.getPwd());
-			post.addBodyParam(TOURL, model.getToUrl());
-			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
-			post.addBodyParam(PUSHUSERID, model.getPushuserid());
-			post.addBodyParam(DEVICETYPE, model.getDevicetype());
-			Object object = post.run();
+		public Model authorize(ModelUser model) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, LOGIN);
+			get.addBodyParam(ACT, AUTHORIZE);
+			get.addBodyParam(MOBILE, model.getMobile());
+			get.addBodyParam(PWD, model.getPwd());
+			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 		@Override
-		public Model appUserAccountLogin(ModelUser model) {
-			Request post = new Post();
-			post.setHostUrlFooter(Config.appUserAccountLogin);
-			post.addBodyParam(ACCOUNT, model.getAccount());
-			post.addBodyParam(PWD, model.getPwd());
-			post.addBodyParam(TOURL, model.getToUrl());
-			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
-			post.addBodyParam(PUSHUSERID, model.getPushuserid());
-			post.addBodyParam(DEVICETYPE, model.getDevicetype());
-			Object object = post.run();
+		public Model logout(ModelUser model) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, LOGIN);
+			get.addBodyParam(ACT, LOGOUT);
+			get.addBodyParam(UID, model.getUserid());
+			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 		@Override
-		public Model boundedUserLogin(ModelUser model) {
-			Request post = new Post();
-			post.setHostUrlFooter(Config.boundedUserLogin);
-			post.addBodyParam(OPENID, model.getOpenid());
-			post.addBodyParam(TOURL, model.getToUrl());
-			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
-			post.addBodyParam(PUSHUSERID, model.getPushuserid());
-			post.addBodyParam(DEVICETYPE, model.getDevicetype());
-			Object object = post.run();
+		public Model getOtherLoginInfo(ModelUser model) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, LOGIN);
+			get.addBodyParam(ACT, GET_OTHER_LOGIN_INFO);
+			get.addBodyParam(TYPE, model.getType());
+			get.addBodyParam(TYPE_UID, model.getType_uid());
+			get.addBodyParam(ACCESS_TOKEN, model.getAccess_token());
+			get.addBodyParam(REFRESH_TOKEN, model.getRefresh_token());
+			get.addBodyParam(EXPIRE_IN, model.getExpire_in());
+			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
 		@Override
-		public Model boundMobileUser(ModelUser model) {
-			Request post = new Post();
-			post.setHostUrlFooter(Config.boundMobileUser);
-			post.addBodyParam(MOBILE, model.getMobile());
-			post.addBodyParam(PWD, model.getPwd());
-			post.addBodyParam(OPENID, model.getOpenid());
-			post.addBodyParam(TOURL, model.getToUrl());
-			post.addBodyParam(PUSHCHNLID, model.getPushchnlid());
-			post.addBodyParam(PUSHUSERID, model.getPushuserid());
-			post.addBodyParam(DEVICETYPE, model.getDevicetype());
-			Object object = post.run();
+		public Model bindNewUser(ModelUser model) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, LOGIN);
+			get.addBodyParam(ACT, BIND_NEW_USER);
+			get.addBodyParam(UID, model.getUserid());
+			get.addBodyParam(TYPE, model.getType());
+			get.addBodyParam(TYPE_UID, model.getType_uid());
+			get.addBodyParam(ACCESS_TOKEN, model.getAccess_token());
+			get.addBodyParam(REFRESH_TOKEN, model.getRefresh_token());
+			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
-		@Override
-		public Model appValidateUserAuth(ModelUser model) {
-			Request post = new Post();
-			post.setHostUrlFooter(Config.appValidateUserAuth);
-			post.addBodyParam(USERAUTH, model.getUserauth());
-			post.addBodyParam(TOURL, model.getToUrl());
-			Object object = post.run();
-			return parseOriginalJsonObject(object, new ModelUser());
-		}
-
-		@Override
-		public Model appValidateUserPwd(ModelUser model) {
-			Request post = new Post();
-			post.setHostUrlFooter(Config.appValidateUserPwd);
-			post.addBodyParam(USERAUTH, model.getUserauth());
-			post.addBodyParam(PWD, model.getPwd());
-			Object object = post.run();
-			return parseOriginalJsonObject(object, new ModelUser());
-		}
+		// @Override
+		// public Model appValidateUserAuth(ModelUser model) {
+		// Request post = new Post();
+		// post.setHostUrlFooter(Config.appValidateUserAuth);
+		// post.addBodyParam(USERAUTH, model.getUserauth());
+		// post.addBodyParam(TOURL, model.getToUrl());
+		// Object object = post.run();
+		// return parseOriginalJsonObject(object, new ModelUser());
+		// }
+		//
+		// @Override
+		// public Model appValidateUserPwd(ModelUser model) {
+		// Request post = new Post();
+		// post.setHostUrlFooter(Config.appValidateUserPwd);
+		// post.addBodyParam(USERAUTH, model.getUserauth());
+		// post.addBodyParam(PWD, model.getPwd());
+		// Object object = post.run();
+		// return parseOriginalJsonObject(object, new ModelUser());
+		// }
 
 	}
 
@@ -426,9 +424,9 @@ public class Api {
 					state = jsonObject.getBoolean("state");
 					return state;
 				}
-				if (jsonObject.has("code")) {
+				if (jsonObject.has("status")) {
 					int code = 0;
-					code = jsonObject.getInt("code");
+					code = jsonObject.getInt("status");
 					if (code == 1) {
 						return true;
 					}
@@ -470,7 +468,6 @@ public class Api {
 			}
 		}
 		return model;
-
 	}
 
 	/**

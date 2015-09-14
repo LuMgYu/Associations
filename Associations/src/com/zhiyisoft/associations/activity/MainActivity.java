@@ -317,8 +317,10 @@ public class MainActivity extends BaseActivity {
 	 */
 	public boolean IsLogin() {
 		ModelUser user = mApp.getUser();
-		if (user != null && user.getMobile() != null) {
-			return true;
+		if (user != null) {
+			if (user.getMobile() != null || user.getAccess_token() != null) {
+				return true;
+			}
 		}
 		return false;
 	}

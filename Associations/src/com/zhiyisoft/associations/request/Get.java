@@ -20,7 +20,10 @@ public class Get extends Request {
 
 	@Override
 	public Request addBodyParam(String name, Object value) {
-		mBodyParams = mBodyParams + name + "=" + value.toString() + "&";
+		if (value != null) {
+			mBodyParams = mBodyParams + name + "=" + value.toString() + "&";
+			mBodyParams = mBodyParams.trim();
+		}
 		return this;
 	}
 

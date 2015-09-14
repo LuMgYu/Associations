@@ -124,11 +124,11 @@ public class NotifyNfyAdapter extends BAdapter {
 		ModelUser model = new ModelUser();
 		// model.setMobile("13688449697");
 		// model.setPwd("123456");
-		// model.setDevicetype("android");
-		model.setPwd("123456");
-		model.setUserauth("d61937499890ce90b0a61c22e8762e6e");
-		loginIm.appValidateUserPwd(model);
-		loginIm.appUserMobileLogin(model);
+		// model.setDevicetype("android"); 6343485
+		// model.setPwd("123456");
+		// model.setMobile("13688449697");
+		model.setUserid("6343485");
+		loginIm.logout(model);
 		// loginIm.Login(null);
 		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.getLeagueDetail(new Model());
@@ -164,15 +164,15 @@ public class NotifyNfyAdapter extends BAdapter {
 		// loginIm.Login(null);
 		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.getLeagueDetail(new Model());
-		LoginIm loginIm = new Api.LoginImpl();
-		ModelUser model = new ModelUser();
-		// model.setMobile("13688449697");
+		// LoginIm loginIm = new Api.LoginImpl();
+		// ModelUser model = new ModelUser();
+		// // model.setMobile("13688449697");
+		// // model.setPwd("123456");
+		// // model.setDevicetype("android");
 		// model.setPwd("123456");
-		// model.setDevicetype("android");
-		model.setPwd("123456");
-		model.setUserauth("d61937499890ce90b0a61c22e8762e6e");
-		loginIm.appValidateUserPwd(model);
-		loginIm.appUserMobileLogin(model);
+		// model.setUserauth("d61937499890ce90b0a61c22e8762e6e");
+		// loginIm.appValidateUserPwd(model);
+		// loginIm.appUserMobileLogin(model);
 		return items;
 	}
 

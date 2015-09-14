@@ -143,7 +143,7 @@ public class LoginActivity extends BaseActivity {
 						user.setPwd(pwd);
 						LoginIm loginIm = mApp.getLoginIm();
 						ModelUser modelUser = (ModelUser) loginIm
-								.appUserMobileLogin(user);
+								.authorize(user);
 						Message message = Message.obtain();
 						message.what = LOGIN;
 						message.obj = modelUser;
@@ -193,7 +193,7 @@ public class LoginActivity extends BaseActivity {
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(Config.MOBILE, user.getMobile());
 		editor.putString(Config.PWD, user.getPwd());
-		editor.putString(Config.USERAUTH, user.getUserauth());
+		editor.putString(Config.USERID, user.getUserauth());
 		editor.commit();
 	};
 }

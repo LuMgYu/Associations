@@ -91,10 +91,15 @@ public class Association extends Application {
 				Config.USER_DATA, MODE_PRIVATE);
 		String mobile = preferences.getString(Config.MOBILE, null);
 		String pwd = preferences.getString(Config.PWD, null);
-		String userAuth = preferences.getString(Config.USERAUTH, null);
+		String userId = preferences.getString(Config.USERID, null);
+		String oauth_token = preferences.getString(Config.OAUTH_TOKEN, null);
+		String oauth_token_secret = preferences.getString(
+				Config.OAUTH_TOKEN_SECRET, null);
 		mUser.setMobile(mobile);
 		mUser.setPwd(pwd);
-		mUser.setUserauth(userAuth);
+		mUser.setUserauth(userId);
+		mUser.setOauth_token(oauth_token);
+		mUser.setOauth_token_secret(oauth_token_secret);
 		// 如果mobile为为空的话，就说明根本就没有登录过，这个时候就把muser设置为空，到时候供外不调用
 		return mUser;
 	}
@@ -122,7 +127,7 @@ public class Association extends Application {
 	 */
 	public static String getHostUrl() {
 		// TODO 以后把地址写到xml里面
-		return "http://api.univs.cn/";
+		return "http://daxs.zhiyicx.com/index.php";
 	}
 
 	/**
