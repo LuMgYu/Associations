@@ -5,12 +5,16 @@ import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午10:47:11
@@ -32,12 +36,48 @@ public class AssociationWordAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.association_file_item, null);
+		if (convertView == null) {
+			mView = mInflater.inflate(R.layout.association_file_item, null);
+			initView();
+			convertView = mView;
+			convertView.setTag(mHolder);
+		} else {
+			mHolder = (ViewHolder) convertView.getTag();
+		}
+		bundledataToView(position, mHolder);
+		return convertView;
+	}
+
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
 	}
 
 	private void initView() {
 		if (mView != null) {
-//			mHolder
+			mHolder.iv_file_user_icon = (RoundImageView) mView
+					.findViewById(R.id.iv_file_user_icon);
+			mHolder.tv_user_name = (TextView) mView
+					.findViewById(R.id.tv_user_name);
+			mHolder.tv_user_send = (TextView) mView
+					.findViewById(R.id.tv_user_send);
+			mHolder.tv_file_title = (TextView) mView
+					.findViewById(R.id.tv_file_title);
+			mHolder.iv_file = (ImageView) mView.findViewById(R.id.iv_file);
+			mHolder.tv_file_name = (TextView) mView
+					.findViewById(R.id.tv_file_name);
+			mHolder.tv_file_date = (TextView) mView
+					.findViewById(R.id.tv_file_date);
+			mHolder.tv_file_commit = (TextView) mView
+					.findViewById(R.id.tv_file_commit);
+
 		}
 	}
 

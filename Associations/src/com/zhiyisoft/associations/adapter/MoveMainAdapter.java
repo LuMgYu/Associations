@@ -5,24 +5,23 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.activity.AssociationDisplayActivity;
-import com.zhiyisoft.associations.activity.MeSettingProvinceActivity;
 import com.zhiyisoft.associations.activity.MoveDisplayActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -35,12 +34,15 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class MoveMainAdapter extends BAdapter {
+	private int TYPE_COUNT = 2;
+	private int TYPE_FIRST = 0;
+	private int TYPE_SECOND = 1;
+
 	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
 	private int[] mImageArray;
 	private String[] mStringName;
-
 	private int mItemWidth = 0;
 
 	public MoveMainAdapter(BaseActivity activity, List<Model> list) {
@@ -55,17 +57,87 @@ public class MoveMainAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if (position == 0) {
-			mFirstView = mInflater.inflate(R.layout.copyoffragment_move, null);
-			initView();
-			addHotSorting();
-			initListener();
-			return mFirstView;
+		int type = judgeTheViewType(position);
+		if (convertView == null) {
+			convertView = initConvertView(convertView, type);
+		} else {
+			mViewHolder = (ViewHolder) convertView.getTag();
 		}
-		return mInflater.inflate(R.layout.move_item, null);
+		bundledataToView(position, mViewHolder);
+		return convertView;
 	}
 
-	private void initView() {
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
+	}
+
+	/**
+	 * 判断item view类型
+	 * 
+	 * @param pos
+	 * @return
+	 */
+	private int judgeTheViewType(int pos) {
+		if (pos == 0) {
+			return 0;
+		}
+		return 1;
+	}
+
+	/**
+	 * 加载缓存view
+	 * 
+	 * @param view
+	 * @param type
+	 * @return
+	 */
+	public View initConvertView(View view, int type) {
+		if (type == TYPE_FIRST) {
+			mFirstView = mInflater.inflate(R.layout.copyoffragment_move, null);
+			initFirstView();
+			addHotSorting();
+			initListener();
+			view = mFirstView;
+		} else if (type == TYPE_SECOND) {
+			mOtherView = mInflater.inflate(R.layout.move_item, null);
+			initOtherView();
+			view = mOtherView;
+		}
+		view.setTag(mViewHolder);
+		return view;
+	}
+
+	private void initOtherView() {
+		if (mOtherView != null) {
+			mViewHolder.move_smiv_icon = (SmartImageView) mOtherView
+					.findViewById(R.id.move_smiv_icon);
+			mViewHolder.move_tv_end = (TextView) mOtherView
+					.findViewById(R.id.move_tv_end);
+			mViewHolder.move_tv_title = (TextView) mOtherView
+					.findViewById(R.id.move_tv_title);
+			mViewHolder.move_btn_online = (Button) mOtherView
+					.findViewById(R.id.move_btn_online);
+			mViewHolder.move_btn_event = (Button) mOtherView
+					.findViewById(R.id.move_btn_event);
+
+			mViewHolder.move_tv_deadline = (TextView) mOtherView
+					.findViewById(R.id.move_tv_deadline);
+			mViewHolder.move_tv_allmove = (TextView) mOtherView
+					.findViewById(R.id.move_tv_allmove);
+			mViewHolder.move_tv_content = (TextView) mOtherView
+					.findViewById(R.id.move_tv_content);
+		}
+	}
+
+	private void initFirstView() {
 		mViewHolder.move_ll = (LinearLayout) mFirstView
 				.findViewById(R.id.move_ll);
 		mViewHolder.move_iv_zoom = (ImageView) mFirstView
@@ -193,4 +265,14 @@ public class MoveMainAdapter extends BAdapter {
 		return 0;
 	}
 
+	@Override
+	public int getItemViewType(int position) {
+		return judgeTheViewType(position);
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		// TODO Auto-generated method stub
+		return TYPE_COUNT;
+	}
 }

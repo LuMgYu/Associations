@@ -20,6 +20,7 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class MeAssociationAdapter extends BAdapter {
+	private View mView;
 
 	public MeAssociationAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
@@ -34,6 +35,13 @@ public class MeAssociationAdapter extends BAdapter {
 		return mInflater.inflate(R.layout.notify_msg_iem, null);
 	}
 
+	private void initView() {
+//		if (mView != null) {
+//			mHolder
+//		}
+	}
+
+	// -----------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();

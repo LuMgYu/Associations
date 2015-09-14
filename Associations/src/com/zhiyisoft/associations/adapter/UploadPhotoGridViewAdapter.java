@@ -64,10 +64,10 @@ public class UploadPhotoGridViewAdapter extends BaseAdapter {
 			mView = convertView;
 			initView();
 			convertView.setTag(mViewHolder);
-			initSet(position, mViewHolder);
 		} else {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
+		initSet(position, mViewHolder);
 		return convertView;
 	}
 

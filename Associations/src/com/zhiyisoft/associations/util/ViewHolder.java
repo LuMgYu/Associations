@@ -121,15 +121,21 @@ public class ViewHolder {
 	/**************** association_member_item end ********************************************/
 	/**************** association文件item ********************************************/
 	public RoundImageView iv_file_user_icon;
-//	public TextView tv_user_name;
-//	public TextView tv_user_send;
+	// public TextView tv_user_name;
+	// public TextView tv_user_send;
 	public TextView tv_file_title;
-	public TextView iv_file;
+	public ImageView iv_file;
 	public TextView tv_file_name;
 	public TextView tv_file_date;
 	public TextView tv_file_commit;
 
 	/**************** association文件item end ********************************************/
+	/**************** association local__item ********************************************/
+	public ImageView word_iv;
+	public TextView word_tv;
+	public ImageView word_iv_issure;
+
+	/**************** association local__item end ********************************************/
 	/**************** 活动作品展示 ********************************************/
 	// 文章部分
 	public RoundImageView iv_essay_user_icon;
@@ -185,4 +191,14 @@ public class ViewHolder {
 	public TextView tv_del;
 
 	/******************************** 通知模块 end ********************************************/
+	/******************************** 活动 item ********************************************/
+	public SmartImageView move_smiv_icon;
+	public TextView move_tv_end;
+	public TextView move_tv_title;
+	public Button move_btn_online;
+	public Button move_btn_event;
+	public TextView move_tv_deadline;
+	public TextView move_tv_allmove;
+	public TextView move_tv_content;
+	/******************************** 活动 item end ********************************************/
 }

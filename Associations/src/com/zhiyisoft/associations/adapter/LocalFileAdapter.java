@@ -6,12 +6,15 @@ import java.util.List;
 import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午10:47:11
@@ -21,6 +24,7 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class LocalFileAdapter extends BAdapter {
+	private View mView;
 
 	public LocalFileAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
@@ -32,9 +36,39 @@ public class LocalFileAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		return mInflater.inflate(R.layout.local_file_item, null);
+		if (convertView == null) {
+			mView = mInflater.inflate(R.layout.local_file_item, null);
+			initView();
+			convertView = mView;
+		} else {
+			mHolder = (ViewHolder) convertView.getTag();
+		}
+		bundledataToView(position, mHolder);
+		return convertView;
 	}
 
+	/**
+	 * 绑定数据到item
+	 * 
+	 * @param position
+	 * @param mHolder
+	 */
+	private void bundledataToView(int position, ViewHolder holder) {
+		Model model = mList.get(position);
+		// TODO 把数据绑定到界面
+
+	}
+
+	private void initView() {
+		if (mView != null) {
+			mHolder.word_iv = (ImageView) mView.findViewById(R.id.word_iv);
+			mHolder.word_tv = (TextView) mView.findViewById(R.id.word_tv);
+			mHolder.word_iv_issure = (ImageView) mView
+					.findViewById(R.id.word_iv_issure);
+		}
+	}
+
+	// -------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();

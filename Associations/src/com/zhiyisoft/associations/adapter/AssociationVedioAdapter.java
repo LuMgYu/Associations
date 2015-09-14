@@ -43,6 +43,7 @@ public class AssociationVedioAdapter extends BAdapter {
 					.inflate(R.layout.move_works_vedio_item, null);
 			initVedioWorks();
 			convertView = mVedioView;
+			convertView.setTag(mHolder);
 		} else {
 			mHolder = (ViewHolder) convertView.getTag();
 		}

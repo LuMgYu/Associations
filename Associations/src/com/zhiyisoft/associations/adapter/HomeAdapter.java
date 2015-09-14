@@ -3,7 +3,6 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,12 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
-import com.zhiyisoft.associations.activity.AssociationNewActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
-import com.zhiyisoft.associations.activity.MoveDisplayActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
-import com.zhiyisoft.associations.activity.MoveWorksDisplayActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.config.Config;
