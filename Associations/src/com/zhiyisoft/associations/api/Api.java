@@ -126,6 +126,31 @@ public class Api {
 			return parseOriginalJsonObject(object, new ModelUser());
 		}
 
+		@Override
+		public boolean sendRegisterCode(ModelUser user) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, LOGIN);
+			get.addBodyParam(ACT, SEND_REGISTER_CODE);
+			get.addBodyParam(MOBILE, user.getMobile());
+			Object object = get.run();
+			boolean flag = isCodeOk(object);
+			return flag;
+		}
+
+		@Override
+		public boolean checkRegisterCode(ModelUser user) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, LOGIN);
+			get.addBodyParam(ACT, CHECK_REGISTER_CODE);
+			get.addBodyParam(MOBILE, user.getMobile());
+			get.addBodyParam(REGCODE, user.getRegCode());
+			Object object = get.run();
+			return isCodeOk(object);
+			// return parseOriginalJsonObject(object, new ModelUser());
+		}
+
 		// @Override
 		// public Model appValidateUserAuth(ModelUser model) {
 		// Request post = new Post();

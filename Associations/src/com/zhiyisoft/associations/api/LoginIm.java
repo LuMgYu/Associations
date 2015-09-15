@@ -27,6 +27,8 @@ public interface LoginIm {
 	public static final String LOGOUT = "logout";
 	public static final String GET_OTHER_LOGIN_INFO = "get_other_login_info";
 	public static final String BIND_NEW_USER = "bind_new_user";
+	public static final String SEND_REGISTER_CODE = "send_register_code";
+	public static final String CHECK_REGISTER_CODE = "check_register_code";
 
 	//
 	public static final String TYPE = "type";
@@ -34,6 +36,7 @@ public interface LoginIm {
 	public static final String ACCESS_TOKEN = "access_token";
 	public static final String REFRESH_TOKEN = "refresh_token";
 	public static final String EXPIRE_IN = "expire_in";
+	public static final String REGCODE = "regCode";
 
 	/**
 	 * 1.【登录】Login/authorize
@@ -83,6 +86,30 @@ public interface LoginIm {
 	 * @return
 	 */
 	Model bindNewUser(ModelUser user);
+
+	/**
+	 * 【注册发送验证码】
+	 * 
+	 * 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Login&act=send_register_code&
+	 * phone=15828662060
+	 * 
+	 * @param user
+	 * @return
+	 */
+	boolean sendRegisterCode(ModelUser user);
+
+	/**
+	 * 【验证注册验证码】
+	 * 
+	 * 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Login&act=check_register_code
+	 * &phone=15828662060&regCode=123456
+	 * 
+	 * @param user
+	 * @return
+	 */
+	boolean checkRegisterCode(ModelUser user);
 	// /**
 	// * 手机号登录 需要传递的参数 mobile pwd toUrl pushuserid pushchnlid devicetype
 	// *

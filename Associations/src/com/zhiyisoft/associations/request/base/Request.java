@@ -83,13 +83,13 @@ public abstract class Request {
 	public Object run() {
 		HttpRequestBase requestBase = GetRequestObject();
 		// 从缓存中获取数据
-		if (mCache != null) {
-			Log.i("cache", requestBase.getURI().toString() + "");
-			Object object = mCache.getTheData(requestBase.getURI().toString());
-			if (object != null) {
-				return object;
-			}
-		}
+//		if (mCache != null) {
+//			Log.i("cache", requestBase.getURI().toString() + "");
+//			Object object = mCache.getTheData(requestBase.getURI().toString());
+//			if (object != null) {
+//				return object;
+//			}
+//		}
 		// 从网络中获取数据
 		Log.i("getSchools", "request.run()---");
 		if (requestBase != null && mClient != null) {

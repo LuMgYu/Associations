@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.api.RegisterIm;
+import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelUser;
@@ -27,7 +27,7 @@ public class RegisterActivity extends BaseActivity {
 	private EditText et_sure_pwd;
 	private Button btn_reset;
 	private Button btn_done_regster;
-	private String mPhoneNumber;
+
 	private static final int SEND_SUCCESS = 1;
 	private static final int REGISTER_SUCCESS = 2;
 	private Handler mHandle = new Handler() {
@@ -46,8 +46,9 @@ public class RegisterActivity extends BaseActivity {
 				break;
 
 			case REGISTER_SUCCESS:
-				ModelRegister register = (ModelRegister) msg.obj;
-				if (register != null) {
+				// ModelRegister register = (ModelRegister) msg.obj;
+				boolean flag = (Boolean) msg.obj;
+				if (flag) {
 					mApp.startActivity(RegisterActivity.this,
 							RegisterFillInformationActivity.class, null);
 				} else {
@@ -70,7 +71,9 @@ public class RegisterActivity extends BaseActivity {
 	@Override
 	public void initIntent() {
 		Bundle data = getIntent().getExtras();
-		mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
+		if (data != null) {
+			mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
+		}
 
 	}
 
@@ -101,14 +104,12 @@ public class RegisterActivity extends BaseActivity {
 		switch (v.getId()) {
 
 		case R.id.btn_reset:
-			final RegisterIm registerIm = mApp.getRegisterIm();
-			final ModelRegister register = new ModelRegister();
-			register.setMobile(mPhoneNumber);
+			final LoginIm loginIm = mApp.getLoginIm();
 			mApp.getExecutor().execute(new Runnable() {
 
 				@Override
 				public void run() {
-					boolean isSuccess = registerIm.appSendSMSCode(register);
+					boolean isSuccess = loginIm.sendRegisterCode(mUser);
 					Message message = Message.obtain();
 					message.what = SEND_SUCCESS;
 					message.obj = isSuccess;
@@ -121,19 +122,18 @@ public class RegisterActivity extends BaseActivity {
 			String pwd = et_new_pwd.getText().toString();
 			String surePwd = et_sure_pwd.getText().toString();
 			if (checkThePwdAndSms(smsCode, pwd, surePwd)) {
-				final RegisterIm registerIm2 = mApp.getRegisterIm();
-				final ModelRegister register2 = new ModelRegister();
-				register2.setMobile(mPhoneNumber);
-				register2.setSmscode(smsCode);
-				register2.setPwd(pwd);
+				final LoginIm loginIm2 = mApp.getLoginIm();
+
+				mUser.setRegCode(smsCode);
+				mUser.setPwd(pwd);
 				mApp.getExecutor().execute(new Runnable() {
 
 					@Override
 					public void run() {
-						Model model = registerIm2.appUserReg(register2);
+						boolean flag = loginIm2.checkRegisterCode(mUser);
 						Message message = Message.obtain();
 						message.what = REGISTER_SUCCESS;
-						message.obj = model;
+						message.obj = flag;
 						mHandle.sendMessage(message);
 					}
 				});
@@ -156,7 +156,7 @@ public class RegisterActivity extends BaseActivity {
 	 */
 	private boolean checkThePwdAndSms(String smsCode, String pwd, String surePwd) {
 		// TODO Auto-generated method stub
-		if (smsCode != null && pwd == surePwd) {
+		if (smsCode != null && pwd.equals(surePwd)) {
 			return true;
 		}
 		return false;

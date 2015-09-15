@@ -31,7 +31,9 @@ public class RegisterPhoneActivity extends BaseActivity implements
 	@Override
 	public void initIntent() {
 		Bundle data = getIntent().getExtras();
-		mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
+		if (data != null) {
+			mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
+		}
 
 	}
 
@@ -59,6 +61,9 @@ public class RegisterPhoneActivity extends BaseActivity implements
 			Bundle data = new Bundle();
 			String phoneNumber = et_number.getText().toString();
 			if (checkThePhoneNumber(phoneNumber)) {
+				if (mUser == null) {
+					mUser = new ModelUser();
+				}
 				mUser.setMobile(phoneNumber);
 				data.putSerializable(Config.SEND_ACTIVITY_DATA, mUser);
 				mApp.startActivity(this, RegisterActivity.class, data);

@@ -76,6 +76,7 @@ public class ModelUser extends Model {
 	private String access_token;// 第三方access token
 	private String refresh_token; // 第三方refresh token（选填，根据第三方返回值）
 	private String expire_in;// 过期时间（选填，根据第三方返回值）
+	private String regCode;
 
 	/********** 2015-9-14添加的字段结束 ****************/
 	private int certflag;
@@ -213,6 +214,9 @@ public class ModelUser extends Model {
 			}
 			if (jsonObject.has("msg")) {
 				this.setMsg(jsonObject.getString("msg"));
+			}
+			if (jsonObject.has("regCode")) {
+				this.setRegCode(jsonObject.getString("regCode"));
 			}
 
 		} catch (JSONException e) {
@@ -540,6 +544,14 @@ public class ModelUser extends Model {
 		this.expire_in = expire_in;
 	}
 
+	public String getRegCode() {
+		return regCode;
+	}
+
+	public void setRegCode(String regCode) {
+		this.regCode = regCode;
+	}
+
 	@Override
 	public String toString() {
 		return "ModelUser [mobile=" + mobile + ", pwd=" + pwd + ", toUrl="
@@ -549,17 +561,18 @@ public class ModelUser extends Model {
 				+ oauth_token + ", oauth_token_secret=" + oauth_token_secret
 				+ ", msg=" + msg + ", type=" + type + ", type_uid=" + type_uid
 				+ ", access_token=" + access_token + ", refresh_token="
-				+ refresh_token + ", expire_in=" + expire_in + ", certflag="
-				+ certflag + ", sex=" + sex + ", nickname=" + nickname
-				+ ", userid=" + userid + ", userlogo=" + userlogo
-				+ ", usertype=" + usertype + ", provinceid=" + provinceid
-				+ ", cityid=" + cityid + ", univid=" + univid + ", loginname="
-				+ loginname + ", user_uzone_auth=" + user_uzone_auth
-				+ ", username=" + username + ", deptid=" + deptid + ", email="
-				+ email + ", classid=" + classid + ", city=" + city
-				+ ", gradeyear=" + gradeyear + ", univname=" + univname
-				+ ", province=" + province + ", dept=" + dept + ", classname="
-				+ classname + ", utvalue=" + utvalue + ", userauth=" + userauth
+				+ refresh_token + ", expire_in=" + expire_in + ", regCode="
+				+ regCode + ", certflag=" + certflag + ", sex=" + sex
+				+ ", nickname=" + nickname + ", userid=" + userid
+				+ ", userlogo=" + userlogo + ", usertype=" + usertype
+				+ ", provinceid=" + provinceid + ", cityid=" + cityid
+				+ ", univid=" + univid + ", loginname=" + loginname
+				+ ", user_uzone_auth=" + user_uzone_auth + ", username="
+				+ username + ", deptid=" + deptid + ", email=" + email
+				+ ", classid=" + classid + ", city=" + city + ", gradeyear="
+				+ gradeyear + ", univname=" + univname + ", province="
+				+ province + ", dept=" + dept + ", classname=" + classname
+				+ ", utvalue=" + utvalue + ", userauth=" + userauth
 				+ ", userauth_top=" + userauth_top + ", schoolId=" + schoolId
 				+ "]";
 	}
