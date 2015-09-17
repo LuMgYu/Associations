@@ -140,6 +140,11 @@ public class MeSettingDataActivity extends BaseActivity {
 		tv_gender_name.setText("女");
 	}
 
+	/**
+	 * 获取性别
+	 * 
+	 * @return
+	 */
 	private int getGender() {
 		SharedPreferences preferences = this.getSharedPreferences(
 				Config.USER_DATA, MODE_PRIVATE);
@@ -158,15 +163,17 @@ public class MeSettingDataActivity extends BaseActivity {
 			}
 		}
 		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
-			if (data == null) {
-				return;
-			}
-			Bundle bundle = data.getExtras();
-			ModelSchool school = (ModelSchool) bundle
-					.get(Config.GET_ACTIVITY_DATA);
-			if (school != null) {
-				tv_school_name.setText(school.getName() + "");
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				ModelSchool school = (ModelSchool) bundle
+						.get(Config.GET_ACTIVITY_DATA);
+				if (school != null) {
+					tv_school_name.setText(school.getName() + "");
+				}
+			} else {
+				// onBackPressed();
 			}
 		}
 	}
+
 }

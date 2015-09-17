@@ -184,7 +184,31 @@ public class Api {
 
 		@Override
 		public Model updateProfile(ModelUser user) {
-			return null;
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, USER);
+			get.addBodyParam(ACT, UPDATEPROFILE);
+			get.addBodyParam(oauth_token, user.getOauth_token());
+			get.addBodyParam(oauth_token_secret, user.getOauth_token_secret());
+			get.addBodyParam(FACEID, user.getFaceId());
+			get.addBodyParam(SEX, user.getSex());
+			get.addBodyParam(SCHOOL_ID, user.getschool_id());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public boolean saveUserPasswordByPassword(ModelUser user) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, USER);
+			get.addBodyParam(ACT, SAVEUSERPASSWORDBYPASSWORD);
+			get.addBodyParam(oauth_token, user.getOauth_token());
+			get.addBodyParam(oauth_token_secret, user.getOauth_token_secret());
+			get.addBodyParam(PWD, user.getPwd());
+			get.addBodyParam(OLDPASSWORD, user.getOldPwd());
+			Object object = get.run();
+			return isCodeOk(object);
 		}
 
 		// @Override
@@ -542,6 +566,14 @@ public class Api {
 				if (jsonObject.has("status")) {
 					int code = 0;
 					code = jsonObject.getInt("status");
+					if (code == 1) {
+						return true;
+					}
+					return false;
+				}
+				if (jsonObject.has("code")) {
+					int code = 0;
+					code = jsonObject.getInt("code");
 					if (code == 1) {
 						return true;
 					}

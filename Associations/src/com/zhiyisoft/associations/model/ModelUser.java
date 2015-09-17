@@ -85,7 +85,10 @@ public class ModelUser extends Model {
 	private String uname;
 	private String is_init;
 	private String faceurl;
+	private String uploadPhotoId;
 	private File uploadFile;
+	private String oldPwd; // 修改密码的时候 设置旧密码
+	private String faceId;
 
 	/********** 2015-9-14添加的字段结束 ****************/
 	private int certflag;
@@ -570,7 +573,6 @@ public class ModelUser extends Model {
 		this.regCode = regCode;
 	}
 
-
 	public String getUname() {
 		return uname;
 	}
@@ -601,6 +603,30 @@ public class ModelUser extends Model {
 
 	public void setUploadFile(File uploadFile) {
 		this.uploadFile = uploadFile;
+	}
+
+	public String getOldPwd() {
+		return oldPwd;
+	}
+
+	public void setOldPwd(String oldPwd) {
+		this.oldPwd = oldPwd;
+	}
+
+	public String getFaceId() {
+		return faceId;
+	}
+
+	public void setFaceId(String faceId) {
+		this.faceId = faceId;
+	}
+
+	public String getUploadPhotoId() {
+		return uploadPhotoId;
+	}
+
+	public void setUploadPhotoId(String uploadPhotoId) {
+		this.uploadPhotoId = uploadPhotoId;
 	}
 
 }

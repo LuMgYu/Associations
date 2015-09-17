@@ -24,6 +24,7 @@ public interface LoginIm {
 	public static final String MOBILE = "mobile";
 	public static final String PWD = "password";
 	public static final String UID = "uid";
+	public static final String OLDPASSWORD = "oldpassword";
 	// 四种操作方式
 	public static final String AUTHORIZE = "authorize";
 	public static final String LOGOUT = "logout";
@@ -33,12 +34,14 @@ public interface LoginIm {
 	public static final String REGISTER = "register";
 	public static final String SENDCODEBYPHONE = "sendCodeByPhone";
 	public static final String SAVEUSERPASSWORDBYPHONE = "saveUserPasswordByPhone";
+	public static final String SAVEUSERPASSWORDBYPASSWORD = "saveUserPasswordByPassword";
+
 	public static final String CODE = "code"; // 修改密码的时候用到
-	public static final String UPDATEPROFILE  = "updateProfile ";
-	public static final String faceid  = "faceid ";
-	public static final String uname  = "uname ";
-	public static final String sex  = "sex ";
-	public static final String school_id  = "school_id";
+	public static final String UPDATEPROFILE = "updateProfile ";
+	public static final String FACEID = "faceid";
+	public static final String UNAME = "uname ";
+	public static final String SEX = "sex";
+	public static final String SCHOOL_ID = "school_id";
 
 	//
 	public static final String TYPE = "type";
@@ -149,13 +152,31 @@ public interface LoginIm {
 	 * 
 	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=User&act=updateProfile
 	 * &oauth_token=124441feb0ae5dab7c064f5172948497&oauth_token_secret=
-	 * 9eb43b300c0f45ef4250b2750dae34b9&faceid=231312&uname=hhhcode&sex=1&school_id=11
-	 * 1 1
+	 * 9eb43b300c0f45ef4250b2750dae34b9&faceid=231312&uname=hhhcode&sex=1&school
+	 * _ i d = 1 1 1 1
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) faceid
+	 * 接口7中返回的id 选填 (string) uname 用户名 选填 (int) school_id 学校id选填 (int) sex 性别 选填
+	 * (string) autograph 个性签名 选填 (string) email 邮箱 选填
 	 * 
 	 * @param user
 	 * @return
 	 */
 	Model updateProfile(ModelUser user);
+
+	/**
+	 * 12.【修改密码】：User/saveUserPasswordByPassword
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=User&act=
+	 * saveUserPasswordByPassword
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (string)
+	 * password 新密码 (string) oldpassword 老密码
+	 * 
+	 * @param user
+	 * @return
+	 */
+	boolean saveUserPasswordByPassword(ModelUser user);
 	// /**
 	// * 手机号登录 需要传递的参数 mobile pwd toUrl pushuserid pushchnlid devicetype
 	// *

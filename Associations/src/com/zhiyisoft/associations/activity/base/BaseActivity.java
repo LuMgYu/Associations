@@ -16,9 +16,12 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -413,6 +416,19 @@ public abstract class BaseActivity extends FragmentActivity implements
 		mBottomll.setVisibility(View.GONE);
 	}
 
+	/**
+	 * 退出登录
+	 */
+	public void quitLogin() {
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.remove(Config.OAUTH_TOKEN);
+		editor.remove(Config.OAUTH_TOKEN_SECRET);
+		editor.remove(Config.UID);
+		editor.commit();
+	}
+
 	// ----------------------------------调用本地的图片，摄像机，文件之类的操作------------------------------------------------------
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
 	public static final int CAPTURE_CODE = 2; // 取照片的时做的标记
@@ -440,15 +456,17 @@ public abstract class BaseActivity extends FragmentActivity implements
 		super.onActivityResult(requestCode, resultCode, data);
 		try {
 			ContentResolver resolver = getContentResolver();
-			if (resultCode != RESULT_OK) {
+			if (resultCode != Activity.RESULT_OK) {
 				return;
 			} else if (requestCode == IMAGE_CODE) {
 				Uri originalUri = data.getData();
-				ToastUtils.showToast(originalUri.toString() + "");
+				Log.i("TestFile", originalUri.toString());
 				if (originalUri != null) {
 					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
 							originalUri);
 					compressPhotoAndDisplay(bitmap);
+					String filename = getFileByUri(originalUri);
+					getFile(filename);
 				}
 			} else if (requestCode == CAPTURE_CODE) {
 				String sdStatus = Environment.getExternalStorageState();
@@ -459,7 +477,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 				}
 				String name = new DateFormat().format("yyyyMMdd_hhmmss",
 						Calendar.getInstance(Locale.CHINA)) + ".jpg";
-
 				Bundle bundle = data.getExtras();
 				Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
 
@@ -468,10 +485,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 				File file = new File("/sdcard/myImage/");
 				file.mkdirs();// 创建文件夹
 				String fileName = "/sdcard/myImage/" + name;
-
+				Log.i("TestFile", fileName.toString());
 				try {
 					b = new FileOutputStream(fileName);
-					compressOutStream2Bitmap(bitmap, b);
+					compressOutStream2Bitmap(bitmap, b);// 把数据写入文件
+					getFile(fileName);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} finally {
@@ -482,7 +500,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 						e.printStackTrace();
 					}
 				}
-
 			}
 		} catch (Exception e) {
 			Log.i("tag", e.toString() + "");
@@ -518,6 +535,25 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	/**
+	 * 通过uri到获取文件路径
+	 * 
+	 * @param originalUri
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	private String getFileByUri(Uri originalUri) {
+		// 获取照片文件路径
+		String[] proj = { MediaStore.Images.Media.DATA };
+		Cursor cursor = this.managedQuery(originalUri, proj, null, null, null);
+		int actual_image_column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		String img_path = cursor.getString(actual_image_column_index);
+		Log.i("imagePath", img_path + "");
+		return img_path;
+	}
+
+	/**
 	 * 获取文件
 	 * 
 	 * @param path
@@ -537,7 +573,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 */
 	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
 		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
-		float scale = 0.5f;
+		float scale = 0.3f;
 		if (scale <= 0)
 			scale = 1;
 		int width = originBitmap.getWidth();

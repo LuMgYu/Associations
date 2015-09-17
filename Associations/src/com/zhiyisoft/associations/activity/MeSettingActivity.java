@@ -91,21 +91,10 @@ public class MeSettingActivity extends BaseActivity {
 			break;
 		case R.id.btn_setting_quit:
 			quitLogin();
+			onBackPressed();
 			break;
 		}
 
-	}
-
-	/**
-	 * 退出登录
-	 */
-	private void quitLogin() {
-		SharedPreferences preferences = this.getSharedPreferences(
-				Config.USER_DATA, Activity.MODE_PRIVATE);
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.clear();
-		editor.commit();
-		onBackPressed();
 	}
 
 	/**

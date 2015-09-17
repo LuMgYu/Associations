@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.fragment;
 import java.util.Map;
 import java.util.Set;
 
+import android.R.integer;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +29,7 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.ForgetPwdPhoneActivity;
 import com.zhiyisoft.associations.activity.MainActivity;
+import com.zhiyisoft.associations.activity.RegisterFillInformationActivity;
 import com.zhiyisoft.associations.activity.RegisterPhoneActivity;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
@@ -66,14 +68,19 @@ public class FragmentLogin extends BaseFragment {
 			case LOGIN:
 				ModelUser user = (ModelUser) msg.obj;
 				if (user != null) {
-					// TODO 把获取的信息，保存到SharedPreferences类中
-					Log.i("user", user.getMobile() + "  " + user.getPwd() + " "
-							+ user.getUserauth());
-					saveToSharePreference(user);
-					Intent intent = new Intent();
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.setClass(mActivity, MainActivity.class);
-					mActivity.startActivity(intent);
+					int is_init = Integer.valueOf(user.getIs_init());
+					if (is_init == 0) {
+						// TODO 表示没有完善资料，跳转到完善资料页面
+						Bundle data = new Bundle();
+						data.putSerializable(Config.SEND_ACTIVITY_DATA, user);
+						mApp.startActivity(mActivity,
+								RegisterFillInformationActivity.class, data,
+								Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					} else {
+						mApp.saveUser(modelUser);
+						mApp.startActivity(mActivity, MainActivity.class, null,
+								Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					}
 				} else {
 					ToastUtils.showToast("登录失败");
 				}
@@ -195,35 +202,6 @@ public class FragmentLogin extends BaseFragment {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * 把获取的user保存到SharePreference，方便下次调用
-	 * 
-	 * @param user
-	 *            需要保存的用户
-	 */
-	private void saveToSharePreference(ModelUser user) {
-		SharedPreferences preferences = mActivity.getSharedPreferences(
-				Config.USER_DATA, Activity.MODE_PRIVATE);
-		SharedPreferences.Editor editor = preferences.edit();
-		if (user.getMobile() != null) {
-			editor.putString(Config.MOBILE, user.getMobile());
-		}
-		if (user.getPwd() != null) {
-			editor.putString(Config.PWD, user.getPwd());
-		}
-
-		editor.putString(Config.USERID, user.getUserid());
-		editor.putString(Config.OAUTH_TOKEN, user.getOauth_token());
-		editor.putString(Config.OAUTH_TOKEN_SECRET,
-				user.getOauth_token_secret());
-		editor.putString(Config.SCHOOL_ID, user.getschool_id());
-		editor.putString(Config.UNAME, user.getUname());
-		editor.putString(Config.SEX, user.getSex());
-		editor.putString(Config.IS_INIT, user.getIs_init());
-		editor.putString(Config.FACEURL, user.getFaceurl());
-		editor.commit();
 	}
 
 	@Override

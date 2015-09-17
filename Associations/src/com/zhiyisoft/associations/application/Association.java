@@ -114,6 +114,35 @@ public class Association extends Application {
 		return mUser;
 	}
 
+	/**
+	 * 把获取的user保存到SharePreference，方便下次调用
+	 * 
+	 * @param user
+	 *            需要保存的用户
+	 */
+	public void saveUser(ModelUser user) {
+		SharedPreferences preferences = mActivity.getSharedPreferences(
+				Config.USER_DATA, Activity.MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		if (user.getMobile() != null) {
+			editor.putString(Config.MOBILE, user.getMobile());
+		}
+		if (user.getPwd() != null) {
+			editor.putString(Config.PWD, user.getPwd());
+		}
+
+		editor.putString(Config.USERID, user.getUserid());
+		editor.putString(Config.OAUTH_TOKEN, user.getOauth_token());
+		editor.putString(Config.OAUTH_TOKEN_SECRET,
+				user.getOauth_token_secret());
+		editor.putString(Config.SCHOOL_ID, user.getschool_id());
+		editor.putString(Config.UNAME, user.getUname());
+		editor.putString(Config.SEX, user.getSex());
+		editor.putString(Config.IS_INIT, user.getIs_init());
+		editor.putString(Config.FACEURL, user.getFaceurl());
+		editor.commit();
+	}
+
 	public ExecutorService getExecutor() {
 		if (mExecutor == null) {
 			// 获取当前系统的CPU 数目 （这样更加考虑各个手机的性能问题）

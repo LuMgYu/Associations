@@ -40,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
         android:layout_below="@id/fill_bottom_line"
-         android:paddingLeft="@dimen/margin_left"
-        android:paddingRight="@dimen/margin_right"  >
+        android:paddingLeft="@dimen/margin_left"
+        android:paddingRight="@dimen/margin_right" >
 
         <TextView
             android:id="@+id/fill_tv_nick"
@@ -60,10 +60,10 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_toRightOf="@id/fill_tv_nick"
             android:background="@null"
-            android:hint="请输入手机号码"
-             android:textCursorDrawable="@null"
+            android:hint="请输入昵称"
             android:textColor="@color/text_black"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
@@ -126,22 +126,50 @@
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small" />
 
-        <ImageView
-            android:id="@+id/fill_iv_gender_boy"
+        <FrameLayout
+            android:id="@+id/fl_fill_gender_boy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/fill_tv_gender"
-            android:src="@drawable/man" />
+            android:layout_toRightOf="@+id/fill_tv_gender" >
 
-        <ImageView
-            android:id="@+id/fill_iv_gender_girl"
+            <ImageView
+                android:id="@+id/fill_iv_gender_boy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/man" />
+
+            <ImageView
+                android:id="@+id/fill_iv_gender_boy_yes"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="right|bottom"
+                android:src="@drawable/yes"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_fill_gender_girl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/fill_iv_gender_boy"
-            android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@+id/fill_iv_gender_boy"
-            android:src="@drawable/women" />
+            android:layout_alignTop="@id/fl_fill_gender_boy"
+            android:layout_toRightOf="@id/fl_fill_gender_boy" >
+
+            <ImageView
+                android:id="@+id/fill_iv_gender_girl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:src="@drawable/women" />
+
+            <ImageView
+                android:id="@+id/fill_iv_gender_girl_yes"
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="right|bottom"
+                android:src="@drawable/yes"
+                android:visibility="gone" />
+        </FrameLayout>
     </RelativeLayout>
 
     <Button

@@ -18,7 +18,9 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -32,7 +34,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.zhiyisoft.associations.activity.LoginActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
@@ -174,6 +175,8 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
 							originalUri);
 					compressPhotoAndDisplay(bitmap);
+					String filename = getFileByUri(originalUri);
+					getFile(filename);
 				}
 			} else if (requestCode == CAPTURE_CODE) {
 				String sdStatus = Environment.getExternalStorageState();
@@ -216,19 +219,40 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	}
 
 	/**
+	 * 通过uri到获取文件路径
+	 * 
+	 * @param originalUri
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	private String getFileByUri(Uri originalUri) {
+		// 获取照片文件路径
+		String[] proj = { MediaStore.Images.Media.DATA };
+		Cursor cursor = getActivity().managedQuery(originalUri, proj, null,
+				null, null);
+		int actual_image_column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		String img_path = cursor.getString(actual_image_column_index);
+		Log.i("imagePath", img_path + "");
+		return img_path;
+	}
+
+	/**
 	 * 同比例压缩图片，并且显示图片如果需要显示这个图片的话就 显示就交给子类重新这个方法，并实现
 	 * 
 	 * @param photo
 	 */
 	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
 		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
-		float scale = 0.5f;
+		float scale = 0.3f;
 		if (scale <= 0)
 			scale = 1;
 		int width = originBitmap.getWidth();
 		int heigth = originBitmap.getHeight();
 		originBitmap = Bitmap.createScaledBitmap(originBitmap,
 				(int) (scale * width), (int) (scale * heigth), true);
+		
 		return originBitmap;
 	}
 

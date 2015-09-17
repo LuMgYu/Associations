@@ -91,7 +91,7 @@ public abstract class Request {
 		// }
 		// }
 		// 从网络中获取数据
-		Log.i("getSchools", requestBase.getURI().toString());
+
 		if (requestBase != null && mClient != null) {
 			try {
 				HttpResponse response = mClient.execute(requestBase);
