@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.api;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -8,6 +10,9 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelAssociation;
 import com.zhiyisoft.associations.model.ModelLeague;
@@ -34,12 +39,14 @@ public class Api {
 	public static final String ACT = "act";
 	// 由于这个基本上都用到，就写到这里吧
 	public static final String API = "api";
+	public static final String oauth_token = "oauth_token";
+	public static final String oauth_token_secret = "oauth_token_secret";
 
 	public static final class RegisterImpl implements RegisterIm {
 
 		@Override
 		public boolean appSendSMSCode(ModelRegister model) {
-			Request get = new Get();
+			Request get = new Post();
 			get.setHostUrlFooter(Config.appSendSMSCode);
 			get.addBodyParam(MOBILE, model.getMobile());
 			Object object = get.run();
@@ -139,16 +146,45 @@ public class Api {
 		}
 
 		@Override
-		public boolean checkRegisterCode(ModelUser user) {
+		public Model register(ModelUser user) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, LOGIN);
-			get.addBodyParam(ACT, CHECK_REGISTER_CODE);
+			get.addBodyParam(ACT, REGISTER);
 			get.addBodyParam(MOBILE, user.getMobile());
 			get.addBodyParam(REGCODE, user.getRegCode());
+			get.addBodyParam(PWD, user.getPwd());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public boolean sendCodeByPhone(ModelUser user) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, USER);
+			get.addBodyParam(ACT, SENDCODEBYPHONE);
+			get.addBodyParam(MOBILE, user.getMobile());
 			Object object = get.run();
 			return isCodeOk(object);
-			// return parseOriginalJsonObject(object, new ModelUser());
+		}
+
+		@Override
+		public boolean saveUserPasswordByPhone(ModelUser user) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, USER);
+			get.addBodyParam(ACT, SAVEUSERPASSWORDBYPHONE);
+			get.addBodyParam(MOBILE, user.getMobile());
+			get.addBodyParam(PWD, user.getPwd());
+			get.addBodyParam(CODE, user.getRegCode());
+			Object object = get.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public Model updateProfile(ModelUser user) {
+			return null;
 		}
 
 		// @Override
@@ -171,6 +207,60 @@ public class Api {
 		// return parseOriginalJsonObject(object, new ModelUser());
 		// }
 
+	}
+
+	public static final class PhotoImpl implements PhotoIm {
+
+		@Override
+		public Model Attach(ModelUser user) {
+			RequestParams params = new RequestParams();
+			// params.put(APP, API);
+			// params.put(MOD, ATTACH);
+			// params.put(ACT, FACEPIC);
+			params.put(oauth_token, user.getOauth_token());
+			params.put(oauth_token_secret, user.getOauth_token_secret());
+			File file = user.getUploadFile();
+			if (file != null) {
+				try {
+					params.put("file", user.getUploadFile());
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			AsyncHttpClient client = new AsyncHttpClient();
+			client.post(
+					"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
+					params, new AsyncHttpResponseHandler() {
+						@Override
+						public void onStart() {
+							// TODO Auto-generated method stub
+							super.onStart();
+						}
+
+						@Override
+						public void onFailure(Throwable arg0, String arg1) {
+							super.onFailure(arg0, arg1);
+						}
+
+						@Override
+						public void onSuccess(String arg0) {
+							// TODO Auto-generated method stub
+							super.onSuccess(arg0);
+						}
+
+						@Override
+						public void onSuccess(int arg0, String arg1) {
+							super.onSuccess(arg0, arg1);
+							Log.i("upload", arg0 + "ddfasdfadf  " + arg1);
+							if (arg0 == 0) {
+
+							}
+						}
+
+					});
+			return null;
+		}
 	}
 
 	/**
@@ -206,7 +296,7 @@ public class Api {
 		public boolean appUpdateUserSchool(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserSchool);
-			post.addBodyParam(SCHOOLID, user.getSchoolId());
+			post.addBodyParam(SCHOOLID, user.getschool_id());
 			post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);

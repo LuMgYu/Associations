@@ -169,6 +169,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 				return;
 			} else if (requestCode == IMAGE_CODE) {
 				Uri originalUri = data.getData();
+				Log.i("TestFile", originalUri.toString());
 				if (originalUri != null) {
 					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
 							originalUri);
@@ -192,10 +193,11 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 				File file = new File("/sdcard/myImage/");
 				file.mkdirs();// 创建文件夹
 				String fileName = "/sdcard/myImage/" + name;
-
+				Log.i("TestFile", fileName.toString());
 				try {
 					b = new FileOutputStream(fileName);
 					compressOutStream2Bitmap(bitmap, b);// 把数据写入文件
+					getFile(fileName);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				} finally {
@@ -233,6 +235,19 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		return bitmap;
+	}
+
+	/**
+	 * 获取文件
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public File getFile(String path) {
+		if (path != null) {
+			return new File(path);
+		}
+		return null;
 	}
 
 	/**

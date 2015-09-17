@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.adapter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.api.PhotoIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
@@ -120,15 +122,22 @@ public class NotifyNfyAdapter extends BAdapter {
 		items.add(new Model());
 		// AssociationImpl association = new Api.AssociationImpl();
 		// association.addAssociation(new Model());
-		LoginIm loginIm = new Api.LoginImpl();
-		ModelUser model = new ModelUser();
-		// model.setMobile("13688449697");
-		// model.setPwd("123456");
-		// model.setDevicetype("android"); 6343485
-		// model.setPwd("123456");
-		// model.setMobile("13688449697");
-		model.setUserid("6343485");
-		loginIm.logout(model);
+		// LoginIm loginIm = new Api.LoginImpl();
+		// ModelUser model = new ModelUser();
+		// // model.setMobile("13688449697");
+		// // model.setPwd("123456");
+		// // model.setDevicetype("android"); 6343485
+		// // model.setPwd("123456");
+		// // model.setMobile("13688449697");
+		// model.setUserid("6343485");
+		// loginIm.logout(model);
+		File file = new File("/sdcard/myImage/20150916_031700.jpg");
+		ModelUser user = new ModelUser();
+		user.setOauth_token("91f15078a5dc2892b27c5c1597e9ecbc");
+		user.setOauth_token_secret("945ada9ecff7c706d596dd5773587c76");
+		user.setUploadFile(file);
+		PhotoIm photoIm = new Api.PhotoImpl();
+		photoIm.Attach(user);
 		// loginIm.Login(null);
 		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.getLeagueDetail(new Model());

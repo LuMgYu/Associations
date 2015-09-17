@@ -1,12 +1,20 @@
 package com.zhiyisoft.associations.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午10:28:27 类描述：这个类是实现
@@ -19,6 +27,42 @@ public class ForgetPwdActivity extends BaseActivity {
 	private EditText et_sure_pwd;
 	private Button btn_reset;
 	private Button bt_sure_modify;
+	private static final int SEND_SUCCESS = 1;
+	private static final int SUCCESS = 2;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+			case SEND_SUCCESS:
+				boolean isSuccess = (Boolean) msg.obj;
+				if (isSuccess) {
+					// TODO 把获取的信息，保存到shareprefrence类中
+					ToastUtils.showToast("发送验证码成功");
+				} else {
+					ToastUtils.showToast("发送验证码失败，请稍后重试");
+				}
+				break;
+
+			case SUCCESS:
+				boolean modifySuccess = (Boolean) msg.obj;
+				// System.out.println("呵呵哒--------" + user.toString());
+				if (modifySuccess) {
+					ToastUtils.showToast("修改密码成功");
+					onBackPressed();
+					// 返回到登陆页面
+					// mApp.startActivity(ForgetPwdPhoneActivity.this,
+					// RegisterFillInformationActivity.class, null);
+				} else {
+					ToastUtils.showToast("修改密码失败，请稍后重试");
+				}
+				break;
+			}
+
+		};
+
+	};
+	private ModelUser mUser;
 
 	@Override
 	public String setCenterTitle() {
@@ -27,6 +71,10 @@ public class ForgetPwdActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
+		Bundle data = getIntent().getExtras();
+		if (data != null) {
+			mUser = (ModelUser) data.get(Config.SEND_ACTIVITY_DATA);
+		}
 
 	}
 
@@ -57,13 +105,62 @@ public class ForgetPwdActivity extends BaseActivity {
 		switch (v.getId()) {
 
 		case R.id.btn_reset:
+			final LoginIm loginIm = mApp.getLoginIm();
+			mApp.getExecutor().execute(new Runnable() {
+
+				@Override
+				public void run() {
+					boolean isSuccess = loginIm.sendCodeByPhone(mUser);
+					Message message = Message.obtain();
+					message.what = SEND_SUCCESS;
+					message.obj = isSuccess;
+					mHandle.sendMessage(message);
+				}
+			});
 			break;
 		case R.id.bt_sure_modify:
-			mApp.startActivity(this, LoginActivity.class, null,
-					Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			String smsCode = et_vitify.getText().toString();
+			String pwd = et_new_pwd.getText().toString();
+			String surePwd = et_sure_pwd.getText().toString();
+			if (checkThePwdAndSms(smsCode, pwd, surePwd)) {
+				final LoginIm loginIm2 = mApp.getLoginIm();
+
+				mUser.setRegCode(smsCode);
+				mUser.setPwd(pwd);
+				mApp.getExecutor().execute(new Runnable() {
+
+					@Override
+					public void run() {
+						boolean isSuccess = loginIm2
+								.saveUserPasswordByPhone(mUser);
+						Message message = Message.obtain();
+						message.what = SUCCESS;
+						message.obj = isSuccess;
+						mHandle.sendMessage(message);
+					}
+				});
+			}
 			break;
 
 		}
 	}
 
+	/**
+	 * 检验密码和验证码是否合法
+	 * 
+	 * @param smsCode
+	 *            验证码
+	 * @param pwd
+	 *            密码
+	 * @param surePwd
+	 *            确认密码
+	 * @return
+	 */
+	private boolean checkThePwdAndSms(String smsCode, String pwd, String surePwd) {
+		// TODO Auto-generated method stub
+		if (smsCode != null && pwd.equals(surePwd)) {
+			return true;
+		}
+		return false;
+	}
 }

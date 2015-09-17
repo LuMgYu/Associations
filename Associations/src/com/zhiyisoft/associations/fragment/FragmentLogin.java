@@ -89,7 +89,7 @@ public class FragmentLogin extends BaseFragment {
 							data);
 				} else {
 					// 直接登录 并把这些信息保存到本地里面
-//					saveToSharePreference(user1);
+					// saveToSharePreference(user1);
 					Intent intent = new Intent();
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.setClass(mActivity, MainActivity.class);
@@ -218,6 +218,11 @@ public class FragmentLogin extends BaseFragment {
 		editor.putString(Config.OAUTH_TOKEN, user.getOauth_token());
 		editor.putString(Config.OAUTH_TOKEN_SECRET,
 				user.getOauth_token_secret());
+		editor.putString(Config.SCHOOL_ID, user.getschool_id());
+		editor.putString(Config.UNAME, user.getUname());
+		editor.putString(Config.SEX, user.getSex());
+		editor.putString(Config.IS_INIT, user.getIs_init());
+		editor.putString(Config.FACEURL, user.getFaceurl());
 		editor.commit();
 	}
 

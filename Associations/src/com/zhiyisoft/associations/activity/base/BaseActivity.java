@@ -444,6 +444,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 				return;
 			} else if (requestCode == IMAGE_CODE) {
 				Uri originalUri = data.getData();
+				ToastUtils.showToast(originalUri.toString() + "");
 				if (originalUri != null) {
 					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
 							originalUri);
@@ -458,7 +459,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 				}
 				String name = new DateFormat().format("yyyyMMdd_hhmmss",
 						Calendar.getInstance(Locale.CHINA)) + ".jpg";
-				Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+
 				Bundle bundle = data.getExtras();
 				Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
 
@@ -514,6 +515,19 @@ public abstract class BaseActivity extends FragmentActivity implements
 		bundle.putStringArrayList(Config.GET_ACTIVITY_DATA, list);
 		intent.putExtras(bundle);
 		this.setResult(this.GET_DATA_FROM_ACTIVITY, intent);
+	}
+
+	/**
+	 * 获取文件
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public File getFile(String path) {
+		if (path != null) {
+			return new File(path);
+		}
+		return null;
 	}
 
 	/**
@@ -606,8 +620,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void preformShare() {
 		mController.openShare(this, false);
 	}
-	
-	
 
 	// ------------------------------------友盟初始化qq微信，微博，人人end------------------z
 	// --------------------------PopupWindow的界面控件-----------------------------------------

@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.model;
 
+import java.io.File;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,10 +79,16 @@ public class ModelUser extends Model {
 	private String refresh_token; // 第三方refresh token（选填，根据第三方返回值）
 	private String expire_in;// 过期时间（选填，根据第三方返回值）
 	private String regCode;
+	private String school_id;
+	private String sex;
+
+	private String uname;
+	private String is_init;
+	private String faceurl;
+	private File uploadFile;
 
 	/********** 2015-9-14添加的字段结束 ****************/
 	private int certflag;
-	private String sex;
 	private String nickname;
 	// private String toUrl;
 	private String userid;
@@ -106,14 +114,12 @@ public class ModelUser extends Model {
 	private String userauth;
 	private String userauth_top;
 
-	private String schoolId;
-
-	public String getSchoolId() {
-		return schoolId;
+	public String getschool_id() {
+		return school_id;
 	}
 
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
+	public void setschool_id(String school_id) {
+		this.school_id = school_id;
 	}
 
 	// private String mobile;
@@ -184,8 +190,8 @@ public class ModelUser extends Model {
 			if (jsonObject.has("userauth_top")) {
 				this.setUserauth_top(jsonObject.getString("userauth_top"));
 			}
-			if (jsonObject.has("schoolId")) {
-				this.setSchoolId(jsonObject.getString("schoolId"));
+			if (jsonObject.has("school_id")) {
+				this.setschool_id(jsonObject.getString("school_id"));
 			}
 			if (jsonObject.has("sex")) {
 				this.setSex(jsonObject.getString("sex"));
@@ -217,6 +223,18 @@ public class ModelUser extends Model {
 			}
 			if (jsonObject.has("regCode")) {
 				this.setRegCode(jsonObject.getString("regCode"));
+			}
+			if (jsonObject.has("school_id")) {
+				this.setschool_id(jsonObject.getString("school_id"));
+			}
+			if (jsonObject.has("uname")) {
+				this.setUname(jsonObject.getString("uname"));
+			}
+			if (jsonObject.has("is_init")) {
+				this.setIs_init(jsonObject.getString("is_init"));
+			}
+			if (jsonObject.has("faceurl")) {
+				this.setFaceurl(jsonObject.getString("faceurl"));
 			}
 
 		} catch (JSONException e) {
@@ -552,29 +570,37 @@ public class ModelUser extends Model {
 		this.regCode = regCode;
 	}
 
-	@Override
-	public String toString() {
-		return "ModelUser [mobile=" + mobile + ", pwd=" + pwd + ", toUrl="
-				+ toUrl + ", pushuserid=" + pushuserid + ", pushchnlid="
-				+ pushchnlid + ", devicetype=" + devicetype + ", account="
-				+ account + ", openid=" + openid + ", oauth_token="
-				+ oauth_token + ", oauth_token_secret=" + oauth_token_secret
-				+ ", msg=" + msg + ", type=" + type + ", type_uid=" + type_uid
-				+ ", access_token=" + access_token + ", refresh_token="
-				+ refresh_token + ", expire_in=" + expire_in + ", regCode="
-				+ regCode + ", certflag=" + certflag + ", sex=" + sex
-				+ ", nickname=" + nickname + ", userid=" + userid
-				+ ", userlogo=" + userlogo + ", usertype=" + usertype
-				+ ", provinceid=" + provinceid + ", cityid=" + cityid
-				+ ", univid=" + univid + ", loginname=" + loginname
-				+ ", user_uzone_auth=" + user_uzone_auth + ", username="
-				+ username + ", deptid=" + deptid + ", email=" + email
-				+ ", classid=" + classid + ", city=" + city + ", gradeyear="
-				+ gradeyear + ", univname=" + univname + ", province="
-				+ province + ", dept=" + dept + ", classname=" + classname
-				+ ", utvalue=" + utvalue + ", userauth=" + userauth
-				+ ", userauth_top=" + userauth_top + ", schoolId=" + schoolId
-				+ "]";
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+
+	public String getIs_init() {
+		return is_init;
+	}
+
+	public void setIs_init(String is_init) {
+		this.is_init = is_init;
+	}
+
+	public String getFaceurl() {
+		return faceurl;
+	}
+
+	public void setFaceurl(String faceurl) {
+		this.faceurl = faceurl;
+	}
+
+	public File getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(File uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
 }

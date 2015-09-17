@@ -11,7 +11,6 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -46,9 +45,8 @@ public class RegisterActivity extends BaseActivity {
 				break;
 
 			case REGISTER_SUCCESS:
-				// ModelRegister register = (ModelRegister) msg.obj;
-				boolean flag = (Boolean) msg.obj;
-				if (flag) {
+				ModelUser user = (ModelUser) msg.obj;
+				if (user != null) {
 					mApp.startActivity(RegisterActivity.this,
 							RegisterFillInformationActivity.class, null);
 				} else {
@@ -130,10 +128,10 @@ public class RegisterActivity extends BaseActivity {
 
 					@Override
 					public void run() {
-						boolean flag = loginIm2.checkRegisterCode(mUser);
+						Model model = loginIm2.register(mUser);
 						Message message = Message.obtain();
 						message.what = REGISTER_SUCCESS;
-						message.obj = flag;
+						message.obj = model;
 						mHandle.sendMessage(message);
 					}
 				});

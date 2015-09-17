@@ -95,11 +95,21 @@ public class Association extends Application {
 		String oauth_token = preferences.getString(Config.OAUTH_TOKEN, null);
 		String oauth_token_secret = preferences.getString(
 				Config.OAUTH_TOKEN_SECRET, null);
+		String school_id = preferences.getString(Config.SCHOOL_ID, null);
+		String uname = preferences.getString(Config.UNAME, null);
+		String sex = preferences.getString(Config.SEX, null);
+		String is_init = preferences.getString(Config.IS_INIT, null);
+		String faceurl = preferences.getString(Config.FACEURL, null);
 		mUser.setMobile(mobile);
 		mUser.setPwd(pwd);
 		mUser.setUserauth(userId);
 		mUser.setOauth_token(oauth_token);
 		mUser.setOauth_token_secret(oauth_token_secret);
+		mUser.setschool_id(school_id);
+		mUser.setUname(uname);
+		mUser.setSex(sex);
+		mUser.setIs_init(is_init);
+		mUser.setFaceurl(faceurl);
 		// 如果mobile为为空的话，就说明根本就没有登录过，这个时候就把muser设置为空，到时候供外不调用
 		return mUser;
 	}

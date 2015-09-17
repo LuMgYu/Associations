@@ -49,6 +49,7 @@ public class Post extends Request {
 		try {
 			HttpEntity entity = new UrlEncodedFormEntity(mParams, HTTP.UTF_8);
 			post.setEntity(entity);
+			Log.i("request", post.getURI().toString() + "");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

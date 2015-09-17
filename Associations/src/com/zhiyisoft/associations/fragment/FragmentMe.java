@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.fragment;
 
+import java.io.File;
 import java.io.OutputStream;
 
 import android.annotation.SuppressLint;
@@ -21,10 +22,13 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MeSettingDataActivity;
 import com.zhiyisoft.associations.activity.MeSettingSignatureActivity;
+import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.api.PhotoIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.listview.MeAssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelUser;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -100,6 +104,18 @@ public class FragmentMe extends BaseFragment {
 		mBitmap = super.compressOutStream2Bitmap(bitmap, stream);
 		me_iv_icon.setImageBitmap(mBitmap);
 		return mBitmap;
+	}
+
+	@Override
+	public File getFile(String path) {
+		File file = super.getFile(path);
+		ModelUser user = new ModelUser();
+		user.setOauth_token("91f15078a5dc2892b27c5c1597e9ecbc");
+		user.setOauth_token_secret("945ada9ecff7c706d596dd5773587c76");
+		user.setUploadFile(file);
+		PhotoIm photoIm = new Api.PhotoImpl();
+		photoIm.Attach(user);
+		return file;
 	}
 
 	@Override
