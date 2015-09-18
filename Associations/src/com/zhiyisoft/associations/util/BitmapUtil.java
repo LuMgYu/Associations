@@ -17,7 +17,7 @@ import com.umeng.socialize.utils.Log;
  */
 
 public class BitmapUtil {
-	private static final int IMAGESIZE = 100; // 设置每张图片的最大不能超过100k
+	private static final int IMAGESIZE = 70; // 设置每张图片的最大不能超过100k
 
 	/**
 	 * 等比例压缩图片
@@ -37,7 +37,7 @@ public class BitmapUtil {
 			originBitmap.compress(Bitmap.CompressFormat.PNG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
 			Log.i("compressImage", "-------baos.toByteArray().length--------"
 					+ baos.toByteArray().length / 1024 + "k");
-			options -= 19;// 每次都减少100
+			options -= 49;// 每次都减少100
 		}
 		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片

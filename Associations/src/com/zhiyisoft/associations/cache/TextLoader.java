@@ -1,11 +1,6 @@
 package com.zhiyisoft.associations.cache;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.content.Context;
-
-import com.zhiyisoft.associations.util.StreamTool;
 
 /**
  * author：qiuchunjia time：下午2:40:52 类描述：这个类是实现

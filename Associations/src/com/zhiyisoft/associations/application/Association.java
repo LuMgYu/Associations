@@ -129,7 +129,6 @@ public class Association extends Application {
 	 *            需要保存的用户
 	 */
 	public void saveUser(ModelUser user) {
-		System.out.println(user.toString());
 		SharedPreferences preferences = mActivity.getSharedPreferences(
 				Config.USER_DATA, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();

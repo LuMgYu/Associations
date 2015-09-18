@@ -84,8 +84,8 @@ public class FragmentLogin extends BaseFragment {
 				break;
 
 			case OTHER_LOGIN:
-				ModelUser user1 = (ModelUser) msg.obj;
-				if (user1 != null) {
+				ModelUser result = (ModelUser) msg.obj;
+				if (result == null) {
 					// 进入到注册页面，让用户注册，并且绑定手机号码
 					Bundle data = new Bundle();
 					data.putSerializable(Config.SEND_ACTIVITY_DATA, modelUser);
@@ -93,7 +93,7 @@ public class FragmentLogin extends BaseFragment {
 							data);
 				} else {
 					// 直接登录 并把这些信息保存到本地里面
-					// saveToSharePreference(user1);
+					mApp.saveUser(result);
 					Intent intent = new Intent();
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					intent.setClass(mActivity, MainActivity.class);
