@@ -52,6 +52,7 @@ public class MeSettingActivity extends BaseActivity {
 		setting_rl_edition = (RelativeLayout) findViewById(R.id.setting_rl_edition);
 		setting_tv_edition = (TextView) findViewById(R.id.setting_tv_edition);
 		btn_setting_quit = (Button) findViewById(R.id.btn_setting_quit);
+		setting_tv_cache.setText(mApp.getUsedCache() + "M");
 		if (isOpenedMessage()) {
 			iv_openMessage.setImageResource(R.drawable.on);
 		} else {
@@ -82,6 +83,10 @@ public class MeSettingActivity extends BaseActivity {
 			}
 			break;
 		case R.id.setting_rl_cache:
+			if (mApp.cleanCache()) {
+				ToastUtils.showToast("清除缓存成功！");
+				setting_tv_cache.setText("0M");
+			}
 			break;
 		case R.id.setting_rl_article:
 			Bundle data2 = new Bundle();

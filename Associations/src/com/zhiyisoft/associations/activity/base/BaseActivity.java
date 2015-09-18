@@ -46,7 +46,6 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -63,6 +62,7 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
+import com.zhiyisoft.associations.util.BitmapUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -573,14 +573,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 */
 	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
 		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
-		float scale = 0.3f;
-		if (scale <= 0)
-			scale = 1;
-		int width = originBitmap.getWidth();
-		int heigth = originBitmap.getHeight();
-		originBitmap = Bitmap.createScaledBitmap(originBitmap,
-				(int) (scale * width), (int) (scale * heigth), true);
-		return originBitmap;
+		Bitmap bitmap = BitmapUtil.compressImage(originBitmap);
+		return bitmap;
 	}
 
 	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {

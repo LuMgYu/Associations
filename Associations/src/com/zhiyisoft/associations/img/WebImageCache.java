@@ -47,23 +47,18 @@ public class WebImageCache {
 
 	public Bitmap get(String url) {
 		Bitmap bitmap = null;
-
 		try {
 			String path = hashKeyForDisk(url);
 			DiskLruCache.Snapshot snapShot = mDiskCache.get(path);
 			if (snapShot != null) {
 				InputStream is = snapShot.getInputStream(0);
-				// bitmap = BitmapFactory.decodeStream(is);
-				// BitmapFactory.Options options = new BitmapFactory.Options();
-				// options.inSampleSize = 10;
-				// bitmap=BitmapFactory.
-				// 如果是大图片的时候就 压缩一下
-				bitmap = BitmapUtil.compress(is);
+				if (is != null) {
+					bitmap = BitmapUtil.getImageByIs(is);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -84,7 +79,6 @@ public class WebImageCache {
 			}
 			mDiskCache.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

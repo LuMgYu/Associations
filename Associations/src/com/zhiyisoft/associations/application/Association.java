@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.application;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,22 +18,22 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Environment;
 
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.cache.base.DiskLruCache;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
@@ -80,6 +82,99 @@ public class Association extends Application {
 		return mActivity;
 	}
 
+	private static DiskLruCache mDiskCache;
+	// 让内存有100m 最开始把单位设置错了设置为8b，导致存不进去，卧槽 ，fuck，浪费老子两个小时！
+	private int mDiskCacheSize = 100 * 1024 * 1024;
+	private String mFileName = "Association";
+
+	// ------------------------获取缓存-----------------------------------------------------------
+	public DiskLruCache getCache() {
+		if (mDiskCache == null) {
+			File file = getDiskCacheDir(getApplicationContext(), mFileName);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			try {
+				mDiskCache = DiskLruCache.open(file,
+						getAppVersion(getApplicationContext()), 1,
+						mDiskCacheSize);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return mDiskCache;
+	}
+
+	/**
+	 * 获取使用过的缓存
+	 * 
+	 * @return
+	 */
+	public float getUsedCache() {
+		mDiskCache = getCache();
+		float count = mDiskCache.size();
+		float mCountM = count / (1024 * 1024);
+		float b = (float) (Math.round(mCountM * 100)) / 100; // 取两位小数
+		return b;
+	}
+
+	/**
+	 * 清理掉缓存
+	 * 
+	 * @return
+	 */
+	public boolean cleanCache() {
+		mDiskCache = getCache();
+		try {
+			mDiskCache.delete();
+			mDiskCache = null;
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * 获取app版本号
+	 * 
+	 * @param context
+	 * @return
+	 */
+	private int getAppVersion(Context context) {
+		try {
+			PackageInfo info = context.getPackageManager().getPackageInfo(
+					context.getPackageName(), 0);
+			return info.versionCode;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return 1;
+	}
+
+	/**
+	 * 获取内存卡路径
+	 * 
+	 * @param context
+	 * @param uniqueName
+	 * @return
+	 */
+	@SuppressLint("NewApi")
+	private File getDiskCacheDir(Context context, String uniqueName) {
+		String cachePath;
+		if (Environment.MEDIA_MOUNTED.equals(Environment
+				.getExternalStorageState())
+				|| !Environment.isExternalStorageRemovable()) {
+			cachePath = context.getExternalCacheDir().getPath();
+		} else {
+			cachePath = context.getCacheDir().getPath();
+		}
+		return new File(cachePath + File.separator + uniqueName);
+	}
+
+	// ------------------------获取缓存 end------------------------------------
 	/**
 	 * 获取用户的信息，主要是获取手机号码，登录密码，认证信息
 	 * 

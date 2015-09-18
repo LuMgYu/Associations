@@ -25,7 +25,7 @@ public class BitmapUtil {
 	 * @param image
 	 * @return
 	 */
-	private static Bitmap compressImage(Bitmap originBitmap) {
+	public static Bitmap compressImage(Bitmap originBitmap) {
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		originBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
@@ -34,22 +34,31 @@ public class BitmapUtil {
 				+ baos.toByteArray().length / 1024 + "k");
 		while (baos.toByteArray().length / 1024 > IMAGESIZE && options > 0) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
 			baos.reset();// 重置baos即清空baos
-			originBitmap.compress(Bitmap.CompressFormat.PNG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
+			originBitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
 			Log.i("compressImage", "-------baos.toByteArray().length--------"
 					+ baos.toByteArray().length / 1024 + "k");
-			options -= 49;// 每次都减少100
+			options -= 49;
 		}
 		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
 		return bitmap;
 	}
 
-	public static Bitmap getimage(String srcPath) {
+	/**
+	 * 根据文件路径来获取 图片
+	 * 
+	 * @param srcPath
+	 * @return
+	 */
+	public static Bitmap getImageByPath(String srcPath) {
 		BitmapFactory.Options newOpts = new BitmapFactory.Options();
-		// 开始读入图片，此时把options.inJustDecodeBounds 设回true了
+		/**
+		 * 开始读入图片，此时把options.inJustDecodeBound设置为true，
+		 * 目的在于通过option获取bitmap的宽和高就ok了
+		 * 
+		 * */
 		newOpts.inJustDecodeBounds = true;
 		Bitmap bitmap = BitmapFactory.decodeFile(srcPath, newOpts);// 此时返回bm为空
-
 		newOpts.inJustDecodeBounds = false;
 		int w = newOpts.outWidth;
 		int h = newOpts.outHeight;
@@ -72,32 +81,21 @@ public class BitmapUtil {
 	}
 
 	/**
-	 * 第三：图片按比例大小压缩方法（根据Bitmap图片压缩）：
+	 * 通过输入流获取获取bitmap
 	 * 
 	 * @param image
 	 * @return
 	 */
-	public static Bitmap compress(InputStream is) {
+	public static Bitmap getImageByIs(InputStream is) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		Bitmap originBitmap;
-		baos = is2boas(is);
+		baos = is2Boas(is);
 		int count = baos.toByteArray().length / 1024; // 获取原始的图片多少k
 		BitmapFactory.Options options = new Options();
 		options.inSampleSize = count / IMAGESIZE; // 压缩的倍数，经过计算来压缩 压缩后保证图片在100k
 		originBitmap = BitmapFactory.decodeByteArray(baos.toByteArray(), 0,
 				baos.toByteArray().length, options);
 		return compressImage(originBitmap);// 压缩好比例大小后再进行质量压缩
-
-		// if (baos.toByteArray().length / 1024 > 1024) {//
-		// 判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
-		// BitmapFactory.Options options = new Options();
-		// options.inSampleSize = 20; // 压缩 20倍
-		// originBitmap = BitmapFactory.decodeByteArray(baos.toByteArray(), 0,
-		// baos.toByteArray().length, options);
-		// } else {
-		// originBitmap = BitmapFactory.decodeByteArray(baos.toByteArray(), 0,
-		// baos.toByteArray().length);
-		// }
 
 	}
 
@@ -109,7 +107,7 @@ public class BitmapUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	private static ByteArrayOutputStream is2boas(InputStream is) {
+	private static ByteArrayOutputStream is2Boas(InputStream is) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
 		int len = 0;
