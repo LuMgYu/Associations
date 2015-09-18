@@ -14,7 +14,15 @@ public class Config {
 
 	// -----------------------------访问shareprefrence用到-------------------------------------------------
 	public static final String USER_DATA = "user_data";
-	
+	/**
+	 * "oauth_token":"40fb886c1419ebcd9a72860b53d7c6db",
+	 * "oauth_token_secret":"f5b24cee49bc8a8ce3847d5b2c1e9856", "uid":"6309299",
+	 * "school_id":"1465", "school_name":"复旦大学", "uname":"呵呵哒", "sex":"0",
+	 * "autograph":"", "mobile":"13688449697", "email":null, "is_init":"1",
+	 * "faceurl":
+	 * "http://daxs.zhiyicx.com/attachment/uploads/2015/0918/14/55fbb364bea26.jpg"
+	 * 
+	 * */
 	public static final String MOBILE = "mobile";
 	public static final String PWD = "pwd";
 	public static final String USERID = "userid";
@@ -26,10 +34,13 @@ public class Config {
 	public static final String IS_INIT = "is_init";
 	public static final String SEX = "sex";
 	public static final String FACEURL = "faceurl";
+	public static final String SCHOOL_NAME = "school_name";
+	public static final String AUTOGRAPH = "autograph";
+	public static final String EMAIL = "email";
 
 	public static final String OPEN_MESSAGE = "open_message";
 	public static final String CURRENT_PROVINCE = "current_province";
-	public static final String CURRENT_SCHOOL = "current_school";
+	public static final String CURRENT_SCHOOL = SCHOOL_NAME;
 	public static final String ISNOT_GUIDE = "ISNOT_GUIDE";
 	public static final String GENDER = "gender";
 	public static final String GET_ACTIVITY_DATA = "get_activity_data";

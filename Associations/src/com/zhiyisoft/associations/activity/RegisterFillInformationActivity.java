@@ -157,7 +157,7 @@ public class RegisterFillInformationActivity extends BaseActivity {
 		return file;
 	}
 
-	private File uploadIcon(ModelUser user) {
+	private void uploadIcon(ModelUser user) {
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, user.getOauth_token());
 		params.put(Api.oauth_token_secret, user.getOauth_token_secret());
@@ -194,7 +194,6 @@ public class RegisterFillInformationActivity extends BaseActivity {
 					}
 
 				});
-		return file;
 	}
 
 	@Override

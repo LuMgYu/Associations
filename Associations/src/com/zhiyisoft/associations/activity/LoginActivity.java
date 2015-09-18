@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity {
 				if (user != null) {
 					// TODO 把获取的信息，保存到SharedPreferences类中
 					Log.i("user", user.getMobile() + "  " + user.getPwd() + " "
-							+ user.getUserauth());
+							+ user.getUserid());
 					saveToSharePreference(user);
 					mApp.startActivity(LoginActivity.this, MainActivity.class,
 							null, Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -193,7 +193,7 @@ public class LoginActivity extends BaseActivity {
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putString(Config.MOBILE, user.getMobile());
 		editor.putString(Config.PWD, user.getPwd());
-		editor.putString(Config.USERID, user.getUserauth());
+		editor.putString(Config.USERID, user.getUserid());
 		editor.commit();
 	};
 }

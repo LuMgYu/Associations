@@ -86,6 +86,7 @@ public class Association extends Application {
 	 * @return
 	 */
 	public ModelUser getUser() {
+
 		mUser = new ModelUser();
 		SharedPreferences preferences = this.getSharedPreferences(
 				Config.USER_DATA, MODE_PRIVATE);
@@ -100,9 +101,12 @@ public class Association extends Application {
 		String sex = preferences.getString(Config.SEX, null);
 		String is_init = preferences.getString(Config.IS_INIT, null);
 		String faceurl = preferences.getString(Config.FACEURL, null);
+		String school_name = preferences.getString(Config.SCHOOL_NAME, null);
+		String autograph = preferences.getString(Config.AUTOGRAPH, null);
+		String email = preferences.getString(Config.EMAIL, null);
 		mUser.setMobile(mobile);
 		mUser.setPwd(pwd);
-		mUser.setUserauth(userId);
+		mUser.setUserid(userId);
 		mUser.setOauth_token(oauth_token);
 		mUser.setOauth_token_secret(oauth_token_secret);
 		mUser.setschool_id(school_id);
@@ -110,7 +114,11 @@ public class Association extends Application {
 		mUser.setSex(sex);
 		mUser.setIs_init(is_init);
 		mUser.setFaceurl(faceurl);
+		mUser.setSchool_name(school_name);
+		mUser.setAutograph(autograph);
+		mUser.setEmail(email);
 		// 如果mobile为为空的话，就说明根本就没有登录过，这个时候就把muser设置为空，到时候供外不调用
+		System.out.println(mUser.toString());
 		return mUser;
 	}
 
@@ -121,6 +129,7 @@ public class Association extends Application {
 	 *            需要保存的用户
 	 */
 	public void saveUser(ModelUser user) {
+		System.out.println(user.toString());
 		SharedPreferences preferences = mActivity.getSharedPreferences(
 				Config.USER_DATA, Activity.MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
@@ -140,6 +149,9 @@ public class Association extends Application {
 		editor.putString(Config.SEX, user.getSex());
 		editor.putString(Config.IS_INIT, user.getIs_init());
 		editor.putString(Config.FACEURL, user.getFaceurl());
+		editor.putString(Config.SCHOOL_NAME, user.getSchool_name());
+		editor.putString(Config.AUTOGRAPH, user.getAutograph());
+		editor.putString(Config.EMAIL, user.getEmail());
 		editor.commit();
 	}
 

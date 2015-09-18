@@ -309,10 +309,6 @@ public class Api {
 		@Override
 		public boolean appUpdateUserArea(ModelUser user) {
 			Request post = new Post();
-			post.setHostUrlFooter(Config.appUpdateUserArea);
-			post.addBodyParam(PROVINCEID, user.getProvince());
-			post.addBodyParam(CITYID, user.getCityid());
-			post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -321,8 +317,8 @@ public class Api {
 		public boolean appUpdateUserSchool(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserSchool);
-			post.addBodyParam(SCHOOLID, user.getschool_id());
-			post.addBodyParam(USERAUTH, user.getUserauth());
+//			post.addBodyParam(SCHOOLID, user.getschool_id());
+//			post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -331,8 +327,8 @@ public class Api {
 		public boolean appUpdateUserDept(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserDept);
-			post.addBodyParam(DEPTID, user.getDeptid());
-			post.addBodyParam(USERAUTH, user.getUserauth());
+//			post.addBodyParam(DEPTID, user.getDeptid());
+//			post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -341,8 +337,8 @@ public class Api {
 		public boolean appUpdateUserClass(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserClass);
-			post.addBodyParam(CLASSID, user.getClassid());
-			post.addBodyParam(USERAUTH, user.getUserauth());
+//			post.addBodyParam(CLASSID, user.getClassid());
+//			post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -351,8 +347,8 @@ public class Api {
 		public boolean appUpdateGradeYear(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateGradeYear);
-			post.addBodyParam(GRADEYEAR, user.getGradeyear());
-			post.addBodyParam(USERAUTH, user.getUserauth());
+//			post.addBodyParam(GRADEYEAR, user.getGradeyear());
+//			post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}

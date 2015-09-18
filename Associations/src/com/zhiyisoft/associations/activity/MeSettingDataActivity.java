@@ -12,6 +12,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
 
 /**
@@ -33,6 +34,7 @@ public class MeSettingDataActivity extends BaseActivity {
 	private RelativeLayout rl_phone;
 	private TextView tv_phone_name;
 	private RelativeLayout rl_modify_pwd;
+	private ModelUser mUser;
 
 	@Override
 	public String setCenterTitle() {
@@ -51,6 +53,7 @@ public class MeSettingDataActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
+		mUser = mApp.getUser();
 		tv_nick_name = (TextView) findViewById(R.id.tv_nick_name);
 		tv_gender_name = (TextView) findViewById(R.id.tv_gender_name);
 		tv_school_name = (TextView) findViewById(R.id.tv_school_name);
@@ -65,8 +68,17 @@ public class MeSettingDataActivity extends BaseActivity {
 		rl_email = (RelativeLayout) findViewById(R.id.rl_email);
 		rl_phone = (RelativeLayout) findViewById(R.id.rl_phone);
 		rl_modify_pwd = (RelativeLayout) findViewById(R.id.rl_modify_pwd);
+		initData();
+	}
+
+	private void initData() {
 		getCurrentSchool(tv_school_name);
 		initGender();
+		tv_nick_name.setText(mUser.getUname() + "");
+		tv_school_name.setText(mUser.getSchool_name() + "");
+		tv_email_name.setText(mUser.getEmail() + "");
+		tv_phone_name.setText(mUser.getMobile() + "");
+
 	}
 
 	/**

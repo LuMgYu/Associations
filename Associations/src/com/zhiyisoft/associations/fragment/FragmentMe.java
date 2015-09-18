@@ -1,7 +1,11 @@
 package com.zhiyisoft.associations.fragment;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
@@ -19,16 +23,19 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MeSettingDataActivity;
 import com.zhiyisoft.associations.activity.MeSettingSignatureActivity;
 import com.zhiyisoft.associations.api.Api;
-import com.zhiyisoft.associations.api.PhotoIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.listview.MeAssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -47,6 +54,8 @@ public class FragmentMe extends BaseFragment {
 	private BaseListView me_lv_association;
 
 	private Bitmap mBitmap;
+
+	private ModelUser mUser;
 
 	@Override
 	public void initIntentData() {
@@ -70,11 +79,6 @@ public class FragmentMe extends BaseFragment {
 		me_iv_default = (ImageView) findViewById(R.id.me_iv_default);
 		me_lv_association = (MeAssociationListview) findViewById(R.id.me_lv_association);
 		initPopWindow();
-		// me_iv_icon
-		// .setImageUrl("http://pic19.nipic.com/20120308/7491614_141057681000_2.png");
-		// me_iv_icon.setImageUrl("http://stimg1.tuicool.com/3URZ7v.png");
-		me_iv_icon
-				.setImageUrl("http://daxs.zhiyicx.com/attachment/uploads/2015/0918/10/55fb719353c29.jpg");
 	}
 
 	@Override
@@ -89,7 +93,35 @@ public class FragmentMe extends BaseFragment {
 
 	@Override
 	public void initData() {
+		mUser = mApp.getUser();
+		initUser(mUser);
+		me_tv_nick.setText(mUser.getUname() + "");
+		if (mUser.getAutograph().length() > 0) {
+			me_tv_signature.setText(mUser.getAutograph() + "");
+		}
+	}
 
+	/**
+	 * 初始化用户信息
+	 * 
+	 * @param mUser2
+	 */
+	private void initUser(ModelUser user) {
+		setimageIcon(user);
+		// TODO 以后这里还需要设置 个性签名，以及以及加入的社团
+
+	}
+
+	/**
+	 * 设置头像
+	 * 
+	 * @param user
+	 */
+	private void setimageIcon(ModelUser user) {
+		String faceUrl = user.getFaceurl();
+		if (faceUrl != null && faceUrl.length() > 0) {
+			me_iv_icon.setImageUrl(faceUrl);
+		}
 	}
 
 	@Override
@@ -109,13 +141,51 @@ public class FragmentMe extends BaseFragment {
 	@Override
 	public File getFile(String path) {
 		File file = super.getFile(path);
-		ModelUser user = new ModelUser();
-		user.setOauth_token("91f15078a5dc2892b27c5c1597e9ecbc");
-		user.setOauth_token_secret("945ada9ecff7c706d596dd5773587c76");
-		user.setUploadFile(file);
-		PhotoIm photoIm = new Api.PhotoImpl();
-		photoIm.Attach(user);
+		mUser.setUploadFile(file);
+		uploadIcon(mUser);
 		return file;
+	}
+
+	private void uploadIcon(ModelUser user) {
+		RequestParams params = new RequestParams();
+		params.put(Api.oauth_token, user.getOauth_token());
+		params.put(Api.oauth_token_secret, user.getOauth_token_secret());
+		File file = user.getUploadFile();
+		if (file != null) {
+			try {
+				params.put("file", user.getUploadFile());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
+				params, new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, String arg1) {
+						super.onSuccess(arg0, arg1);
+						try {
+							JSONObject jsonObject = new JSONObject(arg1);
+							if (jsonObject.has("data")) {
+								JSONObject data = jsonObject
+										.getJSONObject("data");
+								if (data.has("url")) {
+									ToastUtils.showToast("头像更新成功");
+									mUser.setFaceurl(data.getString("url")); // 传了数据上去就要更新本地的user
+									mApp.saveUser(mUser);
+
+								}
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				});
 	}
 
 	@Override
