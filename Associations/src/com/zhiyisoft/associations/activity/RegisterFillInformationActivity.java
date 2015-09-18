@@ -111,6 +111,19 @@ public class RegisterFillInformationActivity extends BaseActivity {
 		fill_iv_gender_boy_yes = (ImageView) findViewById(R.id.fill_iv_gender_boy_yes);
 		fill_iv_gender_girl_yes = (ImageView) findViewById(R.id.fill_iv_gender_girl_yes);
 		bt_done = (Button) findViewById(R.id.bt_done);
+		setIconImageByUrl(mUser.getFaceurl());
+	}
+
+	/**
+	 * 设置头像
+	 * 
+	 * @param faceurl
+	 *            头像的url
+	 */
+	private void setIconImageByUrl(String faceurl) {
+		if (faceurl != null) {
+			fill_iv_login_icon.setImageUrl(faceurl);
+		}
 	}
 
 	@Override

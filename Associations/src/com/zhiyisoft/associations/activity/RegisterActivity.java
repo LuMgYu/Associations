@@ -26,7 +26,7 @@ public class RegisterActivity extends BaseActivity {
 	private EditText et_sure_pwd;
 	private Button btn_reset;
 	private Button btn_done_regster;
-
+	
 	private static final int SEND_SUCCESS = 1;
 	private static final int REGISTER_SUCCESS = 2;
 	private Handler mHandle = new Handler() {

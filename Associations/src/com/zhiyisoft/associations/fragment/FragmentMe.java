@@ -74,7 +74,7 @@ public class FragmentMe extends BaseFragment {
 		// .setImageUrl("http://pic19.nipic.com/20120308/7491614_141057681000_2.png");
 		// me_iv_icon.setImageUrl("http://stimg1.tuicool.com/3URZ7v.png");
 		me_iv_icon
-				.setImageUrl("http://tp1.sinaimg.cn/3079974124/180/5725838210/1");
+				.setImageUrl("http://daxs.zhiyicx.com/attachment/uploads/2015/0918/10/55fb719353c29.jpg");
 	}
 
 	@Override

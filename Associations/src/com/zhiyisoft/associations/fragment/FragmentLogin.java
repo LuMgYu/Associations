@@ -77,7 +77,7 @@ public class FragmentLogin extends BaseFragment {
 								RegisterFillInformationActivity.class, data,
 								Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					} else {
-						mApp.saveUser(modelUser);
+						mApp.saveUser(user);
 						mApp.startActivity(mActivity, MainActivity.class, null,
 								Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					}

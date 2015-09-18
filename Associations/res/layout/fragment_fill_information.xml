@@ -85,11 +85,21 @@
         android:paddingRight="@dimen/margin_right" >
 
         <TextView
+            android:id="@+id/fill_tv_school_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="学校："
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
             android:id="@+id/fill_tv_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="学校： 四川蓝翔技校"
+            android:layout_toRightOf="@id/fill_tv_school_flag"
+            android:text="四川蓝翔技校"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small" />
 

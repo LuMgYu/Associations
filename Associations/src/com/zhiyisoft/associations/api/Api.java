@@ -190,6 +190,7 @@ public class Api {
 			get.addBodyParam(ACT, UPDATEPROFILE);
 			get.addBodyParam(oauth_token, user.getOauth_token());
 			get.addBodyParam(oauth_token_secret, user.getOauth_token_secret());
+			get.addBodyParam(UNAME, user.getUname());
 			get.addBodyParam(FACEID, user.getFaceId());
 			get.addBodyParam(SEX, user.getSex());
 			get.addBodyParam(SCHOOL_ID, user.getschool_id());

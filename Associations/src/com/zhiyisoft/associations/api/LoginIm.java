@@ -37,9 +37,9 @@ public interface LoginIm {
 	public static final String SAVEUSERPASSWORDBYPASSWORD = "saveUserPasswordByPassword";
 
 	public static final String CODE = "code"; // 修改密码的时候用到
-	public static final String UPDATEPROFILE = "updateProfile ";
+	public static final String UPDATEPROFILE = "updateProfile";
 	public static final String FACEID = "faceid";
-	public static final String UNAME = "uname ";
+	public static final String UNAME = "uname";
 	public static final String SEX = "sex";
 	public static final String SCHOOL_ID = "school_id";
 

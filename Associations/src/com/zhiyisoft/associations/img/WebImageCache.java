@@ -16,15 +16,15 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 
 import com.zhiyisoft.associations.cache.base.DiskLruCache;
+import com.zhiyisoft.associations.util.BitmapUtil;
 
 public class WebImageCache {
 	private static DiskLruCache mDiskCache;
-	// 让内存有30m 最开始把单位设置错了设置为8b，导致存不进去，卧槽 ，fuck，浪费老子两个小时！
-	private int mDiskCacheSize = 30 * 1024 * 1024;
+	// 让内存有100m 最开始把单位设置错了设置为8b，导致存不进去，卧槽 ，fuck，浪费老子两个小时！
+	private int mDiskCacheSize = 100 * 1024 * 1024;
 	private String mFileName = "Association";
 	private Context mContext;
 
@@ -53,13 +53,12 @@ public class WebImageCache {
 			DiskLruCache.Snapshot snapShot = mDiskCache.get(path);
 			if (snapShot != null) {
 				InputStream is = snapShot.getInputStream(0);
-				bitmap = BitmapFactory.decodeStream(is);
+				// bitmap = BitmapFactory.decodeStream(is);
+				// BitmapFactory.Options options = new BitmapFactory.Options();
+				// options.inSampleSize = 10;
+				// bitmap=BitmapFactory.
 				// 如果是大图片的时候就 压缩一下
-				if (bitmap == null) {
-					BitmapFactory.Options options = new BitmapFactory.Options();
-					options.inSampleSize = 10;
-					bitmap = BitmapFactory.decodeStream(is, null, options);
-				}
+				bitmap = BitmapUtil.compress(is);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
