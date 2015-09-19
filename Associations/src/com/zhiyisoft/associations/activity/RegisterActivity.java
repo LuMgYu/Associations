@@ -29,10 +29,12 @@ public class RegisterActivity extends BaseActivity {
 
 	private ModelUser mUser; // 上一个activity传过来的user
 	private ModelUser mRegisterUser;// 成功注册的用户！成功后，才给它赋值
+	private boolean isRed = true; // 初始化获取验证码为红色背景
 
 	private static final int SEND_SUCCESS = 1;
 	private static final int REGISTER_SUCCESS = 2;
 	private static final int BIND_NEW_USER = 3; // 绑定第三方账户
+	private static final int COUNTTIME = 4; // 倒计时
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
@@ -43,8 +45,12 @@ public class RegisterActivity extends BaseActivity {
 				if (isSuccess) {
 					// TODO 把获取的信息，保存到shareprefrence类中
 					ToastUtils.showToast("发送验证码成功");
+					countTime();
 				} else {
 					ToastUtils.showToast("发送验证码失败，请稍后重试");
+					isRed = true;
+					btn_reset.setBackgroundResource(R.color.main_color);
+					btn_reset.setText("获取验证码");
 				}
 				break;
 
@@ -69,6 +75,16 @@ public class RegisterActivity extends BaseActivity {
 					ToastUtils.showToast("绑定第三方账户成功!");
 				}
 				JumpTheNextActivity(mRegisterUser);
+				break;
+			case COUNTTIME:
+				// 倒计时
+				int lastTime = msg.arg1;
+				btn_reset.setText(lastTime + "s");
+				if (lastTime == 0) {
+					isRed = true;
+					btn_reset.setBackgroundResource(R.color.main_color);
+					btn_reset.setText("获取验证码");
+				}
 				break;
 			}
 
@@ -129,18 +145,22 @@ public class RegisterActivity extends BaseActivity {
 		switch (v.getId()) {
 
 		case R.id.btn_reset:
-			final LoginIm loginIm = mApp.getLoginIm();
-			mApp.getExecutor().execute(new Runnable() {
+			if (isRed) {
+				final LoginIm loginIm = mApp.getLoginIm();
+				mApp.getExecutor().execute(new Runnable() {
 
-				@Override
-				public void run() {
-					boolean isSuccess = loginIm.sendRegisterCode(mUser);
-					Message message = Message.obtain();
-					message.what = SEND_SUCCESS;
-					message.obj = isSuccess;
-					mHandle.sendMessage(message);
-				}
-			});
+					@Override
+					public void run() {
+						boolean isSuccess = loginIm.sendRegisterCode(mUser);
+						Message message = Message.obtain();
+						message.what = SEND_SUCCESS;
+						message.obj = isSuccess;
+						mHandle.sendMessage(message);
+					}
+				});
+				isRed = false;
+				btn_reset.setBackgroundResource(R.color.main_gray_color);
+			}
 			break;
 		case R.id.btn_done_regster:
 			String smsCode = et_vitify.getText().toString();
@@ -209,5 +229,32 @@ public class RegisterActivity extends BaseActivity {
 			});
 		}
 
+	}
+
+	/**
+	 * 开启倒计时
+	 */
+	private void countTime() {
+
+		new Thread() {
+			int time = 60;// 默认为60秒 每隔一秒就减一
+
+			@Override
+			public void run() {
+				while (time > 0) {
+					time = time-1;
+					Message message = Message.obtain();
+					message.what = COUNTTIME;
+					message.arg1 = time;
+					mHandle.sendMessage(message);
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}.start();
 	}
 }
