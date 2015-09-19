@@ -98,7 +98,7 @@ public interface LoginIm {
 	 * @param user
 	 * @return
 	 */
-	Model bindNewUser(ModelUser user);
+	boolean bindNewUser(ModelUser user);
 
 	/**
 	 * 【注册发送验证码】

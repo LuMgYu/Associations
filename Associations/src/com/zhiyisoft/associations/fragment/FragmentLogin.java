@@ -49,7 +49,7 @@ public class FragmentLogin extends BaseFragment {
 	private ImageView iv_qq;
 	private ImageView iv_weibo;
 
-	private ModelUser modelUser;
+	private ModelUser modelUser; // 绑定第三方登录的
 
 	private static final int LOGIN = 1;
 	private static final int OTHER_LOGIN = 2;
@@ -65,39 +65,23 @@ public class FragmentLogin extends BaseFragment {
 			case LOGIN:
 				ModelUser user = (ModelUser) msg.obj;
 				if (user != null) {
-					int is_init = Integer.valueOf(user.getIs_init());
-					if (is_init == 0) {
-						// TODO 表示没有完善资料，跳转到完善资料页面
-						Bundle data = new Bundle();
-						data.putSerializable(Config.SEND_ACTIVITY_DATA, user);
-						mApp.startActivity(mActivity,
-								RegisterFillInformationActivity.class, data,
-								Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					} else {
-						mApp.saveUser(user);
-						mApp.startActivity(mActivity, MainActivity.class, null,
-								Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					}
+					isFillInformation(user);
 				} else {
 					ToastUtils.showToast("登录失败");
 				}
 				break;
 
 			case OTHER_LOGIN:
-				ModelUser result = (ModelUser) msg.obj;
-				if (result == null) {
-					// 进入到注册页面，让用户注册，并且绑定手机号码
+				ModelUser OtherLoginResult = (ModelUser) msg.obj;
+				if (OtherLoginResult == null) {
+					// 进入到注册页面，让用户注册，并且绑定
 					Bundle data = new Bundle();
 					data.putSerializable(Config.SEND_ACTIVITY_DATA, modelUser);
 					mApp.startActivity(mActivity, RegisterPhoneActivity.class,
 							data);
 				} else {
 					// 直接登录 并把这些信息保存到本地里面
-					mApp.saveUser(result);
-					Intent intent = new Intent();
-					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					intent.setClass(mActivity, MainActivity.class);
-					mActivity.startActivity(intent);
+					isFillInformation(OtherLoginResult);
 				}
 				break;
 			}
@@ -105,6 +89,27 @@ public class FragmentLogin extends BaseFragment {
 		}
 
 	};
+
+	/**
+	 * 判断是否完善了资料，如果完成了 就跳到主页面，如果没有完成就跳到完善资料这一块
+	 * 
+	 * @param user
+	 */
+	private void isFillInformation(ModelUser user) {
+		int is_init = Integer.valueOf(user.getIs_init());
+		if (is_init == 0) {
+			// TODO 表示没有完善资料，跳转到完善资料页面
+			Bundle data = new Bundle();
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, user);
+			mApp.startActivity(mActivity,
+					RegisterFillInformationActivity.class, data,
+					Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		} else {
+			mApp.saveUser(user);
+			mApp.startActivity(mActivity, MainActivity.class, null,
+					Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		}
+	}
 
 	@Override
 	public boolean checkTheUser() {

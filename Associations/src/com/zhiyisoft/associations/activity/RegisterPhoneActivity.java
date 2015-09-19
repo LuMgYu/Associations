@@ -67,6 +67,7 @@ public class RegisterPhoneActivity extends BaseActivity implements
 				mUser.setMobile(phoneNumber);
 				data.putSerializable(Config.SEND_ACTIVITY_DATA, mUser);
 				mApp.startActivity(this, RegisterActivity.class, data);
+				finish();
 			} else {
 				ToastUtils.showToast("手机号码为空或不合法");
 			}

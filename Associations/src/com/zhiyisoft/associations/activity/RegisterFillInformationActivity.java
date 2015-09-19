@@ -70,6 +70,7 @@ public class RegisterFillInformationActivity extends BaseActivity {
 				ModelUser user = (ModelUser) msg.obj;
 				if (user != null) {
 					ToastUtils.showToast("完善资料成功");
+					onBackPressed();
 				} else {
 					ToastUtils.showToast("完善资料失败");
 				}

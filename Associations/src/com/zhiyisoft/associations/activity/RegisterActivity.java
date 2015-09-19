@@ -26,9 +26,13 @@ public class RegisterActivity extends BaseActivity {
 	private EditText et_sure_pwd;
 	private Button btn_reset;
 	private Button btn_done_regster;
-	
+
+	private ModelUser mUser; // 上一个activity传过来的user
+	private ModelUser mRegisterUser;// 成功注册的用户！成功后，才给它赋值
+
 	private static final int SEND_SUCCESS = 1;
 	private static final int REGISTER_SUCCESS = 2;
+	private static final int BIND_NEW_USER = 3; // 绑定第三方账户
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
@@ -45,26 +49,50 @@ public class RegisterActivity extends BaseActivity {
 				break;
 
 			case REGISTER_SUCCESS:
-				ModelUser user = (ModelUser) msg.obj;
-				if (user != null) {
-					mApp.startActivity(RegisterActivity.this,
-							RegisterFillInformationActivity.class, null);
+				mRegisterUser = (ModelUser) msg.obj;
+				if (mRegisterUser != null) {
+					if (mUser.getType() != null) {
+						// 当时第三方登录的时候就执行这里
+						mUser.setUserid(mRegisterUser.getUserid());
+						bindNewUser(mUser);
+					} else {
+						JumpTheNextActivity(mRegisterUser);
+					}
 				} else {
 					ToastUtils.showToast("注册失败，请稍后重试");
 				}
 				break;
+
+			case BIND_NEW_USER:
+				boolean isBind = (Boolean) msg.obj;
+				if (isBind) {
+					ToastUtils.showToast("绑定第三方账户成功!");
+				}
+				JumpTheNextActivity(mRegisterUser);
+				break;
 			}
 
-		};
+		}
 
+	};
+
+	/**
+	 * 跳转到下一个activity
+	 * 
+	 * @param user
+	 */
+	private void JumpTheNextActivity(ModelUser user) {
+		Bundle data = new Bundle();
+		data.putSerializable(Config.SEND_ACTIVITY_DATA, user);
+		mApp.startActivity(RegisterActivity.this,
+				RegisterFillInformationActivity.class, data);
+		finish();
 	};
 
 	@Override
 	public String setCenterTitle() {
 		return "注册用户";
 	}
-
-	private ModelUser mUser;
 
 	@Override
 	public void initIntent() {
@@ -87,7 +115,6 @@ public class RegisterActivity extends BaseActivity {
 		et_sure_pwd = (EditText) findViewById(R.id.et_sure_pwd);
 		btn_reset = (Button) findViewById(R.id.btn_reset);
 		btn_done_regster = (Button) findViewById(R.id.btn_done_regster);
-
 	}
 
 	@Override
@@ -158,5 +185,29 @@ public class RegisterActivity extends BaseActivity {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * 判断是否用的第三方登录，如果是的话就绑定第三方用户
+	 * 
+	 * @param user
+	 * @return
+	 */
+	private void bindNewUser(final ModelUser user) {
+		if (user.getType() != null && user.getType().length() > 0) {
+			final LoginIm loginIm2 = mApp.getLoginIm();
+			mApp.getExecutor().execute(new Runnable() {
+
+				@Override
+				public void run() {
+					boolean isBind = loginIm2.bindNewUser(user);
+					Message message = Message.obtain();
+					message.what = BIND_NEW_USER;
+					message.obj = isBind;
+					mHandle.sendMessage(message);
+				}
+			});
+		}
+
 	}
 }

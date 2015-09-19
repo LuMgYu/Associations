@@ -25,7 +25,7 @@ public class BaseCache implements Cache {
 	// 设置一级缓存的大小
 	private int mCacheSize = (int) Runtime.getRuntime().totalMemory();
 	// 设置二级缓存的大小
-	private int mDiskCacheSize = 30 * 1024;
+	private int mDiskCacheSize = 30 * 1024*1024;
 	private String mFileName = "Association";
 	private Context mContext;
 

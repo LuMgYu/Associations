@@ -119,7 +119,7 @@ public class Api {
 		}
 
 		@Override
-		public Model bindNewUser(ModelUser model) {
+		public boolean bindNewUser(ModelUser model) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, LOGIN);
@@ -130,7 +130,7 @@ public class Api {
 			get.addBodyParam(ACCESS_TOKEN, model.getAccess_token());
 			get.addBodyParam(REFRESH_TOKEN, model.getRefresh_token());
 			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelUser());
+			return isCodeOk(object);
 		}
 
 		@Override
@@ -317,8 +317,8 @@ public class Api {
 		public boolean appUpdateUserSchool(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserSchool);
-//			post.addBodyParam(SCHOOLID, user.getschool_id());
-//			post.addBodyParam(USERAUTH, user.getUserauth());
+			// post.addBodyParam(SCHOOLID, user.getschool_id());
+			// post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -327,8 +327,8 @@ public class Api {
 		public boolean appUpdateUserDept(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserDept);
-//			post.addBodyParam(DEPTID, user.getDeptid());
-//			post.addBodyParam(USERAUTH, user.getUserauth());
+			// post.addBodyParam(DEPTID, user.getDeptid());
+			// post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -337,8 +337,8 @@ public class Api {
 		public boolean appUpdateUserClass(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateUserClass);
-//			post.addBodyParam(CLASSID, user.getClassid());
-//			post.addBodyParam(USERAUTH, user.getUserauth());
+			// post.addBodyParam(CLASSID, user.getClassid());
+			// post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}
@@ -347,8 +347,8 @@ public class Api {
 		public boolean appUpdateGradeYear(ModelUser user) {
 			Request post = new Post();
 			post.setHostUrlFooter(Config.appUpdateGradeYear);
-//			post.addBodyParam(GRADEYEAR, user.getGradeyear());
-//			post.addBodyParam(USERAUTH, user.getUserauth());
+			// post.addBodyParam(GRADEYEAR, user.getGradeyear());
+			// post.addBodyParam(USERAUTH, user.getUserauth());
 			Object object = post.run();
 			return isCodeOk(object);
 		}

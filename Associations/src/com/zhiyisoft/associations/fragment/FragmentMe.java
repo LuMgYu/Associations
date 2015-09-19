@@ -96,7 +96,7 @@ public class FragmentMe extends BaseFragment {
 		mUser = mApp.getUser();
 		initUser(mUser);
 		me_tv_nick.setText(mUser.getUname() + "");
-		if (mUser.getAutograph().length() > 0) {
+		if (mUser.getAutograph() != null) {
 			me_tv_signature.setText(mUser.getAutograph() + "");
 		}
 	}
