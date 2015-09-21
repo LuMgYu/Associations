@@ -1,6 +1,11 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,6 +14,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,13 +28,20 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LeagueIm;
-import com.zhiyisoft.associations.cache.BaseCache;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
 
@@ -52,21 +65,38 @@ public class AssociationCreateActivity extends BaseActivity {
 	private EditText association_et_contact;
 	private EditText association_et_contact_way;
 	private ImageView association_iv_commit_yes;
-
 	private TextView association_tv_commit_yes;
 	private Button association_btn_commit;
 	private Bitmap mBitmap;
+	private ModelUser mUser;
+
+	/*** 创建社团需要的数据 ****/
+	private String name;
+	private int categoryId = 30588;
+	private int logo;
+	private String description;
+	private int schoolId = 0;
+	private int Private = 0;
+	private String openerName;
+	private String contact;
+
+	/*** 创建社团需要的数据 end ****/
+
 	public static final int SUCCESS = 1;
 
 	private Handler mHandle = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case SUCCESS:
-
+				boolean isSuccess = (Boolean) msg.obj;
+				if (isSuccess) {
+					ToastUtils.showToast("社团创建成功！");
+					return;
+				} else {
+					ToastUtils.showToast("社团创建失败！");
+				}
 				break;
 
-			default:
-				break;
 			}
 		};
 	};
@@ -134,10 +164,62 @@ public class AssociationCreateActivity extends BaseActivity {
 
 	@Override
 	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
-		// TODO Auto-generated method stub
 		mBitmap = super.compressOutStream2Bitmap(bitmap, stream);
 		association_icon.setImageBitmap(mBitmap);
 		return mBitmap;
+	}
+
+	@Override
+	public File getFile(String path) {
+		File file = super.getFile(path);
+		mUser = mApp.getUser();
+		mUser.setUploadFile(file);
+		uploadIcon(mUser);
+		return file;
+	}
+
+	private void uploadIcon(ModelUser user) {
+		RequestParams params = new RequestParams();
+		params.put(Api.oauth_token, user.getOauth_token());
+		params.put(Api.oauth_token_secret, user.getOauth_token_secret());
+		File file = user.getUploadFile();
+		if (file != null) {
+			try {
+				params.put("file", user.getUploadFile());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=grouplogo",
+				params, new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, String arg1) {
+						super.onSuccess(arg0, arg1);
+						System.out.println(arg1 + "");
+						try {
+							JSONObject jsonObject = new JSONObject(arg1);
+							if (jsonObject.has("data")) {
+								JSONObject data = jsonObject
+										.getJSONObject("data");
+								if (data.has("url")) {
+									ToastUtils.showToast("社团头像更新成功");
+									mUser.setFaceurl(data.getString("url")); // 传了数据上去就要更新本地的user
+								}
+								if (data.has("id")) {
+									logo = data.getInt("id");
+								}
+
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				});
 	}
 
 	@Override
@@ -151,10 +233,10 @@ public class AssociationCreateActivity extends BaseActivity {
 			break;
 		case R.id.association_rl_school:
 			Bundle data1 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data1);
+			mApp.startActivityForResult(this, MeSettingProvinceActivity.class,
+					data1);
 			break;
 		case R.id.association_tv_commit_yes:
-			Bundle dat = new Bundle();
 			Intent intent = new Intent();
 			intent.setClass(this, AssociationAgreementActivity.class);
 			startActivity(intent);
@@ -167,45 +249,44 @@ public class AssociationCreateActivity extends BaseActivity {
 		case R.id.association_iv_yes:
 			resetChoose();
 			association_iv_yes.setImageResource(R.drawable.yes);
+			Private = 0;
 			break;
 		case R.id.association_iv_no:
 			resetChoose();
 			association_iv_no.setImageResource(R.drawable.yes);
+			Private = 1;
 			break;
 		case R.id.association_rl_main:
-			Bundle data3 = new Bundle();
-			mApp.startActivity(this, AssociationWordActivity.class, data3);
+			// Bundle data3 = new Bundle();
+			// mApp.startActivity(this, AssociationWordActivity.class, data3);
 			break;
 		case R.id.association_btn_commit:
-			final ModelLeague league = new ModelLeague();
-			// name:社团名(45字符，约11个字)
-			// categoryid：分类
-			// logo:logoID
-			// description:描述
-			// school:学校ID
-			// private:是否够开
-			// tags: 标签(选填)
-			// contact:联系人电话
-			league.setName(association_et_name.getText().toString() + "");
-			// league.setCategoryid(categoryid);
-			// league.setLogo(name);
-			league.setDescription(association_et_about.getText().toString()
-					+ "");
-			league.setSchool(association_tv_school_name.getText().toString()
-					+ "");
-			// league.setmPrivate(association_et_name.getText().toString() +
-			// "");
-			// league.setTags(association_et_name.getText().toString() + "");
-			league.setContact(association_et_contact_way.getText().toString()
-					+ "");
-			mApp.getExecutor().execute(new Runnable() {
+			name = association_et_name.getText().toString();
+			description = association_et_about.getText().toString();
+			openerName = association_et_contact.getText().toString();
+			contact = association_et_contact_way.getText().toString();
+			if (judgeInformation()) {
+				final ModelLeague league = new ModelLeague();
+				league.setName(name);
+				league.setCategoryId(categoryId);
+				league.setLogo(logo);
+				league.setDescription(description);
+				league.setSchoolId(schoolId);
+				league.setPrivate(Private);
+				league.setOpenerName(openerName);
+				league.setContact(contact);
+				mApp.getExecutor().execute(new Runnable() {
 
-				@Override
-				public void run() {
-					LeagueIm leagueIm = mApp.getLeagueIm();
-					leagueIm.createLeague(league);
-				}
-			});
+					@Override
+					public void run() {
+						LeagueIm leagueIm = mApp.getLeagueIm();
+						boolean isSuccess = leagueIm.createGroup(league);
+						Message message = Message.obtain();
+						message.obj = isSuccess;
+						mHandle.sendMessage(message);
+					}
+				});
+			}
 			break;
 		}
 
@@ -220,13 +301,74 @@ public class AssociationCreateActivity extends BaseActivity {
 
 	}
 
+	/**
+	 * 判断必填项是否填满
+	 */
+	private boolean judgeInformation() {
+		// private String name;
+		// private int categoryId;
+		// private int logo;
+		// private String description;
+		// private int schoolId;
+		// private int Private;
+		// private String openerName;
+		// private String contact;
+		if (name == null || name.length() < 1) {
+			ToastUtils.showToast("社团名不能为空！");
+			return false;
+		}
+		// if (logo != 0) {
+		// ToastUtils.showToast("社团名不能为空！");
+		// }
+		if (description == null || description.length() < 1) {
+			ToastUtils.showToast("社团简介不能为空！");
+			return false;
+		}
+		if (categoryId == 0) {
+			ToastUtils.showToast("社团类别不能为空！");
+			return false;
+		}
+		if (schoolId == 0) {
+			ToastUtils.showToast("学校不能为空！");
+			return false;
+		}
+		if (openerName == null || openerName.length() < 1) {
+			ToastUtils.showToast("社团联系人不能为空！");
+			return false;
+		}
+		if (contact == null || contact.length() < 1) {
+			ToastUtils.showToast("社团联系方式方式不能为空！");
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data == null) {
+				return;
+			}
+			Bundle bundle = data.getExtras();
+			ModelSchool ModelSchool = (ModelSchool) bundle
+					.get(Config.GET_ACTIVITY_DATA);
+			if (ModelSchool != null) {
+				schoolId = Integer.valueOf(ModelSchool.getId());
+				association_tv_school_name.setText(ModelSchool.getName() + "");
+			}
+		}
+	}
+
 	// --------------------------PopupWindow的界面控件-----------------------------------------
 	private PopupWindow mPopupWindow;
 	private TextView tv_date_cancle;
 	private TextView tv_date_sure;
 	private WheelView wv_category;
-	private String[] mCategory = new String[] { "  科技  ", "  人文  ", "  数学  ",
-			"  人文  ", "  艺术  ", "  教育  " };
+	private String[] mCategory = new String[] { " 志愿公益  ", " 社会实践  ",
+			"  学术学习  ", " 就业创业 ", "  兴趣爱好  ", " 心理活动  ", "  其它  " };
+	private int[] categorys = { 30588, 30589, 30590, 30591, 30592, 30593,
+			30594, 30595 };
 
 	/**
 	 * 初始化popWindow
@@ -304,6 +446,7 @@ public class AssociationCreateActivity extends BaseActivity {
 				// TODO 把日期加载到textview里面
 				association_tv_welfare_name.setText(mCategory[wv_category
 						.getCurrentItem()] + "");
+				categoryId = categorys[wv_category.getCurrentItem()];
 				mPopupWindow.dismiss();
 				break;
 

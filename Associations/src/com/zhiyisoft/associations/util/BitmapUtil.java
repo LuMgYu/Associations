@@ -40,6 +40,8 @@ public class BitmapUtil {
 			options -= 49;
 		}
 		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+		Log.i("compressImage", "-------baos.toByteArray().length---end-----"
+				+ baos.toByteArray().length / 1024 + "k");
 		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
 		return bitmap;
 	}
@@ -124,4 +126,17 @@ public class BitmapUtil {
 		return baos;
 	}
 
+
+	/**
+	 * bitmap 转为输入流
+	 * 
+	 * @param originBitmap
+	 * @return
+	 */
+	private static InputStream bm2Is(Bitmap originBitmap) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		originBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+		InputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+		return isBm;
+	}
 }

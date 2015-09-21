@@ -12,36 +12,33 @@ import com.zhiyisoft.associations.model.base.Model;
 
 public class ModelLeague extends Model {
 	/*
-	 * "id": "30066", "name": "志愿公益" 社团类型返回的值
+	 * (string) name 社团名称 必填 (int)
 	 * 
+	 * categoryId 社团分类 必填
 	 * 
-	 * 创建社团需要的字段 name:社团名(45字符，约11个字)
+	 * (int) logo社团logo（接口12上传成功返回）
 	 * 
-	 * categoryid：分类
+	 * 必填 (string) description 社团描述 必填
 	 * 
-	 * logo:logoID
+	 * (int) schoolId 社团所属学校
 	 * 
-	 * description:描述
+	 * 必填 (int) private 是否公开（0公开，1不公开） 必填。
 	 * 
-	 * school:学校ID
+	 * (string) openerName
 	 * 
-	 * private:是否够开
-	 * 
-	 * tags: 标签(选填)
-	 * 
-	 * contact:联系人电话
+	 * 社团联系人 必填 (string)contact 社团联系方式 必填
 	 */
-
-	private String id;
+	/*** 创建社团需要的数据 ****/
 	private String name;
-	// --------------------------------------------------------------
-	private String categoryid;
-	private String logo;
+	private int categoryId;
+	private int logo;
 	private String description;
-	private String school;
-	private String mPrivate;
-	private String tags;
+	private int schoolId;
+	private int Private;
+	private String openerName;
 	private String contact;
+
+	/*** 创建社团需要的数据 end ****/
 
 	public ModelLeague() {
 
@@ -49,10 +46,6 @@ public class ModelLeague extends Model {
 
 	public ModelLeague(JSONObject jsonObject) {
 		try {
-			if (jsonObject.has("id")) {
-
-				this.setId(jsonObject.getString("id"));
-			}
 			if (jsonObject.has("name")) {
 				this.setName(jsonObject.getString("name"));
 			}
@@ -63,14 +56,6 @@ public class ModelLeague extends Model {
 		}
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -79,19 +64,19 @@ public class ModelLeague extends Model {
 		this.name = name;
 	}
 
-	public String getCategoryid() {
-		return categoryid;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryid(String categoryid) {
-		this.categoryid = categoryid;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public String getLogo() {
+	public int getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(int logo) {
 		this.logo = logo;
 	}
 
@@ -103,28 +88,28 @@ public class ModelLeague extends Model {
 		this.description = description;
 	}
 
-	public String getSchool() {
-		return school;
+	public int getSchoolId() {
+		return schoolId;
 	}
 
-	public void setSchool(String school) {
-		this.school = school;
+	public void setSchoolId(int schoolId) {
+		this.schoolId = schoolId;
 	}
 
-	public String getmPrivate() {
-		return mPrivate;
+	public int getPrivate() {
+		return Private;
 	}
 
-	public void setmPrivate(String mPrivate) {
-		this.mPrivate = mPrivate;
+	public void setPrivate(int private1) {
+		Private = private1;
 	}
 
-	public String getTags() {
-		return tags;
+	public String getOpenerName() {
+		return openerName;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setOpenerName(String openerName) {
+		this.openerName = openerName;
 	}
 
 	public String getContact() {
@@ -134,14 +119,5 @@ public class ModelLeague extends Model {
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
-
-	@Override
-	public String toString() {
-		return "ModelLeague [id=" + id + ", name=" + name + ", categoryid="
-				+ categoryid + ", logo=" + logo + ", description="
-				+ description + ", school=" + school + ", mPrivate=" + mPrivate
-				+ ", tags=" + tags + ", contact=" + contact + "]";
-	}
-	
 
 }

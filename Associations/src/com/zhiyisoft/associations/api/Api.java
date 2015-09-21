@@ -13,11 +13,9 @@ import android.util.Log;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.ModelAssociation;
 import com.zhiyisoft.associations.model.ModelLeague;
-import com.zhiyisoft.associations.model.ModelLeagueDetail;
-import com.zhiyisoft.associations.model.ModelLeagueList;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
@@ -41,6 +39,7 @@ public class Api {
 	public static final String API = "api";
 	public static final String oauth_token = "oauth_token";
 	public static final String oauth_token_secret = "oauth_token_secret";
+	public static final ModelUser mUser = Association.getUser();
 
 	public static final class RegisterImpl implements RegisterIm {
 
@@ -370,132 +369,41 @@ public class Api {
 	}
 
 	public static final class LeagueImpl implements LeagueIm {
-		/**
-		 * 
-		 * { "code": 1, "msg": "登陆成功", "data": { "uid": "6309289", "client_id":
-		 * "6309289", "token": "34975aeea94b0e71311c21215daf117a", "pic":
-		 * "http://dxs.demo.local/public/images/user_pic.gif", "name": null,
-		 * "uname": "13688449697", "email": null, "sex": null } }
-		 * 
-		 * */
-		@Override
-		public Object createLeague(Model modelItem) {
-			Request post = new Post();
-			post.setHostUrl("http://daxs.zhiyicx.com/api");
-			post.addHeaderParam("client_id", "1");
-			post.addHeaderParam("uid", "6309289");
-			post.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			post.addBodyParam(MOD, LeagueIm.GROUP);
-			post.addBodyParam(ACT, LeagueIm.CREATEGROUP);
-			post.addBodyParam("name", "睡你麻痹起来嗨");
-			post.run();
-			return null;
-		}
 
 		@Override
-		public List<Model> getGroupCommonList(Model mItem) {
+		public boolean createGroup(ModelLeague league) {
 			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, LeagueIm.GROUP);
-			get.addBodyParam(ACT, LeagueIm.GETGROUPCOMMONLIST);
-			Object object = get.run();
-			return parseOriginalJsonArray(object.toString(), new ModelLeague());
-		}
-
-		@Override
-		public boolean addLeague(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
-			get.addBodyParam(ACT, JOIN);
-			get.addBodyParam("gid", "15222");
+			get.addBodyParam(ACT, CREATEGROUP);
+			get.addBodyParam(oauth_token, mUser.getOauth_token());
+			get.addBodyParam(oauth_token_secret, mUser.getOauth_token_secret());
+			get.addBodyParam(NAME, league.getName());
+			get.addBodyParam(CATEGORYID, league.getCategoryId());
+			get.addBodyParam(LOGO, league.getLogo());
+			get.addBodyParam(DESCRIPTION, league.getDescription());
+			get.addBodyParam(SCHOOLID, league.getSchoolId());
+			get.addBodyParam(PRIVATE, league.getPrivate());
+			get.addBodyParam(OPENERNAME, league.getOpenerName());
+			get.addBodyParam(CONTACT, league.getContact());
 			Object object = get.run();
-			return isCodeOk(object.toString());
+			return isCodeOk(object);
 		}
 
 		@Override
-		public List<Model> getLeagueMember(Model model) {
+		public Model groupIndex(ModelLeague league) {
 			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, GROUP);
-			get.addBodyParam(ACT, MEMBERLIST);
-			get.addBodyParam("gid", "15222");
-			Object object = get.run();
-			return parseOriginalJsonArray(object.toString(),
-					new ModelAssociation());
-		}
-
-		@Override
-		public boolean quitLeague(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, GROUP);
-			get.addBodyParam(ACT, LEAVE);
-			get.addBodyParam("gid", "15222");
-			Object object = get.run();
-			return isCodeOk(object.toString());
-		}
-
-		@Override
-		public List<Model> getLeagueList(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
+			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
 			get.addBodyParam(ACT, INDEX);
-			get.addBodyParam("schoolid", "2");
+			get.addBodyParam(oauth_token, mUser.getOauth_token());
+			get.addBodyParam(oauth_token_secret, mUser.getOauth_token_secret());
+			get.addBodyParam(SCHOOLID, league.getSchoolId());
+			get.addBodyParam(CATEGORYID, league.getCategoryId());
+			get.addBodyParam(NAME, league.getName());
 			Object object = get.run();
-			return parseOriginalJsonArray(object.toString(),
-					new ModelLeagueList());
+			return parseOriginalJsonObject(object, new ModelLeague());
 		}
-
-		@Override
-		public Model getLeagueDetail(Model model) {
-			Request get = new Get();
-			get.addHeaderParam("client_id", "1");
-			get.addHeaderParam("uid", "6309289");
-			get.addHeaderParam("oauth_token",
-					"34975aeea94b0e71311c21215daf117a");
-			get.addBodyParam(MOD, GROUP);
-			get.addBodyParam(ACT, VIEW);
-			get.addBodyParam("gid", "15225");
-			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelLeagueDetail());
-		}
-
-		@Override
-		public Model getAlbumByLeagueID(Model model) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Model getPhotoListByAlbumId(Model model) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public Model createAlbum(Model model) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {

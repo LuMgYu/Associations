@@ -35,6 +35,8 @@ public class RegisterActivity extends BaseActivity {
 	private static final int REGISTER_SUCCESS = 2;
 	private static final int BIND_NEW_USER = 3; // 绑定第三方账户
 	private static final int COUNTTIME = 4; // 倒计时
+	
+	
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {

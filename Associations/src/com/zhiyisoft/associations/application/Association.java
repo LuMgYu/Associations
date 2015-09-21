@@ -48,7 +48,7 @@ public class Association extends Application {
 	private BaseActivity mActivity;
 	private static Association mApp;
 	/** 定义一个user，整個app都用它 */
-	private ModelUser mUser;
+	private static ModelUser mUser;
 
 	/** 定义一个线程池，整個app都用它 */
 	private ExecutorService mExecutor;
@@ -180,10 +180,10 @@ public class Association extends Application {
 	 * 
 	 * @return
 	 */
-	public ModelUser getUser() {
+	public static ModelUser getUser() {
 
 		mUser = new ModelUser();
-		SharedPreferences preferences = this.getSharedPreferences(
+		SharedPreferences preferences = getContext().getSharedPreferences(
 				Config.USER_DATA, MODE_PRIVATE);
 		String mobile = preferences.getString(Config.MOBILE, null);
 		String pwd = preferences.getString(Config.PWD, null);
