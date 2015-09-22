@@ -47,39 +47,43 @@ public class WebImageCache {
 
 	public Bitmap get(String url) {
 		Bitmap bitmap = null;
-		try {
-			String path = hashKeyForDisk(url);
-			DiskLruCache.Snapshot snapShot = mDiskCache.get(path);
-			if (snapShot != null) {
-				InputStream is = snapShot.getInputStream(0);
-				if (is != null) {
-					bitmap = BitmapUtil.getImageByIs(is);
+		if (url != null && url.length() > 0) {
+			try {
+				String path = hashKeyForDisk(url);
+				DiskLruCache.Snapshot snapShot = mDiskCache.get(path);
+				if (snapShot != null) {
+					InputStream is = snapShot.getInputStream(0);
+					if (is != null) {
+						bitmap = BitmapUtil.getImageByIs(is);
+					}
 				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		return bitmap;
 	}
 
 	public void put(String url) {
-		try {
-			String path = hashKeyForDisk(url);
-			DiskLruCache.Editor editor = mDiskCache.edit(path);
-			if (editor != null) {
-				OutputStream outputStream = editor.newOutputStream(0);
-				if (downloadUrlToStream(url, outputStream)) {
-					editor.commit();
-				} else {
-					editor.abort();
+		if (url != null && url.length() > 0) {
+			try {
+				String path = hashKeyForDisk(url);
+				DiskLruCache.Editor editor = mDiskCache.edit(path);
+				if (editor != null) {
+					OutputStream outputStream = editor.newOutputStream(0);
+					if (downloadUrlToStream(url, outputStream)) {
+						editor.commit();
+					} else {
+						editor.abort();
+					}
 				}
+				mDiskCache.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			mDiskCache.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

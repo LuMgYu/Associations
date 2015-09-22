@@ -39,6 +39,15 @@ public class ModelLeague extends Model {
 	private String contact;
 
 	/*** 创建社团需要的数据 end ****/
+	/*** 社团列表需要的数据 ****/
+	private String gid;
+	// private String name;
+	// private String description;
+	private String logoUrl;
+	private String members;
+	private int isin;
+
+	/*** 创建社团需要的数据 end ****/
 
 	public ModelLeague() {
 
@@ -48,6 +57,23 @@ public class ModelLeague extends Model {
 		try {
 			if (jsonObject.has("name")) {
 				this.setName(jsonObject.getString("name"));
+			}
+			if (jsonObject.has("gid")) {
+				this.setGid(jsonObject.getString("gid"));
+			}
+
+			if (jsonObject.has("description")) {
+				this.setDescription(jsonObject.getString("description"));
+			}
+
+			if (jsonObject.has("logo")) {
+				this.setLogoUrl(jsonObject.getString("logo"));
+			}
+			if (jsonObject.has("members")) {
+				this.setMembers(jsonObject.getString("members"));
+			}
+			if (jsonObject.has("isin")) {
+				this.setIsin(jsonObject.getInt("isin"));
 			}
 
 		} catch (JSONException e) {
@@ -118,6 +144,38 @@ public class ModelLeague extends Model {
 
 	public void setContact(String contact) {
 		this.contact = contact;
+	}
+
+	public String getGid() {
+		return gid;
+	}
+
+	public void setGid(String gid) {
+		this.gid = gid;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
+	}
+
+	public String getMembers() {
+		return members;
+	}
+
+	public void setMembers(String members) {
+		this.members = members;
+	}
+
+	public int getIsin() {
+		return isin;
+	}
+
+	public void setIsin(int isin) {
+		this.isin = isin;
 	}
 
 }

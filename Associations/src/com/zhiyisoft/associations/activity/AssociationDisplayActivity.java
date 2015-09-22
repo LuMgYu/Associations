@@ -11,9 +11,9 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.listview.AssociationAlbumListview;
 import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**

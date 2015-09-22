@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.api;
 
+import java.util.List;
+
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
@@ -51,7 +53,7 @@ public interface LeagueIm {
 	 * @param league
 	 * @return
 	 */
-	Model groupIndex(ModelLeague league);
+	List<Model> groupIndex(ModelLeague league);
 
 	// /**
 	// * 获取社团的分类

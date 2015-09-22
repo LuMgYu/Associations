@@ -19,9 +19,11 @@ import com.zhiyisoft.associations.activity.AssociationDisplayActivity;
 import com.zhiyisoft.associations.activity.MeSettingProvinceActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -61,7 +63,9 @@ public class AssociationMainAdapter extends BAdapter {
 		} else {
 			mViewHolder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mViewHolder);
+		if (position > 0) {
+			bundledataToView(position, mViewHolder);
+		}
 		return convertView;
 	}
 
@@ -72,9 +76,30 @@ public class AssociationMainAdapter extends BAdapter {
 	 * @param mHolder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		Model model = mList.get(position);
+		ModelLeague league = (ModelLeague) mList.get(position);
+		resetView(holder);
 		// TODO 把数据绑定到界面
+		if (holder != null) {
+			holder.association_iv_icon.setImageUrl(league.getLogoUrl() + "");
+			holder.association_tv_title.setText(league.getName() + "");
+			holder.association_tv_member
+					.setText(league.getMembers() + "");
+			holder.association_tv_content.setText(league.getDescription()
+					+ "");
+		}
+	}
 
+	/**
+	 * 把view设置为默认状态，特别是图片，这样有利于内存的回收，房子内存泄露，导致崩溃
+	 * 
+	 * @param holder
+	 */
+	private void resetView(ViewHolder holder) {
+		holder.association_iv_icon
+				.setImageResource(R.drawable.default_image_small);
+		holder.association_tv_title.setText("unknow");
+		holder.association_tv_member.setText("unknow");
+		holder.association_tv_content.setText("unknow");
 	}
 
 	/**
@@ -115,13 +140,13 @@ public class AssociationMainAdapter extends BAdapter {
 	}
 
 	private void initOtherView() {
-		mViewHolder.association_iv_icon = (RoundImageView) mFirstView
+		mViewHolder.association_iv_icon = (RoundImageView) mOtherView
 				.findViewById(R.id.association_iv_icon);
-		mViewHolder.association_tv_title = (TextView) mFirstView
+		mViewHolder.association_tv_title = (TextView) mOtherView
 				.findViewById(R.id.association_tv_title);
-		mViewHolder.association_tv_member = (TextView) mFirstView
+		mViewHolder.association_tv_member = (TextView) mOtherView
 				.findViewById(R.id.association_tv_member);
-		mViewHolder.association_tv_content = (TextView) mFirstView
+		mViewHolder.association_tv_content = (TextView) mOtherView
 				.findViewById(R.id.association_tv_content);
 	}
 
@@ -214,33 +239,26 @@ public class AssociationMainAdapter extends BAdapter {
 	// ----------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		return items;
+		ModelLeague league = new ModelLeague();
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		List<Model> list = leagueImpl.groupIndex(league);
+		return list;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		items.add(new ModelLeague());
+		items.add(new ModelLeague());
+		items.add(new ModelLeague());
+		items.add(new ModelLeague());
+		items.add(new ModelLeague());
 		return items;
 	}
 

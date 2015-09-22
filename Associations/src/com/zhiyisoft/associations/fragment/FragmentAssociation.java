@@ -12,6 +12,7 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -44,6 +45,7 @@ public class FragmentAssociation extends BaseFragment {
 	public void initView() {
 		mListView = (AssociationListview) findViewById(R.id.mXlistView);
 		mListView.setPullRefreshEnable(false);
+		mlist.add(new ModelLeague());
 		mAdapter = new AssociationMainAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 	}

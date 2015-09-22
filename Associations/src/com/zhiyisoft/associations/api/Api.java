@@ -356,8 +356,7 @@ public class Api {
 		public List<Model> getSchools(ModelSchool model) {
 			if (model != null) {
 				Request get = new Get();
-				Log.i("getSchools", "getSchools(ModelSchool model)---");
-				get.setHostUrl("http://daxs.zhiyicx.com/api");
+				get.addBodyParam(APP, API);
 				get.addBodyParam(MOD, SchoolIm.TOOL);
 				get.addBodyParam(ACT, SchoolIm.SCHOOLBYPROVINCE);
 				get.addBodyParam("name", model.getArea());
@@ -391,7 +390,7 @@ public class Api {
 		}
 
 		@Override
-		public Model groupIndex(ModelLeague league) {
+		public List<Model> groupIndex(ModelLeague league) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -402,7 +401,7 @@ public class Api {
 			get.addBodyParam(CATEGORYID, league.getCategoryId());
 			get.addBodyParam(NAME, league.getName());
 			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelLeague());
+			return parseOriginalJsonArray(object, new ModelLeague());
 		}
 	}
 
