@@ -150,7 +150,8 @@
                     android:layout_marginTop="@dimen/margin_top"
                     android:layout_toRightOf="@+id/tv_association_data"
                     android:drawableLeft="@drawable/school"
-                    android:text=" 文体协会"
+                    android:drawablePadding="2dp"
+                    android:text="文体协会"
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
 
@@ -205,7 +206,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_member2"
@@ -214,7 +216,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_member1"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_member3"
@@ -223,7 +226,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_member2"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_member4"
@@ -232,7 +236,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_member3"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <View

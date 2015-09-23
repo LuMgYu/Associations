@@ -16,6 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
@@ -375,8 +376,7 @@ public class Api {
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
 			get.addBodyParam(ACT, CREATEGROUP);
-			get.addBodyParam(oauth_token, mUser.getOauth_token());
-			get.addBodyParam(oauth_token_secret, mUser.getOauth_token_secret());
+			judgeTheUser(get);
 			get.addBodyParam(NAME, league.getName());
 			get.addBodyParam(CATEGORYID, league.getCategoryId());
 			get.addBodyParam(LOGO, league.getLogo());
@@ -395,13 +395,102 @@ public class Api {
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
 			get.addBodyParam(ACT, INDEX);
-			get.addBodyParam(oauth_token, mUser.getOauth_token());
-			get.addBodyParam(oauth_token_secret, mUser.getOauth_token_secret());
-			get.addBodyParam(SCHOOLID, league.getSchoolId());
-			get.addBodyParam(CATEGORYID, league.getCategoryId());
-			get.addBodyParam(NAME, league.getName());
+			judgeTheUser(get);
+			if (league.getSchoolId() > 0)
+				get.addBodyParam(SCHOOLID, league.getSchoolId());
+			if (league.getCategoryId() > 0)
+				get.addBodyParam(CATEGORYID, league.getCategoryId());
+			if (league.getName() != null && league.getName().length() > 1)
+				get.addBodyParam(NAME, league.getName());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeague());
+		}
+
+		@Override
+		public boolean join(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, JOIN);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public boolean leave(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, LEAVE);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public Model view(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, VIEW);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelLeague());
+		}
+
+		@Override
+		public Model viewIn(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, VIEWIN);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelLeague());
+		}
+
+		@Override
+		public List<Model> memberList(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, MEMBERLIST);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelLeague());
+		}
+
+		@Override
+		public List<Model> albumList(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, ALBUMLIST);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelLeagueAlbum());
+		}
+
+		@Override
+		public boolean createAlbum(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, CREATEALBUM);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			get.addBodyParam(ALBUMNAME, league.getAlbumName());
+			get.addBodyParam(ALBUMINFO, league.getAlbumInfo());
+			get.addBodyParam(ALBUMHIDE, league.getHide());
+			Object object = get.run();
+			return isCodeOk(object);
 		}
 	}
 
@@ -447,6 +536,18 @@ public class Api {
 			post.addBodyParam("domain", "https://www.baidu.com");
 			Object object = post.run();
 			return parseOriginalJsonObject(object.toString(), new ModelMask());
+		}
+	}
+
+	/**
+	 * 添加验证信息
+	 * 
+	 * @param get
+	 */
+	public static void judgeTheUser(Request get) {
+		if (mUser != null) {
+			get.addBodyParam(oauth_token, mUser.getOauth_token());
+			get.addBodyParam(oauth_token_secret, mUser.getOauth_token_secret());
 		}
 	}
 

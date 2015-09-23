@@ -74,7 +74,9 @@ public class ViewHolder {
 	public RoundImageView title_iv;
 	public TextView title_tv;
 	public TextView title_tv_member;
+	public TextView title_tv_member_count;
 	public TextView title_tv_topic;
+	public TextView title_tv_topic_count;
 	public TextView title_tv_school;
 	public TextView title_tv_type;
 	public TextView title_tv_move;

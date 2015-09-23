@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -20,9 +22,13 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationMainNewAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
 /**
@@ -45,6 +51,30 @@ public class AssociationSingleActivity extends BaseActivity {
 	private TextView vedio;
 	private Button btn_quit;
 
+	private static final int SUCCESS_QUIT = 1;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS_QUIT:
+				boolean isSuccess = (Boolean) msg.obj;
+				if (isSuccess) {
+					ToastUtils.showToast("您已成功退出了社团！");
+					mPopupWindow.dismiss();
+					onBackPressed();
+				} else {
+					ToastUtils.showToast("退出了社团失败");
+				}
+				break;
+			}
+
+		}
+
+	};
+	private ModelLeague mLeague; // 从activity传过来的社团核心资料
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -59,7 +89,10 @@ public class AssociationSingleActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -71,7 +104,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	public void initView() {
 		single_lv = (BaseListView) findViewById(R.id.single_lv);
 		single_lv.setPullRefreshEnable(false);
-		mAdapter = new AssociationMainNewAdapter(this, mlist);
+		mAdapter = new AssociationMainNewAdapter(this, mlist, mLeague);
 		single_lv.setAdapter(mAdapter);
 		initPopWindow();
 	}
@@ -103,7 +136,9 @@ public class AssociationSingleActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationMemberActivity.class, null);
 			break;
 		case R.id.album:
-			mApp.startActivity(this, AssociationAlbumActivity.class, null);
+			Bundle albumdata = new Bundle();
+			albumdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationAlbumActivity.class, albumdata);
 			break;
 		case R.id.file:
 			mApp.startActivity(this, AssociationWordActivity.class, null);
@@ -118,11 +153,33 @@ public class AssociationSingleActivity extends BaseActivity {
 			break;
 		case R.id.btn_quit:
 			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();
+			applyQuitAssociation(mLeague);
 			break;
 		}
 
 	}
 
+	/**
+	 * 申请退出社团
+	 * 
+	 * @param league
+	 */
+	private void applyQuitAssociation(final ModelLeague league) {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				boolean isSuccess = leagueImpl.leave(league);
+				Message message = Message.obtain();
+				message.what = SUCCESS_QUIT;
+				message.obj = isSuccess;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	// ----------------------------------------------------------------------------
 	/**
 	 * 初始化popWindow
 	 * */

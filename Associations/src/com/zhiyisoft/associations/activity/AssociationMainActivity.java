@@ -1,6 +1,12 @@
 package com.zhiyisoft.associations.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,8 +15,15 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueMember;
+import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -45,6 +58,41 @@ public class AssociationMainActivity extends BaseActivity {
 	private RelativeLayout rl_album;
 	private RelativeLayout rl_file_share;
 
+	ModelLeague mLeague; // 从activity传过来的信息
+	private ArrayList<Model> mMemberList;
+
+	private static final int SUCCESS = 1;
+	private static final int SUCCESS_JOIN = 2;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS:
+				ModelLeague league = (ModelLeague) msg.obj;
+				if (league != null) {
+					ToastUtils.showToast("获取资料成功");
+					bindleDataToView(league);
+				} else {
+					ToastUtils.showToast("获取资料失败");
+				}
+				break;
+			case SUCCESS_JOIN:
+				boolean isSuccess = (Boolean) msg.obj;
+				if (isSuccess) {
+					ToastUtils.showToast("您已成功加入此社团,请等待圈主审核！");
+					onBackPressed();
+				} else {
+					ToastUtils.showToast("加入社团失败");
+				}
+				break;
+			}
+
+		}
+
+	};
+
 	@Override
 	public String setCenterTitle() {
 		return "北京大学轮滑社";
@@ -52,7 +100,10 @@ public class AssociationMainActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -89,6 +140,42 @@ public class AssociationMainActivity extends BaseActivity {
 		iv_file_share = (SmartImageView) findViewById(R.id.iv_file_share);
 		iv_file_share2 = (SmartImageView) findViewById(R.id.iv_file_share2);
 		iv_file_share3 = (SmartImageView) findViewById(R.id.iv_file_share3);
+		getInformationFromNet(mLeague);
+	}
+
+	/**
+	 * 获取信息从网络上 通过activity传过来的必要的参数
+	 * 
+	 * @param mLeague2
+	 */
+	private void getInformationFromNet(final ModelLeague league) {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				ModelLeague result = (ModelLeague) leagueImpl.view(league);
+				Message message = Message.obtain();
+				message.what = SUCCESS;
+				message.obj = result;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	private void applyJoinAssociation(final ModelLeague league) {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				boolean isSuccess = leagueImpl.join(league);
+				Message message = Message.obtain();
+				message.what = SUCCESS_JOIN;
+				message.obj = isSuccess;
+				mHandle.sendMessage(message);
+			}
+		});
 	}
 
 	@Override
@@ -109,6 +196,7 @@ public class AssociationMainActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.rl_member:
 			Bundle data = new Bundle();
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, mMemberList);
 			mApp.startActivity(this, AssociationMemberActivity.class, data);
 			break;
 		case R.id.rl_new:
@@ -123,8 +211,7 @@ public class AssociationMainActivity extends BaseActivity {
 			preformShare();
 			break;
 		case R.id.main_ll_join:
-			// Bundle data2 = new Bundle();
-			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
+			applyJoinAssociation(mLeague);
 			break;
 		case R.id.iv_title:
 			break;
@@ -141,4 +228,39 @@ public class AssociationMainActivity extends BaseActivity {
 		}
 
 	}
+
+	/**
+	 * 绑定资料到界面上
+	 * 
+	 * @param league
+	 */
+	private void bindleDataToView(ModelLeague league) {
+		iv_title.setImageUrl(league.getLogourl());
+		tv_association_name.setText(league.getName() + "");
+		setAlltitle(null, league.getName() + "", null);
+		tv_association_data_content.setText(league.getDescription() + "");
+		tv_association_data_xiehui.setText(league.getCategoryName());
+		tv_association_data_school.setText(league.getSchoolName());
+		mMemberList = (ArrayList<Model>) league.getMemberlist();
+		if (mMemberList != null) {
+			for (int i = 0; i < mMemberList.size(); i++) {
+				ModelLeagueMember member = (ModelLeagueMember) mMemberList
+						.get(i);
+				if (i == 0) {
+					iv_member1.setVisibility(View.VISIBLE);
+					iv_member1.setImageUrl(member.getFaceurl());
+
+				} else if (i == 1) {
+					iv_member2.setVisibility(View.VISIBLE);
+					iv_member2.setImageUrl(member.getFaceurl());
+				} else if (i == 2) {
+					iv_member3.setVisibility(View.VISIBLE);
+					iv_member3.setImageUrl(member.getFaceurl());
+				} else if (i == 3) {
+					iv_member4.setVisibility(View.VISIBLE);
+					iv_member4.setImageUrl(member.getFaceurl());
+				}
+			}
+		}
+	};
 }

@@ -25,19 +25,19 @@ public class AssociationDisplayActivity extends BaseActivity {
 	private BaseListView association_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
-	private String mName;
+	private ModelLeague league;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("", mName, "");
+		setAlltitle("", league.getCategoryName(), "");
 	}
 
 	@Override
 	public void initIntent() {
 		mBundle = getIntent().getExtras();
 		if (mBundle != null) {
-			mName = mBundle.getString(Config.HOTCATEGORY);
+			league = (ModelLeague) mBundle.get(Config.SEND_ACTIVITY_DATA);
 		}
 	}
 
@@ -49,7 +49,7 @@ public class AssociationDisplayActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		association_lv = (AssociationListview) findViewById(R.id.association_lv);
-		mAdapter = new AssociationAdapter(this, mlist);
+		mAdapter = new AssociationAdapter(this, mlist, league);
 		association_lv.setAdapter(mAdapter);
 	}
 

@@ -10,6 +10,8 @@ import android.widget.GridView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelLeague;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -43,6 +45,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			R.drawable.default_image_small, R.drawable.default_image_small,
 			R.drawable.default_image_small };
 	private BaseAdapter mAdapter;
+	private ModelLeague mLeague;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -57,7 +60,10 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -94,7 +100,9 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
-			mApp.startActivity(this, AssociationUploadPhotoActivity.class, null);
+			Bundle data = new Bundle();
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationUploadPhotoActivity.class, data);
 			break;
 		}
 

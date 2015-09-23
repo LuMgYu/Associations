@@ -15,9 +15,11 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationMoveActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -34,19 +36,24 @@ public class AssociationMainNewAdapter extends BAdapter {
 	private final int TYPE_COUNT = 2;
 	private final int TYPE_FIRSTVIEW = 0;
 	private final int TYPE_OTHERVIEW = 1;
+	private ModelLeague mLeague;
 
 	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
 
-	public AssociationMainNewAdapter(BaseActivity activity, List<Model> list) {
+	public AssociationMainNewAdapter(BaseActivity activity, List<Model> list,
+			ModelLeague data) {
 		super(activity, list);
 		mViewHolder = new ViewHolder();
+		this.mLeague = data;
 	}
 
-	public AssociationMainNewAdapter(BaseFragment fragment, List<Model> list) {
+	public AssociationMainNewAdapter(BaseFragment fragment, List<Model> list,
+			ModelLeague data) {
 		super(fragment, list);
 		mViewHolder = new ViewHolder();
+		this.mLeague = data;
 	}
 
 	@Override
@@ -68,8 +75,20 @@ public class AssociationMainNewAdapter extends BAdapter {
 	 * @param mHolder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		Model model = mList.get(position);
 		// TODO 把数据绑定到界面
+		if (position == 0) {
+			ModelLeague mainLeague = (ModelLeague) mList.get(position);
+			holder.title_iv.setImageUrl(mainLeague.getLogourl());
+			holder.title_tv.setText(mainLeague.getName());
+			holder.title_tv_member_count.setText(mainLeague.getMembers_count());
+			holder.title_tv_topic_count.setText(mainLeague.getTopic_count());
+			holder.title_tv_school.setText(mainLeague.getSchoolName());
+			holder.title_tv_type.setText(mainLeague.getCategoryName());
+			holder.title_tv_move.setText("社团活动(" + mainLeague.getEvent_count()
+					+ ")");
+		} else {
+
+		}
 
 	}
 
@@ -121,9 +140,12 @@ public class AssociationMainNewAdapter extends BAdapter {
 					.findViewById(R.id.title_tv);
 			mViewHolder.title_tv_member = (TextView) mFirstView
 					.findViewById(R.id.title_tv_member);
+			mViewHolder.title_tv_member_count = (TextView) mFirstView
+					.findViewById(R.id.title_tv_member_count);
 			mViewHolder.title_tv_topic = (TextView) mFirstView
 					.findViewById(R.id.title_tv_topic);
-
+			mViewHolder.title_tv_topic_count = (TextView) mFirstView
+					.findViewById(R.id.title_tv_topic_count);
 			mViewHolder.title_tv_school = (TextView) mFirstView
 					.findViewById(R.id.title_tv_school);
 			mViewHolder.title_tv_type = (TextView) mFirstView
@@ -210,18 +232,15 @@ public class AssociationMainNewAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		Model model = leagueImpl.viewIn(mLeague);
+		items.add(model);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
 		return items;
 	}
 

@@ -8,7 +8,10 @@ import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.AssociationMainActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：上午10:37:57 类描述：这个类是实现
@@ -31,12 +34,16 @@ public class AssociationListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		if (position % 2 == 0) {
+		ModelLeague league = (ModelLeague) parent.getItemAtPosition(position);
+		data.putSerializable(Config.SEND_ACTIVITY_DATA, league);
+		if (league.getIsin() == 0) {
+			// 未加入
 			mApp.startActivity(mApp.getActivity(),
 					AssociationMainActivity.class, data);
 		} else {
 			mApp.startActivity(mApp.getActivity(),
 					AssociationSingleActivity.class, data);
 		}
+
 	}
 }

@@ -1,7 +1,12 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +19,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.UploadPhotoGridViewAdapter;
+import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -34,6 +45,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 	private UploadPhotoGridViewAdapter mAdapter;
 
 	private List<String> mPhotos = new ArrayList<String>();
+	private ModelLeague mLeague;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -54,8 +66,10 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-		// TODO Auto-generated method stub
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -94,6 +108,46 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 		});
 	}
 
+	private void uploadPhoto(ModelUser user) {
+		RequestParams params = new RequestParams();
+		params.put(Api.oauth_token, user.getOauth_token());
+		params.put(Api.oauth_token_secret, user.getOauth_token_secret());
+		File file = user.getUploadFile();
+		if (file != null) {
+			try {
+				params.put("file", user.getUploadFile());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
+				params, new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, String arg1) {
+						super.onSuccess(arg0, arg1);
+						try {
+							JSONObject jsonObject = new JSONObject(arg1);
+							if (jsonObject.has("data")) {
+								JSONObject data = jsonObject
+										.getJSONObject("data");
+								if (data.has("id")) {
+//									mPhotoid = data.getString("id");
+								}
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				});
+	}
+
+	// -------------------------------------------------------
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

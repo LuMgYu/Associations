@@ -10,8 +10,11 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -24,13 +27,18 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 public class AssociationAlbumAdapter extends BAdapter {
 	private View mView;
+	private ModelLeague mLeague;
 
-	public AssociationAlbumAdapter(BaseActivity activity, List<Model> list) {
+	public AssociationAlbumAdapter(BaseActivity activity, List<Model> list,
+			ModelLeague league) {
 		super(activity, list);
+		this.mLeague = league;
 	}
 
-	public AssociationAlbumAdapter(BaseFragment fragment, List<Model> list) {
+	public AssociationAlbumAdapter(BaseFragment fragment, List<Model> list,
+			ModelLeague league) {
 		super(fragment, list);
+		this.mLeague = league;
 	}
 
 	@Override
@@ -55,8 +63,16 @@ public class AssociationAlbumAdapter extends BAdapter {
 	 * @param mHolder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		Model model = mList.get(position);
+		ModelLeagueAlbum album = (ModelLeagueAlbum) mList.get(position);
 		// TODO 把数据绑定到界面
+		holder.album_iv.setImageUrl(album.getImgsrcL());
+		holder.album_tv_name.setText(album.getName());
+		holder.album_tv_count.setText(album.getPhotoCount());
+		String originTime = album.getcTime();
+//		DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+//		Date date = new Date(originTime);
+//		String time = format.format(date);
+		holder.album_tv_date.setText(originTime);
 
 	}
 
@@ -76,29 +92,26 @@ public class AssociationAlbumAdapter extends BAdapter {
 	// -------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		List<Model> items = leagueImpl.albumList(mLeague);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
 		return items;
 	}
 

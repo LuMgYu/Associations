@@ -15,6 +15,13 @@ public interface LeagueIm {
 
 	public static final String INDEX = "index";
 	public static final String CREATEGROUP = "createGroup";
+	public static final String JOIN = "join"; // 15.【加入社团】：Group/join
+	public static final String LEAVE = "leave";// 16.【退出社团】：Group/leave
+	public static final String VIEW = "view";// 17.【社团详情(未加入)】：Group/view
+	public static final String VIEWIN = "viewIn";// 18.【社团详情(已加入)】：Group/viewIn
+	public static final String MEMBERLIST = "memberList";// 19.【社团成员列表】：Group/memberList
+	public static final String ALBUMLIST = "albumList";// 20.【社团相册列表】：Group/albumList
+	public static final String CREATEALBUM = "createAlbum";// 21.【创建相册】：Group/createAlbum
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -24,6 +31,11 @@ public interface LeagueIm {
 	public static final String PRIVATE = "private";
 	public static final String OPENERNAME = "openerName";
 	public static final String CONTACT = "contact";
+
+	public static final String GID = "gid";
+	public static final String ALBUMNAME = "name";
+	public static final String ALBUMINFO = "info";
+	public static final String ALBUMHIDE= "hide";
 
 	/**
 	 * 13.【创建社团】：Group/createGroup 演示地址：
@@ -55,6 +67,91 @@ public interface LeagueIm {
 	 */
 	List<Model> groupIndex(ModelLeague league);
 
+	/**
+	 * 15.【加入社团】：Group/join 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=join
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	boolean join(ModelLeague league);
+
+	/**
+	 * 16.【退出社团】：Group/leave 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=leave
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	boolean leave(ModelLeague league);
+
+	/**
+	 * 17.【社团详情(未加入)】：Group/view 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=view
+	 * 
+	 * 输入参数： (string) oauth_token 选填 (string) oauth_token_secret 选填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	Model view(ModelLeague league);
+
+	/**
+	 * 18.【社团详情(已加入)】：Group/viewIn 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=viewIn
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * 其他说明： userlevel 表示当前用户在该社团中的身份，3为创始人，2为管理员，1为普通成员
+	 * 
+	 * @param league
+	 * @return
+	 */
+	Model viewIn(ModelLeague league);
+
+	/**
+	 * 19.【社团成员列表】：Group/memberList 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=memberList
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> memberList(ModelLeague league);
+
+	/**
+	 * 20.【社团相册列表】：Group/albumList 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act= albumList
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> albumList(ModelLeague league);
+
+	/**
+	 * 21.【创建相册】：Group/createAlbum 演示地址：
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=createAlbum
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填 (string) name 相册名称 必填 (string) info 相册描述 选填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	boolean createAlbum(ModelLeague league);
 	// /**
 	// * 获取社团的分类
 	// *

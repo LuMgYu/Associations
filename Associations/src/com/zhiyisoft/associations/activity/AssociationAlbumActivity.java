@@ -10,8 +10,10 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationAlbumAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.AssociationAlbumListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -23,6 +25,7 @@ public class AssociationAlbumActivity extends BaseActivity {
 	private BaseListView album_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
+	private ModelLeague mLeague;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -37,7 +40,10 @@ public class AssociationAlbumActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -48,7 +54,7 @@ public class AssociationAlbumActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		album_lv = (AssociationAlbumListview) findViewById(R.id.album_lv);
-		mAdapter = new AssociationAlbumAdapter(this, mlist);
+		mAdapter = new AssociationAlbumAdapter(this, mlist, mLeague);
 		album_lv.setAdapter(mAdapter);
 	}
 
@@ -62,6 +68,7 @@ public class AssociationAlbumActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.rl_nick:
 			Bundle data = new Bundle();
+		
 			mApp.startActivity(this, MeSettingNickActivity.class, data);
 			break;
 		case R.id.rl_gender:
@@ -71,7 +78,10 @@ public class AssociationAlbumActivity extends BaseActivity {
 			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
 			break;
 		case R.id.tv_title_right:
-			mApp.startActivity(this, AssociationCreateAlbumActivity.class, null);
+			Bundle albumdata = new Bundle();
+			albumdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationCreateAlbumActivity.class,
+					albumdata);
 			break;
 		case R.id.rl_phone:
 			break;

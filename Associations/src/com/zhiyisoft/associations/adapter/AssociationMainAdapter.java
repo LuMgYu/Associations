@@ -80,12 +80,10 @@ public class AssociationMainAdapter extends BAdapter {
 		resetView(holder);
 		// TODO 把数据绑定到界面
 		if (holder != null) {
-			holder.association_iv_icon.setImageUrl(league.getLogoUrl() + "");
+			holder.association_iv_icon.setImageUrl(league.getLogourl() + "");
 			holder.association_tv_title.setText(league.getName() + "");
-			holder.association_tv_member
-					.setText(league.getMembers() + "");
-			holder.association_tv_content.setText(league.getDescription()
-					+ "");
+			holder.association_tv_member.setText(league.getMembers() + "");
+			holder.association_tv_content.setText(league.getDescription() + "");
 		}
 	}
 
@@ -184,6 +182,7 @@ public class AssociationMainAdapter extends BAdapter {
 				R.drawable.xqah, R.drawable.xlhd, R.drawable.qt };
 		mStringName = new String[] { "全部", "志愿公益", "社会实践", "学术学习", "就业创业",
 				"兴趣爱好", "心理活动", "其它" };
+		int[] categorys = { 0, 30588, 30589, 30590, 30591, 30592, 30593, 30594 };
 		View itemView = null;
 		ImageView imageView = null;
 		TextView textView;
@@ -196,14 +195,19 @@ public class AssociationMainAdapter extends BAdapter {
 			imageView.setImageResource(mImageArray[i]);
 			textView.setText(mStringName[i] + "");
 			itemView.setTag(mStringName[i]);
+			itemView.setTag(R.id.album, categorys[i]);
 			itemView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					String data = (String) v.getTag();
+					int category = (Integer) v.getTag(R.id.album);
+					ModelLeague league = new ModelLeague();
+					league.setCategoryName(data);
+					league.setCategoryId(category);
 					// resetBackground();
 					// textView.setBackgroundResource(R.drawable.tv_gray);
 					Bundle bundle = new Bundle();
-					bundle.putString(Config.HOTCATEGORY, data);
+					bundle.putSerializable(Config.SEND_ACTIVITY_DATA, league);
 					mApp.startActivity(mBaseActivity,
 							AssociationDisplayActivity.class, bundle);
 				}

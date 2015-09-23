@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.zhiyisoft.associations.activity.AssociationAlbumSingleActivity;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：上午10:37:57 类描述：这个类是实现
@@ -30,7 +32,9 @@ public class AssociationAlbumListview extends BaseListView {
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Bundle data = new Bundle();
-		mApp.startActivity(mApp.getActivity(), AssociationAlbumSingleActivity.class,
-				data);
+		Model model = (Model) parent.getItemAtPosition(position);
+		data.putSerializable(Config.SEND_ACTIVITY_DATA, model);
+		mApp.startActivity(mApp.getActivity(),
+				AssociationAlbumSingleActivity.class, data);
 	}
 }

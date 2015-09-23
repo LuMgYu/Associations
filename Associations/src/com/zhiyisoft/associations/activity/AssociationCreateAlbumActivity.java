@@ -1,12 +1,17 @@
 package com.zhiyisoft.associations.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -19,10 +24,36 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 	private EditText et_album_des;
 	private ImageView iv_visable;
 	private ImageView iv_gone;
+	private ModelLeague mLeague;
+
+	private String albumName;
+	private String albumInfo;
 
 	public static final int PUB = 0; // 公开
 	public static final int PRI = 1; // 不公开
-	public static int mCurrentState = 0; // 不公开
+	public static int mCurrentState = 0; // 公开
+
+	private static final int SUCCESS_CREATE = 1;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS_CREATE:
+				boolean isSuccess = (Boolean) msg.obj;
+				if (isSuccess) {
+					ToastUtils.showToast("创建相册成功！");
+					onBackPressed();
+				} else {
+					ToastUtils.showToast("创建相册失败！");
+				}
+				break;
+			}
+
+		}
+
+	};
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -37,7 +68,10 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -79,10 +113,47 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
 			break;
 		case R.id.tv_title_right:
-			ToastUtils.showToast("妹子，你创建的了相册哈！");
+			albumName = et_album.getText().toString();
+			albumInfo = et_album_des.getText().toString();
+			if (checkTheMessage()) {
+				mLeague.setAlbumName(albumName);
+				mLeague.setAlbumInfo(albumInfo);
+				mLeague.setHide(String.valueOf(mCurrentState));
+				createAlbum(mLeague);
+			}
 			break;
 		}
 
+	}
+
+	private boolean checkTheMessage() {
+		if (albumName == null || albumName.length() < 1) {
+			ToastUtils.showToast("相册名不能为空");
+			return false;
+		}
+		if (albumInfo == null || albumInfo.length() < 1) {
+			ToastUtils.showToast("相册描述不能为空");
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 创建相册
+	 */
+	private void createAlbum(final ModelLeague league) {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				boolean isSuccess = leagueImpl.createAlbum(league);
+				Message message = Message.obtain();
+				message.what = SUCCESS_CREATE;
+				message.obj = isSuccess;
+				mHandle.sendMessage(message);
+			}
+		});
 	}
 
 	private void resetImage() {

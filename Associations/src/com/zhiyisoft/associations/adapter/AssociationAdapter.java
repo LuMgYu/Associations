@@ -13,7 +13,6 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
-import com.zhiyisoft.associations.img.WebImageCache;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -27,13 +26,18 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 public class AssociationAdapter extends BAdapter {
 	private View mView;
+	private ModelLeague mLeague;
 
-	public AssociationAdapter(BaseActivity activity, List<Model> list) {
+	public AssociationAdapter(BaseActivity activity, List<Model> list,
+			ModelLeague league) {
 		super(activity, list);
+		this.mLeague = league;
 	}
 
-	public AssociationAdapter(BaseFragment fragment, List<Model> list) {
+	public AssociationAdapter(BaseFragment fragment, List<Model> list,
+			ModelLeague league) {
 		super(fragment, list);
+		this.mLeague = league;
 	}
 
 	@Override
@@ -63,14 +67,14 @@ public class AssociationAdapter extends BAdapter {
 		// TODO 把数据绑定到界面
 		if (holder != null) {
 			// 设置tag房子图片加载错乱
-			holder.association_iv_icon.setTag(league.getLogoUrl());
+			holder.association_iv_icon.setTag(league.getLogourl());
 			// 设置默认图片，有助于清理缓存
 			holder.association_iv_icon
 					.setImageResource(R.drawable.default_image_small);
 			if (holder.association_iv_icon.getTag() != null
 					&& (holder.association_iv_icon.getTag()).equals(league
-							.getLogoUrl())) {
-				holder.association_iv_icon.setImageUrl(league.getLogoUrl());
+							.getLogourl())) {
+				holder.association_iv_icon.setImageUrl(league.getLogourl());
 			}
 			holder.association_tv_title.setText(league.getName() + "");
 			holder.association_tv_member.setText(league.getMembers() + "");
@@ -94,9 +98,9 @@ public class AssociationAdapter extends BAdapter {
 	// -----------------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		ModelLeague league = new ModelLeague();
 		LeagueImpl leagueImpl = mApp.getLeagueIm();
-		List<Model> list = leagueImpl.groupIndex(league);
+		List<Model> list = leagueImpl.groupIndex(mLeague);
+		System.out.println(mLeague.toString());
 		return list;
 	}
 
