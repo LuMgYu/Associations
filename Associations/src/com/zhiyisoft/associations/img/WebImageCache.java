@@ -54,7 +54,7 @@ public class WebImageCache {
 				if (snapShot != null) {
 					InputStream is = snapShot.getInputStream(0);
 					if (is != null) {
-						bitmap = BitmapUtil.getImageByIs(is);
+						bitmap = BitmapUtil.getBitmapByIs(is, 0, 0);
 					}
 				}
 			} catch (IOException e) {

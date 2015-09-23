@@ -492,6 +492,18 @@ public class Api {
 			Object object = get.run();
 			return isCodeOk(object);
 		}
+
+		@Override
+		public List<Model> photoList(ModelLeagueAlbum league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, PHOTOLIST);
+			judgeTheUser(get);
+			get.addBodyParam(ALBUMID, league.getId());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelLeagueAlbum());
+		}
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {

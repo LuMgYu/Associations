@@ -22,13 +22,16 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.umeng.socialize.utils.Log;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.UploadPhotoGridViewAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -45,17 +48,13 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 	private UploadPhotoGridViewAdapter mAdapter;
 
 	private List<String> mPhotos = new ArrayList<String>();
-	private ModelLeague mLeague;
+	private ModelLeagueAlbum mAlbum;
+	private ModelUser mUser;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setAlltitle(null, null, "上传");
-	}
-
-	@Override
-	public void onClick(View v) {
-
 	}
 
 	@Override
@@ -68,7 +67,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 	public void initIntent() {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
-			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+			mAlbum = (ModelLeagueAlbum) bundle.get(Config.SEND_ACTIVITY_DATA);
 		}
 	}
 
@@ -86,10 +85,12 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 		gv_fill_photo = (GridView) findViewById(R.id.gv_fill_photo);
 		mAdapter = new UploadPhotoGridViewAdapter(mPhotos, this);
 		gv_fill_photo.setAdapter(mAdapter);
+		mUser = mApp.getUser();
 	}
 
 	@Override
 	public void initListener() {
+		tv_title_right.setOnClickListener(this);
 		gv_fill_photo.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -106,16 +107,38 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 
 			}
 		});
+
 	}
 
-	private void uploadPhoto(ModelUser user) {
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tv_title_right:
+			uploadPhotos(mAlbum);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * 上传多张照片
+	 * 
+	 * @param user
+	 */
+	private void uploadPhotos(ModelLeagueAlbum album) {
 		RequestParams params = new RequestParams();
-		params.put(Api.oauth_token, user.getOauth_token());
-		params.put(Api.oauth_token_secret, user.getOauth_token_secret());
-		File file = user.getUploadFile();
-		if (file != null) {
+		params.put(Api.oauth_token, mUser.getOauth_token());
+		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
+		params.put("gid", album.getGid());
+		params.put("albumId", album.getId());
+		params.put("info", "试一试，呵呵哒，然并卵");
+		for (int i = 0; i < mPhotos.size() - 1; i++) {
+			Log.i("uploadpath", mPhotos.get(i) + "");
+			File file = new File(mPhotos.get(i));
 			try {
-				params.put("file", user.getUploadFile());
+				params.put("file" + i, file);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -123,19 +146,21 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 		}
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.post(
-				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=groupphoto",
 				params, new AsyncHttpResponseHandler() {
 
 					@Override
 					public void onSuccess(int arg0, String arg1) {
 						super.onSuccess(arg0, arg1);
+						Log.i("uploadpath", arg1 + "");
 						try {
 							JSONObject jsonObject = new JSONObject(arg1);
-							if (jsonObject.has("data")) {
-								JSONObject data = jsonObject
-										.getJSONObject("data");
-								if (data.has("id")) {
-//									mPhotoid = data.getString("id");
+							if (jsonObject.has("status")) {
+								int status = jsonObject.getInt("status");
+								if (status == 1) {
+									ToastUtils.showToast("上传成功！");
+								} else {
+									ToastUtils.showToast("上传失败！请稍后再试");
 								}
 							}
 						} catch (JSONException e) {

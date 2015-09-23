@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.api;
 import java.util.List;
 
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -22,6 +23,7 @@ public interface LeagueIm {
 	public static final String MEMBERLIST = "memberList";// 19.【社团成员列表】：Group/memberList
 	public static final String ALBUMLIST = "albumList";// 20.【社团相册列表】：Group/albumList
 	public static final String CREATEALBUM = "createAlbum";// 21.【创建相册】：Group/createAlbum
+	public static final String PHOTOLIST = "photoList";// 23.【社团相册图片列表】：Group/photoList
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -35,7 +37,8 @@ public interface LeagueIm {
 	public static final String GID = "gid";
 	public static final String ALBUMNAME = "name";
 	public static final String ALBUMINFO = "info";
-	public static final String ALBUMHIDE= "hide";
+	public static final String ALBUMHIDE = "hide";
+	public static final String ALBUMID = "albumId";
 
 	/**
 	 * 13.【创建社团】：Group/createGroup 演示地址：
@@ -152,6 +155,19 @@ public interface LeagueIm {
 	 * @return
 	 */
 	boolean createAlbum(ModelLeague league);
+
+	/**
+	 * 接口名称： Group/photoList
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=photoList
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) albumId
+	 * 相册id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> photoList(ModelLeagueAlbum league);
 	// /**
 	// * 获取社团的分类
 	// *

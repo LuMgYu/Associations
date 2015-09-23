@@ -1,6 +1,10 @@
 package com.zhiyisoft.associations.activity;
 
+import java.util.List;
+
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -10,8 +14,13 @@ import android.widget.GridView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
+import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -45,7 +54,31 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			R.drawable.default_image_small, R.drawable.default_image_small,
 			R.drawable.default_image_small };
 	private BaseAdapter mAdapter;
-	private ModelLeague mLeague;
+
+	private ModelLeagueAlbum mAlbum;
+	private static final int SUCCESS = 1;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS:
+				List<ModelLeagueAlbum> list = (List<ModelLeagueAlbum>) msg.obj;
+				if (list != null) {
+					ToastUtils.showToast("获取照片成功，正在加载");
+					mAdapter = new MyPhotoGridViewAdapter(
+							getApplicationContext(), list);
+					album_gv.setAdapter(mAdapter);
+				} else {
+					ToastUtils.showToast("获取照片失败");
+				}
+				break;
+			}
+
+		};
+
+	};
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -62,7 +95,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 	public void initIntent() {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
-			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+			mAlbum = (ModelLeagueAlbum) bundle.get(Config.SEND_ACTIVITY_DATA);
 		}
 	}
 
@@ -74,8 +107,27 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		album_gv = (GridView) findViewById(R.id.album_gv);
-		mAdapter = new MyPhotoGridViewAdapter(resArray, this);
-		album_gv.setAdapter(mAdapter);
+		getPhotosFromNet(mAlbum);
+	}
+
+	/**
+	 * 从网络中获取照片
+	 * 
+	 * @param album
+	 */
+	private void getPhotosFromNet(final ModelLeagueAlbum album) {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				List<Model> model = leagueImpl.photoList(album);
+				Message message = Message.obtain();
+				message.what = SUCCESS;
+				message.obj = model;
+				mHandle.sendMessage(message);
+			}
+		});
 	}
 
 	@Override
@@ -101,7 +153,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
 			Bundle data = new Bundle();
-			data.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, mAlbum);
 			mApp.startActivity(this, AssociationUploadPhotoActivity.class, data);
 			break;
 		}

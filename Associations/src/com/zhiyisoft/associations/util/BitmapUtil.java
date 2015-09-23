@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -18,6 +19,8 @@ import com.umeng.socialize.utils.Log;
 
 public class BitmapUtil {
 	private static final int IMAGESIZE = 70; // 设置每张图片的最大不能超过100k
+	private static final int DEFAULTHEIGHT = 200; // 默认设置图片为200的高度
+	private static final int DEFAULTWEIGHT = 200; // 默认设置图片为200的宽度
 
 	/**
 	 * 等比例压缩图片
@@ -120,12 +123,10 @@ public class BitmapUtil {
 			baos.close();
 			is.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return baos;
 	}
-
 
 	/**
 	 * bitmap 转为输入流
@@ -138,5 +139,125 @@ public class BitmapUtil {
 		originBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 		InputStream isBm = new ByteArrayInputStream(baos.toByteArray());
 		return isBm;
+	}
+
+	/********************** 解析bitmap的优化 ********************************/
+	/**
+	 * 按照需要的宽高来解析
+	 * 
+	 * @param options
+	 * @param reqWidth
+	 *            需要的宽度
+	 * @param reqHeight
+	 *            需要的高度
+	 * @return
+	 */
+	private static int calculateInSampleSize(BitmapFactory.Options options,
+			int reqWidth, int reqHeight) {
+		// 源图片的高度和宽度
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+		if (height > reqHeight || width > reqWidth) {
+			// 计算出实际宽高和目标宽高的比率
+			final int heightRatio = Math.round((float) height
+					/ (float) reqHeight);
+			final int widthRatio = Math.round((float) width / (float) reqWidth);
+			// 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
+			// 一定都会大于等于目标的宽和高。
+			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+		}
+		return inSampleSize;
+	}
+
+	/**
+	 * 更加resid来解析资源id
+	 * 
+	 * @param res
+	 * @param resId
+	 *            资源id
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
+	public static Bitmap getBitmapByResId(Resources res, int resId,
+			int reqWidth, int reqHeight) {
+		if (reqHeight <= 0) {
+			reqHeight = DEFAULTHEIGHT;
+		}
+		if (reqWidth <= 0) {
+			reqWidth = DEFAULTHEIGHT;
+		}
+		// 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeResource(res, resId, options);
+		// 调用上面定义的方法计算inSampleSize值
+		options.inSampleSize = calculateInSampleSize(options, reqWidth,
+				reqHeight);
+		// 使用获取到的inSampleSize值再次解析图片
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeResource(res, resId, options);
+	}
+
+	/**
+	 * 通过文件路径来获取bitmap
+	 * 
+	 * @param path
+	 *            文件路径
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
+	public static Bitmap getBitmapByPath(String path, int reqWidth,
+			int reqHeight) {
+		if (reqHeight <= 0) {
+			reqHeight = DEFAULTHEIGHT;
+		}
+		if (reqWidth <= 0) {
+			reqWidth = DEFAULTHEIGHT;
+		}
+		// 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(path, options);
+		// 调用上面定义的方法计算inSampleSize值
+		options.inSampleSize = calculateInSampleSize(options, reqWidth,
+				reqHeight);
+		// 使用获取到的inSampleSize值再次解析图片
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeFile(path, options);
+	}
+
+	/**
+	 * 根据输入流来得到bitmap
+	 * 
+	 * @param is
+	 *            输入流
+	 * @param reqWidth
+	 * @param reqHeight
+	 * @return
+	 */
+	public static Bitmap getBitmapByIs(InputStream is, int reqWidth,
+			int reqHeight) {
+		if (reqHeight <= 0) {
+			reqHeight = DEFAULTHEIGHT;
+		}
+		if (reqWidth <= 0) {
+			reqWidth = DEFAULTHEIGHT;
+		}
+		// bitmap 直接解析输入流比较容易为空，所以转为bytearray。。。 这样解析就不会出问题，难道这是一个bug
+		ByteArrayOutputStream baos = is2Boas(is);
+		// 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		byte[] bytes = baos.toByteArray();
+		BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+		// 调用上面定义的方法计算inSampleSize值
+		options.inSampleSize = calculateInSampleSize(options, reqWidth,
+				reqHeight);
+		// 使用获取到的inSampleSize值再次解析图片
+		options.inJustDecodeBounds = false;
+		return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
 	}
 }

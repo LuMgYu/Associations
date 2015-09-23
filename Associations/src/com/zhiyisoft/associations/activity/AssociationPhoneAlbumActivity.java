@@ -98,8 +98,8 @@ public class AssociationPhoneAlbumActivity extends BaseActivity {
 	public void initView() {
 		phone_album_gv = (GridView) findViewById(R.id.phone_album_gv);
 		next = (Button) findViewById(R.id.next);
-		mAdapter = new MyPhotoGridViewAdapter(resArray, this);
-		phone_album_gv.setAdapter(mAdapter);
+//		mAdapter = new MyPhotoGridViewAdapter(resArray, this);
+//		phone_album_gv.setAdapter(mAdapter);
 	}
 
 	@Override

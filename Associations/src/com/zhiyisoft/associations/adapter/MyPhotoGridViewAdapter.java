@@ -1,12 +1,16 @@
 package com.zhiyisoft.associations.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView.ScaleType;
 
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.util.UIUtils;
 
 /**
@@ -16,22 +20,22 @@ import com.zhiyisoft.associations.util.UIUtils;
 
 public class MyPhotoGridViewAdapter extends BaseAdapter {
 	// TODO
-	private int[] mStr; // 现在用这个来展示效果，以后肯定是url
+	private List<ModelLeagueAlbum> mListAlbum; // 现在用这个来展示效果，以后肯定是url
 	private Context mContext;
 
-	public MyPhotoGridViewAdapter(int[] str, Context context) {
-		this.mStr = str;
+	public MyPhotoGridViewAdapter(Context context, List<ModelLeagueAlbum> list) {
 		this.mContext = context;
+		this.mListAlbum = list;
 	}
 
 	@Override
 	public int getCount() {
-		return mStr.length;
+		return mListAlbum.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mStr[position];
+		return mListAlbum.get(position);
 	}
 
 	@Override
@@ -42,10 +46,11 @@ public class MyPhotoGridViewAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		SmartImageView imageView = new SmartImageView(mContext);
-		int width = UIUtils.getWindowWidth(mContext) - 10;
+		imageView.setScaleType(ScaleType.CENTER_CROP);
+		int width = UIUtils.getWindowWidth(mContext) - 30;
 		imageView.setLayoutParams(new AbsListView.LayoutParams(width / 3,
 				width / 3));
-		imageView.setBackgroundResource(mStr[position]);
+		imageView.setImageUrl(mListAlbum.get(position).getPhotoUrl());
 		return imageView;
 	}
 }

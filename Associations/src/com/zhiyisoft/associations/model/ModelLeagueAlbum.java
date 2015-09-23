@@ -24,6 +24,7 @@ public class ModelLeagueAlbum extends Model {
 	// "info":"fdsfadgagadgad",
 	// "cTime":"1442923341",
 	// "imgsrcL":"http://daxs.zhiyicx.com/public/themes/default/images/user_gruop.gif",
+	/************** 获取相册需要值 *********************/
 	private String id;
 	private String maskId;
 	private String gid;
@@ -32,6 +33,10 @@ public class ModelLeagueAlbum extends Model {
 	private String cTime;
 	private String imgsrcL;
 	private String photoCount;
+
+	/************** 获取照片需要值 *********************/
+	private String photoId;
+	private String photoUrl;
 
 	public ModelLeagueAlbum() {
 
@@ -63,7 +68,12 @@ public class ModelLeagueAlbum extends Model {
 			if (jsonObject.has("photoCount")) {
 				this.setPhotoCount(jsonObject.getString("photoCount"));
 			}
-
+			if (jsonObject.has("photoId")) {
+				this.setPhotoId(jsonObject.getString("photoId"));
+			}
+			if (jsonObject.has("url")) {
+				this.setPhotoUrl(jsonObject.getString("url"));
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -132,6 +142,22 @@ public class ModelLeagueAlbum extends Model {
 
 	public void setPhotoCount(String photoCount) {
 		this.photoCount = photoCount;
+	}
+
+	public String getPhotoId() {
+		return photoId;
+	}
+
+	public void setPhotoId(String photoId) {
+		this.photoId = photoId;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
 	}
 
 }

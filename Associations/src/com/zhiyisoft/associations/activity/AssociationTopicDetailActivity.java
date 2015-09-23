@@ -236,9 +236,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				R.layout.detail_many_photo_item);
 		MyGridView gridView = (MyGridView) mNeedView
 				.findViewById(R.id.detail_gv_many_photo);
-		MyPhotoGridViewAdapter adapter = new MyPhotoGridViewAdapter(photoArray,
-				this);
-		gridView.setAdapter(adapter);
+//		MyPhotoGridViewAdapter adapter = new MyPhotoGridViewAdapter(photoArray,
+//				this);
+//		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
