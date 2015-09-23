@@ -17,6 +17,7 @@ import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
+import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
@@ -503,6 +504,19 @@ public class Api {
 			get.addBodyParam(ALBUMID, league.getId());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeagueAlbum());
+		}
+
+		@Override
+		public List<Model> topicList(ModelLeague league) {
+			// TODO Auto-generated method stub
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, TOPICLIST);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelLeagueTopic());
 		}
 	}
 

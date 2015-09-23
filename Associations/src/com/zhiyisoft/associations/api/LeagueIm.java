@@ -24,6 +24,7 @@ public interface LeagueIm {
 	public static final String ALBUMLIST = "albumList";// 20.【社团相册列表】：Group/albumList
 	public static final String CREATEALBUM = "createAlbum";// 21.【创建相册】：Group/createAlbum
 	public static final String PHOTOLIST = "photoList";// 23.【社团相册图片列表】：Group/photoList
+	public static final String TOPICLIST = "topicList";// 25.【新鲜事列表】：Group/topicList
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -168,6 +169,17 @@ public interface LeagueIm {
 	 * @return
 	 */
 	List<Model> photoList(ModelLeagueAlbum league);
+
+	/**
+	 * 25.【新鲜事列表】：Group/topicList 演示地址：
+	 * 
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act=topicList 输入参数： (string)
+	 * oauth_token必填 (string) oauth_token_secret 必填 (int) gid社团id 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> topicList(ModelLeague league);
 	// /**
 	// * 获取社团的分类
 	// *

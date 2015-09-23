@@ -10,8 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 
-import com.umeng.socialize.utils.Log;
-
 /**
  * author：qiuchunjia time：上午10:22:07 类描述：这个类是实现
  *
@@ -19,8 +17,8 @@ import com.umeng.socialize.utils.Log;
 
 public class BitmapUtil {
 	private static final int IMAGESIZE = 70; // 设置每张图片的最大不能超过100k
-	private static final int DEFAULTHEIGHT = 200; // 默认设置图片为200的高度
-	private static final int DEFAULTWEIGHT = 200; // 默认设置图片为200的宽度
+	private static final int DEFAULTHEIGHT = 200; // 默认设置图片为100的高度
+	private static final int DEFAULTWEIGHT = 200; // 默认设置图片为100的宽度
 
 	/**
 	 * 等比例压缩图片
@@ -29,24 +27,12 @@ public class BitmapUtil {
 	 * @return
 	 */
 	public static Bitmap compressImage(Bitmap originBitmap) {
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		originBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-		int options = 100;
-		Log.i("compressImage", "-------first_baos.toByteArray().length--------"
-				+ baos.toByteArray().length / 1024 + "k");
-		while (baos.toByteArray().length / 1024 > IMAGESIZE && options > 0) { // 循环判断如果压缩后图片是否大于100kb,大于继续压缩
-			baos.reset();// 重置baos即清空baos
-			originBitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);// 这里压缩options%，把压缩后的数据存放到baos中
-			Log.i("compressImage", "-------baos.toByteArray().length--------"
-					+ baos.toByteArray().length / 1024 + "k");
-			options -= 49;
+		if (originBitmap != null) {
+			InputStream is = bm2Is(originBitmap);
+			Bitmap bitmap = getBitmapByIs(is, 0, 0);
+			return bitmap;
 		}
-		ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
-		Log.i("compressImage", "-------baos.toByteArray().length---end-----"
-				+ baos.toByteArray().length / 1024 + "k");
-		Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
-		return bitmap;
+		return null;
 	}
 
 	/**
@@ -186,7 +172,7 @@ public class BitmapUtil {
 			reqHeight = DEFAULTHEIGHT;
 		}
 		if (reqWidth <= 0) {
-			reqWidth = DEFAULTHEIGHT;
+			reqWidth = DEFAULTWEIGHT;
 		}
 		// 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
 		final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -215,7 +201,7 @@ public class BitmapUtil {
 			reqHeight = DEFAULTHEIGHT;
 		}
 		if (reqWidth <= 0) {
-			reqWidth = DEFAULTHEIGHT;
+			reqWidth = DEFAULTWEIGHT;
 		}
 		// 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
 		final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -244,7 +230,7 @@ public class BitmapUtil {
 			reqHeight = DEFAULTHEIGHT;
 		}
 		if (reqWidth <= 0) {
-			reqWidth = DEFAULTHEIGHT;
+			reqWidth = DEFAULTWEIGHT;
 		}
 		// bitmap 直接解析输入流比较容易为空，所以转为bytearray。。。 这样解析就不会出问题，难道这是一个bug
 		ByteArrayOutputStream baos = is2Boas(is);

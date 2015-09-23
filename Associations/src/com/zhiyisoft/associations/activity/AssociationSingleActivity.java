@@ -120,7 +120,10 @@ public class AssociationSingleActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_title_right1:
-			mApp.startActivity(this, AssociationSendTopicActivity.class, null);
+			Bundle topicdata = new Bundle();
+			topicdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationSendTopicActivity.class,
+					topicdata);
 			break;
 		case R.id.iv_title_right2:
 			showPop(iv_title_right2, 0, 0);

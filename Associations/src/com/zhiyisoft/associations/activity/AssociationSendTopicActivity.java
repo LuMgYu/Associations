@@ -1,7 +1,12 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,11 +25,19 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.umeng.socialize.utils.Log;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
 import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
+import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueTopic;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImageManager;
 
@@ -44,6 +57,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private Bitmap mBitmap; // 获取本地的bitmap
 
 	private LocalImageManager mImageManager;
+	private ModelLeague mLeague;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -58,7 +72,10 @@ public class AssociationSendTopicActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -74,6 +91,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		ll_ScrollView = (LinearLayout) findViewById(R.id.ll_ScrollView);
 		topic_image = (ImageView) findViewById(R.id.topic_image);
 		topic_expression = (ImageView) findViewById(R.id.topic_expression);
+		mUser = mApp.getUser();
 		mImageManager = LocalImageManager.from(mApp);
 		addImageToHsv(null, ADDPHOTO);
 	}
@@ -83,6 +101,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	 */
 	private final int ADDPHOTO = 0;
 	private final int PHOTO = 1;
+	private ModelUser mUser;
+	private ArrayList<String> mPhotoList;
 
 	private void addImageToHsv(String path, int type) {
 		View itemView = mInflater.inflate(R.layout.hsv_img_item, null);
@@ -146,6 +166,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	public void initListener() {
 		topic_image.setOnClickListener(this);
 		topic_expression.setOnClickListener(this);
+		tv_title_right.setOnClickListener(this);
 	}
 
 	@Override
@@ -160,10 +181,94 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			initPopWindow();
 			showPop(topic_expression, 0, 0);
 			break;
+		case R.id.tv_title_right:
+			String str_title = topic_title.getText().toString();
+			String str_content = topic_content.getText().toString();
+			ModelLeagueTopic topic = new ModelLeagueTopic();
+			checkThedata(str_title, str_content);
+			if (checkThedata(str_content, str_content)) {
+				topic.setGid(mLeague.getGid());
+				topic.setTitle(str_title);
+				topic.setContent(str_content);
+				sendTopicToNet(topic);
+			}
+			break;
 		}
 
 	}
 
+	/**
+	 * 判断标题和内容是否为空
+	 * 
+	 * @param str_title
+	 * @param str_content
+	 */
+	private boolean checkThedata(String str_title, String str_content) {
+		if (str_title == null || str_title.length() < 1) {
+			ToastUtils.showToast("标题不能为空");
+			return false;
+		}
+		if (str_content == null || str_content.length() < 1) {
+			ToastUtils.showToast("内容不能为空");
+			return false;
+		}
+		return true;
+
+	}
+
+	/**
+	 * 上传多张照片
+	 * 
+	 * @param user
+	 */
+	private void sendTopicToNet(ModelLeagueTopic topic) {
+		RequestParams params = new RequestParams();
+		params.put(Api.oauth_token, mUser.getOauth_token());
+		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
+		params.put("gid", topic.getGid());
+		params.put("title", topic.getTitle());
+		params.put("content", topic.getContent());
+		Log.i("param", params.toString());
+		if (mPhotoList != null) {
+			for (int i = 0; i < mPhotoList.size() - 1; i++) {
+				try {
+					File file = new File(mPhotoList.get(i));
+					params.put("file" + i, file);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Group&act=createTopic",
+				params, new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, String arg1) {
+						super.onSuccess(arg0, arg1);
+						Log.i("uploadpath", "==========" + arg1 + "");
+						try {
+							JSONObject jsonObject = new JSONObject(arg1);
+							if (jsonObject.has("status")) {
+								int status = jsonObject.getInt("status");
+								if (status == 1) {
+									ToastUtils.showToast("发表话题成功");
+								} else {
+									ToastUtils.showToast("发表话题失败！");
+								}
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				});
+	}
+
+	// -------------------------------------------------------------------------
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -172,9 +277,9 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				return;
 			}
 			Bundle bundle = data.getExtras();
-			ArrayList<String> list = (ArrayList<String>) bundle
+			mPhotoList = (ArrayList<String>) bundle
 					.get(Config.GET_ACTIVITY_DATA);
-			for (String str : list) {
+			for (String str : mPhotoList) {
 				if (ll_ScrollView.getChildCount() > 6) {
 					ToastUtils.showToast("最多只能选六张！");
 					return;

@@ -67,23 +67,33 @@ public class AssociationAdapter extends BAdapter {
 		// TODO 把数据绑定到界面
 		if (holder != null) {
 			// 设置tag房子图片加载错乱
+			resetHolder(holder);
 			holder.association_iv_icon.setTag(league.getLogourl());
 			// 设置默认图片，有助于清理缓存
 			holder.association_iv_icon
 					.setImageResource(R.drawable.default_image_small);
-			if (holder.association_iv_icon.getTag() != null
-					&& (holder.association_iv_icon.getTag()).equals(league
-							.getLogourl())) {
-				holder.association_iv_icon.setImageUrl(league.getLogourl());
-			}
+			// if (holder.association_iv_icon.getTag() != null
+			// && (holder.association_iv_icon.getTag()).equals(league
+			// .getLogourl())) {
+			// holder.association_iv_icon.setImageUrl(league.getLogourl());
+			// }
 			holder.association_tv_title.setText(league.getName() + "");
 			holder.association_tv_member.setText(league.getMembers() + "");
 			holder.association_tv_content.setText(league.getDescription() + "");
 		}
 	}
 
+	private void resetHolder(ViewHolder holder) {
+		holder.association_iv_icon
+				.setImageResource(R.drawable.default_image_small);
+		holder.association_tv_title.setText("");
+		holder.association_tv_member.setText("");
+		holder.association_tv_content.setText("");
+	}
+
 	private void initView() {
 		if (mView != null) {
+
 			mHolder.association_iv_icon = (RoundImageView) mView
 					.findViewById(R.id.association_iv_icon);
 			mHolder.association_tv_title = (TextView) mView

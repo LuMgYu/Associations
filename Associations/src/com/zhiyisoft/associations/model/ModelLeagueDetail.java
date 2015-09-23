@@ -41,7 +41,7 @@ public class ModelLeagueDetail extends Model {
 			if (jsonObject.has("news")) {
 				JSONArray jsonArray = jsonObject.getJSONArray("news");
 				this.news = JsonUtils.parseJsonArray(jsonArray,
-						new ModelLeagueNews());
+						new ModelLeagueTopic());
 
 			}
 			if (jsonObject.has("event")) {

@@ -134,6 +134,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 		params.put("gid", album.getGid());
 		params.put("albumId", album.getId());
 		params.put("info", "试一试，呵呵哒，然并卵");
+		Log.i("param", params.toString() + "");
 		for (int i = 0; i < mPhotos.size() - 1; i++) {
 			Log.i("uploadpath", mPhotos.get(i) + "");
 			File file = new File(mPhotos.get(i));

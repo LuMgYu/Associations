@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationMoveActivity;
@@ -20,6 +21,8 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueTopic;
+import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -87,6 +90,37 @@ public class AssociationMainNewAdapter extends BAdapter {
 			holder.title_tv_move.setText("社团活动(" + mainLeague.getEvent_count()
 					+ ")");
 		} else {
+			ModelLeagueTopic topic = (ModelLeagueTopic) mList.get(position);
+			System.out.println(topic.toString());
+			holder.new_item_iv.setImageUrl(topic.getFaceurl());
+			holder.new_item_tv_nick.setText(topic.getUname() + "发表了话题");
+			holder.new_item_tv_title.setText(topic.getTitle());
+			holder.new_item_tv_content.setText(topic.getContent());
+			holder.new_item_tv_date.setText(topic.getCtime());
+			holder.new_item_tv_number.setText(topic.getReplyCount());
+			List<Model> photos = topic.getAttachs();
+			holder.imageView1.setVisibility(View.GONE);
+			holder.imageView2.setVisibility(View.GONE);
+			holder.imageView3.setVisibility(View.GONE);
+			if (photos != null) {
+				for (int i = 0; i < photos.size(); i++) {
+					ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
+							.get(i);
+					if (i == 0) {
+						holder.imageView1.setVisibility(View.VISIBLE);
+						holder.imageView1.setImageUrl(photo.getUrl());
+					}
+					if (i == 1) {
+						holder.imageView2.setVisibility(View.VISIBLE);
+						holder.imageView2.setImageUrl(photo.getUrl());
+					}
+					if (i == 2) {
+						holder.imageView3.setVisibility(View.VISIBLE);
+						holder.imageView3.setImageUrl(photo.getUrl());
+					}
+				}
+
+			}
 
 		}
 
@@ -210,10 +244,13 @@ public class AssociationMainNewAdapter extends BAdapter {
 		work1 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
 		work1.leftMargin = 20;
 		mViewHolder.imageView1.setLayoutParams(work1);
+		mViewHolder.imageView1.setScaleType(ScaleType.CENTER_CROP);
 		work2 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
 		work2.leftMargin = 10;
 		mViewHolder.imageView2.setLayoutParams(work2);
+		mViewHolder.imageView2.setScaleType(ScaleType.CENTER_CROP);
 		mViewHolder.imageView3.setLayoutParams(work2);
+		mViewHolder.imageView3.setScaleType(ScaleType.CENTER_CROP);
 	}
 
 	private void initListener() {
@@ -234,7 +271,9 @@ public class AssociationMainNewAdapter extends BAdapter {
 		List<Model> items = new ArrayList<Model>();
 		LeagueImpl leagueImpl = mApp.getLeagueIm();
 		Model model = leagueImpl.viewIn(mLeague);
+		List<Model> topicModels = leagueImpl.topicList(mLeague);
 		items.add(model);
+		items.addAll(topicModels);
 		return items;
 	}
 
@@ -247,9 +286,9 @@ public class AssociationMainNewAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
 		return items;
 	}
 
