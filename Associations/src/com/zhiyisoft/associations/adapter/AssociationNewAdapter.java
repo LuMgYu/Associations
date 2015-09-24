@@ -27,31 +27,30 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class AssociationNewAdapter extends BAdapter {
-	private ViewHolder mViewHolder;
 	private View mOtherView; // 真正的item
 
 	public AssociationNewAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
-		mViewHolder = new ViewHolder();
 	}
 
 	public AssociationNewAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
-		mViewHolder = new ViewHolder();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mOtherView = mInflater.inflate(R.layout.association_single_item,
 					null);
 			convertView = mOtherView;
-			initView();
-			convertView.setTag(mViewHolder);
+			initView(holder);
+			convertView.setTag(holder);
 		} else {
-			mViewHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mViewHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -70,37 +69,37 @@ public class AssociationNewAdapter extends BAdapter {
 	/**
 	 * 初始化控件
 	 */
-	private void initView() {
+	private void initView(ViewHolder holder) {
 		if (mOtherView != null) {
-			mViewHolder.new_item_rl_head = (RelativeLayout) mOtherView
+			holder.new_item_rl_head = (RelativeLayout) mOtherView
 					.findViewById(R.id.new_item_rl_head);
-			mViewHolder.new_item_iv = (RoundImageView) mOtherView
+			holder.new_item_iv = (RoundImageView) mOtherView
 					.findViewById(R.id.new_item_iv);
-			mViewHolder.title_tv_member = (TextView) mOtherView
+			holder.title_tv_member = (TextView) mOtherView
 					.findViewById(R.id.title_tv_member);
-			mViewHolder.new_item_tv_nick = (TextView) mOtherView
+			holder.new_item_tv_nick = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_nick);
-			mViewHolder.new_item_rl_content = (RelativeLayout) mOtherView
+			holder.new_item_rl_content = (RelativeLayout) mOtherView
 					.findViewById(R.id.new_item_rl_content);
-			mViewHolder.new_item_tv_title = (TextView) mOtherView
+			holder.new_item_tv_title = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_title);
-			mViewHolder.new_item_tv_content = (TextView) mOtherView
+			holder.new_item_tv_content = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_content);
-			mViewHolder.new_item_ll = (LinearLayout) mOtherView
+			holder.new_item_ll = (LinearLayout) mOtherView
 					.findViewById(R.id.new_item_ll);
-			mViewHolder.imageView1 = (SmartImageView) mOtherView
+			holder.imageView1 = (SmartImageView) mOtherView
 					.findViewById(R.id.imageView1);
-			mViewHolder.imageView2 = (SmartImageView) mOtherView
+			holder.imageView2 = (SmartImageView) mOtherView
 					.findViewById(R.id.imageView2);
-			mViewHolder.imageView3 = (SmartImageView) mOtherView
+			holder.imageView3 = (SmartImageView) mOtherView
 					.findViewById(R.id.imageView3);
-			mViewHolder.new_item_rl_footer = (RelativeLayout) mOtherView
+			holder.new_item_rl_footer = (RelativeLayout) mOtherView
 					.findViewById(R.id.new_item_rl_footer);
-			mViewHolder.new_item_tv_date = (TextView) mOtherView
+			holder.new_item_tv_date = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_date);
-			mViewHolder.new_item_tv_number = (TextView) mOtherView
+			holder.new_item_tv_number = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_number);
-			initPhotoWidth();
+			initPhotoWidth(holder);
 
 		}
 	}
@@ -108,16 +107,16 @@ public class AssociationNewAdapter extends BAdapter {
 	/**
 	 * 初始化图片的宽度和高度
 	 */
-	private void initPhotoWidth() {
+	private void initPhotoWidth(ViewHolder holder) {
 		int photoWidth = (UIUtils.getWindowWidth(mBaseActivity) - 60) / 3;
 		LinearLayout.LayoutParams work1, work2;
 		work1 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
 		work1.leftMargin = 20;
-		mViewHolder.imageView1.setLayoutParams(work1);
+		holder.imageView1.setLayoutParams(work1);
 		work2 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
 		work2.leftMargin = 10;
-		mViewHolder.imageView2.setLayoutParams(work2);
-		mViewHolder.imageView3.setLayoutParams(work2);
+		holder.imageView2.setLayoutParams(work2);
+		holder.imageView3.setLayoutParams(work2);
 	}
 
 	private void initListener() {

@@ -36,15 +36,17 @@ public class AssociationWordAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.association_file_item, null);
-			initView();
+			initView(holder);
 			convertView = mView;
-			convertView.setTag(mHolder);
+			convertView.setTag(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -52,7 +54,7 @@ public class AssociationWordAdapter extends BAdapter {
 	 * 绑定数据到item
 	 * 
 	 * @param position
-	 * @param mHolder
+	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
 		Model model = mList.get(position);
@@ -60,22 +62,22 @@ public class AssociationWordAdapter extends BAdapter {
 
 	}
 
-	private void initView() {
+	private void initView(ViewHolder holder) {
 		if (mView != null) {
-			mHolder.iv_file_user_icon = (RoundImageView) mView
+			holder.iv_file_user_icon = (RoundImageView) mView
 					.findViewById(R.id.iv_file_user_icon);
-			mHolder.tv_user_name = (TextView) mView
+			holder.tv_user_name = (TextView) mView
 					.findViewById(R.id.tv_user_name);
-			mHolder.tv_user_send = (TextView) mView
+			holder.tv_user_send = (TextView) mView
 					.findViewById(R.id.tv_user_send);
-			mHolder.tv_file_title = (TextView) mView
+			holder.tv_file_title = (TextView) mView
 					.findViewById(R.id.tv_file_title);
-			mHolder.iv_file = (ImageView) mView.findViewById(R.id.iv_file);
-			mHolder.tv_file_name = (TextView) mView
+			holder.iv_file = (ImageView) mView.findViewById(R.id.iv_file);
+			holder.tv_file_name = (TextView) mView
 					.findViewById(R.id.tv_file_name);
-			mHolder.tv_file_date = (TextView) mView
+			holder.tv_file_date = (TextView) mView
 					.findViewById(R.id.tv_file_date);
-			mHolder.tv_file_commit = (TextView) mView
+			holder.tv_file_commit = (TextView) mView
 					.findViewById(R.id.tv_file_commit);
 
 		}

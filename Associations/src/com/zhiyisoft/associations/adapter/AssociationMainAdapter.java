@@ -39,7 +39,6 @@ public class AssociationMainAdapter extends BAdapter {
 	private final int TYPE_FIRSTVIEW = 0;
 	private final int TYPE_OTHERVIEW = 1;
 
-	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
 	private int[] mImageArray;
@@ -47,24 +46,24 @@ public class AssociationMainAdapter extends BAdapter {
 
 	public AssociationMainAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
-		mViewHolder = new ViewHolder();
 	}
 
 	public AssociationMainAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
-		mViewHolder = new ViewHolder();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		int type = judgeTheViewType(position);
+		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = initConvertView(convertView, type);
+			holder = new ViewHolder();
+			convertView = initConvertView(convertView, type, holder);
 		} else {
-			mViewHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 		if (position > 0) {
-			bundledataToView(position, mViewHolder);
+			bundledataToView(position, holder);
 		}
 		return convertView;
 	}
@@ -107,44 +106,43 @@ public class AssociationMainAdapter extends BAdapter {
 	 * @param type
 	 * @return
 	 */
-	public View initConvertView(View view, int type) {
+	public View initConvertView(View view, int type, ViewHolder holder) {
 		if (type == TYPE_FIRSTVIEW) {
 			mFirstView = mInflater.inflate(R.layout.copyoffragment_association,
 					null);
-			initmFirstView();
-			addHotSorting();
-			initListener();
+			initmFirstView(holder);
+			addHotSorting(holder);
+			initListener(holder);
 			view = mFirstView;
 		} else if (type == TYPE_OTHERVIEW) {
 			mOtherView = mInflater.inflate(
 					R.layout.listview_me_association_item, null);
-			initOtherView();
+			initOtherView(holder);
 			view = mOtherView;
 		}
-		view.setTag(mViewHolder);
+		view.setTag(holder);
 		return view;
 	}
 
-	private void initmFirstView() {
-		mViewHolder.school_ll = (LinearLayout) mFirstView
+	private void initmFirstView(ViewHolder holder) {
+		holder.school_ll = (LinearLayout) mFirstView
 				.findViewById(R.id.school_ll);
-		mViewHolder.school_rl_change = (RelativeLayout) mFirstView
+		holder.school_rl_change = (RelativeLayout) mFirstView
 				.findViewById(R.id.school_rl_change);
-		mViewHolder.school_iv_change = (ImageView) mFirstView
+		holder.school_iv_change = (ImageView) mFirstView
 				.findViewById(R.id.school_iv_change);
-		mViewHolder.school_tv = (TextView) mFirstView
-				.findViewById(R.id.school_tv);
-		getCurrentSchool(mViewHolder.school_tv);
+		holder.school_tv = (TextView) mFirstView.findViewById(R.id.school_tv);
+		getCurrentSchool(holder.school_tv);
 	}
 
-	private void initOtherView() {
-		mViewHolder.association_iv_icon = (RoundImageView) mOtherView
+	private void initOtherView(ViewHolder holder) {
+		holder.association_iv_icon = (RoundImageView) mOtherView
 				.findViewById(R.id.association_iv_icon);
-		mViewHolder.association_tv_title = (TextView) mOtherView
+		holder.association_tv_title = (TextView) mOtherView
 				.findViewById(R.id.association_tv_title);
-		mViewHolder.association_tv_member = (TextView) mOtherView
+		holder.association_tv_member = (TextView) mOtherView
 				.findViewById(R.id.association_tv_member);
-		mViewHolder.association_tv_content = (TextView) mOtherView
+		holder.association_tv_content = (TextView) mOtherView
 				.findViewById(R.id.association_tv_content);
 	}
 
@@ -161,8 +159,8 @@ public class AssociationMainAdapter extends BAdapter {
 		return 1;
 	}
 
-	private void initListener() {
-		mViewHolder.school_rl_change.setOnClickListener(new OnClickListener() {
+	private void initListener(ViewHolder holder) {
+		holder.school_rl_change.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -175,8 +173,8 @@ public class AssociationMainAdapter extends BAdapter {
 	/**
 	 * 添加热热门分类
 	 */
-	private void addHotSorting() {
-		mViewHolder.school_ll.removeAllViews();
+	private void addHotSorting(ViewHolder holder) {
+		holder.school_ll.removeAllViews();
 		mImageArray = new int[] { R.drawable.qb, R.drawable.zygy_,
 				R.drawable.shsj, R.drawable.xsxx, R.drawable.jycy,
 				R.drawable.xqah, R.drawable.xlhd, R.drawable.qt };
@@ -221,7 +219,7 @@ public class AssociationMainAdapter extends BAdapter {
 				// }
 				// }
 			});
-			mViewHolder.school_ll.addView(itemView);
+			holder.school_ll.addView(itemView);
 		}
 	}
 

@@ -45,19 +45,21 @@ public class NotifyNfyAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.notify_notify_iem, null);
-			convertView.setTag(mHolder);
 			mView = convertView;
-			initView(mView);
+			initView(mView, holder);
+			convertView.setTag(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 		// convertView.setOnTouchListener(new OnTouchListener() {
 		//
 		// @Override
 		// public boolean onTouch(View v, MotionEvent event) {
-		// mHolder = (ViewHolder) v.getTag();
+		// holder = (ViewHolder) v.getTag();
 		// if (event.getAction() == MotionEvent.ACTION_DOWN) {
 		// x = event.getX();
 		// // 判断之前是否出现了删除按钮如果存在就隐藏
@@ -73,7 +75,7 @@ public class NotifyNfyAdapter extends BAdapter {
 		// } else if (event.getAction() == MotionEvent.ACTION_UP) {
 		// ux = event.getX();
 		// if (Math.abs(x - ux) > 50) {
-		// mHolder.tv_del.setVisibility(View.VISIBLE);
+		// holder.tv_del.setVisibility(View.VISIBLE);
 		// }
 		// }
 		//
@@ -83,17 +85,17 @@ public class NotifyNfyAdapter extends BAdapter {
 		return convertView;
 	}
 
-	private void initView(View view) {
+	private void initView(View view, ViewHolder holder) {
 		if (view != null) {
-			mHolder.rl_notify = (RelativeLayout) view
+			holder.rl_notify = (RelativeLayout) view
 					.findViewById(R.id.rl_notify);
-			mHolder.fl_icon = (FrameLayout) view.findViewById(R.id.fl_icon);
-			mHolder.iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
-			mHolder.iv_remind = (ImageView) view.findViewById(R.id.iv_remind);
-			mHolder.tv_nick = (TextView) view.findViewById(R.id.tv_nick);
-			mHolder.tv_msg = (TextView) view.findViewById(R.id.tv_msg);
-			mHolder.tv_date = (TextView) view.findViewById(R.id.tv_date);
-			mHolder.tv_del = (TextView) view.findViewById(R.id.tv_del);
+			holder.fl_icon = (FrameLayout) view.findViewById(R.id.fl_icon);
+			holder.iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+			holder.iv_remind = (ImageView) view.findViewById(R.id.iv_remind);
+			holder.tv_nick = (TextView) view.findViewById(R.id.tv_nick);
+			holder.tv_msg = (TextView) view.findViewById(R.id.tv_msg);
+			holder.tv_date = (TextView) view.findViewById(R.id.tv_date);
+			holder.tv_del = (TextView) view.findViewById(R.id.tv_del);
 		}
 	}
 

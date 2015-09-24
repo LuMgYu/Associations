@@ -41,33 +41,32 @@ public class AssociationMainNewAdapter extends BAdapter {
 	private final int TYPE_OTHERVIEW = 1;
 	private ModelLeague mLeague;
 
-	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
 
 	public AssociationMainNewAdapter(BaseActivity activity, List<Model> list,
 			ModelLeague data) {
 		super(activity, list);
-		mViewHolder = new ViewHolder();
 		this.mLeague = data;
 	}
 
 	public AssociationMainNewAdapter(BaseFragment fragment, List<Model> list,
 			ModelLeague data) {
 		super(fragment, list);
-		mViewHolder = new ViewHolder();
 		this.mLeague = data;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		int type = judgeTheViewType(position);
+		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = initConvertView(convertView, type);
+			holder = new ViewHolder();
+			convertView = initConvertView(convertView, type, holder);
 		} else {
-			mViewHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mViewHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -133,20 +132,20 @@ public class AssociationMainNewAdapter extends BAdapter {
 	 * @param type
 	 * @return
 	 */
-	public View initConvertView(View view, int type) {
+	public View initConvertView(View view, int type, ViewHolder holder) {
 		if (type == TYPE_FIRSTVIEW) {
 			mFirstView = mInflater.inflate(
 					R.layout.copyofactivity_association_single, null);
-			initFirstView();
-			initListener();
+			initFirstView(holder);
+			initListener(holder);
 			view = mFirstView;
 		} else if (type == TYPE_OTHERVIEW) {
 			mOtherView = mInflater.inflate(R.layout.association_single_item,
 					null);
-			initOtherView();
+			initOtherView(holder);
 			view = mOtherView;
 		}
-		view.setTag(mViewHolder);
+		view.setTag(holder);
 		return view;
 	}
 
@@ -166,27 +165,26 @@ public class AssociationMainNewAdapter extends BAdapter {
 	/**
 	 * 初始化第一种item的 view
 	 */
-	private void initFirstView() {
+	private void initFirstView(ViewHolder holder) {
 		if (mFirstView != null) {
-			mViewHolder.title_iv = (RoundImageView) mFirstView
+			holder.title_iv = (RoundImageView) mFirstView
 					.findViewById(R.id.title_iv);
-			mViewHolder.title_tv = (TextView) mFirstView
-					.findViewById(R.id.title_tv);
-			mViewHolder.title_tv_member = (TextView) mFirstView
+			holder.title_tv = (TextView) mFirstView.findViewById(R.id.title_tv);
+			holder.title_tv_member = (TextView) mFirstView
 					.findViewById(R.id.title_tv_member);
-			mViewHolder.title_tv_member_count = (TextView) mFirstView
+			holder.title_tv_member_count = (TextView) mFirstView
 					.findViewById(R.id.title_tv_member_count);
-			mViewHolder.title_tv_topic = (TextView) mFirstView
+			holder.title_tv_topic = (TextView) mFirstView
 					.findViewById(R.id.title_tv_topic);
-			mViewHolder.title_tv_topic_count = (TextView) mFirstView
+			holder.title_tv_topic_count = (TextView) mFirstView
 					.findViewById(R.id.title_tv_topic_count);
-			mViewHolder.title_tv_school = (TextView) mFirstView
+			holder.title_tv_school = (TextView) mFirstView
 					.findViewById(R.id.title_tv_school);
-			mViewHolder.title_tv_type = (TextView) mFirstView
+			holder.title_tv_type = (TextView) mFirstView
 					.findViewById(R.id.title_tv_type);
-			mViewHolder.title_tv_move = (TextView) mFirstView
+			holder.title_tv_move = (TextView) mFirstView
 					.findViewById(R.id.title_tv_move);
-			mViewHolder.title_rl_move = (RelativeLayout) mFirstView
+			holder.title_rl_move = (RelativeLayout) mFirstView
 					.findViewById(R.id.title_rl_move);
 		}
 	}
@@ -200,37 +198,37 @@ public class AssociationMainNewAdapter extends BAdapter {
 	/**
 	 * 
 	 */
-	private void initOtherView() {
+	private void initOtherView(ViewHolder holder) {
 		if (mOtherView != null) {
-			mViewHolder.new_item_rl_head = (RelativeLayout) mOtherView
+			holder.new_item_rl_head = (RelativeLayout) mOtherView
 					.findViewById(R.id.new_item_rl_head);
-			mViewHolder.new_item_iv = (RoundImageView) mOtherView
+			holder.new_item_iv = (RoundImageView) mOtherView
 					.findViewById(R.id.new_item_iv);
-			mViewHolder.title_tv_member = (TextView) mOtherView
+			holder.title_tv_member = (TextView) mOtherView
 					.findViewById(R.id.title_tv_member);
-			mViewHolder.new_item_tv_nick = (TextView) mOtherView
+			holder.new_item_tv_nick = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_nick);
-			mViewHolder.new_item_rl_content = (RelativeLayout) mOtherView
+			holder.new_item_rl_content = (RelativeLayout) mOtherView
 					.findViewById(R.id.new_item_rl_content);
-			mViewHolder.new_item_tv_title = (TextView) mOtherView
+			holder.new_item_tv_title = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_title);
-			mViewHolder.new_item_tv_content = (TextView) mOtherView
+			holder.new_item_tv_content = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_content);
-			mViewHolder.new_item_ll = (LinearLayout) mOtherView
+			holder.new_item_ll = (LinearLayout) mOtherView
 					.findViewById(R.id.new_item_ll);
-			mViewHolder.imageView1 = (SmartImageView) mOtherView
+			holder.imageView1 = (SmartImageView) mOtherView
 					.findViewById(R.id.imageView1);
-			mViewHolder.imageView2 = (SmartImageView) mOtherView
+			holder.imageView2 = (SmartImageView) mOtherView
 					.findViewById(R.id.imageView2);
-			mViewHolder.imageView3 = (SmartImageView) mOtherView
+			holder.imageView3 = (SmartImageView) mOtherView
 					.findViewById(R.id.imageView3);
-			mViewHolder.new_item_rl_footer = (RelativeLayout) mOtherView
+			holder.new_item_rl_footer = (RelativeLayout) mOtherView
 					.findViewById(R.id.new_item_rl_footer);
-			mViewHolder.new_item_tv_date = (TextView) mOtherView
+			holder.new_item_tv_date = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_date);
-			mViewHolder.new_item_tv_number = (TextView) mOtherView
+			holder.new_item_tv_number = (TextView) mOtherView
 					.findViewById(R.id.new_item_tv_number);
-			initPhotoWidth();
+			initPhotoWidth(holder);
 
 		}
 	}
@@ -238,23 +236,23 @@ public class AssociationMainNewAdapter extends BAdapter {
 	/**
 	 * 初始化图片的宽度和高度
 	 */
-	private void initPhotoWidth() {
+	private void initPhotoWidth(ViewHolder holder) {
 		int photoWidth = (UIUtils.getWindowWidth(mBaseActivity) - 60) / 3;
 		LinearLayout.LayoutParams work1, work2;
 		work1 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
 		work1.leftMargin = 20;
-		mViewHolder.imageView1.setLayoutParams(work1);
-		mViewHolder.imageView1.setScaleType(ScaleType.CENTER_CROP);
+		holder.imageView1.setLayoutParams(work1);
+		holder.imageView1.setScaleType(ScaleType.CENTER_CROP);
 		work2 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
 		work2.leftMargin = 10;
-		mViewHolder.imageView2.setLayoutParams(work2);
-		mViewHolder.imageView2.setScaleType(ScaleType.CENTER_CROP);
-		mViewHolder.imageView3.setLayoutParams(work2);
-		mViewHolder.imageView3.setScaleType(ScaleType.CENTER_CROP);
+		holder.imageView2.setLayoutParams(work2);
+		holder.imageView2.setScaleType(ScaleType.CENTER_CROP);
+		holder.imageView3.setLayoutParams(work2);
+		holder.imageView3.setScaleType(ScaleType.CENTER_CROP);
 	}
 
-	private void initListener() {
-		mViewHolder.title_rl_move.setOnClickListener(new OnClickListener() {
+	private void initListener(ViewHolder holder) {
+		holder.title_rl_move.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -273,7 +271,9 @@ public class AssociationMainNewAdapter extends BAdapter {
 		Model model = leagueImpl.viewIn(mLeague);
 		List<Model> topicModels = leagueImpl.topicList(mLeague);
 		items.add(model);
-		items.addAll(topicModels);
+		if (topicModels != null) {
+			items.addAll(topicModels);
+		}
 		return items;
 	}
 

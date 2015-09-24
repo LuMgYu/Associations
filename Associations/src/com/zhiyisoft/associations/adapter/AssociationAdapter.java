@@ -42,17 +42,20 @@ public class AssociationAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.listview_me_association_item,
 					null);
 			convertView = mView;
-			convertView.setTag(mHolder);
-			initView();
+			initView(holder);
+
+			convertView.setTag(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 			// TODO 获取list里面的数据，然后添加数据
 		}
-		bundleDataToView(position, mHolder);
+		bundleDataToView(position, holder);
 		return convertView;
 	}
 
@@ -72,11 +75,11 @@ public class AssociationAdapter extends BAdapter {
 			// 设置默认图片，有助于清理缓存
 			holder.association_iv_icon
 					.setImageResource(R.drawable.default_image_small);
-			// if (holder.association_iv_icon.getTag() != null
-			// && (holder.association_iv_icon.getTag()).equals(league
-			// .getLogourl())) {
-			// holder.association_iv_icon.setImageUrl(league.getLogourl());
-			// }
+			if (holder.association_iv_icon.getTag() != null
+					&& (holder.association_iv_icon.getTag()).equals(league
+							.getLogourl())) {
+				holder.association_iv_icon.setImageUrl(league.getLogourl());
+			}
 			holder.association_tv_title.setText(league.getName() + "");
 			holder.association_tv_member.setText(league.getMembers() + "");
 			holder.association_tv_content.setText(league.getDescription() + "");
@@ -91,16 +94,16 @@ public class AssociationAdapter extends BAdapter {
 		holder.association_tv_content.setText("");
 	}
 
-	private void initView() {
+	private void initView(ViewHolder viewHolder) {
 		if (mView != null) {
 
-			mHolder.association_iv_icon = (RoundImageView) mView
+			viewHolder.association_iv_icon = (RoundImageView) mView
 					.findViewById(R.id.association_iv_icon);
-			mHolder.association_tv_title = (TextView) mView
+			viewHolder.association_tv_title = (TextView) mView
 					.findViewById(R.id.association_tv_title);
-			mHolder.association_tv_member = (TextView) mView
+			viewHolder.association_tv_member = (TextView) mView
 					.findViewById(R.id.association_tv_member);
-			mHolder.association_tv_content = (TextView) mView
+			viewHolder.association_tv_content = (TextView) mView
 					.findViewById(R.id.association_tv_content);
 		}
 	}

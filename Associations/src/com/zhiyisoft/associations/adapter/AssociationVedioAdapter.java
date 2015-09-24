@@ -38,16 +38,18 @@ public class AssociationVedioAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mVedioView = mInflater
 					.inflate(R.layout.move_works_vedio_item, null);
-			initVedioWorks();
+			initVedioWorks(holder);
 			convertView = mVedioView;
-			convertView.setTag(mHolder);
+			convertView.setTag(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -55,7 +57,7 @@ public class AssociationVedioAdapter extends BAdapter {
 	 * 绑定数据到item
 	 * 
 	 * @param position
-	 * @param mHolder
+	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
 		Model model = mList.get(position);
@@ -66,23 +68,23 @@ public class AssociationVedioAdapter extends BAdapter {
 	/**
 	 * 初始化视频作品控件
 	 */
-	private void initVedioWorks() {
+	private void initVedioWorks(ViewHolder holder) {
 		if (mVedioView != null) {
-			mHolder.iv_vedio_user_icon = (RoundImageView) mVedioView
+			holder.iv_vedio_user_icon = (RoundImageView) mVedioView
 					.findViewById(R.id.iv_vedio_user_icon);
-			mHolder.tv_user_name = (TextView) mVedioView
+			holder.tv_user_name = (TextView) mVedioView
 					.findViewById(R.id.tv_user_name);
-			mHolder.tv_user_send = (TextView) mVedioView
+			holder.tv_user_send = (TextView) mVedioView
 					.findViewById(R.id.tv_user_send);
-			mHolder.tv_vedio_title = (TextView) mVedioView
+			holder.tv_vedio_title = (TextView) mVedioView
 					.findViewById(R.id.tv_music_name);
-			mHolder.iv_vedio = (SmartImageView) mVedioView
+			holder.iv_vedio = (SmartImageView) mVedioView
 					.findViewById(R.id.iv_vedio);
-			mHolder.iv_vedio_click = (ImageView) mVedioView
+			holder.iv_vedio_click = (ImageView) mVedioView
 					.findViewById(R.id.iv_vedio_click);
-			mHolder.tv_vedio_date = (TextView) mVedioView
+			holder.tv_vedio_date = (TextView) mVedioView
 					.findViewById(R.id.tv_vedio_date);
-			mHolder.tv_vedio_commit = (TextView) mVedioView
+			holder.tv_vedio_commit = (TextView) mVedioView
 					.findViewById(R.id.tv_vedio_commit);
 
 		}

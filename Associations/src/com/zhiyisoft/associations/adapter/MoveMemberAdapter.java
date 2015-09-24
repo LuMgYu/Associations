@@ -36,15 +36,17 @@ public class MoveMemberAdapter extends BAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO 现在只是做一个效果，以后需要修改
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.association_member_item, null);
-			initView();
+			initView(holder);
 			convertView = mView;
-			convertView.setTag(mHolder);
+			convertView.setTag(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -52,7 +54,7 @@ public class MoveMemberAdapter extends BAdapter {
 	 * 绑定数据到item
 	 * 
 	 * @param position
-	 * @param mHolder
+	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
 		Model model = mList.get(position);
@@ -60,13 +62,13 @@ public class MoveMemberAdapter extends BAdapter {
 
 	}
 
-	private void initView() {
+	private void initView(ViewHolder holder) {
 		if (mView != null) {
-			mHolder.member_iv = (RoundImageView) mView
+			holder.member_iv = (RoundImageView) mView
 					.findViewById(R.id.member_iv);
-			mHolder.member_tv_name = (TextView) mView
+			holder.member_tv_name = (TextView) mView
 					.findViewById(R.id.member_tv_name);
-			mHolder.member_tv_school = (TextView) mView
+			holder.member_tv_school = (TextView) mView
 					.findViewById(R.id.member_tv_school);
 		}
 	}

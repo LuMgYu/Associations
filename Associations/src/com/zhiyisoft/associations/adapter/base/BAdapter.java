@@ -26,8 +26,6 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 /** adapter的基類，不要輕易修改這個類 */
 public abstract class BAdapter extends BaseAdapter {
-	/** 用來裝各個item的控件，方便管理 */
-	public ViewHolder mHolder;
 	/** 存入activity，必要时用来调用里面的东西 */
 	public BaseActivity mBaseActivity;
 	/** app全局应用 */
@@ -58,7 +56,6 @@ public abstract class BAdapter extends BaseAdapter {
 		mApp = (Association) activity.getApplication();
 		mExecutor = mApp.getExecutor();
 		mList = list;
-		mHolder = new ViewHolder();
 		mInflater = LayoutInflater.from(activity);
 		// doRefreshNew(); //屏蔽了这句话 qcj 2015-8-19
 	}
@@ -71,7 +68,6 @@ public abstract class BAdapter extends BaseAdapter {
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
 		mExecutor = mApp.getExecutor();
 		mList = list;
-		mHolder = new ViewHolder();
 		doRefreshNew();
 	}
 

@@ -13,6 +13,7 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午10:47:11
@@ -37,37 +38,38 @@ public class AssociationMemberAdapter extends BAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO 现在只是做一个效果，以后需要修改
+		ViewHolder holder = null;
 		if (position == 0) {
 			mMasterTypeView = mInflater.inflate(
 					R.layout.association_member_master_item, null);
-			initMasterTypeView();
+			initMasterTypeView(holder);
 			return mMasterTypeView;
 		}
 		if (position == 3) {
 			mMasterTypeView = mInflater.inflate(
 					R.layout.association_member_master_item, null);
-			initMasterTypeView();
+			initMasterTypeView(holder);
 			return mMasterTypeView;
 		}
 		mMemberView = mInflater.inflate(R.layout.association_member_item, null);
-		initMemberView();
+		initMemberView(holder);
 		return mMemberView;
 	}
 
-	private void initMasterTypeView() {
+	private void initMasterTypeView(ViewHolder holder) {
 		if (mMasterTypeView != null) {
-			mHolder.member_type = (TextView) mMasterTypeView
+			holder.member_type = (TextView) mMasterTypeView
 					.findViewById(R.id.member_type);
 		}
 	}
 
-	private void initMemberView() {
+	private void initMemberView(ViewHolder holder) {
 		if (mMemberView != null) {
-			mHolder.member_iv = (RoundImageView) mMasterTypeView
+			holder.member_iv = (RoundImageView) mMasterTypeView
 					.findViewById(R.id.member_iv);
-			mHolder.member_tv_name = (TextView) mMasterTypeView
+			holder.member_tv_name = (TextView) mMasterTypeView
 					.findViewById(R.id.member_tv_name);
-			mHolder.member_tv_school = (TextView) mMasterTypeView
+			holder.member_tv_school = (TextView) mMasterTypeView
 					.findViewById(R.id.member_tv_school);
 		}
 	}

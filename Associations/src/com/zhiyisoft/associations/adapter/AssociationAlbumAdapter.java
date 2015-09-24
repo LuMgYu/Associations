@@ -43,16 +43,18 @@ public class AssociationAlbumAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.association_album_item, null);
 			convertView = mView;
-			convertView.setTag(mHolder);
-			initView();
+			convertView.setTag(holder);
+			initView(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 			// TODO 获取list里面的数据，然后添加数据
 		}
-		bundledataToView(position, mHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -69,22 +71,22 @@ public class AssociationAlbumAdapter extends BAdapter {
 		holder.album_tv_name.setText(album.getName());
 		holder.album_tv_count.setText(album.getPhotoCount());
 		String originTime = album.getcTime();
-//		DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-//		Date date = new Date(originTime);
-//		String time = format.format(date);
+		// DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+		// Date date = new Date(originTime);
+		// String time = format.format(date);
 		holder.album_tv_date.setText(originTime);
 
 	}
 
-	private void initView() {
+	private void initView(ViewHolder holder) {
 		if (mView != null) {
-			mHolder.album_iv = (SmartImageView) mView
+			holder.album_iv = (SmartImageView) mView
 					.findViewById(R.id.album_iv);
-			mHolder.album_tv_name = (TextView) mView
+			holder.album_tv_name = (TextView) mView
 					.findViewById(R.id.album_tv_name);
-			mHolder.album_tv_count = (TextView) mView
+			holder.album_tv_count = (TextView) mView
 					.findViewById(R.id.album_tv_count);
-			mHolder.album_tv_date = (TextView) mView
+			holder.album_tv_date = (TextView) mView
 					.findViewById(R.id.album_tv_date);
 		}
 	}

@@ -36,15 +36,17 @@ public class MoveAdapter extends BAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder = null;
 		if (convertView == null) {
+			holder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.move_item, null);
-			initView();
+			initView(holder);
 			convertView = mView;
-			convertView.setTag(mHolder);
+			convertView.setTag(holder);
 		} else {
-			mHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -52,7 +54,7 @@ public class MoveAdapter extends BAdapter {
 	 * 绑定数据到item
 	 * 
 	 * @param position
-	 * @param mHolder
+	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
 		Model model = mList.get(position);
@@ -60,22 +62,22 @@ public class MoveAdapter extends BAdapter {
 
 	}
 
-	private void initView() {
-		mHolder.move_smiv_icon = (SmartImageView) mView
+	private void initView(ViewHolder holder) {
+		holder.move_smiv_icon = (SmartImageView) mView
 				.findViewById(R.id.move_smiv_icon);
-		mHolder.move_tv_end = (TextView) mView.findViewById(R.id.move_tv_end);
-		mHolder.move_tv_title = (TextView) mView
+		holder.move_tv_end = (TextView) mView.findViewById(R.id.move_tv_end);
+		holder.move_tv_title = (TextView) mView
 				.findViewById(R.id.move_tv_title);
-		mHolder.move_btn_online = (Button) mView
+		holder.move_btn_online = (Button) mView
 				.findViewById(R.id.move_btn_online);
-		mHolder.move_btn_event = (Button) mView
+		holder.move_btn_event = (Button) mView
 				.findViewById(R.id.move_btn_event);
 
-		mHolder.move_tv_deadline = (TextView) mView
+		holder.move_tv_deadline = (TextView) mView
 				.findViewById(R.id.move_tv_deadline);
-		mHolder.move_tv_allmove = (TextView) mView
+		holder.move_tv_allmove = (TextView) mView
 				.findViewById(R.id.move_tv_allmove);
-		mHolder.move_tv_content = (TextView) mView
+		holder.move_tv_content = (TextView) mView
 				.findViewById(R.id.move_tv_content);
 	}
 
