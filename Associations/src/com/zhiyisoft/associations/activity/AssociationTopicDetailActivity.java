@@ -55,16 +55,19 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private TextView content_tv_date;
 	private TextView content_tv_content;
 	private LinearLayout content_ll_main;
+	private LinearLayout replayfirst_ll_main; // 一级评论
 	private ImageView phiz;
 	private EditText fill_content;
 	private Button btn_return;
 	private View mNeedView;
+
 	public final static int FLAG_SINGLEPHOTO = 0;
 	public final static int FLAG_MANYPHOTO = 1;
 	public final static int FLAG_FILE = 2;
 	public final static int FLAG_VIDEO = 3;
 	public final static int FLAG_MUSIC = 4;
 	public final static int FLAG_ESSAY = 5;
+
 	private int mCurrentFlag = 3;
 
 	private Model mModel; // 当前上一个actitivy传过来的信息，更加不同的需求判断解析成相应的子类
@@ -107,19 +110,21 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				boolean isSuccess = (Boolean) msg.obj;
 				if (isSuccess) {
 					ToastUtils.showToast("评论成功");
+					fill_content.setText("");
 					getTopicPosts(mModelTopic);
 				} else {
 					ToastUtils.showToast("评论成功");
 				}
 				break;
 			case REPLYPOST:
-				// ModelUser user = (ModelUser) msg.obj;
-				// if (user != null) {
-				// ToastUtils.showToast("完善资料成功");
-				// onBackPressed();
-				// } else {
-				// ToastUtils.showToast("完善资料失败");
-				// }
+				Boolean postSuccess = (Boolean) msg.obj;
+				if (postSuccess) {
+					ToastUtils.showToast("评论成功");
+					getTopicPosts(mModelTopic);
+					fill_content.setText("");
+				} else {
+					ToastUtils.showToast("评论失败");
+				}
 				break;
 			case GETTOPICPOSTS:
 				List<ModelLeagueTopicReply> replays = (List<ModelLeagueTopicReply>) msg.obj;
@@ -172,6 +177,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		content_tv_title = (TextView) findViewById(R.id.content_tv_title);
 		content_tv_content = (TextView) findViewById(R.id.content_tv_content);
 		content_ll_main = (LinearLayout) findViewById(R.id.content_ll_main);
+		replayfirst_ll_main = (LinearLayout) findViewById(R.id.replayfirst_ll_main);
 		phiz = (ImageView) findViewById(R.id.phiz);
 		fill_content = (EditText) findViewById(R.id.fill_content);
 		btn_return = (Button) findViewById(R.id.btn_return);
@@ -186,6 +192,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	public void initReplayView(List<ModelLeagueTopicReply> list) {
 		// TODO 这里只是显示数据而已，并没有什么卵用
 		if (list != null) {
+			if (replayfirst_ll_main.getChildCount() > 0) {
+				replayfirst_ll_main.removeAllViews();
+			}
 			// replay_other_ll.removeAllViews();
 			for (int i = 0; i < list.size(); i++) {
 				int otherReplay = 2;
@@ -219,7 +228,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 						.findViewById(R.id.replay_other_ll);
 				addOtherReplayLayout(replay_other_ll, reply.getCommentlist());
 				// -----------------------------------------------------
-				content_ll_main.addView(view);
+				replayfirst_ll_main.addView(view);
 				replay_btn.setTag(reply);
 				replay_btn.setOnClickListener(new OnClickListener() {
 					@Override

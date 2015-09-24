@@ -156,6 +156,14 @@
                 android:layout_height="@dimen/line_height"
                 android:layout_marginTop="@dimen/margin_top_big"
                 android:background="@color/main_gray_color" />
+
+            <LinearLayout
+                android:id="@+id/replayfirst_ll_main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/main_white_pure_color"
+                android:orientation="vertical" >
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

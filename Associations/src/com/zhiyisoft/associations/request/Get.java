@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.request;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -21,6 +23,12 @@ public class Get extends Request {
 	@Override
 	public Request addBodyParam(String name, Object value) {
 		if (value != null) {
+			try {
+				value = URLEncoder.encode(value.toString(), "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			mBodyParams = mBodyParams + name + "=" + value.toString() + "&";
 			mBodyParams = mBodyParams.trim();
 		}
