@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
+import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -25,6 +26,10 @@ public interface LeagueIm {
 	public static final String CREATEALBUM = "createAlbum";// 21.【创建相册】：Group/createAlbum
 	public static final String PHOTOLIST = "photoList";// 23.【社团相册图片列表】：Group/photoList
 	public static final String TOPICLIST = "topicList";// 25.【新鲜事列表】：Group/topicList
+	public static final String TOPICVIEW = "topicView";// 26.【话题详情】：Group/topicView
+	public static final String REPLYTOPIC = "replyTopic";// 27.【话题回帖】：Group/replyTopic
+	public static final String REPLYPOST = "replyPost";// 28.【回复帖子】：Group/replyPost
+	public static final String GETTOPICPOSTS = "getTopicPosts";// 29.【获取某个话题下的帖子】：Group/getTopicPosts
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -40,6 +45,9 @@ public interface LeagueIm {
 	public static final String ALBUMINFO = "info";
 	public static final String ALBUMHIDE = "hide";
 	public static final String ALBUMID = "albumId";
+	public static final String TID = "tid"; //
+	public static final String PID = "pid"; //
+	public static final String CONTENT = "content";// 【回复帖子】内容
 
 	/**
 	 * 13.【创建社团】：Group/createGroup 演示地址：
@@ -180,6 +188,59 @@ public interface LeagueIm {
 	 * @return
 	 */
 	List<Model> topicList(ModelLeague league);
+
+	/**
+	 * 26.【话题详情】：Group/topicView
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=topicView
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) tid话题id
+	 * 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	Model topicView(ModelLeagueTopic topic);
+
+	/**
+	 * 27.【话题回帖】：Group/replyTopic
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=replyTopic
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) tid话题id
+	 * 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	boolean replyTopic(ModelLeagueTopic topic);
+
+	/**
+	 * 28.【回复帖子】：Group/replyPost
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=replyPost
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int)
+	 * pid帖子id必填 (string) content 内容 必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	boolean replyPost(ModelLeagueTopic topic);
+
+	/**
+	 * 29.【获取某个话题下的帖子】：Group/getTopicPosts 演示地址：
+	 * 
+	 * daxs.zhiyicx.com/index.php?app=api&mod=Group&act= getTopicPosts
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int)
+	 * tid帖子id必填
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> getTopicPosts(ModelLeagueTopic topic);
+
 	// /**
 	// * 获取社团的分类
 	// *

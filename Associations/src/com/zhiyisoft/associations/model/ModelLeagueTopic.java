@@ -38,6 +38,9 @@ public class ModelLeagueTopic extends Model {
 	private String replyCount;
 	List<Model> attachs;
 
+	private String replyContent; // 回复的内容
+	private String pid; // 回复的内容id
+
 	public ModelLeagueTopic() {
 
 	}
@@ -157,6 +160,22 @@ public class ModelLeagueTopic extends Model {
 
 	public void setAttachs(List<Model> attachs) {
 		this.attachs = attachs;
+	}
+
+	public String getReplyContent() {
+		return replyContent;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 
 	@Override

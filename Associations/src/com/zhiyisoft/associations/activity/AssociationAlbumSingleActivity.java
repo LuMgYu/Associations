@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
@@ -29,30 +30,7 @@ import com.zhiyisoft.associations.util.ToastUtils;
 
 public class AssociationAlbumSingleActivity extends BaseActivity {
 	private GridView album_gv;
-	private int[] resArray = new int[] { R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small, R.drawable.default_image_small,
-			R.drawable.default_image_small };
+
 	private BaseAdapter mAdapter;
 
 	private ModelLeagueAlbum mAlbum;
@@ -67,8 +45,12 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 				List<ModelLeagueAlbum> list = (List<ModelLeagueAlbum>) msg.obj;
 				if (list != null) {
 					ToastUtils.showToast("获取照片成功，正在加载");
+					List<String> photoUrllist = new ArrayList<String>();
+					for (ModelLeagueAlbum album : list) {
+						photoUrllist.add(album.getPhotoUrl());
+					}
 					mAdapter = new MyPhotoGridViewAdapter(
-							getApplicationContext(), list);
+							getApplicationContext(), photoUrllist);
 					album_gv.setAdapter(mAdapter);
 				} else {
 					ToastUtils.showToast("获取照片失败");
@@ -139,7 +121,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Bundle data = new Bundle();
-				data.putIntArray("photolist", resArray);
+//				data.putIntArray("photolist", resArray);
 				mApp.startActivity(AssociationAlbumSingleActivity.this,
 						AssociationTopicDetailActivity.class, data);
 

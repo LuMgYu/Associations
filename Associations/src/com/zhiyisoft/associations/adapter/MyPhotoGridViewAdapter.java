@@ -20,22 +20,22 @@ import com.zhiyisoft.associations.util.UIUtils;
 
 public class MyPhotoGridViewAdapter extends BaseAdapter {
 	// TODO
-	private List<ModelLeagueAlbum> mListAlbum; // 现在用这个来展示效果，以后肯定是url
+	private List<String> photoUrls; // 现在用这个来展示效果，以后肯定是url
 	private Context mContext;
 
-	public MyPhotoGridViewAdapter(Context context, List<ModelLeagueAlbum> list) {
+	public MyPhotoGridViewAdapter(Context context, List<String> list) {
 		this.mContext = context;
-		this.mListAlbum = list;
+		this.photoUrls = list;
 	}
 
 	@Override
 	public int getCount() {
-		return mListAlbum.size();
+		return photoUrls.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return mListAlbum.get(position);
+		return photoUrls.get(position);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class MyPhotoGridViewAdapter extends BaseAdapter {
 		int width = UIUtils.getWindowWidth(mContext) - 30;
 		imageView.setLayoutParams(new AbsListView.LayoutParams(width / 3,
 				width / 3));
-		imageView.setImageUrl(mListAlbum.get(position).getPhotoUrl());
+		imageView.setImageUrl(photoUrls.get(position));
 		return imageView;
 	}
 }

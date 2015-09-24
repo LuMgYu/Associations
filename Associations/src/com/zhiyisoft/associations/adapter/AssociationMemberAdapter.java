@@ -12,6 +12,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -23,12 +24,20 @@ import com.zhiyisoft.associations.util.ViewHolder;
  */
 
 public class AssociationMemberAdapter extends BAdapter {
+	private final static int VIEWTYPE = 2;
+	private final static int VIEWTYPE1 = 0;
+	private final static int VIEWTYPE2 = 1;
+
 	private View mMasterTypeView; // 管理员 对应item
 									// R.layout.association_member_master_item
 	private View mMemberView; // R.layout.association_member_item
 
-	public AssociationMemberAdapter(BaseActivity activity, List<Model> list) {
+	private ModelLeague league;
+
+	public AssociationMemberAdapter(BaseActivity activity, List<Model> list,
+			ModelLeague request) {
 		super(activity, list);
+		this.league = request;
 	}
 
 	public AssociationMemberAdapter(BaseFragment fragment, List<Model> list) {
@@ -40,6 +49,7 @@ public class AssociationMemberAdapter extends BAdapter {
 		// TODO 现在只是做一个效果，以后需要修改
 		ViewHolder holder = null;
 		if (position == 0) {
+			holder = new ViewHolder();
 			mMasterTypeView = mInflater.inflate(
 					R.layout.association_member_master_item, null);
 			initMasterTypeView(holder);
@@ -104,6 +114,11 @@ public class AssociationMemberAdapter extends BAdapter {
 		items.add(new Model());
 		items.add(new Model());
 		return items;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		return super.getItemViewType(position);
 	}
 
 	@Override

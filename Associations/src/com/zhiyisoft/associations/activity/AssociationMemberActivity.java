@@ -10,8 +10,10 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationMemberAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.AssociationMemberListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -23,6 +25,7 @@ public class AssociationMemberActivity extends BaseActivity {
 	private BaseListView member_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
+	private ModelLeague mLeague;
 
 	@Override
 	public String setCenterTitle() {
@@ -31,7 +34,10 @@ public class AssociationMemberActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class AssociationMemberActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		member_lv = (AssociationMemberListview) findViewById(R.id.member_lv);
-		mAdapter = new AssociationMemberAdapter(this, mlist);
+		mAdapter = new AssociationMemberAdapter(this, mlist, mLeague);
 		member_lv.setAdapter(mAdapter);
 	}
 
