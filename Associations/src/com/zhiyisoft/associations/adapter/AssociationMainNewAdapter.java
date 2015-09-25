@@ -80,45 +80,50 @@ public class AssociationMainNewAdapter extends BAdapter {
 		// TODO 把数据绑定到界面
 		if (position == 0) {
 			ModelLeague mainLeague = (ModelLeague) mList.get(position);
-			holder.title_iv.setImageUrl(mainLeague.getLogourl());
-			holder.title_tv.setText(mainLeague.getName());
-			holder.title_tv_member_count.setText(mainLeague.getMembers_count());
-			holder.title_tv_topic_count.setText(mainLeague.getTopic_count());
-			holder.title_tv_school.setText(mainLeague.getSchoolName());
-			holder.title_tv_type.setText(mainLeague.getCategoryName());
-			holder.title_tv_move.setText("社团活动(" + mainLeague.getEvent_count()
-					+ ")");
+			if (mainLeague != null) {
+				holder.title_iv.setImageUrl(mainLeague.getLogourl());
+				holder.title_tv.setText(mainLeague.getName());
+				holder.title_tv_member_count.setText(mainLeague
+						.getMembers_count());
+				holder.title_tv_topic_count
+						.setText(mainLeague.getTopic_count());
+				holder.title_tv_school.setText(mainLeague.getSchoolName());
+				holder.title_tv_type.setText(mainLeague.getCategoryName());
+				holder.title_tv_move.setText("社团活动("
+						+ mainLeague.getEvent_count() + ")");
+			}
 		} else {
 			ModelLeagueTopic topic = (ModelLeagueTopic) mList.get(position);
-			System.out.println(topic.toString());
-			holder.new_item_iv.setImageUrl(topic.getFaceurl());
-			holder.new_item_tv_nick.setText(topic.getUname() + "发表了话题");
-			holder.new_item_tv_title.setText(topic.getTitle());
-			holder.new_item_tv_content.setText(topic.getContent());
-			holder.new_item_tv_date.setText(topic.getCtime());
-			holder.new_item_tv_number.setText(topic.getReplyCount());
-			List<Model> photos = topic.getAttachs();
-			holder.imageView1.setVisibility(View.GONE);
-			holder.imageView2.setVisibility(View.GONE);
-			holder.imageView3.setVisibility(View.GONE);
-			if (photos != null) {
-				for (int i = 0; i < photos.size(); i++) {
-					ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
-							.get(i);
-					if (i == 0) {
-						holder.imageView1.setVisibility(View.VISIBLE);
-						holder.imageView1.setImageUrl(photo.getUrl());
+			if (topic != null) {
+				holder.new_item_iv.setImageUrl(topic.getFaceurl());
+				holder.new_item_tv_nick.setText(topic.getUname() + "发表了话题");
+				holder.new_item_tv_title.setText(topic.getTitle());
+				holder.new_item_tv_content.setText(topic.getContent());
+				holder.new_item_tv_date.setText(topic.getCtime());
+				holder.new_item_tv_number.setText(topic.getReplyCount());
+				List<Model> photos = topic.getAttachs();
+				holder.imageView1.setVisibility(View.GONE);
+				holder.imageView2.setVisibility(View.GONE);
+				holder.imageView3.setVisibility(View.GONE);
+				if (photos != null) {
+					for (int i = 0; i < photos.size(); i++) {
+						ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
+								.get(i);
+						if (i == 0) {
+							holder.imageView1.setVisibility(View.VISIBLE);
+							holder.imageView1.setImageUrl(photo.getUrl());
+						}
+						if (i == 1) {
+							holder.imageView2.setVisibility(View.VISIBLE);
+							holder.imageView2.setImageUrl(photo.getUrl());
+						}
+						if (i == 2) {
+							holder.imageView3.setVisibility(View.VISIBLE);
+							holder.imageView3.setImageUrl(photo.getUrl());
+						}
 					}
-					if (i == 1) {
-						holder.imageView2.setVisibility(View.VISIBLE);
-						holder.imageView2.setImageUrl(photo.getUrl());
-					}
-					if (i == 2) {
-						holder.imageView3.setVisibility(View.VISIBLE);
-						holder.imageView3.setImageUrl(photo.getUrl());
-					}
-				}
 
+				}
 			}
 
 		}

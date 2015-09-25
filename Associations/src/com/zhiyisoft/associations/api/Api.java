@@ -465,7 +465,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(GID, league.getGid());
 			Object object = get.run();
-			return parseOriginalJsonArray(object, new ModelLeague());
+			return parseOriginalJsonArray(object, new ModelUser());
 		}
 
 		@Override
