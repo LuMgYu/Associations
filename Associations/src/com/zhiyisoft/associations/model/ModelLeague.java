@@ -89,6 +89,9 @@ public class ModelLeague extends Model {
 			if (jsonObject.has("schoolName")) {
 				this.setSchoolName(jsonObject.getString("schoolName"));
 			}
+			if (jsonObject.has("school")) {
+				this.setSchoolName(jsonObject.getString("school"));
+			}
 			if (jsonObject.has("members")) {
 				this.setMembers(jsonObject.getString("members"));
 				flag = true;
@@ -110,6 +113,12 @@ public class ModelLeague extends Model {
 			}
 			if (jsonObject.has("topic_count")) {
 				this.setTopic_count(jsonObject.getString("topic_count"));
+			}
+			if (jsonObject.has("openerName")) {
+				this.setOpenerName(jsonObject.getString("openerName"));
+			}
+			if (jsonObject.has("contact")) {
+				this.setContact(jsonObject.getString("contact"));
 			}
 			if (jsonObject.has("members") && flag != true) {
 				JSONArray array = jsonObject.getJSONArray("members");

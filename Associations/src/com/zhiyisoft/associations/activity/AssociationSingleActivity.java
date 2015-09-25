@@ -133,7 +133,10 @@ public class AssociationSingleActivity extends BaseActivity {
 			mApp.startActivity(this, MeSettingNickActivity.class, null);
 			break;
 		case R.id.association_ll_data:
-			mApp.startActivity(this, AssociationInformationActivity.class, null);
+			Bundle infordata = new Bundle();
+			infordata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationInformationActivity.class,
+					infordata);
 			break;
 		case R.id.mexmber:
 			Bundle memberdata = new Bundle();

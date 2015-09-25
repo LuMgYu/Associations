@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.fragment;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,6 +12,8 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,12 +32,16 @@ import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MeSettingDataActivity;
 import com.zhiyisoft.associations.activity.MeSettingSignatureActivity;
+import com.zhiyisoft.associations.adapter.AssociationJoinAdapter;
 import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.listview.MeAssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -56,6 +63,27 @@ public class FragmentMe extends BaseFragment {
 	private Bitmap mBitmap;
 
 	private ModelUser mUser;
+	private static final int SUCCESS = 1;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS:
+				List<Model> list = (List<Model>) msg.obj;
+				if (list != null) {
+					ToastUtils.showToast("获取社团信息成功");
+					bindDataToView(list);
+				} else {
+					ToastUtils.showToast("获取社团信息失败");
+				}
+				break;
+			}
+
+		}
+
+	};
 
 	@Override
 	public void initIntentData() {
@@ -93,6 +121,7 @@ public class FragmentMe extends BaseFragment {
 
 	@Override
 	public void initData() {
+		getJoinedAssocitionFromNet(); // 获取已加入社团的列表
 		mUser = mApp.getUser();
 		initUser(mUser);
 		me_tv_nick.setText(mUser.getUname() + "");
@@ -186,6 +215,40 @@ public class FragmentMe extends BaseFragment {
 					}
 
 				});
+	}
+
+	/**
+	 * 获取社团信息
+	 * 
+	 * @param league
+	 */
+	private void getJoinedAssocitionFromNet() {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				List<Model> list = leagueImpl.joinedGroup();
+				Message message = Message.obtain();
+				message.what = SUCCESS;
+				message.obj = list;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	/**
+	 * 绑定数据到界面
+	 * 
+	 * @param leaguelist
+	 */
+	private void bindDataToView(List<Model> leaguelist) {
+		if (leaguelist != null) {
+			AssociationJoinAdapter joinadapter = new AssociationJoinAdapter(
+					mActivity, leaguelist);
+			me_lv_association.setAdapter(joinadapter);
+			me_iv_default.setVisibility(View.GONE);
+		}
 	}
 
 	@Override

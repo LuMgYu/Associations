@@ -1,182 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/me_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_white_bg_color" >
+    android:background="@color/main_white_bg_color"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/me_ll"
+    <!-- 个人信息布局布局 -->
+
+    <RelativeLayout
+        android:id="@+id/me_rl_find"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <!-- 个人信息布局布局 -->
-
-        <RelativeLayout
-            android:id="@+id/me_rl_find"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="@dimen/margin_top"
-            android:background="@color/main_white_pure_color"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/margin_left_small"
-            android:paddingRight="@dimen/margin_right_small" >
-
-            <FrameLayout
-                android:id="@+id/me_fl_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp" >
-
-                <com.zhiyisoft.associations.img.RoundImageView
-                    android:id="@+id/me_iv_icon"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/default_image_small" />
-
-                <ImageView
-                    android:id="@+id/me_iv_photo"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="right|bottom"
-                    android:layout_margin="1dp"
-                    android:src="@drawable/camer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/me_tv_nick"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/me_fl_icon"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_marginTop="@dimen/margin_top"
-                android:layout_toRightOf="@+id/me_fl_icon"
-                android:text="李大苍天"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_big" />
-
-            <Button
-                android:id="@+id/me_btn_update"
-                android:layout_width="65dp"
-                android:layout_height="20dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/margin_top"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@+id/me_fl_icon"
-                android:background="@drawable/btn_white"
-                android:padding="1dp"
-                android:text="更新资料"
-                android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_small" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/x" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#eee" />
-        <!-- 个性签名布局 -->
-
-        <RelativeLayout
-            android:id="@+id/me_rl_signature"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:background="@color/main_white_pure_color"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/margin_left_small"
-            android:paddingRight="@dimen/margin_right_small" >
-
-            <TextView
-                android:id="@+id/me_tv_signature_des"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="个性签名:"
-                android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_small" />
-
-            <TextView
-                android:id="@+id/me_tv_signature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/me_tv_signature_des"
-                android:text="人生没有彩排，只有现场直播！"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/x" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#eee" />
-        <!-- 已加入社团 -->
-
-        <RelativeLayout
-            android:id="@+id/me_rl_signature"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_marginRight="@dimen/margin_right_small" >
-
-            <ImageView
-                android:id="@+id/me_shetuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/shetuan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/me_shetuan"
-                android:text="已加入社团"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="5dp"
-            android:background="#eee" />
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_white_pure_color"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
 
         <FrameLayout
-            android:layout_width="match_parent"
+            android:id="@+id/me_fl_icon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_marginRight="@dimen/margin_right_small"
-            android:layout_marginTop="@dimen/margin_top" >
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" >
+
+            <com.zhiyisoft.associations.img.RoundImageView
+                android:id="@+id/me_iv_icon"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/default_image_small" />
 
             <ImageView
-                android:id="@+id/me_iv_default"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:src="@drawable/nonegroup" />
-
-            <com.zhiyisoft.associations.listview.MeAssociationListview
-                android:id="@+id/me_lv_association"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:id="@+id/me_iv_photo"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="1dp"
+                android:src="@drawable/camer" />
         </FrameLayout>
-    </LinearLayout>
 
-</ScrollView>
+        <TextView
+            android:id="@+id/me_tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/me_fl_icon"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_toRightOf="@+id/me_fl_icon"
+            android:text="李大苍天"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_big" />
+
+        <Button
+            android:id="@+id/me_btn_update"
+            android:layout_width="65dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_top"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_toRightOf="@+id/me_fl_icon"
+            android:background="@drawable/btn_white"
+            android:padding="1dp"
+            android:text="更新资料"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/x" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#eee" />
+    <!-- 个性签名布局 -->
+
+    <RelativeLayout
+        android:id="@+id/me_rl_signature"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_pure_color"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
+
+        <TextView
+            android:id="@+id/me_tv_signature_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="个性签名:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/me_tv_signature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/me_tv_signature_des"
+            android:text="人生没有彩排，只有现场直播！"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/x" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#eee" />
+    <!-- 已加入社团 -->
+
+    <RelativeLayout
+        android:id="@+id/me_rl_signature"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small" >
+
+        <ImageView
+            android:id="@+id/me_shetuan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/shetuan" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/me_shetuan"
+            android:text="已加入社团"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="5dp"
+        android:background="#eee" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_left_small"
+        android:layout_marginRight="@dimen/margin_right_small"
+        android:layout_marginTop="@dimen/margin_top" >
+
+        <ImageView
+            android:id="@+id/me_iv_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/nonegroup" />
+
+        <com.zhiyisoft.associations.listview.MeAssociationListview
+            android:id="@+id/me_lv_association"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+</LinearLayout>

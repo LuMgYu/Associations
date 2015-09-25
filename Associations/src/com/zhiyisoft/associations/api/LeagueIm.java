@@ -30,6 +30,8 @@ public interface LeagueIm {
 	public static final String REPLYTOPIC = "replyTopic";// 27.【话题回帖】：Group/replyTopic
 	public static final String REPLYPOST = "replyPost";// 28.【回复帖子】：Group/replyPost
 	public static final String GETTOPICPOSTS = "getTopicPosts";// 29.【获取某个话题下的帖子】：Group/getTopicPosts
+	public static final String JOINEDGROUP = "joinedGroup";// 30.【已加入社团】：Group/joinedGroup
+	public static final String GETGROUPBASEINFO = "getGroupBaseInfo";// 31.Group/getGroupBaseInfo
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -240,6 +242,33 @@ public interface LeagueIm {
 	 * @return
 	 */
 	List<Model> getTopicPosts(ModelLeagueTopic topic);
+
+	/**
+	 * 30.【已加入社团】：Group/joinedGroup
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act= joinedGroup
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填
+	 * 
+	 * @param topic
+	 * @return
+	 */
+	List<Model> joinedGroup();
+
+	/**
+	 * 31.【社团基本信息】：Group/getGroupBaseInfo
+	 * 
+	 * 接口描述： 社团基本信息
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=getGroupBaseInfo
+	 * 
+	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) gid
+	 * 社团id 必填
+	 * 
+	 * @param topic
+	 * @return
+	 */
+	Model getGroupBaseInfo(ModelLeague league);
 
 	// /**
 	// * 获取社团的分类

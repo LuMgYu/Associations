@@ -568,6 +568,29 @@ public class Api {
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeagueTopicReply());
 		}
+
+		@Override
+		public List<Model> joinedGroup() {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, JOINEDGROUP);
+			judgeTheUser(get);
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelLeague());
+		}
+
+		@Override
+		public Model getGroupBaseInfo(ModelLeague league) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, GETGROUPBASEINFO);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelLeague());
+		}
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {
