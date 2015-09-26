@@ -31,7 +31,7 @@ public abstract class BAdapter extends BaseAdapter {
 	/** app全局应用 */
 	public Association mApp;
 	/** 創建item需要传入的list */
-	public List<Model> mList;
+	public List<Model> mList = new ArrayList<Model>();
 	/** 需要传入的fragment */
 	private BaseFragment mBaseFragment;
 	/** 缓存 */
@@ -55,7 +55,8 @@ public abstract class BAdapter extends BaseAdapter {
 		mBaseActivity.setAdapter(this);
 		mApp = (Association) activity.getApplication();
 		mExecutor = mApp.getExecutor();
-		mList = list;
+		if (list != null)
+			mList = list;
 		mInflater = LayoutInflater.from(activity);
 		// doRefreshNew(); //屏蔽了这句话 qcj 2015-8-19
 	}
@@ -67,7 +68,8 @@ public abstract class BAdapter extends BaseAdapter {
 		mInflater = LayoutInflater.from(mBaseActivity);
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
 		mExecutor = mApp.getExecutor();
-		mList = list;
+		if (list != null)
+			mList = list;
 		doRefreshNew();
 	}
 

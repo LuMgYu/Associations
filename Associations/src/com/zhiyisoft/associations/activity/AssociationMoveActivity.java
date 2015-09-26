@@ -42,7 +42,7 @@ public class AssociationMoveActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		move_lv = (MoveListview) findViewById(R.id.move_lv);
-		mAdapter = new MoveAdapter(this, mlist);
+//		mAdapter = new MoveAdapter(this, mlist);
 		move_lv.setAdapter(mAdapter);
 	}
 

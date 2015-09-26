@@ -20,7 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/default_image_small" />
+                android:background="@drawable/default_image_small"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/move_tv_end"

@@ -595,22 +595,19 @@ public class Api {
 	}
 
 	public static final class EventImpl implements EventIm {
-
 		@Override
-		public List<Model> joinedEvent() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<Model> createdEvent() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public List<Model> followedEvent() {
-			// TODO Auto-generated method stub
+		public List<Model> eventList(ModelEvent event) {
+			if (event != null) {
+				Request get = new Get();
+				get.addBodyParam(APP, API);
+				get.addBodyParam(MOD, EVENT);
+				get.addBodyParam(ACT, EVENTLIST);
+				get.addBodyParam(TYPE, event.getType());
+				get.addBodyParam(OP, event.getOp());
+				judgeTheUser(get);
+				Object object = get.run();
+				return parseOriginalJsonArray(object, new ModelEvent());
+			}
 			return null;
 		}
 

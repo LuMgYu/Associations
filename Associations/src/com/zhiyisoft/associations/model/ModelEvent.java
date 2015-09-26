@@ -31,29 +31,81 @@ public class ModelEvent extends Model {
 	private String explainType;// 作品提交结束时间 必填
 	private String rangeDes;// 指定学校id 选填
 
+	private int op;// op 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的) 不传就代表获取所有
+
+	// "id":"79",
+	// "title":null,
+	// "explain":"把家好好上课生快生快生快凯撒",
+	// "online":"1",
+	// "sTime":"2147483647",
+	// "eTime":"2147483647",
+	// "joinCount":"0",
+	// "typeName":"赛事",
+	// "logo":"http://daxs.zhiyicx.com/attachment/uploads/2015/0926/10/560602aa8ba59.jpg",
+	// "isover":0
+	/**************** 获取活动需要的数据 *************************/
+	private String id;
+	// private String title;
+	// private String explain;
+	// private String online;
+	// private String sTime;
+	// private String eTime;
+	private String joinCount;
+	private String typeName;
+	private String logourl;
+	private int isover;
+
+	/**************** 获取活动需要的数据end *************************/
+
 	public ModelEvent() {
 
 	}
 
 	public ModelEvent(JSONObject jsonObject) {
 		try {
-			if (jsonObject.has("name")) {
-
-				this.setOnline(jsonObject.getString("name"));
-			}
-			if (jsonObject.has("level")) {
-				// this.setLevel(jsonObject.getString("level"));
-			}
 			if (jsonObject.has("id")) {
 
-				// this.setId(jsonObject.getString("id"));
+				this.setOnline(jsonObject.getString("id"));
 			}
-			if (jsonObject.has("schoolName")) {
-				// this.setSchoolName(jsonObject.getString("schoolName"));
+			if (jsonObject.has("title")) {
+				this.setTitle(jsonObject.getString("title"));
 			}
-			if (jsonObject.has("faceurl")) {
 
-				// this.setFaceurl(jsonObject.getString("faceurl"));
+			if (jsonObject.has("explain")) {
+
+				this.setExplain(jsonObject.getString("explain"));
+			}
+			if (jsonObject.has("online")) {
+				this.setOnline(jsonObject.getString("online"));
+			}
+			if (jsonObject.has("sTime")) {
+
+				this.setsTime(jsonObject.getString("sTime"));
+			}
+			if (jsonObject.has("eTime")) {
+
+				this.seteTime(jsonObject.getString("sTime"));
+			}
+
+			if (jsonObject.has("joinCount")) {
+
+				this.setJoinCount(jsonObject.getString("joinCount"));
+			}
+			if (jsonObject.has("typeName")) {
+
+				this.setTypeName(jsonObject.getString("typeName"));
+			}
+			if (jsonObject.has("logo")) {
+
+				this.setLogourl(jsonObject.getString("logo"));
+			}
+			if (jsonObject.has("isover")) {
+
+				this.setIsover(jsonObject.getInt("isover"));
+			}
+			if (jsonObject.has("op")) {
+
+				this.setOp(jsonObject.getInt("op"));
 			}
 
 		} catch (JSONException e) {
@@ -211,6 +263,54 @@ public class ModelEvent extends Model {
 
 	public void setExplainType(String explainType) {
 		this.explainType = explainType;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getJoinCount() {
+		return joinCount;
+	}
+
+	public void setJoinCount(String joinCount) {
+		this.joinCount = joinCount;
+	}
+
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
+	public String getLogourl() {
+		return logourl;
+	}
+
+	public void setLogourl(String logourl) {
+		this.logourl = logourl;
+	}
+
+	public int getIsover() {
+		return isover;
+	}
+
+	public void setIsover(int isover) {
+		this.isover = isover;
+	}
+
+	public int getOp() {
+		return op;
+	}
+
+	public void setOp(int op) {
+		this.op = op;
 	}
 
 }

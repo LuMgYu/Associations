@@ -13,10 +13,8 @@ import com.zhiyisoft.associations.model.base.Model;
 public interface EventIm {
 	public static final String EVENT = "Event"; // 创建活动
 	// 需要执行的操作
-	public static final String JOINEDEVENT = "joinedEvent"; // 33.【我参加的活动】：Event/joinedEvent
-	public static final String CREATEDEVENT = "createdEvent";// 34.【我创建的活动】：Event/decremented
-	public static final String FOLLOWEDEVENT = "followedEvent"; // 35.【我关注的活动】：Event/followedEvent
-	public static final String CREATEEVENT = "createEvent";// 37.【创建活动】：Event/createEvent
+	public static final String EVENTLIST = "eventList";// 指定学校id 选填
+	public static final String CREATEEVENT = "createEvent";// 33.【活动列表】：Event/eventList
 	public static final String EVENTVIEW = "eventView";// 38.【活动详情】：Event/eventView
 	public static final String JOIN = "join";// 39.【活动报名】：Event/join
 	public static final String SUB = "sub";// 40.【活动关注/取消关注】：Event/sub
@@ -43,38 +41,9 @@ public interface EventIm {
 	public static final String EXPLAINTYPE = "explainType";// 作品提交结束时间 必填
 	public static final String RANGEDES = "rangeDes";// 指定学校id 选填
 
-	/**
-	 * 33.【我参加的活动】：Event/joinedEvent
-	 * 
-	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act= joinedEvent
-	 * 
-	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填
-	 * 
-	 * @return
-	 */
-	List<Model> joinedEvent();
+	public static final String OP = "op";// 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的)
 
-	/**
-	 * 34.【我创建的活动】：Event/createdEvent
-	 * 
-	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act=createdEvent
-	 * 
-	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填
-	 * 
-	 * @return
-	 */
-	List<Model> createdEvent();
-
-	/**
-	 * 35.【我关注的活动】：Event/followedEvent
-	 * 
-	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act=followedEvent
-	 * 
-	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填
-	 * 
-	 * @return
-	 */
-	List<Model> followedEvent();
+	List<Model> eventList(ModelEvent event);
 
 	/**
 	 * 37.【创建活动】：Event/createEvent

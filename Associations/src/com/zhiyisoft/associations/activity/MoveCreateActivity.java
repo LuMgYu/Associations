@@ -122,7 +122,6 @@ public class MoveCreateActivity extends BaseActivity {
 	private boolean mIsChoose4 = false;
 	private Bitmap mBitmap;
 	private static final int SUCCESS_ONLINE = 1;
-	private static final int SUCCESS_NOTLINE = 2;
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
@@ -130,24 +129,13 @@ public class MoveCreateActivity extends BaseActivity {
 			switch (msg.what) {
 
 			case SUCCESS_ONLINE:
-				// ModelUser user = (ModelUser) msg.obj;
-				// if (user != null) {
-				// ToastUtils.showToast("完善资料成功");
-				// onBackPressed();
-				// } else {
-				// ToastUtils.showToast("完善资料失败");
-				// }
+				boolean isSuccess = (Boolean) msg.obj;
+				if (isSuccess) {
+					ToastUtils.showToast("创建活动成功！");
+				} else {
+					ToastUtils.showToast("创建活动失败！");
+				}
 				break;
-			case SUCCESS_NOTLINE:
-				// ModelUser user = (ModelUser) msg.obj;
-				// if (user != null) {
-				// ToastUtils.showToast("完善资料成功");
-				// onBackPressed();
-				// } else {
-				// ToastUtils.showToast("完善资料失败");
-				// }
-				break;
-
 			}
 
 		};
@@ -252,10 +240,12 @@ public class MoveCreateActivity extends BaseActivity {
 			move_rl_commit.setVisibility(View.GONE);
 			move_rl_commmit_work.setVisibility(View.GONE);
 			move_rl_work_end.setVisibility(View.GONE);
-			move_rl_vetify.setVisibility(View.GONE);
 			tv_title_right.setVisibility(View.GONE);
 			btn_move_commit.setVisibility(View.VISIBLE);
 			btn_move_commit.setOnClickListener(this);
+			setAlltitle(null, "创建线下活动", null);
+		} else {
+			move_rl_location.setVisibility(View.GONE);
 		}
 	}
 
@@ -406,11 +396,16 @@ public class MoveCreateActivity extends BaseActivity {
 			view2data();
 			if (judgeTheOnlineData()) {
 				ModelEvent event = bindDataToModel();
-				createOnlineEvent(event);
+				createEvent(event);
 			}
 			break;
 		case R.id.btn_move_commit:
 			ToastUtils.showToast("提交了！呵呵哒");
+			view2data();
+			if (judgeTheNotOnlineData()) {
+				ModelEvent event = bindDataToModel();
+				createEvent(event);
+			}
 			break;
 		}
 
@@ -524,7 +519,11 @@ public class MoveCreateActivity extends BaseActivity {
 	 * 把界面的数据映射到这些变量里面
 	 */
 	private void view2data() {
-		online = "0"; // 0线上活动，1线下活动 必填
+		if (isOnline) {
+			online = "0"; // 0线上活动，1线下活动 必填
+		} else {
+			online = "1";
+		}
 		// logo;// 接口37中返回的id必填
 		gid = "15293";// 所属社团 必填
 		title = move_et_name.getText().toString();// 活动标题 必填
@@ -558,6 +557,9 @@ public class MoveCreateActivity extends BaseActivity {
 	 * @return
 	 */
 	private String dateToStr(String year_month_date) {
+		if (year_month_date == null || year_month_date.equals("")) {
+			return null;
+		}
 		return DateUtil.dateToStr(year_month_date);
 	}
 
@@ -567,6 +569,76 @@ public class MoveCreateActivity extends BaseActivity {
 	 * @return
 	 */
 	private boolean judgeTheOnlineData() {
+		if (online == null || online.equals("")) {
+			ToastUtils.showToast("选择线上还是线下");
+			return false;
+		}
+		if (logo == null || logo.equals("")) {
+			ToastUtils.showToast("请上传活动封面");
+			return false;
+		}
+		if (gid == null || gid.equals("")) {
+			ToastUtils.showToast("请选择所属社团");
+			return false;
+		}
+		if (title == null || title.equals("")) {
+			ToastUtils.showToast("请填写标题");
+			return false;
+		}
+		if (type == null || type.equals("")) {
+			ToastUtils.showToast("请选择类型");
+			return false;
+		}
+		if (host == null || host.equals("")) {
+			ToastUtils.showToast("请输入主办方");
+			return false;
+		}
+		if (explain == null || explain.equals("")) {
+			ToastUtils.showToast("请输入活动详情");
+			return false;
+		}
+
+		if (sTime == null || sTime.equals("")) {
+			ToastUtils.showToast("请选择时间");
+			return false;
+		}
+		if (eTime == null || eTime.equals("")) {
+			ToastUtils.showToast("请选择时间");
+			return false;
+		}
+		if (joinStime == null || joinStime.equals("")) {
+			ToastUtils.showToast("请选择加入时间");
+			return false;
+		}
+		if (joinEtime == null || joinEtime.equals("")) {
+			ToastUtils.showToast("请选择加入时间");
+			return false;
+		}
+		if (workStime == null || workStime.equals("")) {
+			ToastUtils.showToast("请选择作品时间");
+			return false;
+		}
+		if (workEtime == null || workEtime.equals("")) {
+			ToastUtils.showToast("请选择作品时间");
+			return false;
+		}
+		if (explainType == null || explainType.equals("")) {
+			ToastUtils.showToast("请选择作品类型");
+			return false;
+		}
+		if (rangeDes == null || rangeDes.equals("")) {
+			ToastUtils.showToast("请选择学校");
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 判断非上线活动的数据
+	 * 
+	 * @return
+	 */
+	private boolean judgeTheNotOnlineData() {
 		if (online == null || online.equals("")) {
 			ToastUtils.showToast("选择线上还是线下");
 			return false;
@@ -608,20 +680,8 @@ public class MoveCreateActivity extends BaseActivity {
 			ToastUtils.showToast("请选择时间");
 			return false;
 		}
-		if (joinStime == null || joinStime.equals("")) {
-			ToastUtils.showToast("请选择加入时间");
-			return false;
-		}
-		if (joinEtime == null || joinEtime.equals("")) {
-			ToastUtils.showToast("请选择加入时间");
-			return false;
-		}
-		if (workStime == null || workStime.equals("")) {
-			ToastUtils.showToast("请选择作品时间");
-			return false;
-		}
-		if (workEtime == null || workEtime.equals("")) {
-			ToastUtils.showToast("请选择作品时间");
+		if (explainType == null || explainType.equals("")) {
+			ToastUtils.showToast("请选择作品类型");
 			return false;
 		}
 		if (rangeDes == null || rangeDes.equals("")) {
@@ -660,7 +720,7 @@ public class MoveCreateActivity extends BaseActivity {
 		return event;
 	}
 
-	private void createOnlineEvent(final ModelEvent event) {
+	private void createEvent(final ModelEvent event) {
 		final EventImpl eventImpl = mApp.getEventFIm();
 		mApp.getExecutor().execute(new Runnable() {
 			@Override

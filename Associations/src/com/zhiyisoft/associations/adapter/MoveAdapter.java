@@ -11,9 +11,12 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -25,13 +28,16 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 public class MoveAdapter extends BAdapter {
 	private View mView;
+	private ModelEvent mEvent;
 
-	public MoveAdapter(BaseActivity activity, List<Model> list) {
-		super(activity, list);
+	public MoveAdapter(BaseActivity activity, ModelEvent event) {
+		super(activity, null);
+		this.mEvent = event;
 	}
 
-	public MoveAdapter(BaseFragment fragment, List<Model> list) {
-		super(fragment, list);
+	public MoveAdapter(BaseFragment fragment, ModelEvent event) {
+		super(fragment, null);
+		this.mEvent = event;
 	}
 
 	@Override
@@ -57,7 +63,29 @@ public class MoveAdapter extends BAdapter {
 	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		Model model = mList.get(position);
+		ModelEvent event = (ModelEvent) mList.get(position);
+		if (event != null) {
+			holder.move_smiv_icon.setImageUrl(event.getLogourl());
+			int isover = event.getIsover();
+			if (isover == 0) {
+				holder.move_tv_end.setVisibility(View.GONE);
+			} else {
+				holder.move_tv_end.setVisibility(View.GONE);
+			}
+			holder.move_tv_title.setText(event.getTitle());
+			String isonline = event.getOnline();
+			if (isonline.equals("0")) {
+				holder.move_btn_online.setText("线上");
+			} else {
+				holder.move_btn_online.setText("线下");
+			}
+			holder.move_btn_event.setText(event.getTypeName());
+
+			holder.move_tv_deadline
+					.setText(DateUtil.strTodate(event.geteTime()));
+			holder.move_tv_allmove.setText(event.getJoinCount());
+			holder.move_tv_content.setText(event.getExplain());
+		}
 		// TODO 把数据绑定到界面
 
 	}
@@ -84,20 +112,15 @@ public class MoveAdapter extends BAdapter {
 	// ------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		EventImpl eventImpl = mApp.getEventFIm();
+		List<Model> items = eventImpl.eventList(mEvent);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		EventImpl eventImpl = mApp.getEventFIm();
+		List<Model> items = eventImpl.eventList(mEvent);
 		return items;
 	}
 

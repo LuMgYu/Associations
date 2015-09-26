@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 /**
@@ -38,13 +39,14 @@ public class DateUtil {
 	 * @param time
 	 * @return
 	 */
+	@SuppressLint("SimpleDateFormat")
 	public static String strTodate(String time) {
 		try {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy年M月d日");
-			String d = format.format(time);
-			Date date = format.parse(d);
-			return String.valueOf(date.getTime());
-		} catch (ParseException e) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy年M月d号");
+			Date date = new Date(Long.valueOf(time));
+			String d = format.format(date);
+			return d;
+		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
