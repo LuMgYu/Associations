@@ -37,9 +37,8 @@ import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
-import com.zhiyisoft.associations.listview.MeAssociationListview;
+import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
-import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -105,7 +104,7 @@ public class FragmentMe extends BaseFragment {
 		me_rl_signature = (RelativeLayout) findViewById(R.id.me_rl_signature);
 		me_tv_signature = (TextView) findViewById(R.id.me_tv_signature);
 		me_iv_default = (ImageView) findViewById(R.id.me_iv_default);
-		me_lv_association = (MeAssociationListview) findViewById(R.id.me_lv_association);
+		me_lv_association = (AssociationListview) findViewById(R.id.me_lv_association);
 		initPopWindow();
 	}
 

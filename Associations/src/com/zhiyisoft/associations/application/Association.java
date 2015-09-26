@@ -33,6 +33,7 @@ import android.os.Environment;
 
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.cache.base.DiskLruCache;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelUser;
@@ -56,6 +57,7 @@ public class Association extends Application {
 	/** api区域 */
 	private Api.LoginImpl mLogin;
 	private Api.LeagueImpl mLeague;
+	private Api.EventImpl mEvent;
 	private Api.SchoolImpl mSchool;
 	private Api.BaseSettingImpl mBaseSetting;
 	private Api.RegisterImpl mRegister;
@@ -315,6 +317,13 @@ public class Association extends Application {
 			mLeague = new Api.LeagueImpl();
 		}
 		return mLeague;
+	}
+
+	public EventImpl getEventFIm() {
+		if (mEvent == null) {
+			mEvent = new Api.EventImpl();
+		}
+		return mEvent;
 	}
 
 	public Api.SchoolImpl getmSchoolIm() {

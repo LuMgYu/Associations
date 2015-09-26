@@ -15,6 +15,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
@@ -591,6 +592,82 @@ public class Api {
 			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelLeague());
 		}
+	}
+
+	public static final class EventImpl implements EventIm {
+
+		@Override
+		public List<Model> joinedEvent() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Model> createdEvent() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<Model> followedEvent() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean createEvent(ModelEvent event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, CREATEEVENT);
+			judgeTheUser(get);
+			get.addBodyParam(ONLINE, event.getOnline());
+			get.addBodyParam(LOGO, event.getLogo());
+			get.addBodyParam(GID, event.getGid());
+			get.addBodyParam(TITLE, event.getTitle());
+			get.addBodyParam(ADDRESS, event.getAddress());
+			get.addBodyParam(TYPE, event.getType());
+			get.addBodyParam(HOST, event.getHost());
+			get.addBodyParam(EXPLAIN, event.getExplain());
+			get.addBodyParam(STIME, event.getsTime());
+			get.addBodyParam(ETIME, event.geteTime());
+			get.addBodyParam(JOINAUDIT, event.getJoinAudit());
+			get.addBodyParam(JOINSTIME, event.getsTime());
+			get.addBodyParam(JOINETIME, event.getJoinEtime());
+			get.addBodyParam(WORKAUDIT, event.getWorkAudit());
+			get.addBodyParam(WORKSPURVIEW, event.getWorksPurview());
+			get.addBodyParam(WORKSTIME, event.getWorkStime());
+			get.addBodyParam(WORKETIME, event.getWorkEtime());
+			get.addBodyParam(RANGEDES, event.getRangeDes());
+			get.addBodyParam(EXPLAINTYPE, event.getExplainType());
+			Object object = get.run();
+			return isCodeOk(object);
+		}
+
+		@Override
+		public Model eventView() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean join() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean sub() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public List<Model> memberList() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {

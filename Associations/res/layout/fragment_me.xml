@@ -168,7 +168,7 @@
             android:layout_marginTop="40dp"
             android:src="@drawable/nonegroup" />
 
-        <com.zhiyisoft.associations.listview.MeAssociationListview
+        <com.zhiyisoft.associations.listview.AssociationListview
             android:id="@+id/me_lv_association"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

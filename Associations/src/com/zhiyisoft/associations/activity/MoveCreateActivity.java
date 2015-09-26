@@ -1,12 +1,20 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.OutputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,10 +29,19 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
@@ -43,6 +60,9 @@ public class MoveCreateActivity extends BaseActivity {
 	private EditText move_et_name;
 	private RelativeLayout move_rl_welfare;
 	private RelativeLayout move_rl_main;
+	private RelativeLayout move_rl_location;
+	private EditText move_et_location;
+
 	private TextView move_tv_start_time;
 	private RelativeLayout move_rl_end;
 	private TextView move_tv_start_end;
@@ -65,12 +85,18 @@ public class MoveCreateActivity extends BaseActivity {
 	private RelativeLayout move_rl_work_end;
 	private RelativeLayout move_rl_commmit_work;
 	// 新添加的的控件
+	private RelativeLayout move_rl_main_master;
+	private EditText move_et_main_master;
+	private RelativeLayout move_rl_association;
+	private TextView move_tv_association_name;
+
 	private ImageView move_iv_vetify_work_no;
 	private ImageView move_iv_commit_yes_master;
 	private ImageView move_iv_commit_all;
 	private ImageView move_iv_vetify_yes;
 	private ImageView move_iv_vedio_yes;
 	private TextView move_tv_scope_name;
+	private EditText move_et_about;
 
 	private TextView move_tv_enter;
 	private TextView move_tv_work;
@@ -95,6 +121,38 @@ public class MoveCreateActivity extends BaseActivity {
 	private boolean mIsChoose3 = false;
 	private boolean mIsChoose4 = false;
 	private Bitmap mBitmap;
+	private static final int SUCCESS_ONLINE = 1;
+	private static final int SUCCESS_NOTLINE = 2;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS_ONLINE:
+				// ModelUser user = (ModelUser) msg.obj;
+				// if (user != null) {
+				// ToastUtils.showToast("完善资料成功");
+				// onBackPressed();
+				// } else {
+				// ToastUtils.showToast("完善资料失败");
+				// }
+				break;
+			case SUCCESS_NOTLINE:
+				// ModelUser user = (ModelUser) msg.obj;
+				// if (user != null) {
+				// ToastUtils.showToast("完善资料成功");
+				// onBackPressed();
+				// } else {
+				// ToastUtils.showToast("完善资料失败");
+				// }
+				break;
+
+			}
+
+		};
+
+	};
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -125,7 +183,7 @@ public class MoveCreateActivity extends BaseActivity {
 	public void initView() {
 		fl_icon = (FrameLayout) findViewById(R.id.fl_icon);
 		move_icon = (ImageView) findViewById(R.id.move_icon);
-		move_et_name = (EditText) findViewById(R.id.association_tv_school_name);
+		move_et_name = (EditText) findViewById(R.id.move_et_name);
 		move_rl_welfare = (RelativeLayout) findViewById(R.id.move_rl_welfare);
 		move_rl_main = (RelativeLayout) findViewById(R.id.move_rl_main);
 		move_tv_start_time = (TextView) findViewById(R.id.move_tv_start_time);
@@ -136,7 +194,6 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_enter = (RelativeLayout) findViewById(R.id.move_rl_enter);
 		move_tv_enter_end_time = (TextView) findViewById(R.id.move_tv_enter_end_time);
 		move_iv_vetify_work_yes = (ImageView) findViewById(R.id.move_iv_vetify_work_yes);
-		move_iv_vetify_no = (ImageView) findViewById(R.id.move_iv_vetify_no);
 		move_iv_title_yes = (ImageView) findViewById(R.id.move_iv_title_yes);
 		move_iv_photo_yes = (ImageView) findViewById(R.id.move_iv_photo_yes);
 		move_tv_photo = (TextView) findViewById(R.id.move_tv_photo);
@@ -148,11 +205,19 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_work_end = (RelativeLayout) findViewById(R.id.move_rl_work_end);
 		move_rl_enter_end = (RelativeLayout) findViewById(R.id.move_rl_enter_end);
 		move_rl_commmit_work = (RelativeLayout) findViewById(R.id.move_rl_commmit_work);
+		move_rl_location = (RelativeLayout) findViewById(R.id.move_rl_location);
+		move_et_location = (EditText) findViewById(R.id.move_et_location);
 		// 新增控件
+
+		move_rl_main_master = (RelativeLayout) findViewById(R.id.move_rl_main_master);
+		move_et_main_master = (EditText) findViewById(R.id.move_et_main_master);
+		move_tv_association_name = (TextView) findViewById(R.id.move_tv_association_name);
+		move_rl_association = (RelativeLayout) findViewById(R.id.move_rl_association);
+
+		move_et_about = (EditText) findViewById(R.id.move_et_about);
 		move_iv_vetify_work_no = (ImageView) findViewById(R.id.move_iv_vetify_work_no);
 		move_iv_commit_yes_master = (ImageView) findViewById(R.id.move_iv_commit_yes_master);
 		move_iv_commit_all = (ImageView) findViewById(R.id.move_iv_commit_all);
-		move_iv_vetify_yes = (ImageView) findViewById(R.id.move_iv_vetify_yes);
 		move_iv_vedio_yes = (ImageView) findViewById(R.id.move_iv_vedio_yes);
 		move_tv_scope_name = (TextView) findViewById(R.id.move_tv_scope_name);
 		move_tv_welfare_name = (TextView) findViewById(R.id.move_tv_welfare_name);
@@ -161,7 +226,6 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_public = (RelativeLayout) findViewById(R.id.move_rl_public);
 		move_rl_work = (RelativeLayout) findViewById(R.id.move_rl_work);
 		move_rl_commit = (RelativeLayout) findViewById(R.id.move_rl_commit);
-		move_rl_vetify = (RelativeLayout) findViewById(R.id.move_rl_vetify);
 		btn_move_commit = (Button) findViewById(R.id.btn_move_commit);
 		judgeIsOnline();
 		mTvViews = new TextView[] { move_tv_start_time, move_tv_start_end,
@@ -169,7 +233,6 @@ public class MoveCreateActivity extends BaseActivity {
 				move_tv_commmit_work_Start_time, move_tv_workr_end_time };
 		genateYearMouthDay();
 		initPopWindow();
-		initManyChoose();
 		initCameraPopWindow();
 		initCategoryPopWindow();
 	}
@@ -196,13 +259,6 @@ public class MoveCreateActivity extends BaseActivity {
 		}
 	}
 
-	/**
-	 * 初始化多选
-	 */
-	private void initManyChoose() {
-		mIsChoose1 = true;
-	}
-
 	@Override
 	public void initListener() {
 		move_rl_main.setOnClickListener(this);
@@ -221,8 +277,6 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_vetify_work_no.setOnClickListener(this);
 		move_iv_commit_yes_master.setOnClickListener(this);
 		move_iv_commit_all.setOnClickListener(this);
-		move_iv_vetify_yes.setOnClickListener(this);
-		move_iv_vetify_no.setOnClickListener(this);
 		move_iv_title_yes.setOnClickListener(this);
 		move_iv_photo_yes.setOnClickListener(this);
 		move_iv_vedio_yes.setOnClickListener(this);
@@ -245,6 +299,14 @@ public class MoveCreateActivity extends BaseActivity {
 		mBitmap = super.compressOutStream2Bitmap(bitmap, stream);
 		move_icon.setImageBitmap(mBitmap);
 		return mBitmap;
+	}
+
+	@Override
+	public File getFile(String path) {
+		Log.i("upload", path);
+		File file = super.getFile(path);
+		uploadEventIcon(file);
+		return file;
 	}
 
 	@Override
@@ -285,51 +347,53 @@ public class MoveCreateActivity extends BaseActivity {
 		// 活动时间
 		case R.id.move_iv_yes:
 			resetmove_iv_yes();
+			joinAudit = "1";
 			move_iv_yes.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_no:
 			resetmove_iv_yes();
+			joinAudit = "0";
 			move_iv_no.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_vetify_work_yes:
 			resetmove_iv_vetify_work_yes();
+			workAudit = "1";
 			move_iv_vetify_work_yes.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_vetify_work_no:
 			resetmove_iv_vetify_work_yes();
+			workAudit = "0";
 			move_iv_vetify_work_no.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_commit_yes_master:
 			resetmove_iv_commit_yes_master();
+			worksPurview = "1";
 			move_iv_commit_yes_master.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_commit_all:
 			resetmove_iv_commit_yes_master();
+			worksPurview = "2";
 			move_iv_commit_all.setImageResource(R.drawable.yes);
-			break;
-		case R.id.move_iv_vetify_yes:
-			resetmove_iv_vetify_yes();
-			move_iv_vetify_yes.setImageResource(R.drawable.yes);
-			break;
-		case R.id.move_iv_vetify_no:
-			resetmove_iv_vetify_yes();
-			move_iv_vetify_no.setImageResource(R.drawable.yes);
 			break;
 		case R.id.move_iv_title_yes:
 			changeTheViewImage(move_iv_title_yes, mIsChoose1);
 			mIsChoose1 = (mIsChoose1 == true) ? false : true;
+			count1++;
 			break;
 		case R.id.move_iv_photo_yes:
 			changeTheViewImage(move_iv_photo_yes, mIsChoose2);
 			mIsChoose2 = (mIsChoose2 == true) ? false : true;
+			count2++;
 			break;
 		case R.id.move_iv_vedio_yes:
 			changeTheViewImage(move_iv_vedio_yes, mIsChoose3);
 			mIsChoose3 = (mIsChoose3 == true) ? false : true;
+			count3++;
 			break;
 		case R.id.move_iv_music_yes:
 			changeTheViewImage(move_iv_music_yes, mIsChoose4);
 			mIsChoose4 = (mIsChoose4 == true) ? false : true;
+			count4++;
 			break;
 		case R.id.move_rl_scope:
 			mApp.startActivityForResult(this, MeSettingProvinceActivity.class,
@@ -338,6 +402,12 @@ public class MoveCreateActivity extends BaseActivity {
 			break;
 		case R.id.tv_title_right:
 			ToastUtils.showToast("提交了！呵呵哒");
+			// TODO
+			view2data();
+			if (judgeTheOnlineData()) {
+				ModelEvent event = bindDataToModel();
+				createOnlineEvent(event);
+			}
 			break;
 		case R.id.btn_move_commit:
 			ToastUtils.showToast("提交了！呵呵哒");
@@ -358,12 +428,6 @@ public class MoveCreateActivity extends BaseActivity {
 		} else {
 			view.setImageResource(R.drawable.xz01);
 		}
-	}
-
-	private void resetmove_iv_vetify_yes() {
-		move_iv_vetify_yes.setImageResource(R.drawable.no);
-		move_iv_vetify_no.setImageResource(R.drawable.no);
-
 	}
 
 	private void resetmove_iv_commit_yes_master() {
@@ -411,6 +475,253 @@ public class MoveCreateActivity extends BaseActivity {
 				move_tv_scope_name.setText(model.getName() + "");
 			}
 		}
+	}
+
+	/************************************** 创建活动需要的变量 **************************************************/
+	private String online = "0"; // 0线上活动，1线下活动 必填
+	private String logo;// 接口37中返回的id必填
+	private String gid = "15293";// 所属社团 必填
+	private String title;// 活动标题 必填
+	private String address;// 活动地点 选填
+	private String type = "12";// 活动类别 必填
+	private String host = "成都大学";// 主办方 必填
+	private String explain;// 活动内容 必填
+	private String sTime;// 活动开始时间 必填
+	private String eTime;// 活动结束时间 必填
+	private String joinAudit = "1";// 报名是否审核，0否，1是 必填
+	private String joinStime;// 报名开始时间 必填
+	private String joinEtime;// 报名结束时间 必填
+	private String workAudit = "1";// 作品是否审核，0否，1是 必填
+	private String worksPurview = "1";// 作品上传权限 1发起人，2所有人
+	private String workStime;// 品提交开始时间 必填
+	private String workEtime;// 作品提交结束时间 必填
+	private String explainType; // 作品类型
+	private String rangeDes;// 指定学校id 选填explainType
+
+	private int count1 = 0; // 来记录选择作品次数，然后用于拼接
+	private int count2 = 0;
+	private int count3 = 0;
+	private int count4 = 0;
+
+	private void calcuteCountChoose() {
+		explainType = "";
+		if (count1 % 2 != 0) {
+			explainType = explainType + "1,";
+		}
+		if (count2 % 2 != 0) {
+			explainType = explainType + "2,";
+		}
+		if (count3 % 2 != 0) {
+			explainType = explainType + "3,";
+		}
+		if (count4 % 2 != 0) {
+			explainType = explainType + "4";
+		}
+	}
+
+	// TODO
+	/**
+	 * 把界面的数据映射到这些变量里面
+	 */
+	private void view2data() {
+		online = "0"; // 0线上活动，1线下活动 必填
+		// logo;// 接口37中返回的id必填
+		gid = "15293";// 所属社团 必填
+		title = move_et_name.getText().toString();// 活动标题 必填
+		address = move_et_location.getText().toString();// 活动地点 选填
+		// type = "12"; 在选择的时候就已经赋值了
+		host = move_et_main_master.getText().toString();
+		explain = move_et_about.getText().toString();// 活动内容 必填
+		sTime = move_tv_start_time.getText().toString();// 活动开始时间 必填
+		sTime = dateToStr(sTime);
+		eTime = move_tv_start_end.getText().toString();// 活动结束时间 必填
+		eTime = dateToStr(eTime);
+		// joinAudit = ;// 报名是否审核，0否，1是 必填
+		joinStime = move_tv_enter_time.getText().toString();// 报名开始时间 必填
+		joinStime = dateToStr(joinStime);
+		joinEtime = move_tv_enter_end_time.getText().toString();// 报名结束时间 必填
+		joinEtime = dateToStr(joinEtime);
+		// workAudit;// 作品是否审核，0否，1是 必填
+		// worksPurview;// 作品上传权限 1发起人，2所有人
+		workStime = move_tv_commmit_work_Start_time.getText().toString();// 品提交开始时间
+		workStime = dateToStr(workStime); // 必填
+		workEtime = move_tv_workr_end_time.getText().toString();// 作品提交结束时间 必填
+		workEtime = dateToStr(workEtime);
+		rangeDes = move_tv_scope_name.getText().toString();// 指定学校id 选填
+		calcuteCountChoose();
+	}
+
+	/**
+	 * 把日期转为时间戳
+	 * 
+	 * @param year_month_date
+	 * @return
+	 */
+	private String dateToStr(String year_month_date) {
+		return DateUtil.dateToStr(year_month_date);
+	}
+
+	/**
+	 * 判断线上活动是否填写完整
+	 * 
+	 * @return
+	 */
+	private boolean judgeTheOnlineData() {
+		if (online == null || online.equals("")) {
+			ToastUtils.showToast("选择线上还是线下");
+			return false;
+		}
+		if (logo == null || logo.equals("")) {
+			ToastUtils.showToast("请上传活动封面");
+			return false;
+		}
+		if (gid == null || gid.equals("")) {
+			ToastUtils.showToast("请选择所属社团");
+			return false;
+		}
+		if (title == null || title.equals("")) {
+			ToastUtils.showToast("请填写标题");
+			return false;
+		}
+		if (address == null || address.equals("")) {
+			ToastUtils.showToast("请填写地址");
+			return false;
+		}
+		if (type == null || type.equals("")) {
+			ToastUtils.showToast("请选择类型");
+			return false;
+		}
+		if (host == null || host.equals("")) {
+			ToastUtils.showToast("请输入主办方");
+			return false;
+		}
+		if (explain == null || explain.equals("")) {
+			ToastUtils.showToast("请输入活动详情");
+			return false;
+		}
+
+		if (sTime == null || sTime.equals("")) {
+			ToastUtils.showToast("请选择时间");
+			return false;
+		}
+		if (eTime == null || eTime.equals("")) {
+			ToastUtils.showToast("请选择时间");
+			return false;
+		}
+		if (joinStime == null || joinStime.equals("")) {
+			ToastUtils.showToast("请选择加入时间");
+			return false;
+		}
+		if (joinEtime == null || joinEtime.equals("")) {
+			ToastUtils.showToast("请选择加入时间");
+			return false;
+		}
+		if (workStime == null || workStime.equals("")) {
+			ToastUtils.showToast("请选择作品时间");
+			return false;
+		}
+		if (workEtime == null || workEtime.equals("")) {
+			ToastUtils.showToast("请选择作品时间");
+			return false;
+		}
+		if (rangeDes == null || rangeDes.equals("")) {
+			ToastUtils.showToast("请选择学校");
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 把数据封装到model里面去
+	 * 
+	 * @return
+	 */
+	private ModelEvent bindDataToModel() {
+		ModelEvent event = new ModelEvent();
+		event.setOnline(online);
+		event.setLogo(logo);
+		event.setGid(gid);
+		event.setTitle(title);
+		event.setAddress(address);
+		event.setType(type);
+		event.setHost(host);
+		event.setExplain(explain);
+		event.setsTime(sTime);
+		event.seteTime(eTime);
+		event.setJoinAudit(joinAudit);
+		event.setJoinStime(joinStime);
+		event.setJoinEtime(joinEtime);
+		event.setWorkAudit(workAudit);
+		event.setWorksPurview(worksPurview);
+		event.setWorkStime(workStime);
+		event.setWorkEtime(workEtime);
+		event.setRangeDes(rangeDes);
+		event.setExplainType(explainType);
+		return event;
+	}
+
+	private void createOnlineEvent(final ModelEvent event) {
+		final EventImpl eventImpl = mApp.getEventFIm();
+		mApp.getExecutor().execute(new Runnable() {
+			@Override
+			public void run() {
+				Boolean isSuccess = eventImpl.createEvent(event);
+				Message message = Message.obtain();
+				message.what = SUCCESS_ONLINE;
+				message.obj = isSuccess;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	/************************* 创建活动需要的变量 end ****************************************/
+
+	/**
+	 * 上传活动icon
+	 * 
+	 * @param user
+	 */
+	private void uploadEventIcon(File file) {
+		ModelUser user = mApp.getUser();
+		RequestParams params = new RequestParams();
+		params.put(Api.oauth_token, user.getOauth_token());
+		params.put(Api.oauth_token_secret, user.getOauth_token_secret());
+		if (file != null) {
+			try {
+				params.put("file", file);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=eventlogo",
+				params, new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, String arg1) {
+						super.onSuccess(arg0, arg1);
+						Log.i("upload", arg1);
+						try {
+							JSONObject jsonObject = new JSONObject(arg1);
+							if (jsonObject.has("data")) {
+								JSONObject data = jsonObject
+										.getJSONObject("data");
+								if (data.has("url")) {
+									ToastUtils.showToast("上传活动封面成功");
+								}
+								if (data.has("id")) {
+									logo = String.valueOf(data.getInt("id"));
+								}
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				});
 	}
 
 	// --------------------------PopupWindow的界面控件-----------------------------------------
@@ -559,8 +870,9 @@ public class MoveCreateActivity extends BaseActivity {
 	// --------------------------类别选择PopupWindow的界面控件-----------------------------------------
 	private PopupWindow mCategoryPW;
 	private WheelView wv_category;
-	private String[] mCategory = new String[] { "  科技  ", "  人文  ", "  数学  ",
-			"  人文  ", "  艺术  ", "  教育  " };
+	private String[] mCategory = new String[] { "  赛事  ", "  会展  ", "  演出  ",
+			"  聚会  ", "  体育  ", "  旅行  ", "  公益  ", "  其他  " };
+	private int[] mCategoryId = new int[] { 12, 13, 14, 15, 16, 17, 18, 19, 20 };
 
 	/**
 	 * 初始化popWindow
@@ -625,6 +937,8 @@ public class MoveCreateActivity extends BaseActivity {
 				// TODO 把日期加载到textview里面
 				move_tv_welfare_name.setText(mCategory[wv_category
 						.getCurrentItem()] + "");
+				type = String
+						.valueOf(mCategoryId[wv_category.getCurrentItem()]);
 				mCategoryPW.dismiss();
 				break;
 
@@ -633,7 +947,6 @@ public class MoveCreateActivity extends BaseActivity {
 
 			}
 		}
-
 	}
 
 	/**

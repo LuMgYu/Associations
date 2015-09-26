@@ -59,9 +59,116 @@
                 android:background="@null"
                 android:hint="五星摄影大赛"
                 android:textColor="@color/text_black"
-                android:textColorHint="@color/text_black"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 社团地点 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_location"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/main_white_pure_color" >
+
+            <TextView
+                android:id="@+id/move_tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="地点:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
+
+            <EditText
+                android:id="@+id/move_et_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_toRightOf="@id/move_tv_location"
+                android:background="@null"
+                android:hint="四川成都"
+                android:textColor="@color/text_black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+        <!-- 主办方 -->
+
+        <RelativeLayout
+            android:id="@+id/move_rl_main_master"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/main_white_pure_color" >
+
+            <TextView
+                android:id="@+id/move_tv_main_master"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="主办方:"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
+
+            <EditText
+                android:id="@+id/move_et_main_master"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:layout_toRightOf="@id/move_tv_main_master"
+                android:background="@null"
+                android:hint="请输入主办方"
+                android:textColor="@color/text_black"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/text_small" />
+        </RelativeLayout>
+
+        <include layout="@layout/view_line_vertical" />
+
+        <RelativeLayout
+            android:id="@+id/move_rl_association"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:background="@color/main_white_pure_color" >
+
+            <TextView
+                android:id="@+id/move_tv_association"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:text="社团："
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/text_small" />
+
+            <TextView
+                android:id="@+id/move_tv_association_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/move_tv_association"
+                android:background="@null"
+                android:text="社团"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_small" />
+
+            <ImageView
+                android:id="@+id/move_iv_association"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_right_small"
+                android:src="@drawable/bo" />
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />
@@ -137,7 +244,6 @@
                 android:hint="今天的天气特别好，好想去游泳，不过要上班，我也只能来一句呵呵哒。老子明天不上班，爽翻，巴适得板"
                 android:maxLines="5"
                 android:textColor="@color/text_black"
-                android:textColorHint="@color/text_black"
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/text_small" />
         </RelativeLayout>
@@ -599,63 +705,6 @@
 
         <include layout="@layout/view_line_vertical" />
 
-        <RelativeLayout
-            android:id="@+id/move_rl_vetify"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height"
-            android:layout_marginTop="5dp"
-            android:background="@color/main_white_pure_color" >
-
-            <TextView
-                android:id="@+id/move_tv_vetify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:text="是否验证："
-                android:textColor="@color/text_gray"
-                android:textSize="@dimen/text_small" />
-
-            <ImageView
-                android:id="@+id/move_iv_vetify_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/move_tv_vetify"
-                android:src="@drawable/yes" />
-
-            <TextView
-                android:id="@+id/move_et_vetify_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/move_iv_vetify_yes"
-                android:text="是"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
-
-            <ImageView
-                android:id="@+id/move_iv_vetify_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:src="@drawable/no" />
-
-            <TextView
-                android:id="@+id/move_et_vetify_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/move_iv_vetify_no"
-                android:text="否"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
-        </RelativeLayout>
         <!-- 活动类容类型 -->
 
         <include layout="@layout/view_line_vertical" />
@@ -682,7 +731,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_toRightOf="@id/move_tv_content_type"
-                android:src="@drawable/xz01" />
+                android:src="@drawable/xz02" />
 
             <TextView
                 android:id="@+id/move_tv_title_yes"
