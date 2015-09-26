@@ -42,6 +42,7 @@ public interface EventIm {
 	public static final String RANGEDES = "rangeDes";// 指定学校id 选填
 
 	public static final String OP = "op";// 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的)
+	public static final String ID = "id";// 活动id
 
 	List<Model> eventList(ModelEvent event);
 
@@ -72,7 +73,7 @@ public interface EventIm {
 	 * 
 	 * @return
 	 */
-	Model eventView();
+	Model eventView(ModelEvent event);
 
 	/**
 	 * 39.【活动报名】：Event/join
@@ -81,7 +82,7 @@ public interface EventIm {
 	 * 
 	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) id 活动id
 	 */
-	boolean join();
+	boolean join(ModelEvent event);
 
 	/**
 	 * 活动关注/取消关注】：Event/sub
@@ -93,7 +94,7 @@ public interface EventIm {
 	 * 
 	 * @return
 	 */
-	boolean sub();
+	boolean sub(ModelEvent event);
 
 	/**
 	 * 41.【活动参与者列表】：Event/memberList
@@ -105,6 +106,6 @@ public interface EventIm {
 	 * 
 	 * @return
 	 */
-	List<Model> memberList();
+	List<Model> memberList(ModelEvent event);
 
 }

@@ -56,6 +56,7 @@ public class Association extends Application {
 	public static HttpClient mHttpClient;
 	/** api区域 */
 	private Api.LoginImpl mLogin;
+	private Api.HomeImpl mHome;
 	private Api.LeagueImpl mLeague;
 	private Api.EventImpl mEvent;
 	private Api.SchoolImpl mSchool;
@@ -317,6 +318,13 @@ public class Association extends Application {
 			mLeague = new Api.LeagueImpl();
 		}
 		return mLeague;
+	}
+
+	public Api.HomeImpl getHomeIm() {
+		if (mHome == null) {
+			mHome = new Api.HomeImpl();
+		}
+		return mHome;
 	}
 
 	public EventImpl getEventFIm() {

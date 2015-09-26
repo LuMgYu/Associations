@@ -11,6 +11,10 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class ModelEvent extends Model {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String online; // 0线上活动，1线下活动 必填
 	private String logo;// 接口37中返回的id必填
 	private String gid;// 所属社团 必填
@@ -32,17 +36,8 @@ public class ModelEvent extends Model {
 	private String rangeDes;// 指定学校id 选填
 
 	private int op;// op 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的) 不传就代表获取所有
+	private int stub;// (int) sub 0关注，1取消关注
 
-	// "id":"79",
-	// "title":null,
-	// "explain":"把家好好上课生快生快生快凯撒",
-	// "online":"1",
-	// "sTime":"2147483647",
-	// "eTime":"2147483647",
-	// "joinCount":"0",
-	// "typeName":"赛事",
-	// "logo":"http://daxs.zhiyicx.com/attachment/uploads/2015/0926/10/560602aa8ba59.jpg",
-	// "isover":0
 	/**************** 获取活动需要的数据 *************************/
 	private String id;
 	// private String title;
@@ -55,6 +50,28 @@ public class ModelEvent extends Model {
 	private String logourl;
 	private int isover;
 
+	// "id":"78",
+	// "online":"1",
+	// "logo":"http://daxs.zhiyicx.com/attachment/uploads/2015/0926/10/5606025d4deae.jpg",
+	// "title":"过家家",
+	// "cTime":"1443234422",
+	// "eTime":"2147483647",
+	// "joinCount":"0",
+	// "explain":"时时刻刻上课了",
+	// "host":"这不是你刷卡",
+	// "gid":"15293",
+	// "address":"班那么",
+	// "typeName":null,
+	// "gname":"Dodd",
+	// "glogo":"http://daxs.zhiyicx.com/attachment/uploads/2015/0921/16/55ffc384412b6.png",
+	// "isin":1,
+	// "issub":1
+
+	private String gname;
+	private String glogo;
+	private int isin;
+	private int issub;
+
 	/**************** 获取活动需要的数据end *************************/
 
 	public ModelEvent() {
@@ -65,7 +82,7 @@ public class ModelEvent extends Model {
 		try {
 			if (jsonObject.has("id")) {
 
-				this.setOnline(jsonObject.getString("id"));
+				this.setId(jsonObject.getString("id"));
 			}
 			if (jsonObject.has("title")) {
 				this.setTitle(jsonObject.getString("title"));
@@ -78,13 +95,13 @@ public class ModelEvent extends Model {
 			if (jsonObject.has("online")) {
 				this.setOnline(jsonObject.getString("online"));
 			}
-			if (jsonObject.has("sTime")) {
+			if (jsonObject.has("cTime")) {
 
-				this.setsTime(jsonObject.getString("sTime"));
+				this.setsTime(jsonObject.getString("cTime"));
 			}
 			if (jsonObject.has("eTime")) {
 
-				this.seteTime(jsonObject.getString("sTime"));
+				this.seteTime(jsonObject.getString("eTime"));
 			}
 
 			if (jsonObject.has("joinCount")) {
@@ -106,6 +123,30 @@ public class ModelEvent extends Model {
 			if (jsonObject.has("op")) {
 
 				this.setOp(jsonObject.getInt("op"));
+			}
+			if (jsonObject.has("gname")) {
+
+				this.setGname(jsonObject.getString("gname"));
+			}
+			if (jsonObject.has("glogo")) {
+
+				this.setGlogo(jsonObject.getString("glogo"));
+			}
+			if (jsonObject.has("isin")) {
+
+				this.setIsin(jsonObject.getInt("isin"));
+			}
+			if (jsonObject.has("issub")) {
+
+				this.setIssub(jsonObject.getInt("issub"));
+			}
+			if (jsonObject.has("gid")) {
+
+				this.setGid(jsonObject.getString("gid"));
+			}
+			if (jsonObject.has("host")) {
+
+				this.setHost(jsonObject.getString("host"));
 			}
 
 		} catch (JSONException e) {
@@ -311,6 +352,63 @@ public class ModelEvent extends Model {
 
 	public void setOp(int op) {
 		this.op = op;
+	}
+
+	public int getStub() {
+		return stub;
+	}
+
+	public void setStub(int stub) {
+		this.stub = stub;
+	}
+
+	public String getGname() {
+		return gname;
+	}
+
+	public void setGname(String gname) {
+		this.gname = gname;
+	}
+
+	public String getGlogo() {
+		return glogo;
+	}
+
+	public void setGlogo(String glogo) {
+		this.glogo = glogo;
+	}
+
+	public int getIsin() {
+		return isin;
+	}
+
+	public void setIsin(int isin) {
+		this.isin = isin;
+	}
+
+	public int getIssub() {
+		return issub;
+	}
+
+	public void setIssub(int issub) {
+		this.issub = issub;
+	}
+
+	@Override
+	public String toString() {
+		return "ModelEvent [online=" + online + ", logo=" + logo + ", gid="
+				+ gid + ", title=" + title + ", address=" + address + ", type="
+				+ type + ", host=" + host + ", explain=" + explain + ", sTime="
+				+ sTime + ", eTime=" + eTime + ", joinAudit=" + joinAudit
+				+ ", joinStime=" + joinStime + ", joinEtime=" + joinEtime
+				+ ", workAudit=" + workAudit + ", worksPurview=" + worksPurview
+				+ ", workStime=" + workStime + ", workEtime=" + workEtime
+				+ ", explainType=" + explainType + ", rangeDes=" + rangeDes
+				+ ", op=" + op + ", stub=" + stub + ", id=" + id
+				+ ", joinCount=" + joinCount + ", typeName=" + typeName
+				+ ", logourl=" + logourl + ", isover=" + isover + ", gname="
+				+ gname + ", glogo=" + glogo + ", isin=" + isin + ", issub="
+				+ issub + "]";
 	}
 
 }

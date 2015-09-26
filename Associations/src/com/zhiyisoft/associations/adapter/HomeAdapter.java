@@ -19,6 +19,7 @@ import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.HomeImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
@@ -367,7 +368,10 @@ public class HomeAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
+		Model model;
+		HomeImpl homeImpl = mApp.getHomeIm();
+		model = homeImpl.index();
+		items.add(model);
 		return items;
 	}
 

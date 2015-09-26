@@ -2,9 +2,11 @@ package com.zhiyisoft.associations.activity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -13,14 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.umeng.socialize.controller.UMServiceFactory;
-import com.umeng.socialize.controller.UMSocialService;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.sso.QZoneSsoHandler;
-import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api.EventImpl;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.img.WebImageCache;
+import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -29,7 +33,7 @@ import com.zhiyisoft.associations.img.RoundImageView;
 
 public class MoveMainActivity extends BaseActivity {
 	private ImageView returnBack;
-	private ImageView move_icon;
+	private SmartImageView move_icon;
 	private Button move_btn_online;
 	private TextView move_btn_event;
 	private TextView tv_team_name;
@@ -57,8 +61,57 @@ public class MoveMainActivity extends BaseActivity {
 	private LinearLayout main_ll_watch;
 	private LinearLayout main_ll_join;
 	private FrameLayout move_fl_bg;
-
+	private RoundImageView association_icon;
 	private RelativeLayout association_rl_name;
+	private WebImageCache imageCache;
+	private TextView move_tv_watch;
+	private TextView move_tv_join;
+	ModelEvent mEventResult;
+
+	private boolean isWatch = false;
+	private boolean isJoin = false;
+	private static final int SUCCESS_DETAIL = 1;
+	private static final int SUCCESS_WATCH = 2;
+	private static final int SUCCESS_JOIN = 3;
+	private Handler mHandle = new Handler() {
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO
+			switch (msg.what) {
+
+			case SUCCESS_DETAIL:
+				mEventResult = (ModelEvent) msg.obj;
+				if (mEventResult != null) {
+					ToastUtils.showToast("获取资料成功");
+					bindDataToView(mEventResult);
+				} else {
+					ToastUtils.showToast("获取资料失败");
+				}
+				break;
+			case SUCCESS_WATCH:
+				boolean isWatch = (Boolean) msg.obj;
+				if (isWatch) {
+					ToastUtils.showToast("关注成功");
+					isWatch(1);
+				} else {
+					ToastUtils.showToast("关注失败");
+				}
+				break;
+			case SUCCESS_JOIN:
+				boolean isJOIN = (Boolean) msg.obj;
+				if (isJOIN) {
+					ToastUtils.showToast("加入成功");
+					isJoin(1);
+				} else {
+					ToastUtils.showToast("加入失败");
+				}
+				break;
+			}
+
+		}
+
+	};
+	private ModelEvent mEvent; // 事件
 
 	@Override
 	public String setCenterTitle() {
@@ -67,23 +120,81 @@ public class MoveMainActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mEvent = (ModelEvent) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
+
+	/**
+	 * 绑定数据到界面
+	 * 
+	 * @param event
+	 */
+	private void bindDataToView(ModelEvent event) {
+		if (event != null) {
+			Log.i("event", event.toString());
+			move_icon.setImageUrl(event.getLogourl());
+			tv_team_name.setText(event.getTitle());
+			move_btn_online.setText(event.getOnline());
+			move_btn_event.setText(event.getTypeName());
+			move_tv_deadline.setText(event.geteTime() + event.getsTime());
+			move_tv_allmove.setText(event.getJoinCount());
+			String online = event.getOnline();
+			if (online.equals("1")) {
+				move_btn_online.setText("线上");
+				move_tv_onlineMove.setText("线上活动");
+			} else {
+				move_btn_online.setText("线下");
+				move_tv_onlineMove.setText("线下活动");
+			}
+			String typeName = event.getTypeName();
+			if (typeName != null) {
+				move_btn_event.setText(typeName);
+			}
+			tv_reference_des.setText(event.getExplain());
+			tv_main_handle_school.setText(event.getHost());
+			tv_association_member.setText("参与者（" + event.getJoinCount() + "）");
+			tv_association_name.setText(event.getGname());
+			association_icon.setImageUrl(event.getGlogo());
+			int isin = event.getIsin();
+			int issub = event.getIssub();
+			isJoin(isin);
+			isWatch(issub);
+			// TODO 这里纯在bug
+			setTopBg(move_fl_bg, event.getLogourl());
+		}
+	}
+
+	private void isWatch(int issub) {
+		if (issub == 1) {
+			move_tv_watch.setText("已关注");
+			isWatch = true;
+		} else {
+			move_tv_watch.setText("关注");
+			isWatch = false;
+		}
+	}
+
+	private void isJoin(int isin) {
+		if (isin == 1) {
+			move_tv_join.setText("已加入");
+			isJoin = true;
+		} else {
+			isJoin = false;
+			move_tv_watch.setText("报名");
+		}
+	};
 
 	@Override
 	public int getLayoutId() {
 		return R.layout.activity_move_main;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.zhiyisoft.associations.activity.base.BaseActivity#initView()
-	 */
 	@Override
 	public void initView() {
 		returnBack = (ImageView) findViewById(R.id.returnBack);
-		move_icon = (ImageView) findViewById(R.id.move_icon);
+		move_icon = (SmartImageView) findViewById(R.id.move_icon);
 		move_btn_online = (Button) findViewById(R.id.move_btn_online);
 		move_btn_event = (Button) findViewById(R.id.move_btn_event);
 		tv_team_name = (TextView) findViewById(R.id.tv_team_name);
@@ -103,6 +214,7 @@ public class MoveMainActivity extends BaseActivity {
 		rl_association = (RelativeLayout) findViewById(R.id.rl_association);
 		tv_association_member = (TextView) findViewById(R.id.tv_association_member);
 		rl_works_display = (RelativeLayout) findViewById(R.id.rl_works_display);
+		association_icon = (RoundImageView) findViewById(R.id.association_icon);
 		tv_album = (TextView) findViewById(R.id.tv_album);
 		iv_album1 = (ImageView) findViewById(R.id.iv_album1);
 		iv_album2 = (ImageView) findViewById(R.id.iv_album2);
@@ -114,7 +226,11 @@ public class MoveMainActivity extends BaseActivity {
 		main_ll_join = (LinearLayout) findViewById(R.id.main_ll_join);
 		move_fl_bg = (FrameLayout) findViewById(R.id.move_fl_bg);
 		association_rl_name = (RelativeLayout) findViewById(R.id.association_rl_name);
-		setTopBg(move_fl_bg);
+		move_tv_watch = (TextView) findViewById(R.id.move_tv_watch);
+		move_tv_join = (TextView) findViewById(R.id.move_tv_join);
+		imageCache = new WebImageCache(getApplicationContext());
+		getMoveInforFromNet(mEvent);
+		Log.i("event", mEvent.toString());
 	}
 
 	/**
@@ -123,14 +239,16 @@ public class MoveMainActivity extends BaseActivity {
 	 * @param view
 	 */
 	@SuppressLint("NewApi")
-	private void setTopBg(View view) {
-		Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-				R.drawable.move_icon);
-		int height = bitmap.getHeight();
-		int width = bitmap.getWidth();
-		Bitmap targetBp = Bitmap.createBitmap(bitmap, 0, 0, width, height / 3);
-		BitmapDrawable background = new BitmapDrawable(targetBp);
-		view.setBackground(background.getCurrent());
+	private void setTopBg(View view, String url) {
+		Bitmap bitmap = imageCache.get(url);
+		if (bitmap != null) {
+			int height = bitmap.getHeight();
+			int width = bitmap.getWidth();
+			Bitmap targetBp = Bitmap.createBitmap(bitmap, 0, 0, width,
+					height / 3);
+			BitmapDrawable background = new BitmapDrawable(targetBp);
+			view.setBackground(background.getCurrent());
+		}
 	}
 
 	@Override
@@ -165,13 +283,15 @@ public class MoveMainActivity extends BaseActivity {
 			preformShare();
 			break;
 		case R.id.main_ll_watch:
-			// Bundle data4 = new Bundle();
-			// mApp.startActivity(this, AssociationAlbumActivity.class, data4);
+			if (!isWatch) {
+				WatchMove(mEvent);
+			}
 			break;
 		case R.id.main_ll_join:
-			// Bundle data3 = new Bundle();
-			// mApp.startActivity(this, AssociationInformationActivity.class,
-			// data3);
+			if (!isJoin) {
+				JoinMove(mEvent);
+			}
+
 			break;
 		case R.id.rl_member:
 			Bundle data5 = new Bundle();
@@ -182,5 +302,65 @@ public class MoveMainActivity extends BaseActivity {
 			break;
 		}
 
+	}
+
+	/**
+	 * 获取活动详情
+	 * 
+	 * @param event
+	 */
+	private void getMoveInforFromNet(final ModelEvent event) {
+		final EventImpl eventImpl = mApp.getEventFIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				Model model = eventImpl.eventView(event);
+				Message message = Message.obtain();
+				message.what = SUCCESS_DETAIL;
+				message.obj = model;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	/**
+	 * 加入活动
+	 * 
+	 * @param event
+	 */
+	private void JoinMove(final ModelEvent event) {
+		final EventImpl eventImpl = mApp.getEventFIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				Boolean isSuccess = eventImpl.join(event);
+				Message message = Message.obtain();
+				message.what = SUCCESS_JOIN;
+				message.obj = isSuccess;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	/**
+	 * 关注活动
+	 * 
+	 * @param event
+	 */
+	private void WatchMove(final ModelEvent event) {
+		final EventImpl eventImpl = mApp.getEventFIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				Boolean isSuccess = eventImpl.sub(event);
+				Message message = Message.obtain();
+				message.what = SUCCESS_WATCH;
+				message.obj = isSuccess;
+				mHandle.sendMessage(message);
+			}
+		});
 	}
 }

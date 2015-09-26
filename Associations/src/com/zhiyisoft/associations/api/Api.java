@@ -237,6 +237,20 @@ public class Api {
 
 	}
 
+	public static final class HomeImpl implements HomeIm {
+
+		@Override
+		public Model index() {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, HOME);
+			get.addBodyParam(ACT, INDEX);
+			judgeTheUser(get);
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new Model());
+		}
+	}
+
 	public static final class PhotoImpl implements PhotoIm {
 
 		@Override
@@ -642,29 +656,53 @@ public class Api {
 		}
 
 		@Override
-		public Model eventView() {
-			// TODO Auto-generated method stub
-			return null;
+		public Model eventView(ModelEvent event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, EVENTVIEW);
+			judgeTheUser(get);
+			get.addBodyParam(ID, event.getId());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelEvent());
 		}
 
 		@Override
-		public boolean join() {
-			// TODO Auto-generated method stub
-			return false;
+		public boolean join(ModelEvent event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, JOIN);
+			judgeTheUser(get);
+			get.addBodyParam(ID, event.getId());
+			Object object = get.run();
+			return isCodeOk(object);
 		}
 
 		@Override
-		public boolean sub() {
-			// TODO Auto-generated method stub
-			return false;
+		public boolean sub(ModelEvent event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, SUB);
+			judgeTheUser(get);
+			get.addBodyParam(ID, event.getId());
+			get.addBodyParam(SUB, event.getStub());
+			Object object = get.run();
+			return isCodeOk(object);
 		}
 
 		@Override
-		public List<Model> memberList() {
-			// TODO Auto-generated method stub
-			return null;
+		public List<Model> memberList(ModelEvent event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, MEMBERLIST);
+			judgeTheUser(get);
+			get.addBodyParam(ID, event.getId());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelEvent());
 		}
-
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {

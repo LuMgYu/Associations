@@ -53,6 +53,7 @@
                 android:src="@drawable/cameat" />
 
             <TextView
+                android:id="@+id/move_tv_watch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -81,6 +82,7 @@
                 android:src="@drawable/join" />
 
             <TextView
+                android:id="@+id/move_tv_join"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -136,7 +138,7 @@
                     android:textColor="@color/text_white"
                     android:textSize="@dimen/text_big" />
 
-                <ImageView
+                <com.zhiyisoft.associations.img.SmartImageView
                     android:id="@+id/move_icon"
                     android:layout_width="80dp"
                     android:layout_height="100dp"
@@ -144,7 +146,7 @@
                     android:layout_marginLeft="@dimen/margin_left_small"
                     android:background="@drawable/iv_white_border"
                     android:padding="0.5dp"
-                    android:src="@drawable/move_icon" />
+                    android:scaleType="centerCrop" />
 
                 <RelativeLayout
                     android:id="@+id/photo_top"
@@ -392,7 +394,7 @@
                         android:layout_height="30dp"
                         android:layout_marginRight="@dimen/margin_right_small"
                         android:layout_toLeftOf="@id/tv_association_name"
-                        android:src="@drawable/default_image_small" />
+                        android:background="@drawable/default_image_small" />
 
                     <TextView
                         android:id="@+id/tv_association_name"
