@@ -394,7 +394,7 @@
                         android:layout_height="30dp"
                         android:layout_marginRight="@dimen/margin_right_small"
                         android:layout_toLeftOf="@id/tv_association_name"
-                        android:background="@drawable/default_image_small" />
+                        android:src="@drawable/default_image_small" />
 
                     <TextView
                         android:id="@+id/tv_association_name"

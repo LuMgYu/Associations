@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.AssociationMainActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
@@ -26,6 +27,8 @@ import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelHome;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
@@ -89,10 +92,45 @@ public class HomeAdapter extends BAdapter {
 		if (home != null) {
 			setAds();
 			initWorksIv(home.getWorks());
+			addAdviceAssocition(home.getGroups());
 			addMyAssociation(home.getJoinedGroup());
 			initHotView(home.getEvents());
-			initNewsView(home.getEvents());
+			initNewsView(home.getTopics());
 			setListener();
+		}
+	}
+
+	/**
+	 * 添加社团推荐
+	 * 
+	 * @param groups
+	 */
+	private void addAdviceAssocition(List<Model> groups) {
+		if (groups != null && mViewHolder != null) {
+			for (int i = 0; i < groups.size(); i++) {
+				ModelLeague league = (ModelLeague) groups.get(i);
+				if (i == 0) {
+					mViewHolder.iv_association1.setTag(league);
+					mViewHolder.iv_association1
+							.setImageUrl(league.getLogourl());
+					mViewHolder.tv_association1.setText(league.getName());
+				} else if (i == 1) {
+					mViewHolder.iv_association2.setTag(league);
+					mViewHolder.iv_association2
+							.setImageUrl(league.getLogourl());
+					mViewHolder.tv_association2.setText(league.getName());
+				} else if (i == 2) {
+					mViewHolder.iv_association3.setTag(league);
+					mViewHolder.iv_association3
+							.setImageUrl(league.getLogourl());
+					mViewHolder.tv_association3.setText(league.getName());
+				} else if (i == 3) {
+					mViewHolder.iv_association4.setTag(league);
+					mViewHolder.iv_association4
+							.setImageUrl(league.getLogourl());
+					mViewHolder.tv_association4.setText(league.getName());
+				}
+			}
 		}
 	}
 
@@ -100,11 +138,27 @@ public class HomeAdapter extends BAdapter {
 	 * 初始化新鲜事的数量
 	 */
 	private void initNewsView(List<Model> list) {
-		mNewsItemViewArray = new View[NEWSCOUNT];
-		for (int i = 0; i < mNewsItemViewArray.length; i++) {
-			mNewsItemViewArray[i] = mInflater.inflate(
-					R.layout.association_news_item, null);
-			mViewHolder.ll_news.addView(mNewsItemViewArray[i]);
+		if (list != null) {
+			mNewsItemViewArray = new View[NEWSCOUNT];
+			for (int i = 0; i < list.size(); i++) {
+				ModelLeagueTopic topic = (ModelLeagueTopic) list.get(i);
+				mNewsItemViewArray[i] = mInflater.inflate(
+						R.layout.association_news_item, null);
+
+				/******************* 初始化新鲜事以及添加 ****************************/
+				SmartImageView move_iv = (SmartImageView) mNewsItemViewArray[i]
+						.findViewById(R.id.move_iv);
+				TextView move_tv_title = (TextView) mNewsItemViewArray[i]
+						.findViewById(R.id.move_tv_title);
+				TextView move_tv_content = (TextView) mNewsItemViewArray[i]
+						.findViewById(R.id.move_tv_content);
+				move_iv.setImageUrl(topic.getFaceurl());
+				move_tv_title.setText(topic.getTitle());
+				move_tv_content.setText(topic.getContent());
+				/******************* 初始化新鲜事以及添加 ****************************/
+				mViewHolder.ll_news.addView(mNewsItemViewArray[i]);
+
+			}
 		}
 	}
 
@@ -263,8 +317,11 @@ public class HomeAdapter extends BAdapter {
 
 				@Override
 				public void onClick(View v) {
+					ModelLeague league = (ModelLeague) v.getTag();
+					Bundle bundle = new Bundle();
+					bundle.putSerializable(Config.SEND_ACTIVITY_DATA, league);
 					mApp.startActivity(mBaseActivity,
-							AssociationSingleActivity.class, null);
+							AssociationMainActivity.class, bundle);
 
 				}
 			});
@@ -352,26 +409,30 @@ public class HomeAdapter extends BAdapter {
 			mViewHolder.home_rl_my_association.setVisibility(View.GONE);
 			return;
 		}
-		String[] StringName = new String[] { "羽毛球社团", "乒乓球社团", "花花球社团",
-				"泡妹子社团", "交友社团" };
 		View itemView = null;
 		TextView textView;
-		for (int i = 0; i < StringName.length; i++) {
-			itemView = mInflater.inflate(R.layout.my_association_tv_item, null);
-			textView = (TextView) itemView.findViewById(R.id.association_text);
-			textView.setText(StringName[i] + "");
-			itemView.setTag(StringName[i]);
-			itemView.setOnClickListener(new OnClickListener() {
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				ModelLeague league = (ModelLeague) list.get(i);
+				itemView = mInflater.inflate(R.layout.my_association_tv_item,
+						null);
+				textView = (TextView) itemView
+						.findViewById(R.id.association_text);
+				textView.setText(league.getName() + "");
+				itemView.setTag(league);
+				itemView.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					Bundle data = new Bundle();
-					data.putString(Config.HOTCATEGORY, (String) v.getTag());
-					mApp.startActivity(mBaseActivity,
-							AssociationSingleActivity.class, data);
+					@Override
+					public void onClick(View v) {
+						Bundle data = new Bundle();
+						Model model = (Model) v.getTag();
+						data.putSerializable(Config.SEND_ACTIVITY_DATA, model);
+						mApp.startActivity(mBaseActivity,
+								AssociationSingleActivity.class, data);
 
-				}
-			});
+					}
+				});
+			}
 			mViewHolder.ll_association.addView(itemView);
 		}
 	}

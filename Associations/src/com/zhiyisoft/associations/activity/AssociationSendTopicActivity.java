@@ -35,9 +35,12 @@ import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
 import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImageManager;
 
@@ -57,7 +60,11 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private Bitmap mBitmap; // 获取本地的bitmap
 
 	private LocalImageManager mImageManager;
+	/******** activity传过来的model类型 ************/
 	private ModelLeague mLeague;
+	private ModelEvent mEvent;
+
+	/******** activity传过来的model类型 ************/
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -74,7 +81,12 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	public void initIntent() {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
-			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+			Model model = (Model) bundle.get(Config.SEND_ACTIVITY_DATA);
+			if (model instanceof ModelLeague) {
+				mLeague = (ModelLeague) model;
+			} else if (model instanceof ModelEvent) {
+				mEvent = (ModelEvent) model;
+			}
 		}
 	}
 
@@ -184,13 +196,21 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		case R.id.tv_title_right:
 			String str_title = topic_title.getText().toString();
 			String str_content = topic_content.getText().toString();
-			ModelLeagueTopic topic = new ModelLeagueTopic();
 			checkThedata(str_title, str_content);
 			if (checkThedata(str_content, str_content)) {
-				topic.setGid(mLeague.getGid());
-				topic.setTitle(str_title);
-				topic.setContent(str_content);
-				sendTopicToNet(topic);
+				if (mLeague != null) {
+					ModelLeagueTopic topic = new ModelLeagueTopic();
+					topic.setGid(mLeague.getGid());
+					topic.setTitle(str_title);
+					topic.setContent(str_content);
+					sendTopicToNet(topic);
+				} else if (mEvent != null) {
+					ModelEventWorks works = new ModelEventWorks();
+					works.setId(mEvent.getId());
+					works.setTitle(str_title);
+					works.setIntro(str_content);
+					sendWorksToNet(works);
+				}
 			}
 			break;
 		}
@@ -257,6 +277,60 @@ public class AssociationSendTopicActivity extends BaseActivity {
 									ToastUtils.showToast("发表话题成功");
 								} else {
 									ToastUtils.showToast("发表话题失败！");
+								}
+							}
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+
+				});
+	}
+
+	/**
+	 * 
+	 * 上传作品
+	 * 
+	 * @param work
+	 */
+	private void sendWorksToNet(ModelEventWorks work) {
+		RequestParams params = new RequestParams();
+		params.put(Api.oauth_token, mUser.getOauth_token());
+		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
+		params.put("id ", work.getId());
+		params.put("title", work.getTitle());
+		params.put("intro", work.getIntro());
+		Log.i("param", params.toString());
+		// 上传图片
+		if (mPhotoList != null) {
+			for (int i = 0; i < mPhotoList.size() - 1; i++) {
+				try {
+					File file = new File(mPhotoList.get(i));
+					params.put("file" + i, file);
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.post(
+				"http://daxs.zhiyicx.com/index.php?app=api&mod=Event&act=uploadWork",
+				params, new AsyncHttpResponseHandler() {
+
+					@Override
+					public void onSuccess(int arg0, String arg1) {
+						super.onSuccess(arg0, arg1);
+						Log.i("uploadpath", "==========" + arg1 + "");
+						try {
+							JSONObject jsonObject = new JSONObject(arg1);
+							if (jsonObject.has("status")) {
+								int status = jsonObject.getInt("status");
+								if (status == 1) {
+									ToastUtils.showToast("上传作品成功");
+								} else {
+									ToastUtils.showToast("上传作品失败！");
 								}
 							}
 						} catch (JSONException e) {

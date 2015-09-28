@@ -7,11 +7,17 @@ import com.zhiyisoft.associations.model.base.Model;
 
 public class ModelEventWorks extends Model {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 		 * 
 		 */
-	private static final long serialVersionUID = 1L;
-	private String maskName;
-	private String content;
+	private String title;
+	private String intro;
+	private String id;
+	private int explainType;
 
 	public ModelEventWorks() {
 
@@ -19,11 +25,18 @@ public class ModelEventWorks extends Model {
 
 	public ModelEventWorks(JSONObject jsonObject) {
 		try {
-			if (jsonObject.has("maskName")) {
-				this.setMaskName(jsonObject.getString("maskName"));
+			// private String title;
+			// private String intro;
+			// private String id;
+			// private String explainType;
+			if (jsonObject.has("title")) {
+				this.setTitle(jsonObject.getString("title"));
 			}
-			if (jsonObject.has("content")) {
-				this.setContent(jsonObject.getString("content"));
+			if (jsonObject.has("intro")) {
+				this.setIntro(jsonObject.getString("intro"));
+			}
+			if (jsonObject.has("id")) {
+				this.setId(jsonObject.getString("id"));
 			}
 
 		} catch (JSONException e) {
@@ -33,20 +46,40 @@ public class ModelEventWorks extends Model {
 
 	}
 
-	public String getMaskName() {
-		return maskName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setMaskName(String maskName) {
-		this.maskName = maskName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getIntro() {
+		return intro;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getExplainType() {
+		return explainType;
+	}
+
+	public void setExplainType(int explainType) {
+		this.explainType = explainType;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }
