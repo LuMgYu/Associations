@@ -62,6 +62,7 @@ public class Association extends Application {
 	private Api.SchoolImpl mSchool;
 	private Api.BaseSettingImpl mBaseSetting;
 	private Api.RegisterImpl mRegister;
+	private Api.CommentImpl mComment;
 
 	/** api区域结束 */
 	@Override
@@ -353,6 +354,13 @@ public class Association extends Application {
 			mRegister = new Api.RegisterImpl();
 		}
 		return mRegister;
+	}
+
+	public Api.CommentImpl getCommentIm() {
+		if (mComment == null) {
+			mComment = new Api.CommentImpl();
+		}
+		return mComment;
 	}
 
 	// -----------------------------获取api 结束-----------------------------

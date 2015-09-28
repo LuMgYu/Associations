@@ -24,6 +24,7 @@ import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.img.WebImageCache;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -138,7 +139,8 @@ public class MoveMainActivity extends BaseActivity {
 			tv_team_name.setText(event.getTitle());
 			move_btn_online.setText(event.getOnline());
 			move_btn_event.setText(event.getTypeName());
-			move_tv_deadline.setText(event.geteTime() + event.getsTime());
+			move_tv_deadline.setText(DateUtil.strTodate(event.getsTime()) + "-"
+					+ DateUtil.strTodate(event.geteTime()));
 			move_tv_allmove.setText(event.getJoinCount());
 			String online = event.getOnline();
 			if (online.equals("1")) {
@@ -272,8 +274,9 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationInformationActivity.class, data);
 			break;
 		case R.id.rl_works_display:
-			Bundle data1 = new Bundle();
-			mApp.startActivity(this, MoveWorksDisplayActivity.class, data1);
+			Bundle workdata = new Bundle();
+			workdata.putSerializable(Config.SEND_ACTIVITY_DATA, mEvent);
+			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
 			Bundle data2 = new Bundle();

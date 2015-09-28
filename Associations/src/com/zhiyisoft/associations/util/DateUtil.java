@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.util;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,9 +24,9 @@ public class DateUtil {
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d号");
 			Date d = sdf.parse(year_month_day);
-			Long time = d.getTime();
-			Log.i("time", "dateToStr--------->" + time);
-			return String.valueOf(time);
+			long unixTimestamp = d.getTime() / 1000;
+			Log.i("time", "dateToStr--------->" + unixTimestamp);
+			return String.valueOf(unixTimestamp);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,9 +43,10 @@ public class DateUtil {
 	@SuppressLint("SimpleDateFormat")
 	public static String strTodate(String time) {
 		try {
+			Long timestamp = Long.valueOf(time) * 1000;
+			Timestamp unixTime = new Timestamp(timestamp);
 			SimpleDateFormat format = new SimpleDateFormat("yyyy年M月d号");
-			Date date = new Date(Long.valueOf(time));
-			String d = format.format(date);
+			String d = format.format(unixTime);
 			return d;
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block

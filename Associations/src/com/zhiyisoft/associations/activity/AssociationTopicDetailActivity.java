@@ -28,15 +28,20 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
+import com.zhiyisoft.associations.api.Api.CommentImpl;
+import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
-import com.zhiyisoft.associations.model.Comment;
+import com.zhiyisoft.associations.model.ModelChildComment;
+import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
-import com.zhiyisoft.associations.model.ModelLeagueTopicReply;
+import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.MyGridView;
@@ -72,6 +77,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	private Model mModel; // 当前上一个actitivy传过来的信息，更加不同的需求判断解析成相应的子类
 	private ModelLeagueTopic mModelTopic;
+
+	private ModelEventWorks mWorks;
 	/************ 回复的内容时两个重要参数 ************/
 	private String replayContent; // 回复的内容
 	private String manId; // 二级回帖的时候 这个标示
@@ -80,6 +87,11 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private static final int REPLYTOPIC = 2;
 	private static final int REPLYPOST = 3;
 	private static final int GETTOPICPOSTS = 4;
+
+	private static final int WORKVIEW = 5; // 作品详情
+	private static final int COMMENTLIST = 6; // 44.【评论列表】：Comment/commentList
+	private static final int COMMENT = 7; // 45.【添加评论】：Comment/comment
+
 	@SuppressWarnings("unused")
 	private Handler mHandle = new Handler() {
 		public void handleMessage(Message msg) {
@@ -127,9 +139,38 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				}
 				break;
 			case GETTOPICPOSTS:
-				List<ModelLeagueTopicReply> replays = (List<ModelLeagueTopicReply>) msg.obj;
+				List<ModelComment> replays = (List<ModelComment>) msg.obj;
 				if (replays != null) {
 					initReplayView(replays);
+					ToastUtils.showToast("获取评论成功");
+				} else {
+					ToastUtils.showToast("获取评论失败");
+				}
+				break;
+			case WORKVIEW:
+				ModelEventWorks works = (ModelEventWorks) msg.obj;
+				if (works != null) {
+					ToastUtils.showToast("获取详情成功");
+					List<Model> photos = works.getAttachs();
+					List<String> photoUrls = new ArrayList<String>();
+					if (photos != null) {
+						for (int i = 0; i < photos.size(); i++) {
+							ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
+									.get(i);
+							photoUrls.add(photo.getUrl());
+						}
+					}
+					bindDataToView(works.getTitle(), works.getFaceurl(),
+							works.getUname(), works.getCtime(),
+							works.getIntro(), photoUrls, null, null, null);
+				} else {
+					ToastUtils.showToast("获取详情失败");
+				}
+				break;
+			case COMMENTLIST:
+				List<ModelComment> comment = (List<ModelComment>) msg.obj;
+				if (comment != null) {
+					initReplayView(comment);
 					ToastUtils.showToast("获取评论成功");
 				} else {
 					ToastUtils.showToast("获取评论失败");
@@ -189,7 +230,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	/**
 	 * 初始化 评论的条数
 	 */
-	public void initReplayView(List<ModelLeagueTopicReply> list) {
+	public void initReplayView(List<ModelComment> list) {
 		// TODO 这里只是显示数据而已，并没有什么卵用
 		if (list != null) {
 			if (replayfirst_ll_main.getChildCount() > 0) {
@@ -215,7 +256,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				TextView other_more = (TextView) view
 						.findViewById(R.id.other_more);
 				/********************** 添加回复的内容 ***********************************/
-				ModelLeagueTopicReply reply = list.get(i);
+				ModelComment reply = list.get(i);
 				item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());
 				// item_user_tv_a.sette
@@ -233,8 +274,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				replay_btn.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						ModelLeagueTopicReply data = (ModelLeagueTopicReply) v
-								.getTag();
+						ModelComment data = (ModelComment) v.getTag();
 						manId = data.getPid();
 						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 						imm.toggleSoftInput(0,
@@ -256,7 +296,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private void addOtherReplayLayout(LinearLayout parent, List<Model> list) {
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				Comment comment = (Comment) list.get(i);
+				ModelChildComment comment = (ModelChildComment) list.get(i);
 				View view = mInflater.inflate(
 						R.layout.detail_other_replay_item, null);
 				// TODO 以后这些数据就是从网上获取
@@ -466,6 +506,15 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			mModelTopic = (ModelLeagueTopic) model;
 			topicView(mModelTopic);
 			getTopicPosts(mModelTopic);
+		} else if (model instanceof ModelEventWorks) {
+			mWorks = (ModelEventWorks) model;
+			workView(mWorks);
+			ModelChildComment comment = new ModelChildComment();
+			comment.setSourceId(mWorks.getId());
+			comment.setCommentApp("event");
+			comment.setType("event_work");
+			commentList(comment);
+			// TODO
 		}
 	}
 
@@ -482,7 +531,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			content_tv_user.setText(username + "发表于");
 		}
 		if (date != null) {
-			content_tv_date.setText(date);
+			content_tv_date.setText(DateUtil.strTodate(date));
 		}
 		if (content != null) {
 			content_tv_content.setText(content);
@@ -588,4 +637,38 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		});
 	}
 
+	/**
+	 * 43.【作品详情】：Event/workView
+	 * 
+	 * @param works
+	 */
+	private void workView(final ModelEventWorks works) {
+		final EventImpl eventImpl = mApp.getEventFIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				Model model = eventImpl.workView(works);
+				Message message = Message.obtain();
+				message.what = WORKVIEW;
+				message.obj = model;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	private void commentList(final ModelChildComment comment) {
+		final CommentImpl commentImpl = mApp.getCommentIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				Object object = commentImpl.commentList(comment);
+				Message message = Message.obtain();
+				message.what = COMMENTLIST;
+				message.obj = object;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
 }

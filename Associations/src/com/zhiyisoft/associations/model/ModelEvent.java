@@ -99,6 +99,10 @@ public class ModelEvent extends Model {
 
 				this.setsTime(jsonObject.getString("cTime"));
 			}
+			if (jsonObject.has("sTime")) {
+
+				this.setsTime(jsonObject.getString("sTime"));
+			}
 			if (jsonObject.has("eTime")) {
 
 				this.seteTime(jsonObject.getString("eTime"));

@@ -82,7 +82,8 @@ public class MoveAdapter extends BAdapter {
 			holder.move_btn_event.setText(event.getTypeName());
 
 			holder.move_tv_deadline
-					.setText(DateUtil.strTodate(event.geteTime()));
+					.setText(DateUtil.strTodate(event.getsTime()) + "-"
+							+ DateUtil.strTodate(event.geteTime()));
 			holder.move_tv_allmove.setText(event.getJoinCount());
 			holder.move_tv_content.setText(event.getExplain());
 		}

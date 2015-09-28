@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -16,8 +17,11 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MoveWorksAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.MoveWorksListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -29,6 +33,7 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 	private BaseListView works_display_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
+	private ModelEvent mEvent;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -43,7 +48,10 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mEvent = (ModelEvent) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 	}
 
 	@Override
@@ -54,7 +62,7 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		works_display_lv = (MoveWorksListview) findViewById(R.id.works_display_lv);
-		mAdapter = new MoveWorksAdapter(this, mlist);
+		mAdapter = new MoveWorksAdapter(this, mlist, mEvent);
 		works_display_lv.setAdapter(mAdapter);
 	}
 
@@ -72,22 +80,38 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 			break;
 		// --------------------------PopupWindow的界面控件监听器------------------
 		case R.id.ll_essay:
-			Bundle data = new Bundle();
-			mApp.startActivity(this, MoveSendEssayActivity.class, data);
+			Bundle data = bindDataToModel(1);
+			mApp.startActivity(this, AssociationSendTopicActivity.class, data);
 			break;
 		case R.id.ll_pic:
-			mApp.startActivity(this, MoveSendPhotoActivity.class, null);
+			Bundle picdata = bindDataToModel(2);
+			mApp.startActivity(this, AssociationSendTopicActivity.class,
+					picdata);
 			break;
 		case R.id.ll_music:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MoveSendMusicActivity.class, data2);
+			Bundle micdata = bindDataToModel(3);
+			mApp.startActivity(this, AssociationSendTopicActivity.class,
+					micdata);
 			break;
 		case R.id.ll_vedio:
-			Bundle data3 = new Bundle();
-			mApp.startActivity(this, MoveSendVedioActivity.class, data3);
+			Bundle veddata = bindDataToModel(4);
+			mApp.startActivity(this, AssociationSendTopicActivity.class,
+					veddata);
 			break;
 		}
 
+	}
+
+	private Bundle bindDataToModel(int type) {
+		Bundle data = new Bundle();
+		ModelEventWorks works = new ModelEventWorks();
+		if (mEvent != null) {
+			works.setId(mEvent.getId());
+			works.setExplainType(type);
+			Log.i("works", works.toString() + "");
+		}
+		data.putSerializable(Config.SEND_ACTIVITY_DATA, works);
+		return data;
 	}
 
 	// --------------------------PopupWindow的界面控件-----------------------------------------

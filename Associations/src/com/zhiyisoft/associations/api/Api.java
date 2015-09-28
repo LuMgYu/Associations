@@ -15,12 +15,14 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelChildComment;
 import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelHome;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
-import com.zhiyisoft.associations.model.ModelLeagueTopicReply;
+import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.ModelMask;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
@@ -582,7 +584,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(TID, topic.getTid());
 			Object object = get.run();
-			return parseOriginalJsonArray(object, new ModelLeagueTopicReply());
+			return parseOriginalJsonArray(object, new ModelComment());
 		}
 
 		@Override
@@ -704,6 +706,36 @@ public class Api {
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelEvent());
 		}
+
+		@Override
+		public List<Model> workList(ModelEvent event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, WORKLIST);
+			judgeTheUser(get);
+			get.addBodyParam(ID, event.getId());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelEventWorks());
+		}
+
+		@Override
+		public Model workView(ModelEventWorks event) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, WORKVIEW);
+			judgeTheUser(get);
+			get.addBodyParam(ID, event.getId());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelEventWorks());
+		}
+
+		@Override
+		public boolean comment(ModelEventWorks event) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 	}
 
 	public static final class BaseSettingImpl implements BaseSettingIm {
@@ -749,6 +781,29 @@ public class Api {
 			Object object = post.run();
 			return parseOriginalJsonObject(object.toString(), new ModelMask());
 		}
+	}
+
+	public static final class CommentImpl implements CommentIm {
+
+		@Override
+		public List<Model> commentList(ModelChildComment comment) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, COMMENT);
+			get.addBodyParam(ACT, COMMENTLIST);
+			judgeTheUser(get);
+			get.addBodyParam(COMMENTAPP, comment.getCommentApp());
+			get.addBodyParam(TYPE, comment.getType());
+			get.addBodyParam(SOURCEID, comment.getSourceId());
+			Object object = get.run();
+			return parseOriginalJsonArray(get, new ModelComment());
+		}
+
+		@Override
+		public boolean comment(ModelChildComment event) {
+			return false;
+		}
+
 	}
 
 	/**

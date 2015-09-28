@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.api;
 import java.util.List;
 
 import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -19,6 +20,9 @@ public interface EventIm {
 	public static final String JOIN = "join";// 39.【活动报名】：Event/join
 	public static final String SUB = "sub";// 40.【活动关注/取消关注】：Event/sub
 	public static final String MEMBERLIST = "memberList";// 41.【活动参与者列表】：Event/memberList
+	public static final String WORKLIST = "workList";// 42.【作品列表】：Event/workList
+	public static final String WORKVIEW = "workView";// 43.【作品详情】：Event/workView
+	public static final String COMMENT = "comment";// 44.【作品评论】：Event/comment
 
 	// 需要执行的操作的参数
 	public static final String ONLINE = "online"; // 0线上活动，1线下活动 必填
@@ -108,4 +112,47 @@ public interface EventIm {
 	 */
 	List<Model> memberList(ModelEvent event);
 
+	/**
+	 * 42.【作品列表】：Event/workList
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act=workList
+	 * 
+	 * 输入参数： (string) oauth_token 选填 (string) oauth_token_secret 选填 (int) id
+	 * 活动id 必填
+	 * 
+	 * @param event
+	 * @return
+	 */
+	List<Model> workList(ModelEvent event);
+
+	/**
+	 * 43.【作品详情】：Event/workView
+	 * 
+	 * 接口名称： Event/workView
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act=workView
+	 * 
+	 * 输入参数： (string) oauth_token 选填 (string) oauth_token_secret 选填 (int) id
+	 * 作品id 必填
+	 * 
+	 * @param event
+	 * @return
+	 */
+	Model workView(ModelEventWorks event);
+
+	/**
+	 * 44.【作品评论】：Event/comment
+	 * 
+	 * 接口名称： Event/comment
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act=comment
+	 * 
+	 * 
+	 * 输入参数： (string) oauth_token 选填 (string) oauth_token_secret 选填 (int) id
+	 * 活动id 必填 (int) commentId 评论id 选填 (string) content 内容 必填
+	 * 
+	 * @param event
+	 * @return
+	 */
+	boolean comment(ModelEventWorks event);
 }

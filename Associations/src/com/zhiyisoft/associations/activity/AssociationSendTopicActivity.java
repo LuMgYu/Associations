@@ -62,7 +62,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private LocalImageManager mImageManager;
 	/******** activity传过来的model类型 ************/
 	private ModelLeague mLeague;
-	private ModelEvent mEvent;
+	private ModelEventWorks mWorks;
 
 	/******** activity传过来的model类型 ************/
 
@@ -84,8 +84,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			Model model = (Model) bundle.get(Config.SEND_ACTIVITY_DATA);
 			if (model instanceof ModelLeague) {
 				mLeague = (ModelLeague) model;
-			} else if (model instanceof ModelEvent) {
-				mEvent = (ModelEvent) model;
+			} else if (model instanceof ModelEventWorks) {
+				mWorks = (ModelEventWorks) model;
 			}
 		}
 	}
@@ -204,12 +204,10 @@ public class AssociationSendTopicActivity extends BaseActivity {
 					topic.setTitle(str_title);
 					topic.setContent(str_content);
 					sendTopicToNet(topic);
-				} else if (mEvent != null) {
-					ModelEventWorks works = new ModelEventWorks();
-					works.setId(mEvent.getId());
-					works.setTitle(str_title);
-					works.setIntro(str_content);
-					sendWorksToNet(works);
+				} else if (mWorks != null) {
+					mWorks.setTitle(str_title);
+					mWorks.setIntro(str_content);
+					sendWorksToNet(mWorks);
 				}
 			}
 			break;
@@ -298,9 +296,10 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, mUser.getOauth_token());
 		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
-		params.put("id ", work.getId());
+		params.put("id", work.getId());
 		params.put("title", work.getTitle());
 		params.put("intro", work.getIntro());
+		params.put("explainType", String.valueOf(work.getExplainType()));
 		Log.i("param", params.toString());
 		// 上传图片
 		if (mPhotoList != null) {

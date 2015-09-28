@@ -50,7 +50,7 @@ public class MoveDisplayActivity extends BaseActivity {
 	public void initView() {
 		move_lv = (MoveListview) findViewById(R.id.move_lv);
 		ModelEvent event = new ModelEvent();
-//		event.setType("12");
+		// event.setType("12");
 		mAdapter = new MoveAdapter(this, event);
 		move_lv.setAdapter(mAdapter);
 	}

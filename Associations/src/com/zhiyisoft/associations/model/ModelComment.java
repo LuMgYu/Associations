@@ -14,14 +14,7 @@ import com.zhiyisoft.associations.util.JsonUtils;
  *
  */
 
-public class ModelLeagueTopicReply extends Model {
-	// "pid":"1028896",
-	// "uid":"1",
-	// "faceurl":"http://daxs.zhiyicx.com/attachment/uploads/2015/0919/17/55fd2457d0147.jpg",
-	// "uname":"呵呵哒",
-	// "content":"hhhhhhhdafdfadfafadfasfadfa",
-	// "ctime":"1443080633",
-	// "comment":null
+public class ModelComment extends Model {
 
 	/**
 	 * 
@@ -35,11 +28,14 @@ public class ModelLeagueTopicReply extends Model {
 	private String ctime;
 	private List<Model> commentlist;
 
-	public ModelLeagueTopicReply() {
+	/*********** 活动需要添加的字段 *******************/
+	private String id;
+
+	public ModelComment() {
 
 	}
 
-	public ModelLeagueTopicReply(JSONObject jsonObject) {
+	public ModelComment(JSONObject jsonObject) {
 		try {
 			if (jsonObject.has("pid")) {
 				this.setPid(jsonObject.getString("pid"));
@@ -62,7 +58,12 @@ public class ModelLeagueTopicReply extends Model {
 			if (jsonObject.has("comment")) {
 				JSONArray array = jsonObject.getJSONArray("comment");
 				this.setCommentlist(JsonUtils.parseJsonArray(array,
-						new Comment()));
+						new ModelChildComment()));
+			}
+			if (jsonObject.has("childComment")) {
+				JSONArray array = jsonObject.getJSONArray("childComment");
+				this.setCommentlist(JsonUtils.parseJsonArray(array,
+						new ModelChildComment()));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -124,6 +125,18 @@ public class ModelLeagueTopicReply extends Model {
 
 	public void setCommentlist(List<Model> commentlist) {
 		this.commentlist = commentlist;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }
