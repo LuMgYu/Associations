@@ -16,6 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelHome;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
@@ -247,7 +248,7 @@ public class Api {
 			get.addBodyParam(ACT, INDEX);
 			judgeTheUser(get);
 			Object object = get.run();
-			return parseOriginalJsonObject(object, new Model());
+			return parseOriginalJsonObject(object, new ModelHome());
 		}
 	}
 
@@ -822,7 +823,7 @@ public class Api {
 					if (json.has("data")) {
 						JSONObject modelData = json.getJSONObject("data");
 						model = JsonUtils.parseJsonObject(modelData, ModelType);
-						Log.i("model", "model=" + model.toString());
+						// Log.i("model", "model=" + model.toString());
 						return model;
 					}
 				}

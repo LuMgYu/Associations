@@ -24,8 +24,11 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelHome;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 import com.zhiyisoft.associations.widget.CircleFlowIndicator;
@@ -73,7 +76,7 @@ public class HomeAdapter extends BAdapter {
 			mViewHolder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.copyoffragment_home, null);
 			initView();
-			initData();
+			initData(position);
 		}
 		return mView;
 	}
@@ -81,19 +84,22 @@ public class HomeAdapter extends BAdapter {
 	/**
 	 * 初始化数据
 	 */
-	private void initData() {
-		setAds();
-		initWorksIv();
-		addMyAssociation();
-		initHotView();
-		initNewsView();
-		setListener();
+	private void initData(int pos) {
+		ModelHome home = (ModelHome) mList.get(pos);
+		if (home != null) {
+			setAds();
+			initWorksIv(home.getWorks());
+			addMyAssociation(home.getJoinedGroup());
+			initHotView(home.getEvents());
+			initNewsView(home.getEvents());
+			setListener();
+		}
 	}
 
 	/**
 	 * 初始化新鲜事的数量
 	 */
-	private void initNewsView() {
+	private void initNewsView(List<Model> list) {
 		mNewsItemViewArray = new View[NEWSCOUNT];
 		for (int i = 0; i < mNewsItemViewArray.length; i++) {
 			mNewsItemViewArray[i] = mInflater.inflate(
@@ -106,11 +112,59 @@ public class HomeAdapter extends BAdapter {
 	 * 
 	 * 初始化热门活动的数量
 	 */
-	private void initHotView() {
-		mHotItemViewArray = new View[HOTMOVECOUNT];
-		for (int i = 0; i < mHotItemViewArray.length; i++) {
-			mHotItemViewArray[i] = mInflater.inflate(R.layout.move_item, null);
-			mViewHolder.ll_hotMove.addView(mHotItemViewArray[i]);
+	private void initHotView(List<Model> list) {
+		if (list != null) {
+			mHotItemViewArray = new View[HOTMOVECOUNT];
+			for (int i = 0; i < list.size(); i++) {
+				mHotItemViewArray[i] = mInflater.inflate(R.layout.move_item,
+						null);
+				/**************** 绑定活动的数据先初始化再绑定数据 *****************/
+				ViewHolder holder = new ViewHolder();
+				holder.move_smiv_icon = (SmartImageView) mHotItemViewArray[i]
+						.findViewById(R.id.move_smiv_icon);
+				holder.move_tv_end = (TextView) mHotItemViewArray[i]
+						.findViewById(R.id.move_tv_end);
+				holder.move_tv_title = (TextView) mHotItemViewArray[i]
+						.findViewById(R.id.move_tv_title);
+				holder.move_btn_online = (Button) mHotItemViewArray[i]
+						.findViewById(R.id.move_btn_online);
+				holder.move_btn_event = (Button) mHotItemViewArray[i]
+						.findViewById(R.id.move_btn_event);
+
+				holder.move_tv_deadline = (TextView) mHotItemViewArray[i]
+						.findViewById(R.id.move_tv_deadline);
+				holder.move_tv_allmove = (TextView) mHotItemViewArray[i]
+						.findViewById(R.id.move_tv_allmove);
+				holder.move_tv_content = (TextView) mHotItemViewArray[i]
+						.findViewById(R.id.move_tv_content);
+				// 判定数据
+				ModelEvent event = (ModelEvent) list.get(i);
+				if (event != null) {
+					holder.move_smiv_icon.setImageUrl(event.getLogourl());
+					int isover = event.getIsover();
+					if (isover == 0) {
+						holder.move_tv_end.setVisibility(View.GONE);
+					} else {
+						holder.move_tv_end.setVisibility(View.GONE);
+					}
+					holder.move_tv_title.setText(event.getTitle());
+					String isonline = event.getOnline();
+					if (isonline.equals("0")) {
+						holder.move_btn_online.setText("线上");
+					} else {
+						holder.move_btn_online.setText("线下");
+					}
+					holder.move_btn_event.setText(event.getTypeName());
+
+					holder.move_tv_deadline.setText(DateUtil.strTodate(event
+							.geteTime()));
+					holder.move_tv_allmove.setText(event.getJoinCount());
+					holder.move_tv_content.setText(event.getExplain());
+
+					/**************** 绑定活动的数量 化再绑定数据 *****************/
+					mViewHolder.ll_hotMove.addView(mHotItemViewArray[i]);
+				}
+			}
 		}
 	}
 
@@ -267,16 +321,18 @@ public class HomeAdapter extends BAdapter {
 	/**
 	 * 初始化作品的照片的每一个view
 	 */
-	private void initWorksIv() {
-		int photoWidth = (UIUtils.getWindowWidth(mBaseActivity) - 60) / 3;
-		LinearLayout.LayoutParams work1, work2;
-		work1 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
-		work1.leftMargin = 20;
-		mViewHolder.iv_work1.setLayoutParams(work1);
-		work2 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
-		work2.leftMargin = 10;
-		mViewHolder.iv_work2.setLayoutParams(work2);
-		mViewHolder.iv_work3.setLayoutParams(work2);
+	private void initWorksIv(List<Model> list) {
+		if (list != null) {
+			int photoWidth = (UIUtils.getWindowWidth(mBaseActivity) - 60) / 3;
+			LinearLayout.LayoutParams work1, work2;
+			work1 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
+			work1.leftMargin = 20;
+			mViewHolder.iv_work1.setLayoutParams(work1);
+			work2 = new LinearLayout.LayoutParams(photoWidth, photoWidth);
+			work2.leftMargin = 10;
+			mViewHolder.iv_work2.setLayoutParams(work2);
+			mViewHolder.iv_work3.setLayoutParams(work2);
+		}
 
 	}
 
@@ -291,7 +347,7 @@ public class HomeAdapter extends BAdapter {
 	/**
 	 * 添加我的社团
 	 */
-	private void addMyAssociation() {
+	private void addMyAssociation(List<Model> list) {
 		if (!IsLogin()) {
 			mViewHolder.home_rl_my_association.setVisibility(View.GONE);
 			return;
