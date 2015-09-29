@@ -75,6 +75,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_image_small" />
 
         <com.zhiyisoft.associations.img.SmartImageView
@@ -83,6 +84,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_image_small" />
 
         <com.zhiyisoft.associations.img.SmartImageView
@@ -91,6 +93,7 @@
             android:layout_height="80dp"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_image_small" />
     </LinearLayout>
     <!-- 日期区域 -->

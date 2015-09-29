@@ -81,7 +81,8 @@ public class MoveMainAdapter extends BAdapter {
 		// TODO 把数据绑定到界面
 		if (position > 0) {
 			if (event != null) {
-				holder.move_smiv_icon.setImageUrl(event.getLogourl());
+				mApp.displayImage(event.getLogourl(), holder.move_smiv_icon);
+				// holder.move_smiv_icon.setImageUrl(event.getLogourl());
 				int isover = event.getIsover();
 				if (isover == 0) {
 					holder.move_tv_end.setVisibility(View.GONE);

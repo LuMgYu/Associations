@@ -100,13 +100,13 @@ public class WebImageCache {
 	@SuppressLint("NewApi")
 	private File getDiskCacheDir(Context context, String uniqueName) {
 		String cachePath;
-		if (Environment.MEDIA_MOUNTED.equals(Environment
-				.getExternalStorageState())
-				|| !Environment.isExternalStorageRemovable()) {
-			cachePath = context.getExternalCacheDir().getPath();
-		} else {
+//		if (Environment.MEDIA_MOUNTED.equals(Environment
+//				.getExternalStorageState())
+//				|| !Environment.isExternalStorageRemovable()) {
+//			cachePath = context.getExternalCacheDir().getPath();
+//		} else {
 			cachePath = context.getCacheDir().getPath();
-		}
+		// }
 		return new File(cachePath + File.separator + uniqueName);
 	}
 

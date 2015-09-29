@@ -79,7 +79,8 @@ public class AssociationMainAdapter extends BAdapter {
 		resetView(holder);
 		// TODO 把数据绑定到界面
 		if (holder != null) {
-			holder.association_iv_icon.setImageUrl(league.getLogourl() + "");
+			mApp.displayImage(league.getLogourl(), holder.association_iv_icon);
+			// holder.association_iv_icon.setImageUrl(league.getLogourl() + "");
 			holder.association_tv_title.setText(league.getName() + "");
 			holder.association_tv_member.setText(league.getMembers() + "");
 			holder.association_tv_content.setText(league.getDescription() + "");

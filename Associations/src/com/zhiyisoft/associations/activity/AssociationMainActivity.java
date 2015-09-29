@@ -201,6 +201,7 @@ public class AssociationMainActivity extends BaseActivity {
 			break;
 		case R.id.rl_new:
 			Bundle data1 = new Bundle();
+			data1.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
 			mApp.startActivity(this, AssociationNewActivity.class, data1);
 			break;
 		case R.id.rl_activity:
@@ -216,8 +217,9 @@ public class AssociationMainActivity extends BaseActivity {
 		case R.id.iv_title:
 			break;
 		case R.id.rl_album:
-			Bundle data4 = new Bundle();
-			mApp.startActivity(this, AssociationAlbumActivity.class, data4);
+			Bundle albumdata = new Bundle();
+			albumdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationAlbumActivity.class, albumdata);
 			break;
 		case R.id.rl_file_share:
 			Bundle data3 = new Bundle();

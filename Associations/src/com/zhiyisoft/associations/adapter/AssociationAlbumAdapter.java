@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
@@ -67,7 +68,8 @@ public class AssociationAlbumAdapter extends BAdapter {
 	private void bundledataToView(int position, ViewHolder holder) {
 		ModelLeagueAlbum album = (ModelLeagueAlbum) mList.get(position);
 		// TODO 把数据绑定到界面
-		holder.album_iv.setImageUrl(album.getImgsrcL());
+		// holder.album_iv.setImageUrl(album.getImgsrcL());
+		mApp.displayImage(album.getImgsrcL(), holder.album_iv);
 		holder.album_tv_name.setText(album.getName());
 		holder.album_tv_count.setText(album.getPhotoCount());
 		String originTime = album.getcTime();

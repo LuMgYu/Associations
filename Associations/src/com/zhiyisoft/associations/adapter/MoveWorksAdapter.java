@@ -104,7 +104,8 @@ public class MoveWorksAdapter extends BAdapter {
 
 				break;
 			case TYPE_PHOTO:
-				holder.iv_photo_user_icon.setImageUrl(works.getFaceurl());
+				mApp.displayImage(works.getFaceurl(), holder.iv_photo_user_icon);
+//				holder.iv_photo_user_icon.setImageUrl(works.getFaceurl());
 				holder.tv_user_name.setText(works.getUname());
 				holder.tv_photo_title.setText(works.getTitle());
 				List<Model> list = works.getAttachs();
@@ -116,13 +117,16 @@ public class MoveWorksAdapter extends BAdapter {
 							.get(i);
 					if (i == 0) {
 						holder.iv_photo1.setVisibility(View.VISIBLE);
-						holder.iv_photo1.setImageUrl(photo.getUrl());
+//						holder.iv_photo1.setImageUrl(photo.getUrl());
+						mApp.displayImage(photo.getUrl(), holder.iv_photo1);
 					} else if (i == 1) {
 						holder.iv_photo2.setVisibility(View.VISIBLE);
-						holder.iv_photo2.setImageUrl(photo.getUrl());
+//						holder.iv_photo2.setImageUrl(photo.getUrl());
+						mApp.displayImage(photo.getUrl(), holder.iv_photo2);
 					} else if (i == 2) {
 						holder.iv_photo3.setVisibility(View.VISIBLE);
-						holder.iv_photo3.setImageUrl(photo.getUrl());
+//						holder.iv_photo3.setImageUrl(photo.getUrl());
+						mApp.displayImage(photo.getUrl(), holder.iv_photo3);
 					}
 				}
 				holder.tv_photo_date.setText(DateUtil.strTodate(works

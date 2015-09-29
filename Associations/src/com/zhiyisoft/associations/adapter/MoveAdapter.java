@@ -65,7 +65,8 @@ public class MoveAdapter extends BAdapter {
 	private void bundledataToView(int position, ViewHolder holder) {
 		ModelEvent event = (ModelEvent) mList.get(position);
 		if (event != null) {
-			holder.move_smiv_icon.setImageUrl(event.getLogourl());
+			mApp.displayImage(event.getLogourl(), holder.move_smiv_icon);
+			// holder.move_smiv_icon.setImageUrl(event.getLogourl());
 			int isover = event.getIsover();
 			if (isover == 0) {
 				holder.move_tv_end.setVisibility(View.GONE);

@@ -26,11 +26,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Environment;
+import android.util.Log;
+import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.Api.EventImpl;
@@ -63,12 +75,16 @@ public class Association extends Application {
 	private Api.BaseSettingImpl mBaseSetting;
 	private Api.RegisterImpl mRegister;
 	private Api.CommentImpl mComment;
+	private Api.NotifyImpl mNotify;
+
+	public ImageLoader mImageLoader;
 
 	/** api区域结束 */
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		mApp = this;
+		initImageLoader();
 	}
 
 	/**
@@ -168,19 +184,70 @@ public class Association extends Application {
 	@SuppressLint("NewApi")
 	private File getDiskCacheDir(Context context, String uniqueName) {
 		String cachePath;
-		if (Environment.MEDIA_MOUNTED.equals(Environment
-				.getExternalStorageState())
-				|| !Environment.isExternalStorageRemovable()) {
-			cachePath = context.getExternalCacheDir().getPath();
-		} else {
-			cachePath = context.getCacheDir().getPath();
-		}
+		// if (Environment.MEDIA_MOUNTED.equals(Environment
+		// .getExternalStorageState())
+		// || !Environment.isExternalStorageRemovable()) {
+		// cachePath = context.getExternalCacheDir().getPath();
+		// } else {
+		cachePath = context.getCacheDir().getPath();
+		// }
 		return new File(cachePath + File.separator + uniqueName);
 	}
 
-	// ------------------------获取缓存 end------------------------------------
-	/**
-	 * 获取用户的信息，主要是获取手机号码，登录密码，认证信息
+	/*********************** imageLoader初始化 ***********************************/
+	public ImageLoader initImageLoader() {
+		// 创建默认的ImageLoader配置参数
+		if (mImageLoader == null) {
+			File cacheDir = StorageUtils.getCacheDirectory(this);
+			Log.i("cache", cacheDir.getPath() + "");
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+					this)
+					.memoryCacheExtraOptions(480, 800)
+					// default = device screen dimensions
+					.threadPoolSize(3)
+					// default
+					.threadPriority(Thread.NORM_PRIORITY - 1)
+					// default
+					.tasksProcessingOrder(QueueProcessingType.FIFO)
+					// default
+					.denyCacheImageMultipleSizesInMemory()
+					.memoryCache(new LruMemoryCache(10 * 1024 * 1024))
+					.memoryCacheSize(10 * 1024 * 1024)
+					.memoryCacheSizePercentage(13)
+					// default
+					.diskCache(new UnlimitedDiskCache(cacheDir))
+					// default
+					.diskCacheSize(80 * 1024 * 1024)
+					.diskCacheFileCount(100)
+					.diskCacheFileNameGenerator(new HashCodeFileNameGenerator()) // default
+					.imageDownloader(new BaseImageDownloader(this)) // default
+					.defaultDisplayImageOptions(
+							DisplayImageOptions.createSimple()) // default
+					.writeDebugLogs().writeDebugLogs().build();
+			mImageLoader = ImageLoader.getInstance();
+			mImageLoader.init(config);
+		}
+		return mImageLoader;
+	}
+
+	public void displayImage(String path, ImageView imageView) {
+		ImageLoader loader = initImageLoader();
+		// 显示图片的配置
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.default_image_small)
+				.showImageOnFail(R.drawable.default_image_small)
+				.cacheInMemory(true).cacheOnDisk(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		loader.displayImage(path, imageView);
+	}
+
+	/*********************** imageLoader初始化end ***********************************/
+	/*
+	 * 
+	 * 
+	 * 
+	 * // ------------------------获取缓存 end------------------------------------
+	 * /** 获取用户的信息，主要是获取手机号码，登录密码，认证信息
 	 * 
 	 * @return
 	 */
@@ -361,6 +428,13 @@ public class Association extends Application {
 			mComment = new Api.CommentImpl();
 		}
 		return mComment;
+	}
+
+	public Api.NotifyImpl getNotifyIm() {
+		if (mNotify == null) {
+			mNotify = new Api.NotifyImpl();
+		}
+		return mNotify;
 	}
 
 	// -----------------------------获取api 结束-----------------------------

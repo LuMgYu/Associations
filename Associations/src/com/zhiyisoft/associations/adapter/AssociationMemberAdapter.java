@@ -73,7 +73,8 @@ public class AssociationMemberAdapter extends BAdapter {
 			ModelUser modelUser = (ModelUser) mList.get(position);
 			System.out.println(modelUser.toString());
 			if (holder != null && modelUser != null) {
-				holder.member_iv.setImageUrl(modelUser.getFaceurl());
+				mApp.displayImage(modelUser.getFaceurl(), holder.member_iv);
+//				holder.member_iv.setImageUrl(modelUser.getFaceurl());
 				holder.member_tv_name.setText(modelUser.getUname());
 				holder.member_tv_school.setText(modelUser.getSchool_name());
 			}

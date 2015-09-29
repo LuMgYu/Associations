@@ -81,7 +81,8 @@ public class AssociationMainNewAdapter extends BAdapter {
 		if (position == 0) {
 			ModelLeague mainLeague = (ModelLeague) mList.get(position);
 			if (mainLeague != null) {
-				holder.title_iv.setImageUrl(mainLeague.getLogourl());
+				mApp.displayImage(mainLeague.getLogourl(), holder.title_iv);
+				// holder.title_iv.setImageUrl(mainLeague.getLogourl());
 				holder.title_tv.setText(mainLeague.getName());
 				holder.title_tv_member_count.setText(mainLeague
 						.getMembers_count());
@@ -95,7 +96,8 @@ public class AssociationMainNewAdapter extends BAdapter {
 		} else {
 			ModelLeagueTopic topic = (ModelLeagueTopic) mList.get(position);
 			if (topic != null) {
-				holder.new_item_iv.setImageUrl(topic.getFaceurl());
+				mApp.displayImage(topic.getFaceurl(), holder.new_item_iv);
+				// holder.new_item_iv.setImageUrl(topic.getFaceurl());
 				holder.new_item_tv_nick.setText(topic.getUname() + "发表了话题");
 				holder.new_item_tv_title.setText(topic.getTitle());
 				holder.new_item_tv_content.setText(topic.getContent());
@@ -111,16 +113,20 @@ public class AssociationMainNewAdapter extends BAdapter {
 								.get(i);
 						if (i == 0) {
 							holder.imageView1.setVisibility(View.VISIBLE);
-							holder.imageView1.setImageUrl(photo.getUrl());
+							mApp.displayImage(photo.getUrl(), holder.imageView1);
+							// holder.imageView1.setImageUrl(photo.getUrl());
 						}
 						if (i == 1) {
 							holder.imageView2.setVisibility(View.VISIBLE);
-							holder.imageView2.setImageUrl(photo.getUrl());
+							// holder.imageView2.setImageUrl(photo.getUrl());
+							mApp.displayImage(photo.getUrl(), holder.imageView2);
 						}
 						if (i == 2) {
 							holder.imageView3.setVisibility(View.VISIBLE);
-							holder.imageView3.setImageUrl(photo.getUrl());
+							// holder.imageView3.setImageUrl(photo.getUrl());
+							mApp.displayImage(photo.getUrl(), holder.imageView3);
 						}
+
 					}
 
 				}

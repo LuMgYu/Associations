@@ -17,6 +17,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationMainActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
+import com.zhiyisoft.associations.activity.MoveDisplayActivity;
 import com.zhiyisoft.associations.activity.MoveMainActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
@@ -113,13 +114,16 @@ public class HomeAdapter extends BAdapter {
 				ModelEventWorks work = (ModelEventWorks) works.get(i);
 				if (i == 0) {
 					mViewHolder.iv_work1.setTag(work);
-					mViewHolder.iv_work1.setImageUrl(work.getFaceurl());
+					mApp.displayImage(work.getFaceurl(), mViewHolder.iv_work1);
+					// mViewHolder.iv_work1.setImageUrl(work.getFaceurl());
 				} else if (i == 1) {
 					mViewHolder.iv_work2.setTag(work);
-					mViewHolder.iv_work2.setImageUrl(work.getFaceurl());
+					mApp.displayImage(work.getFaceurl(), mViewHolder.iv_work2);
+					// mViewHolder.iv_work2.setImageUrl(work.getFaceurl());
 				} else if (i == 2) {
+					mApp.displayImage(work.getFaceurl(), mViewHolder.iv_work3);
 					mViewHolder.iv_work3.setTag(work);
-					mViewHolder.iv_work3.setImageUrl(work.getFaceurl());
+					// mViewHolder.iv_work3.setImageUrl(work.getFaceurl());
 				}
 			}
 
@@ -137,23 +141,31 @@ public class HomeAdapter extends BAdapter {
 				ModelLeague league = (ModelLeague) groups.get(i);
 				if (i == 0) {
 					mViewHolder.iv_association1.setTag(league);
-					mViewHolder.iv_association1
-							.setImageUrl(league.getLogourl());
+					// mViewHolder.iv_association1
+					// .setImageUrl(league.getLogourl());
+					mApp.displayImage(league.getLogourl(),
+							mViewHolder.iv_association1);
 					mViewHolder.tv_association1.setText(league.getName());
 				} else if (i == 1) {
 					mViewHolder.iv_association2.setTag(league);
-					mViewHolder.iv_association2
-							.setImageUrl(league.getLogourl());
+					// mViewHolder.iv_association2
+					// .setImageUrl(league.getLogourl());
+					mApp.displayImage(league.getLogourl(),
+							mViewHolder.iv_association2);
 					mViewHolder.tv_association2.setText(league.getName());
 				} else if (i == 2) {
 					mViewHolder.iv_association3.setTag(league);
-					mViewHolder.iv_association3
-							.setImageUrl(league.getLogourl());
+					// mViewHolder.iv_association3
+					// .setImageUrl(league.getLogourl());
+					mApp.displayImage(league.getLogourl(),
+							mViewHolder.iv_association3);
 					mViewHolder.tv_association3.setText(league.getName());
 				} else if (i == 3) {
 					mViewHolder.iv_association4.setTag(league);
-					mViewHolder.iv_association4
-							.setImageUrl(league.getLogourl());
+					mApp.displayImage(league.getLogourl(),
+							mViewHolder.iv_association4);
+					// mViewHolder.iv_association4
+					// .setImageUrl(league.getLogourl());
 					mViewHolder.tv_association4.setText(league.getName());
 				}
 			}
@@ -178,7 +190,8 @@ public class HomeAdapter extends BAdapter {
 						.findViewById(R.id.move_tv_title);
 				TextView move_tv_content = (TextView) mNewsItemViewArray[i]
 						.findViewById(R.id.move_tv_content);
-				move_iv.setImageUrl(topic.getFaceurl());
+				mApp.displayImage(topic.getFaceurl(), move_iv);
+				// move_iv.setImageUrl();
 				move_tv_title.setText(topic.getTitle());
 				move_tv_content.setText(topic.getContent());
 				/******************* 初始化新鲜事以及添加 ****************************/
@@ -221,7 +234,8 @@ public class HomeAdapter extends BAdapter {
 				ModelEvent event = (ModelEvent) list.get(i);
 				if (event != null) {
 					mHotItemViewArray[i].setTag(event);
-					holder.move_smiv_icon.setImageUrl(event.getLogourl());
+					mApp.displayImage(event.getLogourl(), holder.move_smiv_icon);
+					// holder.move_smiv_icon.setImageUrl(event.getLogourl());
 					int isover = event.getIsover();
 					if (isover == 0) {
 						holder.move_tv_end.setVisibility(View.GONE);
@@ -334,7 +348,7 @@ public class HomeAdapter extends BAdapter {
 					Bundle bundle = new Bundle();
 					bundle.putString(Config.HOTCATEGORY, (String) v.getTag());
 					mApp.startActivity(mBaseActivity,
-							AssociationTopicDetailActivity.class, bundle);
+							MoveDisplayActivity.class, bundle);
 
 				}
 			});

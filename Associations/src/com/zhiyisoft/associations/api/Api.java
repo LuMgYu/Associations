@@ -15,15 +15,15 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.ModelChildComment;
+import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelHome;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
-import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.ModelMask;
+import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
@@ -812,6 +812,27 @@ public class Api {
 			get.addBodyParam(REPLYCOMMENTID, comment.getReplyCommentId());
 			Object object = get.run();
 			return isCodeOk(object);
+		}
+
+	}
+
+	public static final class NotifyImpl implements NotifyIm {
+
+		@Override
+		public List<Model> notifyList() {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, NOTIFY);
+			get.addBodyParam(ACT, NOTIFYLIST);
+			judgeTheUser(get);
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelNotify());
+		}
+
+		@Override
+		public boolean setRead() {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
 	}

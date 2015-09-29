@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.assist.ImageSize;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api.EventImpl;
@@ -241,15 +243,26 @@ public class MoveMainActivity extends BaseActivity {
 	 */
 	@SuppressLint("NewApi")
 	private void setTopBg(View view, String url) {
-		Bitmap bitmap = imageCache.get(url);
-		if (bitmap != null) {
-			int height = bitmap.getHeight();
-			int width = bitmap.getWidth();
-			Bitmap targetBp = Bitmap.createBitmap(bitmap, 0, 0, width,
-					height / 3);
-			BitmapDrawable background = new BitmapDrawable(targetBp);
-			view.setBackground(background.getCurrent());
-		}
+		ImageSize mImageSize = new ImageSize(100, 100);
+		mApp.initImageLoader().loadImage(url, mImageSize,
+				new SimpleImageLoadingListener() {
+
+					@Override
+					public void onLoadingComplete(String imageUri, View view,
+							Bitmap loadedImage) {
+						super.onLoadingComplete(imageUri, view, loadedImage);
+						if (loadedImage != null) {
+							int height = loadedImage.getHeight();
+							int width = loadedImage.getWidth();
+							Bitmap targetBp = Bitmap.createBitmap(loadedImage,
+									0, 0, width, height / 3);
+							BitmapDrawable background = new BitmapDrawable(
+									targetBp);
+							// view.setBackground(background);
+						}
+					}
+
+				});
 	}
 
 	@Override

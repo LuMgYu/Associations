@@ -16,9 +16,11 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api;
+import com.zhiyisoft.associations.api.Api.NotifyImpl;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.api.PhotoIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -55,34 +57,18 @@ public class NotifyNfyAdapter extends BAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		// convertView.setOnTouchListener(new OnTouchListener() {
-		//
-		// @Override
-		// public boolean onTouch(View v, MotionEvent event) {
-		// holder = (ViewHolder) v.getTag();
-		// if (event.getAction() == MotionEvent.ACTION_DOWN) {
-		// x = event.getX();
-		// // 判断之前是否出现了删除按钮如果存在就隐藏
-		// if (mCurdelTv != null) {
-		// if (mCurdelTv.getVisibility() == View.VISIBLE) {
-		// mCurdelTv.setVisibility(View.GONE);
-		// return true;
-		// }
-		// }
-		// return true;
-		// } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-		// return true;
-		// } else if (event.getAction() == MotionEvent.ACTION_UP) {
-		// ux = event.getX();
-		// if (Math.abs(x - ux) > 50) {
-		// holder.tv_del.setVisibility(View.VISIBLE);
-		// }
-		// }
-		//
-		// return false;
-		// }
-		// });
+		bindDataToView(position, holder);
 		return convertView;
+	}
+
+	private void bindDataToView(int position, ViewHolder holder) {
+		if (holder != null) {
+			ModelNotify notify = (ModelNotify) mList.get(position);
+			if (notify != null) {
+				holder.tv_msg.setText(notify.getContent());
+			}
+
+		}
 	}
 
 	private void initView(View view, ViewHolder holder) {
@@ -102,26 +88,17 @@ public class NotifyNfyAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		NotifyImpl notifyImpl = mApp.getNotifyIm();
+		items = notifyImpl.notifyList();
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
 		// AssociationImpl association = new Api.AssociationImpl();
 		// association.addAssociation(new Model());
 		// LoginIm loginIm = new Api.LoginImpl();
@@ -133,13 +110,13 @@ public class NotifyNfyAdapter extends BAdapter {
 		// // model.setMobile("13688449697");
 		// model.setUserid("6343485");
 		// loginIm.logout(model);
-		File file = new File("/sdcard/myImage/20150916_031700.jpg");
-		ModelUser user = new ModelUser();
-		user.setOauth_token("91f15078a5dc2892b27c5c1597e9ecbc");
-		user.setOauth_token_secret("945ada9ecff7c706d596dd5773587c76");
-		user.setUploadFile(file);
-		PhotoIm photoIm = new Api.PhotoImpl();
-		photoIm.Attach(user);
+		// File file = new File("/sdcard/myImage/20150916_031700.jpg");
+		// ModelUser user = new ModelUser();
+		// user.setOauth_token("91f15078a5dc2892b27c5c1597e9ecbc");
+		// user.setOauth_token_secret("945ada9ecff7c706d596dd5773587c76");
+		// user.setUploadFile(file);
+		// PhotoIm photoIm = new Api.PhotoImpl();
+		// photoIm.Attach(user);
 		// loginIm.Login(null);
 		// LeagueIm leagueIm = new Api.LeagueImpl();
 		// leagueIm.getLeagueDetail(new Model());
