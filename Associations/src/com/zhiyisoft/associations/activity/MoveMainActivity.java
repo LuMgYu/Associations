@@ -232,7 +232,6 @@ public class MoveMainActivity extends BaseActivity {
 		move_tv_join = (TextView) findViewById(R.id.move_tv_join);
 		imageCache = new WebImageCache(getApplicationContext());
 		getMoveInforFromNet(mEvent);
-		Log.i("event", mEvent.toString());
 	}
 
 	/**

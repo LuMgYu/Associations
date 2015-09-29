@@ -1,8 +1,5 @@
 package com.zhiyisoft.associations.model;
 
-import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

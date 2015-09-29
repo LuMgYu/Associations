@@ -26,6 +26,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelHome;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
@@ -94,9 +95,34 @@ public class HomeAdapter extends BAdapter {
 			initWorksIv(home.getWorks());
 			addAdviceAssocition(home.getGroups());
 			addMyAssociation(home.getJoinedGroup());
+			adddataToWork(home.getWorks());
 			initHotView(home.getEvents());
 			initNewsView(home.getTopics());
 			setListener();
+		}
+	}
+
+	/**
+	 * 添加作品数据到界面
+	 * 
+	 * @param works
+	 */
+	private void adddataToWork(List<Model> works) {
+		if (works != null && mViewHolder != null) {
+			for (int i = 0; i < works.size(); i++) {
+				ModelEventWorks work = (ModelEventWorks) works.get(i);
+				if (i == 0) {
+					mViewHolder.iv_work1.setTag(work);
+					mViewHolder.iv_work1.setImageUrl(work.getFaceurl());
+				} else if (i == 1) {
+					mViewHolder.iv_work2.setTag(work);
+					mViewHolder.iv_work2.setImageUrl(work.getFaceurl());
+				} else if (i == 2) {
+					mViewHolder.iv_work3.setTag(work);
+					mViewHolder.iv_work3.setImageUrl(work.getFaceurl());
+				}
+			}
+
 		}
 	}
 
@@ -144,7 +170,7 @@ public class HomeAdapter extends BAdapter {
 				ModelLeagueTopic topic = (ModelLeagueTopic) list.get(i);
 				mNewsItemViewArray[i] = mInflater.inflate(
 						R.layout.association_news_item, null);
-
+				mNewsItemViewArray[i].setTag(topic);
 				/******************* 初始化新鲜事以及添加 ****************************/
 				SmartImageView move_iv = (SmartImageView) mNewsItemViewArray[i]
 						.findViewById(R.id.move_iv);
@@ -194,6 +220,7 @@ public class HomeAdapter extends BAdapter {
 				// 判定数据
 				ModelEvent event = (ModelEvent) list.get(i);
 				if (event != null) {
+					mHotItemViewArray[i].setTag(event);
 					holder.move_smiv_icon.setImageUrl(event.getLogourl());
 					int isover = event.getIsover();
 					if (isover == 0) {
@@ -331,8 +358,11 @@ public class HomeAdapter extends BAdapter {
 
 				@Override
 				public void onClick(View v) {
+					ModelEventWorks work = (ModelEventWorks) v.getTag();
+					Bundle workdata = new Bundle();
+					workdata.putSerializable(Config.SEND_ACTIVITY_DATA, work);
 					mApp.startActivity(mBaseActivity,
-							AssociationTopicDetailActivity.class, null);
+							AssociationTopicDetailActivity.class, workdata);
 
 				}
 			});
@@ -343,8 +373,11 @@ public class HomeAdapter extends BAdapter {
 
 				@Override
 				public void onClick(View v) {
+					ModelEvent event = (ModelEvent) v.getTag();
+					Bundle eventdata = new Bundle();
+					eventdata.putSerializable(Config.SEND_ACTIVITY_DATA, event);
 					mApp.startActivity(mBaseActivity, MoveMainActivity.class,
-							null);
+							eventdata);
 
 				}
 			});
@@ -355,8 +388,11 @@ public class HomeAdapter extends BAdapter {
 
 				@Override
 				public void onClick(View v) {
+					ModelLeagueTopic topic = (ModelLeagueTopic) v.getTag();
+					Bundle topicdata = new Bundle();
+					topicdata.putSerializable(Config.SEND_ACTIVITY_DATA, topic);
 					mApp.startActivity(mBaseActivity,
-							AssociationTopicDetailActivity.class, null);
+							AssociationTopicDetailActivity.class, topicdata);
 
 				}
 			});

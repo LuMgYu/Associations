@@ -138,7 +138,7 @@ public interface EventIm {
 	 * @param event
 	 * @return
 	 */
-	Model workView(ModelEventWorks event);
+	Model workView(ModelEventWorks works);
 
 	/**
 	 * 44.【作品评论】：Event/comment
@@ -154,5 +154,5 @@ public interface EventIm {
 	 * @param event
 	 * @return
 	 */
-	boolean comment(ModelEventWorks event);
+	boolean comment(ModelEventWorks works);
 }

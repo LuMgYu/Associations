@@ -59,6 +59,10 @@ public class ModelEventWorks extends Model {
 			if (jsonObject.has("faceurl")) {
 				this.setFaceurl(jsonObject.getString("faceurl"));
 			}
+			// 这个用于首页的需要
+			if (jsonObject.has("url")) {
+				this.setFaceurl(jsonObject.getString("url"));
+			}
 			if (jsonObject.has("title")) {
 				this.setTitle(jsonObject.getString("title"));
 			}

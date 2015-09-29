@@ -13,10 +13,8 @@ public class ModelChildComment extends Model {
 	private static final long serialVersionUID = 1L;
 	private String maskName;
 	private String content;
+	private String ctime;
 
-	private String commentApp;
-	private String type;
-	private String sourceId;
 
 	public ModelChildComment() {
 
@@ -27,8 +25,16 @@ public class ModelChildComment extends Model {
 			if (jsonObject.has("maskName")) {
 				this.setMaskName(jsonObject.getString("maskName"));
 			}
+			if (jsonObject.has("name")) {
+				this.setMaskName(jsonObject.getString("name"));
+			}
+
 			if (jsonObject.has("content")) {
 				this.setContent(jsonObject.getString("content"));
+			}
+
+			if (jsonObject.has("ctime")) {
+				this.setCtime(jsonObject.getString("ctime"));
 			}
 
 		} catch (JSONException e) {
@@ -54,32 +60,18 @@ public class ModelChildComment extends Model {
 		this.content = content;
 	}
 
-	public String getCommentApp() {
-		return commentApp;
-	}
 
-	public void setCommentApp(String commentApp) {
-		this.commentApp = commentApp;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getSourceId() {
-		return sourceId;
-	}
-
-	public void setSourceId(String sourceId) {
-		this.sourceId = sourceId;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getCtime() {
+		return ctime;
+	}
+
+	public void setCtime(String ctime) {
+		this.ctime = ctime;
 	}
 
 }

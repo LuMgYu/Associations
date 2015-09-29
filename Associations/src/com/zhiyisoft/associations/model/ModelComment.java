@@ -29,7 +29,11 @@ public class ModelComment extends Model {
 	private List<Model> commentlist;
 
 	/*********** 活动需要添加的字段 *******************/
-	private String id;
+	private String id;  //默认为pid
+	private String commentApp;
+	private String type;
+	private String sourceId;
+	private String replyCommentId;
 
 	public ModelComment() {
 
@@ -55,11 +59,15 @@ public class ModelComment extends Model {
 			if (jsonObject.has("ctime")) {
 				this.setCtime(jsonObject.getString("ctime"));
 			}
+			if (jsonObject.has("id")) {
+				this.setPid(jsonObject.getString("id"));
+			}
 			if (jsonObject.has("comment")) {
 				JSONArray array = jsonObject.getJSONArray("comment");
 				this.setCommentlist(JsonUtils.parseJsonArray(array,
 						new ModelChildComment()));
 			}
+
 			if (jsonObject.has("childComment")) {
 				JSONArray array = jsonObject.getJSONArray("childComment");
 				this.setCommentlist(JsonUtils.parseJsonArray(array,
@@ -137,6 +145,38 @@ public class ModelComment extends Model {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getCommentApp() {
+		return commentApp;
+	}
+
+	public void setCommentApp(String commentApp) {
+		this.commentApp = commentApp;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	public String getReplyCommentId() {
+		return replyCommentId;
+	}
+
+	public void setReplyCommentId(String replyCommentId) {
+		this.replyCommentId = replyCommentId;
 	}
 
 }

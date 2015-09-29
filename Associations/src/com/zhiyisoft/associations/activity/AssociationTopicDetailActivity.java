@@ -79,6 +79,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private ModelLeagueTopic mModelTopic;
 
 	private ModelEventWorks mWorks;
+	private ModelComment mComment; // 获取的评论列表以及评论的model
 	/************ 回复的内容时两个重要参数 ************/
 	private String replayContent; // 回复的内容
 	private String manId; // 二级回帖的时候 这个标示
@@ -176,6 +177,16 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					ToastUtils.showToast("获取评论失败");
 				}
 				break;
+			case COMMENT:
+				Boolean commentSuccess = (Boolean) msg.obj;
+				if (commentSuccess) {
+					ToastUtils.showToast("评论成功");
+					commentList(mComment);
+					fill_content.setText("");
+				} else {
+					ToastUtils.showToast("评论失败");
+				}
+				break;
 			}
 
 		};
@@ -260,7 +271,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());
 				// item_user_tv_a.sette
-				item_user_tv_date.setText(reply.getCtime());
+				item_user_tv_date.setText(DateUtil.dateToStr(reply.getCtime()));
 				replay_content_tv.setText(reply.getContent());
 				// other_more
 
@@ -302,7 +313,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				// TODO 以后这些数据就是从网上获取
 				String username = comment.getMaskName() + ":";
 				String content = comment.getContent() + "";
-				String time = "  20小时前";
+				String time = "  " + DateUtil.strTodate(comment.getCtime());
 				TextView textView = (TextView) view
 						.findViewById(R.id.other_tv_content);
 				SpannableString ssName = new SpannableString(username);
@@ -489,6 +500,15 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					replyPost(mModelTopic);
 
 				}
+			} else if (mWorks != null) {
+				String content = fill_content.getText().toString();
+				mComment.setContent(content);
+				if (manId == null || manId.length() < 1) {
+					comment(mComment);
+				} else {
+					mComment.setReplyCommentId(manId);
+					comment(mComment);
+				}
 			}
 			break;
 		}
@@ -509,11 +529,11 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		} else if (model instanceof ModelEventWorks) {
 			mWorks = (ModelEventWorks) model;
 			workView(mWorks);
-			ModelChildComment comment = new ModelChildComment();
-			comment.setSourceId(mWorks.getId());
-			comment.setCommentApp("event");
-			comment.setType("event_work");
-			commentList(comment);
+			mComment = new ModelComment();
+			mComment.setSourceId(mWorks.getId());
+			mComment.setCommentApp("event");
+			mComment.setType("event_work");
+			commentList(mComment);
 			// TODO
 		}
 	}
@@ -657,7 +677,12 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		});
 	}
 
-	private void commentList(final ModelChildComment comment) {
+	/**
+	 * 获取评论列表
+	 * 
+	 * @param comment
+	 */
+	private void commentList(final ModelComment comment) {
 		final CommentImpl commentImpl = mApp.getCommentIm();
 		mApp.getExecutor().execute(new Runnable() {
 
@@ -666,6 +691,26 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				Object object = commentImpl.commentList(comment);
 				Message message = Message.obtain();
 				message.what = COMMENTLIST;
+				message.obj = object;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	/**
+	 * 获取评论列表
+	 * 
+	 * @param comment
+	 */
+	private void comment(final ModelComment comment) {
+		final CommentImpl commentImpl = mApp.getCommentIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				Object object = commentImpl.comment(comment);
+				Message message = Message.obtain();
+				message.what = COMMENT;
 				message.obj = object;
 				mHandle.sendMessage(message);
 			}

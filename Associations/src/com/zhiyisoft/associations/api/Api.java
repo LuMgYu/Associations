@@ -733,7 +733,6 @@ public class Api {
 
 		@Override
 		public boolean comment(ModelEventWorks event) {
-			// TODO Auto-generated method stub
 			return false;
 		}
 	}
@@ -786,7 +785,7 @@ public class Api {
 	public static final class CommentImpl implements CommentIm {
 
 		@Override
-		public List<Model> commentList(ModelChildComment comment) {
+		public List<Model> commentList(ModelComment comment) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, COMMENT);
@@ -796,12 +795,23 @@ public class Api {
 			get.addBodyParam(TYPE, comment.getType());
 			get.addBodyParam(SOURCEID, comment.getSourceId());
 			Object object = get.run();
-			return parseOriginalJsonArray(get, new ModelComment());
+			return parseOriginalJsonArray(object, new ModelComment());
 		}
 
 		@Override
-		public boolean comment(ModelChildComment event) {
-			return false;
+		public boolean comment(ModelComment comment) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, COMMENT);
+			get.addBodyParam(ACT, COMMENTS);
+			judgeTheUser(get);
+			get.addBodyParam(COMMENTAPP, comment.getCommentApp());
+			get.addBodyParam(TYPE, comment.getType());
+			get.addBodyParam(SOURCEID, comment.getSourceId());
+			get.addBodyParam(CONTENT, comment.getContent());
+			get.addBodyParam(REPLYCOMMENTID, comment.getReplyCommentId());
+			Object object = get.run();
+			return isCodeOk(object);
 		}
 
 	}
