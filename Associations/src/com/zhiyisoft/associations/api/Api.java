@@ -194,7 +194,14 @@ public class Api {
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, USER);
 			get.addBodyParam(ACT, UPDATEPROFILE);
-			judgeTheUser(get);
+			if (user.getOauth_token() != null
+					&& !user.getOauth_token().equals("")) {
+				get.addBodyParam(oauth_token, user.getOauth_token());
+				get.addBodyParam(oauth_token_secret,
+						user.getOauth_token_secret());
+			} else {
+				judgeTheUser(get);
+			}
 			get.addBodyParam(UNAME, user.getUname());
 			get.addBodyParam(FACEID, user.getFaceId());
 			get.addBodyParam(SEX, user.getSex());
@@ -620,9 +627,10 @@ public class Api {
 				get.addBodyParam(APP, API);
 				get.addBodyParam(MOD, EVENT);
 				get.addBodyParam(ACT, EVENTLIST);
+				judgeTheUser(get);
 				get.addBodyParam(TYPE, event.getType());
 				get.addBodyParam(OP, event.getOp());
-				judgeTheUser(get);
+				get.addBodyParam(GID, event.getGid());
 				Object object = get.run();
 				return parseOriginalJsonArray(object, new ModelEvent());
 			}

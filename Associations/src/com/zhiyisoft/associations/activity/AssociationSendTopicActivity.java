@@ -35,7 +35,6 @@ import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
 import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
@@ -64,7 +63,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private ModelLeague mLeague;
 	private ModelEventWorks mWorks;
 
-	/******** activity传过来的model类型 ************/
+	/******** activity传过来的model类型end ************/
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -273,6 +272,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {
 									ToastUtils.showToast("发表话题成功");
+									onReturnResult(new Model());
+									onBackPressed();
 								} else {
 									ToastUtils.showToast("发表话题失败！");
 								}
@@ -328,6 +329,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {
 									ToastUtils.showToast("上传作品成功");
+									onReturnResult(new Model());
+									onBackPressed();
 								} else {
 									ToastUtils.showToast("上传作品失败！");
 								}

@@ -1,6 +1,5 @@
 package com.zhiyisoft.associations.adapter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +14,9 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
-import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.Api.NotifyImpl;
-import com.zhiyisoft.associations.api.LoginIm;
-import com.zhiyisoft.associations.api.PhotoIm;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelNotify;
-import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -141,9 +136,9 @@ public class NotifyNfyAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
+		// items.add(new Model());
 		Log.i("refreshFooter",
 				"---------------------调用了这个refreshFooter(Model item, int count) ");
 		// AssociationImpl association = new Api.AssociationImpl();

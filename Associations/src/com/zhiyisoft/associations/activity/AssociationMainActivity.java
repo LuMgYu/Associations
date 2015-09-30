@@ -50,6 +50,7 @@ public class AssociationMainActivity extends BaseActivity {
 	private RelativeLayout rl_new;
 	private RelativeLayout rl_activity;
 	private TextView tv_activity;
+	private TextView tv_activity_count;
 	private LinearLayout main_ll_share;
 	private LinearLayout main_ll_join;
 
@@ -123,6 +124,7 @@ public class AssociationMainActivity extends BaseActivity {
 		rl_new = (RelativeLayout) findViewById(R.id.rl_new);
 		rl_activity = (RelativeLayout) findViewById(R.id.rl_activity);
 		tv_activity = (TextView) findViewById(R.id.tv_activity);
+		tv_activity_count = (TextView) findViewById(R.id.tv_activity_count);
 		main_ll_share = (LinearLayout) findViewById(R.id.main_ll_share);
 		main_ll_join = (LinearLayout) findViewById(R.id.main_ll_join);
 		rl_album = (RelativeLayout) findViewById(R.id.rl_album);
@@ -202,8 +204,9 @@ public class AssociationMainActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationNewActivity.class, data1);
 			break;
 		case R.id.rl_activity:
-//			Bundle data2 = new Bundle();
-//			mApp.startActivity(this, AssociationMoveActivity.class, data2);
+			Bundle moveData = new Bundle();
+			moveData.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationMoveActivity.class, moveData);
 			break;
 		case R.id.main_ll_share:
 			preformShare();
@@ -240,6 +243,7 @@ public class AssociationMainActivity extends BaseActivity {
 		tv_association_data_content.setText(league.getDescription() + "");
 		tv_association_data_xiehui.setText(league.getCategoryName());
 		tv_association_data_school.setText(league.getSchoolName());
+		tv_activity_count.setText(league.getEvent_count() + "个");
 		List<Model> members = league.getMemberlist();
 		if (members != null) {
 			for (int i = 0; i < members.size(); i++) {

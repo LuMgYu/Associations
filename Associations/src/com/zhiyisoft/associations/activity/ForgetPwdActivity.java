@@ -1,6 +1,5 @@
 package com.zhiyisoft.associations.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,7 +12,6 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelUser;
-import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -46,7 +44,7 @@ public class ForgetPwdActivity extends BaseActivity {
 				} else {
 					ToastUtils.showToast("发送验证码失败，请稍后重试");
 					isRed = true;
-					btn_reset.setBackgroundResource(R.color.main_color);
+					btn_reset.setBackgroundResource(R.drawable.btn_red);
 					btn_reset.setText("获取验证码");
 				}
 				break;
@@ -70,7 +68,7 @@ public class ForgetPwdActivity extends BaseActivity {
 				btn_reset.setText(lastTime + "s");
 				if (lastTime == 0) {
 					isRed = true;
-					btn_reset.setBackgroundResource(R.color.main_color);
+					btn_reset.setBackgroundResource(R.drawable.btn_red);
 					btn_reset.setText("获取验证码");
 				}
 				break;
@@ -136,7 +134,7 @@ public class ForgetPwdActivity extends BaseActivity {
 					}
 				});
 				isRed = false;
-				btn_reset.setBackgroundResource(R.color.main_gray_color);
+				btn_reset.setBackgroundResource(R.drawable.btn_gray);
 			}
 			break;
 		case R.id.bt_sure_modify:

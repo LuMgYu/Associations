@@ -35,8 +35,7 @@ public class RegisterActivity extends BaseActivity {
 	private static final int REGISTER_SUCCESS = 2;
 	private static final int BIND_NEW_USER = 3; // 绑定第三方账户
 	private static final int COUNTTIME = 4; // 倒计时
-	
-	
+
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
@@ -51,7 +50,7 @@ public class RegisterActivity extends BaseActivity {
 				} else {
 					ToastUtils.showToast("发送验证码失败，请稍后重试");
 					isRed = true;
-					btn_reset.setBackgroundResource(R.color.main_color);
+					btn_reset.setBackgroundResource(R.drawable.btn_red);
 					btn_reset.setText("获取验证码");
 				}
 				break;
@@ -84,7 +83,7 @@ public class RegisterActivity extends BaseActivity {
 				btn_reset.setText(lastTime + "s");
 				if (lastTime == 0) {
 					isRed = true;
-					btn_reset.setBackgroundResource(R.color.main_color);
+					btn_reset.setBackgroundResource(R.drawable.btn_red);
 					btn_reset.setText("获取验证码");
 				}
 				break;
@@ -161,7 +160,7 @@ public class RegisterActivity extends BaseActivity {
 					}
 				});
 				isRed = false;
-				btn_reset.setBackgroundResource(R.color.main_gray_color);
+				btn_reset.setBackgroundResource(R.drawable.btn_gray);
 			}
 			break;
 		case R.id.btn_done_regster:
@@ -244,7 +243,7 @@ public class RegisterActivity extends BaseActivity {
 			@Override
 			public void run() {
 				while (time > 0) {
-					time = time-1;
+					time = time - 1;
 					Message message = Message.obtain();
 					message.what = COUNTTIME;
 					message.arg1 = time;

@@ -181,7 +181,7 @@ public class AssociationMainAdapter extends BAdapter {
 				R.drawable.xqah, R.drawable.xlhd, R.drawable.qt };
 		mStringName = new String[] { "全部", "志愿公益", "社会实践", "学术学习", "就业创业",
 				"兴趣爱好", "心理活动", "其它" };
-		int[] categorys = { 0, 30588, 30589, 30590, 30591, 30592, 30593, 30594 };
+		int[] categorys = { 0, 30588, 30590, 30591, 30592, 30593, 30594, 30595 };
 		View itemView = null;
 		ImageView imageView = null;
 		TextView textView;

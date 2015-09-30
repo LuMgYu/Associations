@@ -516,11 +516,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		bundle.putSerializable(Config.GET_ACTIVITY_DATA, model);
 		intent.putExtras(bundle);
 		this.setResult(this.GET_DATA_FROM_ACTIVITY, intent);
-		// Intent intent = new Intent();
-		// Bundle bundle = new Bundle();
-		// bundle.putStringArrayList(Config.GET_ACTIVITY_DATA,
-		// selectedDataList);
-		// intent.putExtras(bundle
 	}
 
 	/**

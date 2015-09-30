@@ -92,6 +92,7 @@ public class AssociationCreateActivity extends BaseActivity {
 				boolean isSuccess = (Boolean) msg.obj;
 				if (isSuccess) {
 					ToastUtils.showToast("社团创建成功！");
+					onBackPressed();
 					return;
 				} else {
 					ToastUtils.showToast("社团创建失败！");
@@ -285,6 +286,7 @@ public class AssociationCreateActivity extends BaseActivity {
 						boolean isSuccess = leagueIm.createGroup(league);
 						Message message = Message.obtain();
 						message.obj = isSuccess;
+						message.what = SUCCESS;
 						mHandle.sendMessage(message);
 					}
 				});

@@ -69,12 +69,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:paddingBottom="@dimen/margin_bottom"
         android:id="@+id/replay_rl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="@dimen/margin_top" >
+        android:layout_marginTop="@dimen/margin_top"
+        android:paddingBottom="@dimen/margin_bottom" >
 
         <TextView
             android:id="@+id/replay_content_tv"
@@ -107,7 +107,8 @@
             android:layout_marginRight="@dimen/margin_right_small"
             android:text="更多四条内容"
             android:textColor="@color/main_href_color"
-            android:textSize="@dimen/text_verysmall" />
+            android:textSize="@dimen/text_verysmall"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <include layout="@layout/view_line_vertical" />

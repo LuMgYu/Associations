@@ -134,6 +134,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				if (postSuccess) {
 					ToastUtils.showToast("评论成功");
 					getTopicPosts(mModelTopic);
+					fill_content.setHint("回复:");
+					manId = null;
 					fill_content.setText("");
 				} else {
 					ToastUtils.showToast("评论失败");
@@ -183,6 +185,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					ToastUtils.showToast("评论成功");
 					commentList(mComment);
 					fill_content.setText("");
+					fill_content.setHint("回复:");
+					manId = null;
 				} else {
 					ToastUtils.showToast("评论失败");
 				}
@@ -286,6 +290,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					@Override
 					public void onClick(View v) {
 						ModelComment data = (ModelComment) v.getTag();
+						String uname = data.getUname();
+						fill_content.setHint("回复:" + uname);
 						manId = data.getPid();
 						InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 						imm.toggleSoftInput(0,

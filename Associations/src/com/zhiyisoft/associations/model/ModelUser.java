@@ -135,7 +135,7 @@ public class ModelUser extends Model {
 				this.setAutograph(jsonObject.getString("autograph"));
 			}
 			if (jsonObject.has("email")) {
-				this.setEmail(jsonObject.getString("classid"));
+				this.setEmail(jsonObject.getString("email"));
 			}
 
 		} catch (JSONException e) {

@@ -43,10 +43,11 @@
             android:layout_toLeftOf="@id/btn_return"
             android:layout_toRightOf="@id/phiz"
             android:background="@drawable/et_border"
-            android:hint="回复牛牛哥："
+            android:hint="回复："
             android:paddingLeft="@dimen/margin_left_small"
             android:textColor="@color/text_gray"
             android:textColorHint="@color/text_gray"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
@@ -78,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_left_small"
-                    android:text="手把手教你--旅行时拍出震撼人心的旅行大片"
+                    android:text=""
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/text_big"
                     android:textStyle="normal" />
@@ -89,7 +90,7 @@
                     android:layout_height="20dp"
                     android:layout_below="@id/content_tv_title"
                     android:layout_marginLeft="@dimen/margin_left_small"
-                    android:src="@drawable/association_icon" />
+                    android:src="@drawable/default_image_small" />
 
                 <TextView
                     android:id="@+id/content_tv_user"
@@ -99,7 +100,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/user_icon"
                     android:gravity="center_vertical"
-                    android:text="牛牛哥发表于"
+                    android:text=""
                     android:textColor="@color/text_more_gray"
                     android:textSize="@dimen/text_verysmall" />
 
@@ -111,7 +112,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@id/content_tv_user"
                     android:gravity="center_vertical"
-                    android:text="2015-05-12 12:22"
+                    android:text=""
                     android:textColor="@color/text_more_gray"
                     android:textSize="@dimen/text_verysmall" />
             </RelativeLayout>
@@ -133,7 +134,7 @@
                     android:ellipsize="end"
                     android:lineSpacingExtra="@dimen/text_lineSpacingExtra"
                     android:maxLines="2"
-                    android:text="旅行路中,我们手中的相机除了记录美好的风景还可以记录自己从衣服配色到场景选择，以及天气好姿势"
+                    android:text=""
                     android:textColor="@color/text_gray"
                     android:textSize="@dimen/text_small" />
                 <!-- 图片及其它部分 -->

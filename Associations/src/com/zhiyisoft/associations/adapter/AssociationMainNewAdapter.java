@@ -17,6 +17,7 @@ import com.zhiyisoft.associations.activity.AssociationMoveActivity;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
@@ -93,6 +94,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 				holder.title_tv_type.setText(mainLeague.getCategoryName());
 				holder.title_tv_move.setText("社团活动("
 						+ mainLeague.getEvent_count() + ")");
+				holder.title_rl_move.setTag(mainLeague); // 监听事件的时候就获取，跳转到社团界面
 			}
 		} else {
 			ModelLeagueTopic topic = (ModelLeagueTopic) mList.get(position);
@@ -270,6 +272,8 @@ public class AssociationMainNewAdapter extends BAdapter {
 			@Override
 			public void onClick(View v) {
 				Bundle data1 = new Bundle();
+				ModelLeague league = (ModelLeague) v.getTag();
+				data1.putSerializable(Config.SEND_ACTIVITY_DATA, league);
 				mApp.startActivity(mBaseActivity,
 						AssociationMoveActivity.class, data1);
 			}

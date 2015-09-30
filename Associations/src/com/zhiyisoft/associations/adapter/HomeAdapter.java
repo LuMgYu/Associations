@@ -483,7 +483,9 @@ public class HomeAdapter extends BAdapter {
 					}
 				});
 			}
-			mViewHolder.ll_association.addView(itemView);
+			if (itemView != null && mViewHolder.ll_association != null) {
+				mViewHolder.ll_association.addView(itemView);
+			}
 		}
 	}
 

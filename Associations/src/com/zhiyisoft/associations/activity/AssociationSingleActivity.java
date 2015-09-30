@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -125,8 +126,8 @@ public class AssociationSingleActivity extends BaseActivity {
 		case R.id.iv_title_right1:
 			Bundle topicdata = new Bundle();
 			topicdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
-			mApp.startActivity(this, AssociationSendTopicActivity.class,
-					topicdata);
+			mApp.startActivityForResult(this,
+					AssociationSendTopicActivity.class, topicdata);
 			break;
 		case R.id.iv_title_right2:
 			showPop(iv_title_right2, 0, 0);
@@ -172,6 +173,22 @@ public class AssociationSingleActivity extends BaseActivity {
 			break;
 		}
 
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				Object object = bundle.get(Config.GET_ACTIVITY_DATA);
+				if (object != null) {
+					mAdapter = new AssociationMainNewAdapter(this, mlist,
+							mLeague);
+					single_lv.setAdapter(mAdapter);
+				}
+			}
+		}
 	}
 
 	/**
