@@ -272,7 +272,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				/********************** 添加回复的内容 ***********************************/
 				ModelComment reply = list.get(i);
 				mApp.displayImage(reply.getFaceurl(), item_user_icon);
-//				item_user_icon.setImageUrl(reply.getFaceurl());
+				// item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());
 				// item_user_tv_a.sette
 				item_user_tv_date.setText(DateUtil.strTodate(reply.getCtime()));
@@ -385,7 +385,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		params.setMargins(10, 0, 10, 0);
 		imageView.setLayoutParams(params);
 		mApp.displayImage(photoUrl, imageView);
-//		imageView.setImageUrl(photoUrl);
+		// imageView.setImageUrl(photoUrl);
 		imageView.setScaleType(ScaleType.CENTER_CROP);
 		content_ll_main.addView(imageView);
 		imageView.setOnClickListener(new OnClickListener() {
@@ -553,7 +553,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		}
 		if (faceUrl != null) {
 			mApp.displayImage(faceUrl, user_icon);
-//			user_icon.setImageUrl(faceUrl);
+			// user_icon.setImageUrl(faceUrl);
 		}
 		if (username != null) {
 			content_tv_user.setText(username + "发表于");

@@ -148,7 +148,7 @@ public class MoveMainActivity extends BaseActivity {
 			move_btn_event.setText(event.getTypeName());
 			move_tv_deadline.setText(DateUtil.strTodate(event.getsTime()) + "-"
 					+ DateUtil.strTodate(event.geteTime()));
-			move_tv_allmove.setText(event.getJoinCount());
+			move_tv_allmove.setText(event.getJoinCount() + "参加");
 			String online = event.getOnline();
 			if (online.equals("1")) {
 				move_btn_online.setText("线上");
@@ -348,8 +348,8 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
-//			Bundle data2 = new Bundle();
-//			mApp.startActivity(this, AssociationMoveActivity.class, data2);
+			// Bundle data2 = new Bundle();
+			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.main_ll_share:
 			preformShare();

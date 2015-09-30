@@ -44,7 +44,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_toRightOf="@id/association_tv_name"
-                android:text="牛牛哥"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_small" />
 
@@ -85,7 +85,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_toRightOf="@id/association_tv_school"
                 android:background="@null"
-                android:text="四川南翔技校"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_small" />
         </RelativeLayout>
@@ -117,7 +117,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_toRightOf="@id/association_tv_welfare"
                 android:background="@null"
-                android:text="志愿公益"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_small" />
         </RelativeLayout>
@@ -150,7 +150,7 @@
                 android:layout_marginTop="@dimen/margin_top"
                 android:layout_toRightOf="@id/association_tv_about"
                 android:gravity="top|left"
-                android:text="今天的天气特别好，好想去游泳，不过要上班，我也只能来一句呵呵哒。老子明天不上班，爽翻，巴适得板"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_black"
                 android:textSize="@dimen/text_small" />
@@ -200,7 +200,8 @@
                 android:layout_toRightOf="@id/association_tv_theme"
                 android:text="公益  志愿者  如此"
                 android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
         </RelativeLayout>
         <!-- 联系人 -->
 
@@ -230,7 +231,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_marginRight="@dimen/margin_right_small"
                 android:layout_toRightOf="@id/association_tv_contact"
-                android:text="佳哥(管理员)"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_black"
                 android:textSize="@dimen/text_small" />
@@ -262,7 +263,7 @@
                 android:layout_marginLeft="@dimen/margin_left_small"
                 android:layout_marginRight="@dimen/margin_right_small"
                 android:layout_toRightOf="@id/association_tv_contact_way"
-                android:text="260964739@qq.com"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textColorHint="@color/text_black"
                 android:textSize="@dimen/text_small" />

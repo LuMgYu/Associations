@@ -119,18 +119,28 @@ public class ModelUser extends Model {
 			if (jsonObject.has("school_id")) {
 				this.setschool_id(jsonObject.getString("school_id"));
 			}
+			/*****************************/
+			if (jsonObject.has("name")) {
+				this.setUname(jsonObject.getString("name"));
+			}
 			if (jsonObject.has("uname")) {
 				this.setUname(jsonObject.getString("uname"));
 			}
+			/*****************************/
 			if (jsonObject.has("is_init")) {
 				this.setIs_init(jsonObject.getString("is_init"));
 			}
 			if (jsonObject.has("faceurl")) {
 				this.setFaceurl(jsonObject.getString("faceurl"));
 			}
+			/*************************************/
 			if (jsonObject.has("school_name")) {
 				this.setSchool_name(jsonObject.getString("school_name"));
 			}
+			if (jsonObject.has("schoolName")) {
+				this.setSchool_name(jsonObject.getString("schoolName"));
+			}
+			/*************************************/
 			if (jsonObject.has("autograph")) {
 				this.setAutograph(jsonObject.getString("autograph"));
 			}

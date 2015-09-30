@@ -115,7 +115,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="95dp"
+                android:layout_height="110dp"
                 android:background="@color/main_white_pure_color" >
 
                 <TextView

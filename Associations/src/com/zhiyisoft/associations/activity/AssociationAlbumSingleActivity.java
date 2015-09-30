@@ -17,9 +17,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
-import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 
@@ -50,7 +48,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 						photoUrllist.add(album.getPhotoUrl());
 					}
 					mAdapter = new MyPhotoGridViewAdapter(
-							getApplicationContext(), photoUrllist);
+							AssociationAlbumSingleActivity.this, photoUrllist);
 					album_gv.setAdapter(mAdapter);
 				} else {
 					ToastUtils.showToast("获取照片失败");
@@ -121,7 +119,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Bundle data = new Bundle();
-//				data.putIntArray("photolist", resArray);
+				// data.putIntArray("photolist", resArray);
 				mApp.startActivity(AssociationAlbumSingleActivity.this,
 						AssociationTopicDetailActivity.class, data);
 
