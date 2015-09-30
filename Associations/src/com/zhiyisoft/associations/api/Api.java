@@ -713,7 +713,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(ID, event.getId());
 			Object object = get.run();
-			return parseOriginalJsonArray(object, new ModelEvent());
+			return parseOriginalJsonArray(object, new ModelUser());
 		}
 
 		@Override

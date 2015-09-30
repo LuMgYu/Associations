@@ -366,8 +366,9 @@ public class MoveMainActivity extends BaseActivity {
 
 			break;
 		case R.id.rl_member:
-			Bundle data5 = new Bundle();
-			mApp.startActivity(this, MoveMemberActivity.class, data5);
+			Bundle moveMember = new Bundle();
+			moveMember.putSerializable(Config.SEND_ACTIVITY_DATA, mEvent);
+			mApp.startActivity(this, MoveMemberActivity.class, moveMember);
 			break;
 		case R.id.returnBack:
 			onBackPressed();
