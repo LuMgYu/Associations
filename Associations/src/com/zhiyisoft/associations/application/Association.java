@@ -198,7 +198,8 @@ public class Association extends Application {
 	public ImageLoader initImageLoader() {
 		// 创建默认的ImageLoader配置参数
 		if (mImageLoader == null) {
-			File cacheDir = StorageUtils.getCacheDirectory(this);
+			File cacheDir = StorageUtils.getOwnCacheDirectory(
+					getApplicationContext(), "association/image");
 			Log.i("cache", cacheDir.getPath() + "");
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 					this)
@@ -216,6 +217,7 @@ public class Association extends Application {
 					.memoryCacheSizePercentage(13)
 					// default
 					.diskCache(new UnlimitedDiskCache(cacheDir))
+					// 自定义缓存路径
 					// default
 					.diskCacheSize(80 * 1024 * 1024)
 					.diskCacheFileCount(100)
@@ -224,8 +226,8 @@ public class Association extends Application {
 					.defaultDisplayImageOptions(
 							DisplayImageOptions.createSimple()) // default
 					.writeDebugLogs().writeDebugLogs().build();
+			ImageLoader.getInstance().init(config);// 全局初始化此配置
 			mImageLoader = ImageLoader.getInstance();
-			mImageLoader.init(config);
 		}
 		return mImageLoader;
 	}
@@ -238,7 +240,7 @@ public class Association extends Application {
 				.showImageOnFail(R.drawable.default_image_small)
 				.cacheInMemory(true).cacheOnDisk(true)
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
-		loader.displayImage(path, imageView);
+		loader.displayImage(path, imageView, options);
 	}
 
 	/*********************** imageLoader初始化end ***********************************/

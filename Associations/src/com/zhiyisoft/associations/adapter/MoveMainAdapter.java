@@ -77,9 +77,9 @@ public class MoveMainAdapter extends BAdapter {
 	 * @param mHolder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		ModelEvent event = (ModelEvent) mList.get(position);
 		// TODO 把数据绑定到界面
 		if (position > 0) {
+			ModelEvent event = (ModelEvent) mList.get(position);
 			if (event != null) {
 				mApp.displayImage(event.getLogourl(), holder.move_smiv_icon);
 				// holder.move_smiv_icon.setImageUrl(event.getLogourl());

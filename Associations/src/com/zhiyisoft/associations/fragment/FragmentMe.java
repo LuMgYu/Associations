@@ -153,7 +153,7 @@ public class FragmentMe extends BaseFragment {
 	private void setimageIcon(ModelUser user) {
 		String faceUrl = user.getFaceurl();
 		if (faceUrl != null && faceUrl.length() > 0) {
-			me_iv_icon.setImageUrl(faceUrl);
+			mApp.displayImage(faceUrl, me_iv_icon);
 		}
 	}
 
@@ -207,9 +207,10 @@ public class FragmentMe extends BaseFragment {
 										.getJSONObject("data");
 								if (data.has("url")) {
 									ToastUtils.showToast("头像更新成功");
+									mApp.displayImage(data.getString("url"),
+											me_iv_icon);
 									mUser.setFaceurl(data.getString("url")); // 传了数据上去就要更新本地的user
 									mApp.saveUser(mUser);
-
 								}
 							}
 						} catch (JSONException e) {

@@ -35,6 +35,9 @@ public class ModelChildComment extends Model {
 			if (jsonObject.has("cTime")) {
 				this.setCtime(jsonObject.getString("cTime"));
 			}
+			if (jsonObject.has("ctime")) {
+				this.setCtime(jsonObject.getString("ctime"));
+			}
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

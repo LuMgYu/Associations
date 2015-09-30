@@ -35,11 +35,10 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelChildComment;
-import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
-import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -272,7 +271,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 						.findViewById(R.id.other_more);
 				/********************** 添加回复的内容 ***********************************/
 				ModelComment reply = list.get(i);
-				item_user_icon.setImageUrl(reply.getFaceurl());
+				mApp.displayImage(reply.getFaceurl(), item_user_icon);
+//				item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());
 				// item_user_tv_a.sette
 				item_user_tv_date.setText(DateUtil.strTodate(reply.getCtime()));
@@ -384,7 +384,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				UIUtils.getWindowWidth(mApp), 300);
 		params.setMargins(10, 0, 10, 0);
 		imageView.setLayoutParams(params);
-		imageView.setImageUrl(photoUrl);
+		mApp.displayImage(photoUrl, imageView);
+//		imageView.setImageUrl(photoUrl);
 		imageView.setScaleType(ScaleType.CENTER_CROP);
 		content_ll_main.addView(imageView);
 		imageView.setOnClickListener(new OnClickListener() {
@@ -551,7 +552,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			content_tv_title.setText(title);
 		}
 		if (faceUrl != null) {
-			user_icon.setImageUrl(faceUrl);
+			mApp.displayImage(faceUrl, user_icon);
+//			user_icon.setImageUrl(faceUrl);
 		}
 		if (username != null) {
 			content_tv_user.setText(username + "发表于");

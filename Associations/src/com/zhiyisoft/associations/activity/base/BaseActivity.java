@@ -24,6 +24,7 @@ import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -568,8 +569,8 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 */
 	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
 		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
-		Bitmap bitmap = BitmapUtil.compressImage(originBitmap);
-		return bitmap;
+		originBitmap = ThumbnailUtils.extractThumbnail(originBitmap, 51, 108);
+		return originBitmap;
 	}
 
 	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {

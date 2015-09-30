@@ -237,7 +237,8 @@ public class AssociationMainActivity extends BaseActivity {
 	 * @param league
 	 */
 	private void bindleDataToView(ModelLeague league) {
-		iv_title.setImageUrl(league.getLogourl());
+		mApp.displayImage(league.getLogourl(), iv_title);
+		// iv_title.setImageUrl(league.getLogourl());
 		tv_association_name.setText(league.getName() + "");
 		setAlltitle(null, league.getName() + "", null);
 		tv_association_data_content.setText(league.getDescription() + "");

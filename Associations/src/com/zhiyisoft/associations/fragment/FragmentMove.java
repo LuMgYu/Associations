@@ -42,6 +42,8 @@ public class FragmentMove extends BaseFragment {
 	public void initView() {
 		mListView = (MoveListview) findViewById(R.id.move_lv);
 		mListView.setPullRefreshEnable(false);
+		Model model = new Model();
+		mlist.add(model);
 		mAdapter = new MoveMainAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 	}

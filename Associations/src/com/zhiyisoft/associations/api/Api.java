@@ -46,7 +46,7 @@ public class Api {
 	public static final String API = "api";
 	public static final String oauth_token = "oauth_token";
 	public static final String oauth_token_secret = "oauth_token_secret";
-	public static final ModelUser mUser = Association.getUser();
+	public static ModelUser mUser;
 
 	public static final class RegisterImpl implements RegisterIm {
 
@@ -852,6 +852,7 @@ public class Api {
 	 * @param get
 	 */
 	public static void judgeTheUser(Request get) {
+		mUser = Association.getUser();
 		if (mUser != null) {
 			get.addBodyParam(oauth_token, mUser.getOauth_token());
 			get.addBodyParam(oauth_token_secret, mUser.getOauth_token_secret());

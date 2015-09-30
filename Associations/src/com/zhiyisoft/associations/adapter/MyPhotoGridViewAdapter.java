@@ -9,6 +9,8 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView.ScaleType;
 
+import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.util.UIUtils;
 
@@ -21,10 +23,14 @@ public class MyPhotoGridViewAdapter extends BaseAdapter {
 	// TODO
 	private List<String> photoUrls; // 现在用这个来展示效果，以后肯定是url
 	private Context mContext;
+	private Association mApp;
 
 	public MyPhotoGridViewAdapter(Context context, List<String> list) {
 		this.mContext = context;
 		this.photoUrls = list;
+		if (context instanceof BaseActivity) {
+			mApp = ((BaseActivity) context).mApp;
+		}
 	}
 
 	@Override
@@ -49,7 +55,11 @@ public class MyPhotoGridViewAdapter extends BaseAdapter {
 		int width = UIUtils.getWindowWidth(mContext) - 30;
 		imageView.setLayoutParams(new AbsListView.LayoutParams(width / 3,
 				width / 3));
-		imageView.setImageUrl(photoUrls.get(position));
+		if (mApp != null) {
+			mApp.displayImage(photoUrls.get(position), imageView);
+		} else {
+			imageView.setImageUrl(photoUrls.get(position));
+		}
 		return imageView;
 	}
 }
