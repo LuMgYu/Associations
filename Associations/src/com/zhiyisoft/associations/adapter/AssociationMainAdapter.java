@@ -257,11 +257,6 @@ public class AssociationMainAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
 		return items;
 	}
 
