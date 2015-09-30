@@ -330,7 +330,8 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_member2"
@@ -339,7 +340,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_member1"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_member3"
@@ -348,7 +350,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_member2"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.RoundImageView
                     android:id="@+id/iv_member4"
@@ -357,7 +360,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_member3"
-                    android:src="@drawable/default_image_small" />
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <View
@@ -453,7 +457,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
-                    android:src="@drawable/default_image_small" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_album2"
@@ -462,7 +468,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="13dp"
                     android:layout_toLeftOf="@id/iv_album1"
-                    android:src="@drawable/default_image_small" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/iv_album3"
@@ -471,7 +479,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="13dp"
                     android:layout_toLeftOf="@id/iv_album2"
-                    android:src="@drawable/default_image_small" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <View

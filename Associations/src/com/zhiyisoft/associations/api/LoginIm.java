@@ -42,6 +42,8 @@ public interface LoginIm {
 	public static final String UNAME = "uname";
 	public static final String SEX = "sex";
 	public static final String SCHOOL_ID = "school_id";
+	public static final String AUTOGRAPH  = "autograph";
+	public static final String EMAIL  = "email";
 
 	//
 	public static final String TYPE = "type";

@@ -53,7 +53,6 @@ public class MeSettingDataActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		mUser = mApp.getUser();
 		tv_nick_name = (TextView) findViewById(R.id.tv_nick_name);
 		tv_gender_name = (TextView) findViewById(R.id.tv_gender_name);
 		tv_school_name = (TextView) findViewById(R.id.tv_school_name);
@@ -72,6 +71,7 @@ public class MeSettingDataActivity extends BaseActivity {
 	}
 
 	private void initData() {
+		mUser = mApp.getUser();
 		getCurrentSchool(tv_school_name);
 		initGender();
 		tv_nick_name.setText(mUser.getUname() + "");
@@ -79,6 +79,14 @@ public class MeSettingDataActivity extends BaseActivity {
 		tv_email_name.setText(mUser.getEmail() + "");
 		tv_phone_name.setText(mUser.getMobile() + "");
 
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if (hasFocus) {
+			initData();
+		}
 	}
 
 	/**

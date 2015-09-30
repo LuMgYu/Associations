@@ -121,12 +121,13 @@ public class FragmentMe extends BaseFragment {
 	@Override
 	public void initData() {
 		getJoinedAssocitionFromNet(); // 获取已加入社团的列表
-		mUser = mApp.getUser();
-		initUser(mUser);
-		me_tv_nick.setText(mUser.getUname() + "");
-		if (mUser.getAutograph() != null) {
-			me_tv_signature.setText(mUser.getAutograph() + "");
-		}
+		initUser();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		initUser();
 	}
 
 	/**
@@ -134,10 +135,14 @@ public class FragmentMe extends BaseFragment {
 	 * 
 	 * @param mUser2
 	 */
-	private void initUser(ModelUser user) {
-		setimageIcon(user);
+	private void initUser() {
+		mUser = mApp.getUser();
+		setimageIcon(mUser);
 		// TODO 以后这里还需要设置 个性签名，以及以及加入的社团
-
+		me_tv_nick.setText(mUser.getUname() + "");
+		if (mUser.getAutograph() != null) {
+			me_tv_signature.setText(mUser.getAutograph() + "");
+		}
 	}
 
 	/**

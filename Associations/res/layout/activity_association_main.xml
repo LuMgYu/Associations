@@ -347,7 +347,9 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="30dp"
-                    android:src="@drawable/default_image_small" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.SmartImageView
                     android:id="@+id/iv_album2"
@@ -356,7 +358,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_album"
-                    android:src="@drawable/default_image_small" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
 
                 <com.zhiyisoft.associations.img.SmartImageView
                     android:id="@+id/iv_album3"
@@ -365,7 +369,9 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin_right_small"
                     android:layout_toLeftOf="@id/iv_album2"
-                    android:src="@drawable/default_image_small" />
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_image_small"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <View

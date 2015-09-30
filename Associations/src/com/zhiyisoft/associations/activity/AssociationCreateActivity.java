@@ -66,6 +66,7 @@ public class AssociationCreateActivity extends BaseActivity {
 	private EditText association_et_contact_way;
 	private ImageView association_iv_commit_yes;
 	private TextView association_tv_commit_yes;
+	private TextView association_tv_point;
 	private Button association_btn_commit;
 	private Bitmap mBitmap;
 	private ModelUser mUser;
@@ -125,7 +126,7 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_rl_school = (RelativeLayout) findViewById(R.id.association_rl_school);
 		association_rl_welfare = (RelativeLayout) findViewById(R.id.association_rl_welfare);
 		association_tv_welfare_name = (TextView) findViewById(R.id.association_tv_welfare_name);
-
+		association_tv_point = (TextView) findViewById(R.id.association_tv_point);
 		association_iv_welfare = (ImageView) findViewById(R.id.association_iv_welfare);
 		association_et_about = (EditText) findViewById(R.id.association_et_about);
 		association_iv_yes = (ImageView) findViewById(R.id.association_iv_yes);
@@ -206,7 +207,8 @@ public class AssociationCreateActivity extends BaseActivity {
 										.getJSONObject("data");
 								if (data.has("url")) {
 									ToastUtils.showToast("社团头像更新成功");
-									mUser.setFaceurl(data.getString("url")); // 传了数据上去就要更新本地的user
+									association_tv_point
+											.setVisibility(View.GONE);
 								}
 								if (data.has("id")) {
 									logo = data.getInt("id");

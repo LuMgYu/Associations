@@ -23,9 +23,10 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:background="@null"
             android:gravity="top|left"
-            android:hint="他妈，起床后又变帅了，怎么办啊，受不了，fuck-"
+            android:hint="请输入个性签名："
             android:maxLines="5"
             android:textColor="@color/text_black"
+            android:textCursorDrawable="@null"
             android:textSize="@dimen/text_big" />
     </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.zhiyisoft.associations.activity;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +27,9 @@ import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.img.WebImageCache;
 import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelEventWorks;
+import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueMember;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -167,6 +172,53 @@ public class MoveMainActivity extends BaseActivity {
 			isWatch(issub);
 			// TODO 这里纯在bug
 			setTopBg(move_fl_bg, event.getLogourl());
+			List<Model> members = event.getMembers();
+			if (members != null) {
+				for (int i = 0; i < members.size(); i++) {
+					ModelLeagueMember member = (ModelLeagueMember) members
+							.get(i);
+					if (i == 0) {
+						iv_member1.setVisibility(View.VISIBLE);
+						mApp.displayImage(member.getFaceurl(), iv_member1);
+					}
+					if (i == 1) {
+						iv_member2.setVisibility(View.VISIBLE);
+						mApp.displayImage(member.getFaceurl(), iv_member2);
+					}
+
+					if (i == 2) {
+						iv_member3.setVisibility(View.VISIBLE);
+						mApp.displayImage(member.getFaceurl(), iv_member3);
+					}
+
+					if (i == 3) {
+						iv_member4.setVisibility(View.VISIBLE);
+						mApp.displayImage(member.getFaceurl(), iv_member4);
+					}
+
+				}
+			}
+			List<Model> works = event.getWorks();
+			if (works != null) {
+				for (int i = 0; i < works.size(); i++) {
+					ModelEventWorks work = (ModelEventWorks) works.get(i);
+					if (i == 0) {
+						iv_album1.setVisibility(View.VISIBLE);
+						mApp.displayImage(work.getFaceurl(), iv_album1);
+					}
+					if (i == 1) {
+						iv_album2.setVisibility(View.VISIBLE);
+						mApp.displayImage(work.getFaceurl(), iv_album2);
+					}
+
+					if (i == 2) {
+						iv_album3.setVisibility(View.VISIBLE);
+						mApp.displayImage(work.getFaceurl(), iv_album3);
+					}
+
+				}
+			}
+
 		}
 	}
 
@@ -242,7 +294,7 @@ public class MoveMainActivity extends BaseActivity {
 	 * @param view
 	 */
 	@SuppressLint("NewApi")
-	private void setTopBg(View view, String url) {
+	private void setTopBg(final View bgView, String url) {
 		ImageSize mImageSize = new ImageSize(100, 100);
 		mApp.initImageLoader().loadImage(url, mImageSize,
 				new SimpleImageLoadingListener() {
@@ -250,7 +302,6 @@ public class MoveMainActivity extends BaseActivity {
 					@Override
 					public void onLoadingComplete(String imageUri, View view,
 							Bitmap loadedImage) {
-						super.onLoadingComplete(imageUri, view, loadedImage);
 						if (loadedImage != null) {
 							int height = loadedImage.getHeight();
 							int width = loadedImage.getWidth();
@@ -258,7 +309,7 @@ public class MoveMainActivity extends BaseActivity {
 									0, 0, width, height / 3);
 							BitmapDrawable background = new BitmapDrawable(
 									targetBp);
-							// view.setBackground(background);
+							bgView.setBackground(background);
 						}
 					}
 
@@ -282,8 +333,14 @@ public class MoveMainActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.rl_association:
-			Bundle data = new Bundle();
-			mApp.startActivity(this, AssociationInformationActivity.class, data);
+			Bundle assoData = new Bundle();
+			ModelLeague league = new ModelLeague();
+			if (mEventResult != null) {
+				league.setGid(mEventResult.getGid());
+			}
+			assoData.putSerializable(Config.SEND_ACTIVITY_DATA, league);
+			mApp.startActivity(this, AssociationInformationActivity.class,
+					assoData);
 			break;
 		case R.id.rl_works_display:
 			Bundle workdata = new Bundle();
@@ -291,8 +348,8 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, AssociationMoveActivity.class, data2);
+//			Bundle data2 = new Bundle();
+//			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.main_ll_share:
 			preformShare();

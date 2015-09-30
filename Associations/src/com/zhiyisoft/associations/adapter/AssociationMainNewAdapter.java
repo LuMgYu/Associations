@@ -24,6 +24,7 @@ import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -101,7 +102,8 @@ public class AssociationMainNewAdapter extends BAdapter {
 				holder.new_item_tv_nick.setText(topic.getUname() + "发表了话题");
 				holder.new_item_tv_title.setText(topic.getTitle());
 				holder.new_item_tv_content.setText(topic.getContent());
-				holder.new_item_tv_date.setText(topic.getCtime());
+				holder.new_item_tv_date.setText(DateUtil.strTodate(topic
+						.getCtime()));
 				holder.new_item_tv_number.setText(topic.getReplyCount());
 				List<Model> photos = topic.getAttachs();
 				holder.imageView1.setVisibility(View.GONE);

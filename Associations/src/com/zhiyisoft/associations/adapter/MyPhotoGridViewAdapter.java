@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView.ScaleType;
 
 import com.zhiyisoft.associations.img.SmartImageView;
-import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.util.UIUtils;
 
 /**

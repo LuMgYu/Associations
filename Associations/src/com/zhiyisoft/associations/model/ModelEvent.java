@@ -1,9 +1,13 @@
 package com.zhiyisoft.associations.model;
 
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.JsonUtils;
 
 /**
  * author：qiuchunjia time：下午5:49:03 类描述：这个类是实现 创建活动之类的
@@ -71,6 +75,8 @@ public class ModelEvent extends Model {
 	private String glogo;
 	private int isin;
 	private int issub;
+	private List<Model> members;
+	private List<Model> works;
 
 	/**************** 获取活动需要的数据end *************************/
 
@@ -152,7 +158,16 @@ public class ModelEvent extends Model {
 
 				this.setHost(jsonObject.getString("host"));
 			}
-
+			if (jsonObject.has("members")) {
+				JSONArray array = jsonObject.getJSONArray("members");
+				this.setMembers(JsonUtils.parseJsonArray(array,
+						new ModelLeagueMember()));
+			}
+			if (jsonObject.has("works")) {
+				JSONArray array = jsonObject.getJSONArray("works");
+				this.setWorks(JsonUtils.parseJsonArray(array,
+						new ModelEventWorks()));
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -398,6 +413,26 @@ public class ModelEvent extends Model {
 		this.issub = issub;
 	}
 
+	public List<Model> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Model> members) {
+		this.members = members;
+	}
+
+	public List<Model> getWorks() {
+		return works;
+	}
+
+	public void setWorks(List<Model> works) {
+		this.works = works;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "ModelEvent [online=" + online + ", logo=" + logo + ", gid="
@@ -412,7 +447,7 @@ public class ModelEvent extends Model {
 				+ ", joinCount=" + joinCount + ", typeName=" + typeName
 				+ ", logourl=" + logourl + ", isover=" + isover + ", gname="
 				+ gname + ", glogo=" + glogo + ", isin=" + isin + ", issub="
-				+ issub + "]";
+				+ issub + ", members=" + members + ", works=" + works + "]";
 	}
 
 }

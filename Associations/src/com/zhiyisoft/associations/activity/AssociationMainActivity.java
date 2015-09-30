@@ -1,12 +1,10 @@
 package com.zhiyisoft.associations.activity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,8 +18,8 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueMember;
-import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 
@@ -59,7 +57,6 @@ public class AssociationMainActivity extends BaseActivity {
 	private RelativeLayout rl_file_share;
 
 	ModelLeague mLeague; // 从activity传过来的信息
-	private ArrayList<Model> mMemberList;
 
 	private static final int SUCCESS = 1;
 	private static final int SUCCESS_JOIN = 2;
@@ -196,7 +193,7 @@ public class AssociationMainActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.rl_member:
 			Bundle data = new Bundle();
-			data.putSerializable(Config.SEND_ACTIVITY_DATA, mMemberList);
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
 			mApp.startActivity(this, AssociationMemberActivity.class, data);
 			break;
 		case R.id.rl_new:
@@ -205,8 +202,8 @@ public class AssociationMainActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationNewActivity.class, data1);
 			break;
 		case R.id.rl_activity:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, AssociationMoveActivity.class, data2);
+//			Bundle data2 = new Bundle();
+//			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
 		case R.id.main_ll_share:
 			preformShare();
@@ -243,24 +240,39 @@ public class AssociationMainActivity extends BaseActivity {
 		tv_association_data_content.setText(league.getDescription() + "");
 		tv_association_data_xiehui.setText(league.getCategoryName());
 		tv_association_data_school.setText(league.getSchoolName());
-		mMemberList = (ArrayList<Model>) league.getMemberlist();
-		if (mMemberList != null) {
-			for (int i = 0; i < mMemberList.size(); i++) {
-				ModelLeagueMember member = (ModelLeagueMember) mMemberList
-						.get(i);
+		List<Model> members = league.getMemberlist();
+		if (members != null) {
+			for (int i = 0; i < members.size(); i++) {
+				ModelLeagueMember member = (ModelLeagueMember) members.get(i);
 				if (i == 0) {
 					iv_member1.setVisibility(View.VISIBLE);
-					iv_member1.setImageUrl(member.getFaceurl());
-
+					mApp.displayImage(member.getFaceurl(), iv_member1);
 				} else if (i == 1) {
 					iv_member2.setVisibility(View.VISIBLE);
-					iv_member2.setImageUrl(member.getFaceurl());
+					mApp.displayImage(member.getFaceurl(), iv_member2);
 				} else if (i == 2) {
 					iv_member3.setVisibility(View.VISIBLE);
-					iv_member3.setImageUrl(member.getFaceurl());
+					mApp.displayImage(member.getFaceurl(), iv_member3);
 				} else if (i == 3) {
 					iv_member4.setVisibility(View.VISIBLE);
-					iv_member4.setImageUrl(member.getFaceurl());
+					mApp.displayImage(member.getFaceurl(), iv_member4);
+				}
+			}
+		}
+		List<Model> albums = league.getAlbums();
+		if (albums != null) {
+			for (int i = 0; i < albums.size(); i++) {
+				ModelLeagueAlbum album = (ModelLeagueAlbum) albums.get(i);
+				if (i == 0) {
+					iv_album.setVisibility(View.VISIBLE);
+					mApp.displayImage(album.getImgsrcL(), iv_album);
+
+				} else if (i == 1) {
+					iv_album2.setVisibility(View.VISIBLE);
+					mApp.displayImage(album.getImgsrcL(), iv_album2);
+				} else if (i == 2) {
+					iv_album3.setVisibility(View.VISIBLE);
+					mApp.displayImage(album.getImgsrcL(), iv_album3);
 				}
 			}
 		}

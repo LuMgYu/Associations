@@ -131,7 +131,8 @@
         android:id="@+id/rl_homeland"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
-        android:background="@color/main_white_pure_color" >
+        android:background="@color/main_white_pure_color"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/tv_homeland"
@@ -193,7 +194,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
-            android:src="@drawable/x" />
+            android:src="@drawable/x"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_email_name"
@@ -231,7 +233,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
-            android:src="@drawable/x" />
+            android:src="@drawable/x"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_phone_name"

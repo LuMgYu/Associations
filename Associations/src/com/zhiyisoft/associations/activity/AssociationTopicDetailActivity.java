@@ -271,7 +271,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());
 				// item_user_tv_a.sette
-				item_user_tv_date.setText(DateUtil.dateToStr(reply.getCtime()));
+				item_user_tv_date.setText(DateUtil.strTodate(reply.getCtime()));
 				replay_content_tv.setText(reply.getContent());
 				// other_more
 

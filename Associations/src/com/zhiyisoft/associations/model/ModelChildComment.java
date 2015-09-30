@@ -15,7 +15,6 @@ public class ModelChildComment extends Model {
 	private String content;
 	private String ctime;
 
-
 	public ModelChildComment() {
 
 	}
@@ -33,8 +32,8 @@ public class ModelChildComment extends Model {
 				this.setContent(jsonObject.getString("content"));
 			}
 
-			if (jsonObject.has("ctime")) {
-				this.setCtime(jsonObject.getString("ctime"));
+			if (jsonObject.has("cTime")) {
+				this.setCtime(jsonObject.getString("cTime"));
 			}
 
 		} catch (JSONException e) {
@@ -59,8 +58,6 @@ public class ModelChildComment extends Model {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;

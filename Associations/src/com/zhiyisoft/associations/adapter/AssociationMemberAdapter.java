@@ -74,7 +74,7 @@ public class AssociationMemberAdapter extends BAdapter {
 			System.out.println(modelUser.toString());
 			if (holder != null && modelUser != null) {
 				mApp.displayImage(modelUser.getFaceurl(), holder.member_iv);
-//				holder.member_iv.setImageUrl(modelUser.getFaceurl());
+				// holder.member_iv.setImageUrl(modelUser.getFaceurl());
 				holder.member_tv_name.setText(modelUser.getUname());
 				holder.member_tv_school.setText(modelUser.getSchool_name());
 			}
@@ -131,7 +131,9 @@ public class AssociationMemberAdapter extends BAdapter {
 		items.add(new Model());
 		LeagueImpl leagueImpl = new LeagueImpl();
 		List<Model> models = leagueImpl.memberList(league);
-		items.addAll(models);
+		if (models != null) {
+			items.addAll(models);
+		}
 		return items;
 	}
 

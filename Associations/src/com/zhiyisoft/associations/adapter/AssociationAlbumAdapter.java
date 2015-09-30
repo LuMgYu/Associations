@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
@@ -17,6 +16,7 @@ import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -72,11 +72,7 @@ public class AssociationAlbumAdapter extends BAdapter {
 		mApp.displayImage(album.getImgsrcL(), holder.album_iv);
 		holder.album_tv_name.setText(album.getName());
 		holder.album_tv_count.setText(album.getPhotoCount());
-		String originTime = album.getcTime();
-		// DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-		// Date date = new Date(originTime);
-		// String time = format.format(date);
-		holder.album_tv_date.setText(originTime);
+		holder.album_tv_date.setText(DateUtil.strTodate(album.getcTime()));
 
 	}
 

@@ -78,7 +78,6 @@ public class AssociationSingleActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("北京社团轮滑社", null, null);
 		setAllImagetitle(0, R.drawable.write, R.drawable.three_, 0);
 	}
 
@@ -92,6 +91,9 @@ public class AssociationSingleActivity extends BaseActivity {
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {
 			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+			if (mLeague != null) {
+				setAlltitle(mLeague.getName(), null, null);
+			}
 		}
 	}
 
@@ -113,6 +115,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	public void initListener() {
 		iv_title_right1.setOnClickListener(this);
 		iv_title_right2.setOnClickListener(this);
+		tv_title_left.setOnClickListener(this);
 
 	}
 
@@ -163,6 +166,9 @@ public class AssociationSingleActivity extends BaseActivity {
 		case R.id.btn_quit:
 			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();
 			applyQuitAssociation(mLeague);
+			break;
+		case R.id.tv_title_left:
+			onBackPressed();
 			break;
 		}
 
@@ -232,6 +238,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	private void initPopWidge(View popView) {
 		association_icon = (RoundImageView) popView
 				.findViewById(R.id.association_icon);
+		mApp.displayImage(mLeague.getLogourl(), association_icon);
 		association_ll_data = (LinearLayout) popView
 				.findViewById(R.id.association_ll_data);
 		mexmber = (TextView) popView.findViewById(R.id.mexmber);

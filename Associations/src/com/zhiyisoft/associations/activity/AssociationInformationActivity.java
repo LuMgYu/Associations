@@ -12,7 +12,6 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelLeague;
-import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 

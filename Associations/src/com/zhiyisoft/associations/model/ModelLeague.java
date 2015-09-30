@@ -15,6 +15,10 @@ import com.zhiyisoft.associations.util.JsonUtils;
  */
 
 public class ModelLeague extends Model {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/*
 	 * (string) name 社团名称 必填 (int)
 	 * 
@@ -64,6 +68,8 @@ public class ModelLeague extends Model {
 	private String albumInfo;
 	/*** 创建相册的时候需要的数据 end ****/
 	private List<Model> memberlist; // 社团成员
+
+	private List<Model> albums; // 社团详情需要的相册展示
 
 	public ModelLeague() {
 
@@ -125,6 +131,12 @@ public class ModelLeague extends Model {
 				List<Model> models = JsonUtils.parseJsonArray(array,
 						new ModelLeagueMember());
 				this.setMemberlist(models);
+			}
+			if (jsonObject.has("albums")) {
+				JSONArray array = jsonObject.getJSONArray("albums");
+				List<Model> models = JsonUtils.parseJsonArray(array,
+						new ModelLeagueAlbum());
+				this.setAlbums(models);
 			}
 
 		} catch (JSONException e) {
@@ -307,6 +319,14 @@ public class ModelLeague extends Model {
 
 	public void setAlbumInfo(String albumInfo) {
 		this.albumInfo = albumInfo;
+	}
+
+	public List<Model> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Model> albums) {
+		this.albums = albums;
 	}
 
 }

@@ -62,8 +62,14 @@ public class ModelLeagueAlbum extends Model {
 			if (jsonObject.has("cTime")) {
 				this.setcTime(jsonObject.getString("cTime"));
 			}
+			if (jsonObject.has("mTime")) {
+				this.setcTime(jsonObject.getString("mTime"));
+			}
 			if (jsonObject.has("imgsrcL")) {
 				this.setImgsrcL(jsonObject.getString("imgsrcL"));
+			}
+			if (jsonObject.has("coverImage")) {
+				this.setImgsrcL(jsonObject.getString("coverImage"));
 			}
 			if (jsonObject.has("photoCount")) {
 				this.setPhotoCount(jsonObject.getString("photoCount"));
