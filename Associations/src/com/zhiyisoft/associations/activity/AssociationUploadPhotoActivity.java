@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -151,11 +152,17 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 				params, new AsyncHttpResponseHandler() {
 
 					@Override
-					public void onSuccess(int arg0, String arg1) {
-						super.onSuccess(arg0, arg1);
-						Log.i("uploadpath", arg1 + "");
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						try {
-							JSONObject jsonObject = new JSONObject(arg1);
+							JSONObject jsonObject = new JSONObject(result);
 							if (jsonObject.has("status")) {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {
@@ -168,6 +175,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+
 					}
 
 				});

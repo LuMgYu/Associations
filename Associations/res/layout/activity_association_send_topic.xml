@@ -72,6 +72,8 @@
             android:orientation="vertical" >
 
             <include layout="@layout/hsv_layout" />
+
+            <include layout="@layout/works_upload_video" />
         </LinearLayout>
     </RelativeLayout>
 

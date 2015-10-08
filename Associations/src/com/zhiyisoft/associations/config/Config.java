@@ -11,6 +11,7 @@ public class Config {
 	public static final String PROVINCE = "province";
 	public static final String HOTCATEGORY = "hotcategory"; // 热门分类的
 	public static final String MAIN_ACTIVITY = "main_activity"; // 跳转到主activity
+	public static final String LOCALVIDEO = "localvideo";
 
 	// -----------------------------访问shareprefrence用到-------------------------------------------------
 	public static final String USER_DATA = "user_data";

@@ -2,9 +2,11 @@ package com.zhiyisoft.associations.activity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,18 +14,23 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.provider.MediaStore.Video.Thumbnails;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -42,6 +49,8 @@ import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImageManager;
+import com.zhiyisoft.associations.util.localVedio.LocalVideo;
+import com.zhiyisoft.associations.util.localVedio.LocalVideoActivity;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -55,6 +64,15 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private LinearLayout ll_ScrollView;
 	private ImageView topic_image;
 	private ImageView topic_expression;
+	/************ 上传视频需要的控件 ****************/
+	private ImageView vedio_iv_big_image;
+	private FrameLayout fl_upload_video;
+	private ImageView vedio_iv_start;
+	private FrameLayout fl_video_progress;
+	private ProgressBar progressBar1;
+	private TextView tv_progress;
+
+	/************ 上传视频需要的控件 ****************/
 
 	private Bitmap mBitmap; // 获取本地的bitmap
 
@@ -62,13 +80,31 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	/******** activity传过来的model类型 ************/
 	private ModelLeague mLeague;
 	private ModelEventWorks mWorks;
-
 	/******** activity传过来的model类型end ************/
+
+	private LocalVideo mVideo;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("发表话题", null, "发表");
+		if (mLeague != null) {
+			setAlltitle("发表话题", null, "发表");
+			return;
+		}
+		if (mWorks != null) {
+			int type = mWorks.getExplainType();
+			if (type == 1) {
+				setAlltitle("发表文档", null, "发表");
+			} else if (type == 2) {
+				setAlltitle("发表图片", null, "发表");
+			} else if (type == 3) {
+				setAlltitle("发表视频", null, "发表");
+				fl_upload_video.setVisibility(View.VISIBLE);
+				hsvScrollView.setVisibility(View.GONE);
+			} else if (type == 4) {
+				setAlltitle("发表音频", null, "发表");
+			}
+		}
 	}
 
 	@Override
@@ -102,6 +138,14 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		ll_ScrollView = (LinearLayout) findViewById(R.id.ll_ScrollView);
 		topic_image = (ImageView) findViewById(R.id.topic_image);
 		topic_expression = (ImageView) findViewById(R.id.topic_expression);
+		/************ 上传视频需要的初始化控件 ****************/
+		fl_upload_video = (FrameLayout) findViewById(R.id.fl_upload_video);
+		vedio_iv_big_image = (ImageView) findViewById(R.id.vedio_iv_big_image);
+		vedio_iv_start = (ImageView) findViewById(R.id.vedio_iv_start);
+		fl_video_progress = (FrameLayout) findViewById(R.id.fl_video_progress);
+		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
+		tv_progress = (TextView) findViewById(R.id.tv_progress);
+		/************ 上传视频需要的初始化控件 ****************/
 		mUser = mApp.getUser();
 		mImageManager = LocalImageManager.from(mApp);
 		addImageToHsv(null, ADDPHOTO);
@@ -178,11 +222,16 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		topic_image.setOnClickListener(this);
 		topic_expression.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
+		fl_upload_video.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+
+		case R.id.fl_upload_video:
+			mApp.startActivityForResult(this, LocalVideoActivity.class, null);
+			break;
 		case R.id.topic_image:
 			Bundle data2 = new Bundle();
 			mApp.startActivityForResult(this, LocalImagListActivity.class,
@@ -261,13 +310,18 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		client.post(
 				"http://daxs.zhiyicx.com/index.php?app=api&mod=Group&act=createTopic",
 				params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						// TODO Auto-generated method stub
+
+					}
 
 					@Override
-					public void onSuccess(int arg0, String arg1) {
-						super.onSuccess(arg0, arg1);
-						Log.i("uploadpath", "==========" + arg1 + "");
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						try {
-							JSONObject jsonObject = new JSONObject(arg1);
+							JSONObject jsonObject = new JSONObject(result);
 							if (jsonObject.has("status")) {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {
@@ -294,6 +348,8 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	 * @param work
 	 */
 	private void sendWorksToNet(ModelEventWorks work) {
+		fl_video_progress.setVisibility(View.VISIBLE);
+		vedio_iv_start.setVisibility(View.GONE);
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, mUser.getOauth_token());
 		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
@@ -314,17 +370,45 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				}
 			}
 		}
+		/************ 上传视频 ***************/
+		if (mVideo != null) {
+			File file = new File(mVideo.getPath());
+			try {
+				params.put(mVideo.getTitle(), file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+
+		/************ 上传视频 ***************/
+
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.post(
 				"http://daxs.zhiyicx.com/index.php?app=api&mod=Event&act=uploadWork",
 				params, new AsyncHttpResponseHandler() {
 
 					@Override
-					public void onSuccess(int arg0, String arg1) {
-						super.onSuccess(arg0, arg1);
-						Log.i("uploadpath", "==========" + arg1 + "");
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						String result = new String(arg2);
+						Log.i("progress", "arg0=" + arg0 + ",  result="
+								+ result);
+					}
+
+					@Override
+					public void onProgress(long bytesWritten, long totalSize) {
+						super.onProgress(bytesWritten, totalSize);
+						float progress = ((float) bytesWritten / (float) totalSize) * 100;
+						DecimalFormat df = new DecimalFormat("0");// 格式化小数
+						String s = df.format(progress);// 返回的是String类型
+						tv_progress.setText(s + "%");
+					}
+
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						try {
-							JSONObject jsonObject = new JSONObject(arg1);
+							JSONObject jsonObject = new JSONObject(result);
 							if (jsonObject.has("status")) {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {
@@ -339,6 +423,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+
 					}
 
 				});
@@ -355,15 +440,42 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			Bundle bundle = data.getExtras();
 			mPhotoList = (ArrayList<String>) bundle
 					.get(Config.GET_ACTIVITY_DATA);
-			for (String str : mPhotoList) {
-				if (ll_ScrollView.getChildCount() > 6) {
-					ToastUtils.showToast("最多只能选六张！");
-					return;
+			if (mPhotoList != null) {
+				for (String str : mPhotoList) {
+					if (ll_ScrollView.getChildCount() > 6) {
+						ToastUtils.showToast("最多只能选六张！");
+						return;
+					}
+					addImageToHsv(str, PHOTO);
+					// TODO 这里还需要把bitmap获取出来
 				}
-				addImageToHsv(str, PHOTO);
-				// TODO 这里还需要把bitmap获取出来
+			}
+			// video的获取
+			mVideo = (LocalVideo) bundle.get(Config.LOCALVIDEO);
+			if (mVideo != null) {
+				Bitmap bitmap = getVideoThumbnail(mVideo.getPath(), 120, 120,
+						Thumbnails.MINI_KIND);
+				vedio_iv_big_image.setImageBitmap(bitmap);
 			}
 		}
+	}
+
+	/**
+	 * 获取视频缩略图
+	 * 
+	 * @param videoPath
+	 * @param width
+	 * @param height
+	 * @param kind
+	 * @return
+	 */
+	private Bitmap getVideoThumbnail(String videoPath, int width, int height,
+			int kind) {
+		Bitmap bitmap = null;
+		bitmap = ThumbnailUtils.createVideoThumbnail(videoPath, kind);
+		bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
+				ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+		return bitmap;
 	}
 
 	// --------------------------PopupWindow的界面控件-----------------------------------------

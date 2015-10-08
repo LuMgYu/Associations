@@ -529,6 +529,17 @@ public abstract class BaseActivity extends FragmentActivity implements
 	}
 
 	/**
+	 * 设置返回的结果并设置标志
+	 */
+	public void onReturnResult(Model model, String flag) {
+		Intent intent = new Intent();
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(flag, model);
+		intent.putExtras(bundle);
+		this.setResult(this.GET_DATA_FROM_ACTIVITY, intent);
+	}
+
+	/**
 	 * 设置返回的结果
 	 */
 	public void onReturnResult(ArrayList<String> list) {

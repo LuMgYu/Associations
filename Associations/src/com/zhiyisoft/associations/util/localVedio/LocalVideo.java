@@ -1,12 +1,15 @@
 package com.zhiyisoft.associations.util.localVedio;
 
-import java.io.Serializable;
+import com.zhiyisoft.associations.model.base.Model;
 
-public class LocalVideo implements Serializable {
+public class LocalVideo extends Model {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** 
      *  
      */
-	private static final long serialVersionUID = -7920222595800367956L;
 	private int id;
 	private String title;
 	private String album;

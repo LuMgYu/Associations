@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.OutputStream;
 import java.util.List;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -196,12 +197,18 @@ public class FragmentMe extends BaseFragment {
 		client.post(
 				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
 				params, new AsyncHttpResponseHandler() {
+					@Override
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						// TODO Auto-generated method stub
+
+					}
 
 					@Override
-					public void onSuccess(int arg0, String arg1) {
-						super.onSuccess(arg0, arg1);
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						try {
-							JSONObject jsonObject = new JSONObject(arg1);
+							JSONObject jsonObject = new JSONObject(result);
 							if (jsonObject.has("data")) {
 								JSONObject data = jsonObject
 										.getJSONObject("data");
@@ -217,6 +224,7 @@ public class FragmentMe extends BaseFragment {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+
 					}
 
 				});

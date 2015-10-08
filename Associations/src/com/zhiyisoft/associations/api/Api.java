@@ -282,36 +282,36 @@ public class Api {
 				}
 			}
 			AsyncHttpClient client = new AsyncHttpClient();
-			client.post(
-					"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
-					params, new AsyncHttpResponseHandler() {
-						@Override
-						public void onStart() {
-							// TODO Auto-generated method stub
-							super.onStart();
-						}
-
-						@Override
-						public void onFailure(Throwable arg0, String arg1) {
-							super.onFailure(arg0, arg1);
-						}
-
-						@Override
-						public void onSuccess(String arg0) {
-							// TODO Auto-generated method stub
-							super.onSuccess(arg0);
-						}
-
-						@Override
-						public void onSuccess(int arg0, String arg1) {
-							super.onSuccess(arg0, arg1);
-							Log.i("upload", arg0 + "ddfasdfadf  " + arg1);
-							if (arg0 == 0) {
-
-							}
-						}
-
-					});
+//			client.post(
+//					"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
+//					params, new AsyncHttpResponseHandler() {
+//						@Override
+//						public void onStart() {
+//							// TODO Auto-generated method stub
+//							super.onStart();
+//						}
+//
+//						@Override
+//						public void onFailure(Throwable arg0, String arg1) {
+//							super.onFailure(arg0, arg1);
+//						}
+//
+//						@Override
+//						public void onSuccess(String arg0) {
+//							// TODO Auto-generated method stub
+//							super.onSuccess(arg0);
+//						}
+//
+//						@Override
+//						public void onSuccess(int arg0, String arg1) {
+//							super.onSuccess(arg0, arg1);
+//							Log.i("upload", arg0 + "ddfasdfadf  " + arg1);
+//							if (arg0 == 0) {
+//
+//							}
+//						}
+//
+//					});
 			return null;
 		}
 	}

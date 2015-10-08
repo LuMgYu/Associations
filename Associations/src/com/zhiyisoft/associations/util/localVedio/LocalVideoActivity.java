@@ -2,11 +2,9 @@ package com.zhiyisoft.associations.util.localVedio;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.provider.MediaStore.Video.Thumbnails;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +13,8 @@ import android.widget.ListView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.base.Model;
 
 public class LocalVideoActivity extends BaseActivity {
 
@@ -69,12 +69,9 @@ public class LocalVideoActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Intent intent = new Intent();
-				// intent.setClass(LocalVideo.this, LocalVideoPlayer.class);
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("video", listVideos.get(position));
-				intent.putExtras(bundle);
-				startActivity(intent);
+				Model video = listVideos.get(position);
+				onReturnResult(video, Config.LOCALVIDEO);
+				onBackPressed();
 			}
 		});
 	}

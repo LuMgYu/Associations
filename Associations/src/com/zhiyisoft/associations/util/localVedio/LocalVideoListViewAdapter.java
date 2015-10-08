@@ -21,7 +21,8 @@ public class LocalVideoListViewAdapter extends BaseAdapter {
 	private LayoutInflater mLayoutInflater;
 	private ArrayList<LoadedImage> photos = new ArrayList<LoadedImage>();
 
-	public LocalVideoListViewAdapter(Context context, List<LocalVideo> listVideos) {
+	public LocalVideoListViewAdapter(Context context,
+			List<LocalVideo> listVideos) {
 		mLayoutInflater = LayoutInflater.from(context);
 		this.listVideos = listVideos;
 	}

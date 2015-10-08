@@ -89,12 +89,12 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 					picdata);
 			break;
 		case R.id.ll_music:
-			Bundle micdata = bindDataToModel(3);
+			Bundle micdata = bindDataToModel(4);
 			mApp.startActivity(this, AssociationSendTopicActivity.class,
 					micdata);
 			break;
 		case R.id.ll_vedio:
-			Bundle veddata = bindDataToModel(4);
+			Bundle veddata = bindDataToModel(3);
 			mApp.startActivity(this, AssociationSendTopicActivity.class,
 					veddata);
 			break;

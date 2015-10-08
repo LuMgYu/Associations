@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 
+import org.apache.http.Header;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -760,11 +761,17 @@ public class MoveCreateActivity extends BaseActivity {
 				params, new AsyncHttpResponseHandler() {
 
 					@Override
-					public void onSuccess(int arg0, String arg1) {
-						super.onSuccess(arg0, arg1);
-						Log.i("upload", arg1);
+					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+							Throwable arg3) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+						String result = new String(arg2);
 						try {
-							JSONObject jsonObject = new JSONObject(arg1);
+							JSONObject jsonObject = new JSONObject(result);
 							if (jsonObject.has("data")) {
 								JSONObject data = jsonObject
 										.getJSONObject("data");
@@ -779,6 +786,7 @@ public class MoveCreateActivity extends BaseActivity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+
 					}
 
 				});
