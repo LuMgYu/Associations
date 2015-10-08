@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_bottom"
-            android:src="@drawable/pic" />
+            android:src="@drawable/topic_picture" />
 
         <ImageView
             android:id="@+id/topic_expression"

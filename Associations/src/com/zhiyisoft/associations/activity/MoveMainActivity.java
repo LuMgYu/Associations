@@ -33,6 +33,7 @@ import com.zhiyisoft.associations.model.ModelLeagueMember;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
+import com.zhiyisoft.associations.util.localVedio.LocalVideoActivity;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -348,8 +349,10 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
+			mApp.startActivity(this, LocalVideoActivity.class, null);
 			// Bundle data2 = new Bundle();
 			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
+
 			break;
 		case R.id.main_ll_share:
 			preformShare();

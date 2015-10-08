@@ -63,7 +63,6 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
-import com.zhiyisoft.associations.util.BitmapUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -433,6 +432,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	// ----------------------------------调用本地的图片，摄像机，文件之类的操作------------------------------------------------------
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
 	public static final int CAPTURE_CODE = 2; // 取照片的时做的标记
+	public static final int VEDIO_CODE = 3;
 	public static final int GET_DATA_FROM_ACTIVITY = 2;
 
 	/**
@@ -442,6 +442,15 @@ public abstract class BaseActivity extends FragmentActivity implements
 		Intent intent = new Intent(Intent.ACTION_PICK,
 				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(intent, IMAGE_CODE);
+	}
+
+	/**
+	 * 获取本地视频列表
+	 */
+	public void openVedioFile() {
+		Intent intent = new Intent(Intent.ACTION_PICK,
+				MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+		startActivityForResult(intent, VEDIO_CODE);
 	}
 
 	/**
