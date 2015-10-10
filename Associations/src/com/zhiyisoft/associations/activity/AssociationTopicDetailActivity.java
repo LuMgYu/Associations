@@ -523,7 +523,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					FileOutputStream outputStream;
 					try {
 						outputStream = new FileOutputStream(wholeFile);
-						outputStream.write(arg2);
+						outputStream.write(arg2, 0, arg2.length);
 						openTheFile(downBtn, wholeFile);
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
@@ -556,8 +556,18 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = OpenFiles.getPdfFileIntent(wholeFile);
-				startActivity(intent);
+				String filepath = wholeFile.getPath();
+				Intent intent = null;
+				if (filepath.contains("doc")) {
+					intent = OpenFiles.getWordFileIntent(wholeFile);
+				} else if (filepath.contains("txt")) {
+					intent = OpenFiles.getTextFileIntent(wholeFile);
+				} else if (filepath.contains("pdf")) {
+					intent = OpenFiles.getPdfFileIntent(wholeFile);
+				}
+				if (intent != null) {
+					startActivity(intent);
+				}
 			}
 		});
 	}
