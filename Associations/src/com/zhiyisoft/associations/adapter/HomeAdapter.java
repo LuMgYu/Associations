@@ -26,6 +26,7 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelCommonAttach;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelHome;
@@ -190,7 +191,14 @@ public class HomeAdapter extends BAdapter {
 						.findViewById(R.id.move_tv_title);
 				TextView move_tv_content = (TextView) mNewsItemViewArray[i]
 						.findViewById(R.id.move_tv_content);
-				mApp.displayImage(topic.getFaceurl(), move_iv);
+				List<Model> photos = topic.getAttachs();
+				if (photos != null) {
+					if (photos.size() >= 1) {
+						ModelCommonAttach attach = (ModelCommonAttach) photos
+								.get(0);
+						mApp.displayImage(attach.getUrl(), move_iv);
+					}
+				}
 				// move_iv.setImageUrl();
 				move_tv_title.setText(topic.getTitle());
 				move_tv_content.setText(topic.getContent());

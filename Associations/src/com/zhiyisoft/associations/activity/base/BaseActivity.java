@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import org.apache.http.entity.mime.MIME;
+import org.apache.http.Header;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -42,7 +42,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +51,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
@@ -615,6 +616,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		return bitmap;
 	}
+
 
 	// ----------------------------------我是本区域邪恶的分界线------------------------------------------------------
 

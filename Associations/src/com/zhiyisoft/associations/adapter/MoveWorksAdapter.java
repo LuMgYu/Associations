@@ -168,6 +168,7 @@ public class MoveWorksAdapter extends BAdapter {
 		}
 	}
 
+
 	/**
 	 * 初始化缓存converView
 	 * 

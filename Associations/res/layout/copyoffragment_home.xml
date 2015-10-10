@@ -299,14 +299,16 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
-            android:background="@drawable/default_image_small" />
+            android:background="@drawable/default_image_small"
+            android:scaleType="centerCrop" />
 
         <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/iv_work2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/default_image_small" />
+            android:background="@drawable/default_image_small"
+            android:scaleType="centerCrop" />
 
         <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/iv_work3"
@@ -315,7 +317,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="@dimen/margin_right_small"
             android:layout_weight="1"
-            android:background="@drawable/default_image_small" />
+            android:background="@drawable/default_image_small"
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <TextView

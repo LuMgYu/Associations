@@ -1,9 +1,16 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.Header;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,12 +30,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.BinaryHttpResponseHandler;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
@@ -46,6 +56,7 @@ import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.MusicPlayer;
+import com.zhiyisoft.associations.util.OpenFiles;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.MyGridView;
@@ -57,7 +68,6 @@ import com.zhiyisoft.associations.widget.MyGridView;
 
 public class AssociationTopicDetailActivity extends BaseActivity {
 	private LinearLayout ll_detail_all;
-
 	private TextView content_tv_title;
 	private RoundImageView user_icon;
 	private TextView content_tv_user;
@@ -173,7 +183,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					if (type.equals("1")) {
 						bindDataToView(works.getTitle(), works.getFaceurl(),
 								works.getUname(), works.getCtime(),
-								works.getIntro(), photoUrls, null, null, null);
+								works.getIntro(), null, attachs, null, null);
 					} else if (type.equals("2")) {
 						bindDataToView(works.getTitle(), works.getFaceurl(),
 								works.getUname(), works.getCtime(),
@@ -448,15 +458,108 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	/**
 	 * 初始化下载文件的item
 	 */
-	private void initDownledFile() {
+	private void initDownledFile(final ModelCommonAttach file) {
 		mNeedView = addViewToContent(content_ll_main,
 				R.layout.detail_file_download_item);
 		ImageView detail_file_iv = (ImageView) mNeedView
 				.findViewById(R.id.detail_file_iv);
 		TextView detail_file_tv = (TextView) mNeedView
 				.findViewById(R.id.detail_file_tv);
-		Button detail_file_iv_issure = (Button) mNeedView
+		final Button detail_file_iv_issure = (Button) mNeedView
 				.findViewById(R.id.detail_file_iv_issure);
+		String filename = file.getName();
+		if (filename.contains("doc")) {
+			detail_file_iv.setImageResource(R.drawable.doc);
+		} else if (filename.contains("pdf")) {
+			detail_file_iv.setImageResource(R.drawable.pdf);
+		} else if (filename.contains("txt")) {
+			detail_file_iv.setImageResource(R.drawable.text);
+		}
+		detail_file_tv.setText(file.getName() + "");
+		final File dir = StorageUtils.getOwnCacheDirectory(
+				getApplicationContext(), "association/file");
+		File wholeFile = new File(dir + "/" + filename);
+		if (wholeFile.exists()) {
+			detail_file_iv_issure.setText("打开");
+			openTheFile(detail_file_iv_issure, wholeFile);
+
+		} else {
+			detail_file_iv_issure.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					downloadFile(file.getUrl(), dir.toString(), file.getName(),
+							detail_file_iv_issure);
+				}
+			});
+		}
+
+	}
+
+	/**
+	 * 下载文件
+	 */
+	private void downloadFile(String fileUrl, String dir, String filename,
+			final Button downBtn) {
+		final File file = new File(dir);
+		if (!file.exists()) {
+			file.mkdir();
+		}
+		final File wholeFile = new File(dir + "/" + filename);
+		ToastUtils.showToast(dir);
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get(fileUrl, new AsyncHttpResponseHandler() {
+
+			@Override
+			public void onProgress(long bytesWritten, long totalSize) {
+				super.onProgress(bytesWritten, totalSize);
+				Log.i("progress", "bytesWritten=" + bytesWritten
+						+ "  totalSize" + totalSize);
+			}
+
+			@Override
+			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+				if (arg0 == 200) {
+					FileOutputStream outputStream;
+					try {
+						outputStream = new FileOutputStream(wholeFile);
+						outputStream.write(arg2);
+						openTheFile(downBtn, wholeFile);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+
+			@Override
+			public void onFailure(int arg0, Header[] arg1, byte[] arg2,
+					Throwable arg3) {
+				Log.i("progress", "onFailure");
+
+			}
+		});
+	}
+
+	/**
+	 * 打开文件
+	 * 
+	 * @param downBtn
+	 * @param wholeFile
+	 */
+	private void openTheFile(final Button downBtn, final File wholeFile) {
+		downBtn.setText("打开");
+		downBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = OpenFiles.getPdfFileIntent(wholeFile);
+				startActivity(intent);
+			}
+		});
 	}
 
 	private void initVedio(String videoUrl) {
@@ -642,7 +745,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	}
 
 	private void bindDataToView(String title, String faceUrl, String username,
-			String date, String content, List<String> photoUrls, Model file,
+			String date, String content, List<String> photoUrls,
+			List<ModelCommonAttach> filelist,
 			List<ModelCommonAttach> musiclist, String videourl) {
 		if (title != null) {
 			content_tv_title.setText(title);
@@ -668,8 +772,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			}
 
 		}
-		if (file != null) {
-
+		if (filelist != null) {
+			ModelCommonAttach file = filelist.get(0);
+			initDownledFile(file);
 		}
 		if (musiclist != null) {
 			if (musiclist != null) {
