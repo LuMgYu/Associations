@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import org.apache.http.entity.mime.MIME;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -40,6 +42,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +50,7 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
@@ -433,6 +437,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
 	public static final int CAPTURE_CODE = 2; // 取照片的时做的标记
 	public static final int VEDIO_CODE = 3;
+	public static final int FILE_CODE = 4;
 	public static final int GET_DATA_FROM_ACTIVITY = 2;
 
 	/**
@@ -451,6 +456,19 @@ public abstract class BaseActivity extends FragmentActivity implements
 		Intent intent = new Intent(Intent.ACTION_PICK,
 				MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(intent, VEDIO_CODE);
+	}
+
+	public void getLocalFile() {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		intent.setType("*/*");
+		intent.addCategory(Intent.CATEGORY_OPENABLE);
+		Intent intentChoose = Intent.createChooser(intent, "请选择文件!");
+		try {
+			startActivityForResult(intentChoose, FILE_CODE);
+		} catch (android.content.ActivityNotFoundException ex) {
+			// Potentially direct the user to the Market with a Dialog
+			Toast.makeText(this, "请安装文件管理器", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	/**

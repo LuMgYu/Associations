@@ -49,6 +49,8 @@ import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImageManager;
+import com.zhiyisoft.associations.util.localMusic.LocalMusic;
+import com.zhiyisoft.associations.util.localMusic.LocalMusicListActivity;
 import com.zhiyisoft.associations.util.localVedio.LocalVideo;
 import com.zhiyisoft.associations.util.localVedio.LocalVideoActivity;
 
@@ -68,11 +70,15 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private ImageView vedio_iv_big_image;
 	private FrameLayout fl_upload_video;
 	private ImageView vedio_iv_start;
-	private FrameLayout fl_video_progress;
+	private FrameLayout fl_progress;
 	private ProgressBar progressBar1;
 	private TextView tv_progress;
 
 	/************ 上传视频需要的控件 ****************/
+	/************ 上传音乐需要的控件 ****************/
+	private FrameLayout fl_upload_music;
+	private TextView tv_music_name;
+	/************ 上传音乐需要的控件 ****************/
 
 	private Bitmap mBitmap; // 获取本地的bitmap
 
@@ -83,6 +89,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	/******** activity传过来的model类型end ************/
 
 	private LocalVideo mVideo;
+	private LocalMusic mMusic;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -97,12 +104,13 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				setAlltitle("发表文档", null, "发表");
 			} else if (type == 2) {
 				setAlltitle("发表图片", null, "发表");
+				hsvScrollView.setVisibility(View.VISIBLE);
 			} else if (type == 3) {
 				setAlltitle("发表视频", null, "发表");
 				fl_upload_video.setVisibility(View.VISIBLE);
-				hsvScrollView.setVisibility(View.GONE);
 			} else if (type == 4) {
 				setAlltitle("发表音频", null, "发表");
+				fl_upload_music.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -142,10 +150,14 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		fl_upload_video = (FrameLayout) findViewById(R.id.fl_upload_video);
 		vedio_iv_big_image = (ImageView) findViewById(R.id.vedio_iv_big_image);
 		vedio_iv_start = (ImageView) findViewById(R.id.vedio_iv_start);
-		fl_video_progress = (FrameLayout) findViewById(R.id.fl_video_progress);
+		fl_progress = (FrameLayout) findViewById(R.id.fl_progress);
 		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
 		tv_progress = (TextView) findViewById(R.id.tv_progress);
 		/************ 上传视频需要的初始化控件 ****************/
+		/************ 上传音乐需要的初始化控件 ****************/
+		fl_upload_music = (FrameLayout) findViewById(R.id.fl_upload_music);
+		tv_music_name = (TextView) findViewById(R.id.tv_music_name);
+		/************ 上传音乐需要的初始化控件 ****************/
 		mUser = mApp.getUser();
 		mImageManager = LocalImageManager.from(mApp);
 		addImageToHsv(null, ADDPHOTO);
@@ -223,12 +235,16 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		topic_expression.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
 		fl_upload_video.setOnClickListener(this);
+		fl_upload_music.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-
+		case R.id.fl_upload_music:
+			mApp.startActivityForResult(this, LocalMusicListActivity.class,
+					null);
+			break;
 		case R.id.fl_upload_video:
 			mApp.startActivityForResult(this, LocalVideoActivity.class, null);
 			break;
@@ -348,7 +364,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	 * @param work
 	 */
 	private void sendWorksToNet(ModelEventWorks work) {
-		fl_video_progress.setVisibility(View.VISIBLE);
+		fl_progress.setVisibility(View.VISIBLE);
 		vedio_iv_start.setVisibility(View.GONE);
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, mUser.getOauth_token());
@@ -381,6 +397,16 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		}
 
 		/************ 上传视频 ***************/
+		/************ 上传音乐 ***************/
+		if (mMusic != null) {
+			File file = new File(mMusic.getMusicpath());
+			try {
+				params.put("name", file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		/************ 上传音乐 ***************/
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.post(
@@ -407,6 +433,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						String result = new String(arg2);
+						Log.i("works", "result=" + result);
 						try {
 							JSONObject jsonObject = new JSONObject(result);
 							if (jsonObject.has("status")) {
@@ -456,6 +483,10 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				Bitmap bitmap = getVideoThumbnail(mVideo.getPath(), 120, 120,
 						Thumbnails.MINI_KIND);
 				vedio_iv_big_image.setImageBitmap(bitmap);
+			}
+			mMusic = (LocalMusic) bundle.get(Config.LOCALMUSIC);
+			if (mMusic != null) {
+				tv_music_name.setText(mMusic.getName() + ".mp3");
 			}
 		}
 	}

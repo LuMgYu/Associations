@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fl_upload_music"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="gone" >
+
+    <TextView
+        android:id="@+id/tv_music_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/tv_gray_30"
+        android:gravity="center_vertical"
+        android:text="人在江湖飘.mp3"
+        android:textColor="@color/text_gray"
+        android:textSize="@dimen/text_small" />
+
+    <include layout="@layout/common_progress" />
+
+</FrameLayout>

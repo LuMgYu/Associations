@@ -19,7 +19,7 @@ import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
-import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
+import com.zhiyisoft.associations.model.ModelCommonAttach;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.UIUtils;
@@ -39,10 +39,10 @@ public class MoveWorksAdapter extends BAdapter {
 	private View mVedioView; // 视频view
 	// 多个item加载时做缓存的方法
 	private final int VIEW_TYPE = 4;
-	private final int TYPE_ESSAY = 0;
-	private final int TYPE_MUSIC = 1;
+	private final int TYPE_ESSAY = 1;
 	private final int TYPE_PHOTO = 2;
 	private final int TYPE_VEDIO = 3;
+	private final int TYPE_MUSIC = 4;
 	private ModelEvent mdataEvent;
 
 	public MoveWorksAdapter(BaseActivity activity, List<Model> list,
@@ -92,11 +92,26 @@ public class MoveWorksAdapter extends BAdapter {
 				break;
 
 			case TYPE_MUSIC:
+				mApp.displayImage(works.getFaceurl(), holder.iv_music_user_icon);
+				holder.tv_user_name.setText(works.getUname());
+				holder.tv_user_send = (TextView) mMusicView
+						.findViewById(R.id.tv_user_send);
 
+				if (works.getAttachs() != null) {
+					ModelCommonAttach attach = (ModelCommonAttach) works
+							.getAttachs().get(0);
+					holder.tv_music_name.setText(attach.getName());
+
+				}
+
+				holder.tv_music_title.setText(works.getTitle());
+				holder.tv_music_date.setText(DateUtil.strTodate(works
+						.getCtime()));
+				holder.tv_music_commit.setText(works.getCommentCount());
 				break;
 			case TYPE_PHOTO:
 				mApp.displayImage(works.getFaceurl(), holder.iv_photo_user_icon);
-//				holder.iv_photo_user_icon.setImageUrl(works.getFaceurl());
+				// holder.iv_photo_user_icon.setImageUrl(works.getFaceurl());
 				holder.tv_user_name.setText(works.getUname());
 				holder.tv_photo_title.setText(works.getTitle());
 				List<Model> list = works.getAttachs();
@@ -104,19 +119,18 @@ public class MoveWorksAdapter extends BAdapter {
 				holder.iv_photo2.setVisibility(View.GONE);
 				holder.iv_photo3.setVisibility(View.GONE);
 				for (int i = 0; i < list.size(); i++) {
-					ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) list
-							.get(i);
+					ModelCommonAttach photo = (ModelCommonAttach) list.get(i);
 					if (i == 0) {
 						holder.iv_photo1.setVisibility(View.VISIBLE);
-//						holder.iv_photo1.setImageUrl(photo.getUrl());
+						// holder.iv_photo1.setImageUrl(photo.getUrl());
 						mApp.displayImage(photo.getUrl(), holder.iv_photo1);
 					} else if (i == 1) {
 						holder.iv_photo2.setVisibility(View.VISIBLE);
-//						holder.iv_photo2.setImageUrl(photo.getUrl());
+						// holder.iv_photo2.setImageUrl(photo.getUrl());
 						mApp.displayImage(photo.getUrl(), holder.iv_photo2);
 					} else if (i == 2) {
 						holder.iv_photo3.setVisibility(View.VISIBLE);
-//						holder.iv_photo3.setImageUrl(photo.getUrl());
+						// holder.iv_photo3.setImageUrl(photo.getUrl());
 						mApp.displayImage(photo.getUrl(), holder.iv_photo3);
 					}
 				}
@@ -125,7 +139,13 @@ public class MoveWorksAdapter extends BAdapter {
 				holder.tv_photo_commit.setText(works.getCommentCount());
 				break;
 			case TYPE_VEDIO:
-
+				mApp.displayImage(works.getFaceurl(), holder.iv_vedio_user_icon);
+				// holder.iv_photo_user_icon.setImageUrl(works.getFaceurl());
+				holder.tv_user_name.setText(works.getUname());
+				holder.tv_vedio_title.setText(works.getTitle());
+				holder.tv_vedio_commit.setText(DateUtil.strTodate(works
+						.getCtime()));
+				holder.tv_vedio_date.setText(works.getCommentCount());
 				break;
 			}
 		}
@@ -244,6 +264,8 @@ public class MoveWorksAdapter extends BAdapter {
 					.findViewById(R.id.tv_user_name);
 			holder.tv_user_send = (TextView) mMusicView
 					.findViewById(R.id.tv_user_send);
+			holder.tv_music_title = (TextView) mMusicView
+					.findViewById(R.id.tv_music_title);
 			holder.tv_music_name = (TextView) mMusicView
 					.findViewById(R.id.tv_music_name);
 			holder.tv_music_date = (TextView) mMusicView
@@ -310,7 +332,7 @@ public class MoveWorksAdapter extends BAdapter {
 			holder.tv_user_send = (TextView) mVedioView
 					.findViewById(R.id.tv_user_send);
 			holder.tv_vedio_title = (TextView) mVedioView
-					.findViewById(R.id.tv_music_name);
+					.findViewById(R.id.tv_vedio_title);
 			holder.iv_vedio = (SmartImageView) mVedioView
 					.findViewById(R.id.iv_vedio);
 			holder.iv_vedio_click = (ImageView) mVedioView
@@ -356,7 +378,7 @@ public class MoveWorksAdapter extends BAdapter {
 
 	@Override
 	public int getItemViewType(int position) {
-		return judgeTheViewType(position);
+		return judgeTheViewType(position) - 1;
 	}
 
 }

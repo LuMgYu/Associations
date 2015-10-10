@@ -10,7 +10,7 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class ModelLeagueTopicPhoto extends Model {
+public class ModelCommonAttach extends Model {
 	// "name":"560259119198d.jpg",
 	// "savepath":"2015/0923/15/",
 	// "url":"http://daxs.zhiyicx.com/attachment/uploads/2015/0923/15/560259119198d.jpg",
@@ -20,11 +20,11 @@ public class ModelLeagueTopicPhoto extends Model {
 	private String url;
 	private String hash;
 
-	public ModelLeagueTopicPhoto() {
+	public ModelCommonAttach() {
 
 	}
 
-	public ModelLeagueTopicPhoto(JSONObject jsonObject) {
+	public ModelCommonAttach(JSONObject jsonObject) {
 		try {
 			if (jsonObject.has("name")) {
 				this.setName(jsonObject.getString("name"));

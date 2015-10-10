@@ -119,7 +119,6 @@
             android:textColor="@color/text_more_gray"
             android:textSize="@dimen/text_verysmall" />
     </RelativeLayout>
-
     <include layout="@layout/view_line_vertical" />
 
 </LinearLayout>

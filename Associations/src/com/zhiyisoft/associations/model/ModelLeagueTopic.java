@@ -74,7 +74,7 @@ public class ModelLeagueTopic extends Model {
 			if (jsonObject.has("attachs")) {
 				JSONArray array = jsonObject.getJSONArray("attachs");
 				this.setAttachs(JsonUtils.parseJsonArray(array,
-						new ModelLeagueTopicPhoto()));
+						new ModelCommonAttach()));
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

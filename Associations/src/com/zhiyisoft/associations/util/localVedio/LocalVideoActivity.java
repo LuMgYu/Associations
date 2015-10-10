@@ -41,7 +41,7 @@ public class LocalVideoActivity extends BaseActivity {
 
 	@Override
 	public int getLayoutId() {
-		return R.layout.vedio_listview;
+		return R.layout.local_video_activity;
 	}
 
 	@Override

@@ -3,8 +3,10 @@ package com.zhiyisoft.associations.activity;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,7 +35,6 @@ import com.zhiyisoft.associations.model.ModelLeagueMember;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
-import com.zhiyisoft.associations.util.localVedio.LocalVideoActivity;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -349,7 +350,8 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
-			mApp.startActivity(this, LocalVideoActivity.class, null);
+			getLocalFile();
+			// mApp.startActivity(this, LocalVideoActivity.class, null);
 			// Bundle data2 = new Bundle();
 			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
 
@@ -438,5 +440,18 @@ public class MoveMainActivity extends BaseActivity {
 				mHandle.sendMessage(message);
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == FILE_CODE) {
+			if (data != null) {
+				Uri uri = data.getData();
+				if (uri != null) {
+					ToastUtils.showToast(uri.toString());
+				}
+			}
+		}
 	}
 }

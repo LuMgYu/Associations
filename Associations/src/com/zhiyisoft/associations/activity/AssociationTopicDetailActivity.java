@@ -11,15 +11,19 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -36,11 +40,12 @@ import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelChildComment;
 import com.zhiyisoft.associations.model.ModelComment;
+import com.zhiyisoft.associations.model.ModelCommonAttach;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
-import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
+import com.zhiyisoft.associations.util.MusicPlayer;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.MyGridView;
@@ -106,7 +111,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					List<String> photoUrls = new ArrayList<String>();
 					if (photos != null) {
 						for (int i = 0; i < photos.size(); i++) {
-							ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
+							ModelCommonAttach photo = (ModelCommonAttach) photos
 									.get(i);
 							photoUrls.add(photo.getUrl());
 						}
@@ -154,17 +159,35 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				if (works != null) {
 					ToastUtils.showToast("获取详情成功");
 					List<Model> photos = works.getAttachs();
+					List<ModelCommonAttach> attachs = new ArrayList<ModelCommonAttach>();
 					List<String> photoUrls = new ArrayList<String>();
 					if (photos != null) {
 						for (int i = 0; i < photos.size(); i++) {
-							ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
+							ModelCommonAttach photo = (ModelCommonAttach) photos
 									.get(i);
 							photoUrls.add(photo.getUrl());
+							attachs.add(photo);
 						}
 					}
-					bindDataToView(works.getTitle(), works.getFaceurl(),
-							works.getUname(), works.getCtime(),
-							works.getIntro(), photoUrls, null, null, null);
+					String type = works.getType();
+					if (type.equals("1")) {
+						bindDataToView(works.getTitle(), works.getFaceurl(),
+								works.getUname(), works.getCtime(),
+								works.getIntro(), photoUrls, null, null, null);
+					} else if (type.equals("2")) {
+						bindDataToView(works.getTitle(), works.getFaceurl(),
+								works.getUname(), works.getCtime(),
+								works.getIntro(), photoUrls, null, null, null);
+					} else if (type.equals("3")) {
+						bindDataToView(works.getTitle(), works.getFaceurl(),
+								works.getUname(), works.getCtime(),
+								works.getIntro(), null, null, null,
+								photoUrls.get(0));
+					} else if (type.equals("4")) {
+						bindDataToView(works.getTitle(), works.getFaceurl(),
+								works.getUname(), works.getCtime(),
+								works.getIntro(), null, null, attachs, null);
+					}
 				} else {
 					ToastUtils.showToast("获取详情失败");
 				}
@@ -436,22 +459,95 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				.findViewById(R.id.detail_file_iv_issure);
 	}
 
-	private void initVedio() {
+	private void initVedio(String videoUrl) {
 		mNeedView = addViewToContent(content_ll_main,
 				R.layout.detail_vedio_item);
 		SmartImageView iv_vedio = (SmartImageView) mNeedView
 				.findViewById(R.id.iv_vedio);
 		ImageView iv_vedio_click = (ImageView) mNeedView
 				.findViewById(R.id.iv_vedio_click);
+		WebView webView = (WebView) mNeedView.findViewById(R.id.wv_video);
+		iv_vedio_click.setTag(videoUrl);
+		iv_vedio_click.setTag(R.id.album, webView);
+		iv_vedio_click.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				String path = (String) v.getTag();
+				WebView webView = (WebView) v.getTag(R.id.album);
+				playTheVideo(webView, path);
+				v.setVisibility(View.GONE);
+			}
+		});
 	}
 
-	private void initMusic() {
+	/**
+	 * 播放视频
+	 * 
+	 * @param videourl
+	 */
+	public void playTheVideo(WebView webView, String videourl) {
+		if (webView != null && videourl != null) {
+			WebSettings settings = webView.getSettings();
+			// settings.setJavaScriptEnabled(true);
+			// settings.setPluginState(PluginState.ON);
+			// settings.setJavaScriptCanOpenWindowsAutomatically(true);
+			// settings.setAllowFileAccess(true);
+			// settings.setDefaultTextEncodingName("UTF-8");
+			// settings.setLoadWithOverviewMode(true);
+			// settings.setUseWideViewPort(true);
+			settings.setBuiltInZoomControls(true);// 隐藏缩放按钮
+			// ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);//
+			// 排版适应屏幕
+			settings.setUseWideViewPort(true);// 可任意比例缩放
+			settings.setLoadWithOverviewMode(true);// setUseWideViewPort方法设置webview推荐使用的窗口。setLoadWithOverviewMode方法是设置webview加载的页面的模式。
+			settings.setSavePassword(true);
+			settings.setSaveFormData(true);// 保存表单数据
+			settings.setJavaScriptEnabled(true);
+			settings.setUseWideViewPort(true);
+			settings.setLoadWithOverviewMode(true);
+			webView.setVisibility(View.VISIBLE);
+			webView.loadUrl("http://daxs.zhiyicx.com/attachment/uploads/2015/1008/17/56163282a48b1.mp4");
+		}
+
+	}
+
+	private MusicPlayer mPlayer;
+	boolean isStart = false; // 是否播放
+
+	private void initMusic(final ModelCommonAttach data) {
 		mNeedView = addViewToContent(content_ll_main,
 				R.layout.detail_music_item);
-		ImageView detail_iv_start = (ImageView) mNeedView
+		final ImageView detail_iv_start = (ImageView) mNeedView
 				.findViewById(R.id.detail_iv_start);
 		TextView detail_tv_time = (TextView) mNeedView
 				.findViewById(R.id.detail_tv_time);
+		TextView tv_progress_bg = (TextView) mNeedView
+				.findViewById(R.id.tv_progress_bg);
+		TextView tv_progress = (TextView) mNeedView
+				.findViewById(R.id.tv_progress);
+		int TotalWidth = tv_progress_bg.getMeasuredWidth();
+		Log.i("tv_width",
+				tv_progress_bg.getMeasuredWidth() + " dsf ==="
+						+ tv_progress_bg.getWidth() + "fdsaf======"
+						+ tv_progress_bg.getLayoutParams().width);
+		mPlayer = new MusicPlayer(tv_progress, 508);
+		detail_iv_start.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				if (!isStart) {
+					isStart = true;
+					detail_iv_start.setImageResource(R.drawable.zt);
+					mPlayer.setplayUrl(data.getUrl());
+				} else {
+					isStart = false;
+					detail_iv_start.setImageResource(R.drawable.bf);
+					mPlayer.pause();
+				}
+			}
+		});
+
 	}
 
 	/******************************* 判断需要加载的布局 end **************************************/
@@ -547,7 +643,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	private void bindDataToView(String title, String faceUrl, String username,
 			String date, String content, List<String> photoUrls, Model file,
-			Model music, Model vedio) {
+			List<ModelCommonAttach> musiclist, String videourl) {
 		if (title != null) {
 			content_tv_title.setText(title);
 		}
@@ -575,11 +671,15 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		if (file != null) {
 
 		}
-		if (music != null) {
+		if (musiclist != null) {
+			if (musiclist != null) {
+				ModelCommonAttach music = musiclist.get(0);
+				initMusic(music);
 
+			}
 		}
-		if (vedio != null) {
-
+		if (videourl != null) {
+			initVedio(videourl);
 		}
 
 	}
@@ -723,5 +823,11 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				mHandle.sendMessage(message);
 			}
 		});
+	}
+
+	@Override
+	protected void onDestroy() {
+		mPlayer.stop();
+		super.onDestroy();
 	}
 }

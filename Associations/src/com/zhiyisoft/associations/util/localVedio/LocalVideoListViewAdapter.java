@@ -51,7 +51,7 @@ public class LocalVideoListViewAdapter extends BaseAdapter {
 		ViewHolder holder = null;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = mLayoutInflater.inflate(R.layout.vedio_listview_item,
+			convertView = mLayoutInflater.inflate(R.layout.local_video_listview_item,
 					null);
 			holder.img = (ImageView) convertView.findViewById(R.id.video_img);
 			holder.title = (TextView) convertView

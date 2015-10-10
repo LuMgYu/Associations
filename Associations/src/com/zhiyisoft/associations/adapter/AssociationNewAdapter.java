@@ -18,7 +18,7 @@ import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
-import com.zhiyisoft.associations.model.ModelLeagueTopicPhoto;
+import com.zhiyisoft.associations.model.ModelCommonAttach;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -84,7 +84,7 @@ public class AssociationNewAdapter extends BAdapter {
 			holder.imageView3.setVisibility(View.GONE);
 			if (photos != null) {
 				for (int i = 0; i < photos.size(); i++) {
-					ModelLeagueTopicPhoto photo = (ModelLeagueTopicPhoto) photos
+					ModelCommonAttach photo = (ModelCommonAttach) photos
 							.get(i);
 					if (i == 0) {
 						holder.imageView1.setVisibility(View.VISIBLE);

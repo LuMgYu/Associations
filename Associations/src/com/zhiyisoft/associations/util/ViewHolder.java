@@ -152,6 +152,7 @@ public class ViewHolder {
 	// public TextView tv_user_name;
 	// public TextView tv_user_send; 因为命名重复了就注释掉这部分
 	public TextView tv_music_name;
+	public TextView tv_music_title;
 	public TextView tv_music_date;
 	public TextView tv_music_commit;
 	// 图片部分

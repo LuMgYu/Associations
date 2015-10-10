@@ -90,7 +90,9 @@
             android:name="com.zhiyisoft.associations.activity.AssociationCreateActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
         </activity>
-        <activity android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity" >
+        <activity
+            android:name="com.zhiyisoft.associations.activity.AssociationSendTopicActivity"
+            android:hardwareAccelerated="true" >
         </activity>
         <activity
             android:name="com.zhiyisoft.associations.activity.AssociationTopicDetailActivity"
@@ -143,6 +145,8 @@
         <activity android:name="com.youku.uploader.YoukuMainActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.util.localVedio.LocalVideoActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.util.localMusic.LocalMusicListActivity" >
         </activity>
 
         <meta-data
