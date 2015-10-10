@@ -827,7 +827,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	@Override
 	protected void onDestroy() {
-		mPlayer.stop();
+		if (mPlayer != null) {
+			mPlayer.stop();
+		}
 		super.onDestroy();
 	}
 }

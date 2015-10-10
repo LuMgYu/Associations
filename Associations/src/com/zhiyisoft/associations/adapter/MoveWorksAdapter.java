@@ -88,14 +88,31 @@ public class MoveWorksAdapter extends BAdapter {
 		if (works != null) {
 			switch (type) {
 			case TYPE_ESSAY:
+				mApp.displayImage(works.getFaceurl(), holder.iv_file_user_icon);
+				holder.tv_user_name.setText(works.getUname());
+				holder.tv_file_title.setText(works.getTitle());
+				if (works.getAttachs() != null) {
+					ModelCommonAttach attach = (ModelCommonAttach) works
+							.getAttachs().get(0);
+					String fileName = attach.getName();
+					holder.tv_file_name.setText(fileName);
+					if (fileName.contains("doc")) {
+						holder.iv_file.setImageResource(R.drawable.doc);
+					} else if (fileName.contains("pdf")) {
+						holder.iv_file.setImageResource(R.drawable.pdf);
+					} else if (fileName.contains("txt")) {
+						holder.iv_file.setImageResource(R.drawable.text);
+					}
 
+				}
+				holder.tv_file_date
+						.setText(DateUtil.strTodate(works.getCtime()));
+				holder.tv_file_commit.setText(works.getCommentCount());
 				break;
 
 			case TYPE_MUSIC:
 				mApp.displayImage(works.getFaceurl(), holder.iv_music_user_icon);
 				holder.tv_user_name.setText(works.getUname());
-				holder.tv_user_send = (TextView) mMusicView
-						.findViewById(R.id.tv_user_send);
 
 				if (works.getAttachs() != null) {
 					ModelCommonAttach attach = (ModelCommonAttach) works
@@ -161,7 +178,7 @@ public class MoveWorksAdapter extends BAdapter {
 	private View initConvertView(View convertView, int type, ViewHolder holder) {
 		if (type == TYPE_ESSAY) {
 			mEssayView = mInflater
-					.inflate(R.layout.move_works_essay_item, null);
+					.inflate(R.layout.association_file_item, null);
 			convertView = mEssayView;
 			initEssayWorks(holder);
 		} else if (type == TYPE_MUSIC) {
@@ -236,20 +253,19 @@ public class MoveWorksAdapter extends BAdapter {
 	 */
 	private void initEssayWorks(ViewHolder holder) {
 		if (mEssayView != null) {
-			holder.iv_essay_user_icon = (RoundImageView) mEssayView
-					.findViewById(R.id.iv_essay_user_icon);
+			holder.iv_file_user_icon = (RoundImageView) mEssayView
+					.findViewById(R.id.iv_file_user_icon);
 			holder.tv_user_name = (TextView) mEssayView
 					.findViewById(R.id.tv_user_name);
-			holder.tv_user_send = (TextView) mEssayView
-					.findViewById(R.id.tv_user_send);
-			holder.tv_essay_title = (TextView) mEssayView
-					.findViewById(R.id.tv_essay_title);
-			holder.tv_essay_content = (TextView) mEssayView
-					.findViewById(R.id.tv_essay_content);
-			holder.tv_essay_date = (TextView) mEssayView
-					.findViewById(R.id.tv_essay_date);
-			holder.tv_essay_commit = (TextView) mEssayView
-					.findViewById(R.id.tv_essay_commit);
+			holder.tv_file_title = (TextView) mEssayView
+					.findViewById(R.id.tv_file_title);
+			holder.iv_file = (ImageView) mEssayView.findViewById(R.id.iv_file);
+			holder.tv_file_name = (TextView) mEssayView
+					.findViewById(R.id.tv_file_name);
+			holder.tv_file_date = (TextView) mEssayView
+					.findViewById(R.id.tv_file_date);
+			holder.tv_file_commit = (TextView) mEssayView
+					.findViewById(R.id.tv_file_commit);
 		}
 	}
 

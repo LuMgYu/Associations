@@ -21,6 +21,4 @@
         android:src="@drawable/video03"
         android:visibility="visible" />
 
-    <include layout="@layout/common_progress" />
-
 </FrameLayout>

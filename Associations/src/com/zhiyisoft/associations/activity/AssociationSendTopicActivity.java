@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Video.Thumbnails;
 import android.support.v4.view.ViewPager;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.umeng.socialize.net.m;
 import com.umeng.socialize.utils.Log;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -42,6 +44,7 @@ import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
 import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.LocalFile;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
@@ -67,13 +70,14 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	private ImageView topic_image;
 	private ImageView topic_expression;
 	/************ 上传视频需要的控件 ****************/
+	int mWorkType = 0;
 	private ImageView vedio_iv_big_image;
 	private FrameLayout fl_upload_video;
 	private ImageView vedio_iv_start;
 	private FrameLayout fl_progress;
 	private ProgressBar progressBar1;
 	private TextView tv_progress;
-
+	// 文档支持dox,txt,pdf;图片支持jpg,png,gif;视频支持mp4;音频支持mp3;
 	/************ 上传视频需要的控件 ****************/
 	/************ 上传音乐需要的控件 ****************/
 	private FrameLayout fl_upload_music;
@@ -90,6 +94,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 
 	private LocalVideo mVideo;
 	private LocalMusic mMusic;
+	private LocalFile mFile;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -99,16 +104,17 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			return;
 		}
 		if (mWorks != null) {
-			int type = mWorks.getExplainType();
-			if (type == 1) {
+			mWorkType = mWorks.getExplainType();
+			if (mWorkType == 1) {
 				setAlltitle("发表文档", null, "发表");
-			} else if (type == 2) {
+				fl_upload_music.setVisibility(View.VISIBLE);
+			} else if (mWorkType == 2) {
 				setAlltitle("发表图片", null, "发表");
 				hsvScrollView.setVisibility(View.VISIBLE);
-			} else if (type == 3) {
+			} else if (mWorkType == 3) {
 				setAlltitle("发表视频", null, "发表");
 				fl_upload_video.setVisibility(View.VISIBLE);
-			} else if (type == 4) {
+			} else if (mWorkType == 4) {
 				setAlltitle("发表音频", null, "发表");
 				fl_upload_music.setVisibility(View.VISIBLE);
 			}
@@ -146,18 +152,18 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		ll_ScrollView = (LinearLayout) findViewById(R.id.ll_ScrollView);
 		topic_image = (ImageView) findViewById(R.id.topic_image);
 		topic_expression = (ImageView) findViewById(R.id.topic_expression);
+		/************ 上传音乐需要的初始化控件 ****************/
+		fl_upload_music = (FrameLayout) findViewById(R.id.fl_upload_music);
+		tv_music_name = (TextView) findViewById(R.id.tv_music_name);
+		fl_progress = (FrameLayout) findViewById(R.id.fl_progress);
+		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
+		tv_progress = (TextView) findViewById(R.id.tv_progress);
+		/************ 上传音乐需要的初始化控件 ****************/
 		/************ 上传视频需要的初始化控件 ****************/
 		fl_upload_video = (FrameLayout) findViewById(R.id.fl_upload_video);
 		vedio_iv_big_image = (ImageView) findViewById(R.id.vedio_iv_big_image);
 		vedio_iv_start = (ImageView) findViewById(R.id.vedio_iv_start);
-		fl_progress = (FrameLayout) findViewById(R.id.fl_progress);
-		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
-		tv_progress = (TextView) findViewById(R.id.tv_progress);
 		/************ 上传视频需要的初始化控件 ****************/
-		/************ 上传音乐需要的初始化控件 ****************/
-		fl_upload_music = (FrameLayout) findViewById(R.id.fl_upload_music);
-		tv_music_name = (TextView) findViewById(R.id.tv_music_name);
-		/************ 上传音乐需要的初始化控件 ****************/
 		mUser = mApp.getUser();
 		mImageManager = LocalImageManager.from(mApp);
 		addImageToHsv(null, ADDPHOTO);
@@ -234,16 +240,24 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		topic_image.setOnClickListener(this);
 		topic_expression.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
-		fl_upload_video.setOnClickListener(this);
-		fl_upload_music.setOnClickListener(this);
+		if (fl_upload_video != null) {
+			fl_upload_video.setOnClickListener(this);
+		}
+		if (fl_upload_music != null) {
+			fl_upload_music.setOnClickListener(this);
+		}
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.fl_upload_music:
-			mApp.startActivityForResult(this, LocalMusicListActivity.class,
-					null);
+			if (mWorkType == 4) {
+				mApp.startActivityForResult(this, LocalMusicListActivity.class,
+						null);
+			} else if (mWorkType == 1) {
+				getLocalFile();
+			}
 			break;
 		case R.id.fl_upload_video:
 			mApp.startActivityForResult(this, LocalVideoActivity.class, null);
@@ -365,7 +379,9 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	 */
 	private void sendWorksToNet(ModelEventWorks work) {
 		fl_progress.setVisibility(View.VISIBLE);
-		vedio_iv_start.setVisibility(View.GONE);
+		if (vedio_iv_start != null) {
+			vedio_iv_start.setVisibility(View.GONE);
+		}
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, mUser.getOauth_token());
 		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
@@ -407,6 +423,16 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			}
 		}
 		/************ 上传音乐 ***************/
+		/************ 上传doc pdf txt文件 ***************/
+		if (mFile != null) {
+			File file = new File(mFile.getFilepath());
+			try {
+				params.put(mFile.getFileName(), file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		/************ 上传doc pdf txt文件 ***************/
 
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.post(
@@ -489,6 +515,44 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				tv_music_name.setText(mMusic.getName() + ".mp3");
 			}
 		}
+		if (requestCode == FILE_CODE) {
+			if (data != null) {
+				Uri uri = data.getData();
+				if (uri != null) {
+					String filepath = uri.getPath();
+					mFile = filterThepath(filepath);
+					if (mFile != null) {
+						tv_music_name.setText(mFile.getFileName() + "");
+					}
+					ToastUtils.showToast(filepath);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 判断是否选择文件正确
+	 * 
+	 * 目前只支持doc,txt,pdf;
+	 * 
+	 * @param filepath
+	 * @return
+	 */
+	private LocalFile filterThepath(String filepath) {
+		if (filepath != null) {
+			if (filepath.contains("doc") || filepath.contains("txt")
+					|| filepath.contains("pdf")) {
+				int index = filepath.lastIndexOf("/");
+				String fileName = filepath.substring(index + 1);
+				LocalFile localFile = new LocalFile();
+				localFile.setFileName(fileName);
+				localFile.setFilepath(filepath);
+				return localFile;
+			}
+			ToastUtils.showToast("请选择doc,txt,pdf文件");
+			return null;
+		}
+		return null;
 	}
 
 	/**

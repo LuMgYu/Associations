@@ -575,7 +575,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	private String getFileByUri(Uri originalUri) {
+	public String getFileByUri(Uri originalUri) {
 		// 获取照片文件路径
 		String[] proj = { MediaStore.Images.Media.DATA };
 		Cursor cursor = this.managedQuery(originalUri, proj, null, null, null);
