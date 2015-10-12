@@ -11,7 +11,6 @@ import com.zhiyisoft.associations.activity.AssociationSingleActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelLeague;
-import com.zhiyisoft.associations.model.base.Model;
 
 /**
  * author：qiuchunjia time：上午10:37:57 类描述：这个类是实现

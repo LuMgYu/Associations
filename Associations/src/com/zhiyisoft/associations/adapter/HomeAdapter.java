@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.umeng.socialize.utils.Log;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.AssociationMainActivity;
 import com.zhiyisoft.associations.activity.AssociationSingleActivity;
@@ -82,6 +83,8 @@ public class HomeAdapter extends BAdapter {
 			mViewHolder = new ViewHolder();
 			mView = mInflater.inflate(R.layout.copyoffragment_home, null);
 			initView();
+			initData(position);
+		} else {
 			initData(position);
 		}
 		return mView;
@@ -467,9 +470,12 @@ public class HomeAdapter extends BAdapter {
 			mViewHolder.home_rl_my_association.setVisibility(View.GONE);
 			return;
 		}
-		View itemView = null;
+		View itemView;
 		TextView textView;
 		if (list != null) {
+			if (mViewHolder.ll_association.getChildCount() > 0) {
+				mViewHolder.ll_association.removeAllViews();
+			}
 			for (int i = 0; i < list.size(); i++) {
 				ModelLeague league = (ModelLeague) list.get(i);
 				itemView = mInflater.inflate(R.layout.my_association_tv_item,
@@ -490,9 +496,13 @@ public class HomeAdapter extends BAdapter {
 
 					}
 				});
-			}
-			if (itemView != null && mViewHolder.ll_association != null) {
-				mViewHolder.ll_association.addView(itemView);
+				if (itemView != null && mViewHolder.ll_association != null) {
+					mViewHolder.ll_association.addView(itemView);
+					Log.i("ll_association",
+							"mViewHolder.ll_association.getChildCount()="
+									+ mViewHolder.ll_association
+											.getChildCount());
+				}
 			}
 		}
 	}
@@ -555,11 +565,10 @@ public class HomeAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		// TODO 这里用来访问后续写好的的接口，一个一个的添加到这里就ok了
-		// mAssociationList=调用接口
-		// mMoveList=调用接口
-		// mWorksList=调用接口
-		// mNewsList=调用接口
+		Model model;
+		HomeImpl homeImpl = mApp.getHomeIm();
+		model = homeImpl.index();
+		items.add(model);
 		return items;
 	}
 
@@ -570,17 +579,7 @@ public class HomeAdapter extends BAdapter {
 	 */
 	@Override
 	public void addHeadList(List<Model> list) {
-		// TODO 更新ui线程
-		// updateAssociation(list);
-		// updateMove(list, views);
-		// updateNews(list, views);
-		// updateWorks(list);
-		if (mList.size() > 1) {
-			dismissTheProgress();
-			mListView.setFooterGone();
-			return;
-		}
-		super.addHeadList(list);
+		addHeadListWay2(list);
 	}
 
 	@Override

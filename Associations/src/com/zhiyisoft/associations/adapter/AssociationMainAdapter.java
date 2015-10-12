@@ -250,7 +250,9 @@ public class AssociationMainAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
+		ModelLeague league = new ModelLeague();
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		List<Model> items = leagueImpl.groupIndex(league);
 		return items;
 	}
 
@@ -258,6 +260,11 @@ public class AssociationMainAdapter extends BAdapter {
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay3(list);
 	}
 
 	@Override

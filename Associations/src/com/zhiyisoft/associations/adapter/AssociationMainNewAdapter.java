@@ -309,6 +309,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 		return items;
 	}
 
+
 	@Override
 	public int getViewTypeCount() {
 		return TYPE_COUNT;

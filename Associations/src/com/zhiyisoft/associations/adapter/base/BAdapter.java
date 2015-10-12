@@ -160,7 +160,6 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
 	public void addHeadList(List<Model> list) {
-		Log.i("refresh", " addHeadList(List<Model> list)=" + list.size());
 		if (mList != null && list.size() > 0) {
 			List<Model> cacheList = new ArrayList<Model>();
 			if (mList.size() > 0) {
@@ -174,6 +173,51 @@ public abstract class BAdapter extends BaseAdapter {
 			mList.addAll(cacheList);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
+		}
+		dismissTheProgress();
+	}
+
+	/**
+	 * 刷新头部的第二种方式
+	 * 
+	 * 清理掉所有的内容，然后添加内容
+	 * 
+	 * @param list
+	 */
+	public void addHeadListWay2(List<Model> list) {
+		if (list != null) {
+			if (list.size() > 0) {
+				if (mList == null) {
+					mList = new ArrayList<Model>();
+				} else {
+					mList.removeAll(mList); // 清空所有的数据
+				}
+				mList.addAll(list);
+				this.notifyDataSetChanged();
+			}
+		}
+		dismissTheProgress();
+	}
+
+	/**
+	 * 清空头部，并且添加一个个没有数据的model站位，这个用于一级页面的刷新
+	 * 
+	 * @param list
+	 */
+	public void addHeadListWay3(List<Model> list) {
+
+		if (list != null) {
+			if (list.size() > 0) {
+				if (mList == null) {
+					mList = new ArrayList<Model>();
+				} else {
+					mList.removeAll(mList); // 清空所有的数据
+				}
+				Model model = new Model();
+				mList.add(model);
+				mList.addAll(list);
+				this.notifyDataSetChanged();
+			}
 		}
 		dismissTheProgress();
 	}

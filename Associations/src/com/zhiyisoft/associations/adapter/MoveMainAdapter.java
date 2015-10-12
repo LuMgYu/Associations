@@ -274,6 +274,10 @@ public class MoveMainAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
+		EventImpl eventImpl = mApp.getEventFIm();
+		ModelEvent event = new ModelEvent();
+		event.setOp(4);
+		items = eventImpl.eventList(event);
 		return items;
 	}
 
@@ -281,6 +285,11 @@ public class MoveMainAdapter extends BAdapter {
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay3(list);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.fragment;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -107,6 +108,8 @@ public class FragmentMe extends BaseFragment {
 		me_tv_signature = (TextView) findViewById(R.id.me_tv_signature);
 		me_iv_default = (ImageView) findViewById(R.id.me_iv_default);
 		me_lv_association = (AssociationListview) findViewById(R.id.me_lv_association);
+//		List<Model> list = new ArrayList<Model>();
+//		bindDataToView(list);
 		initPopWindow();
 	}
 
