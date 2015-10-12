@@ -43,6 +43,7 @@ public class ModelEventWorks extends Model {
 	private String type;
 	private String commentCount;
 	private List<Model> attachs;
+	private String video_image;
 
 	public ModelEventWorks() {
 
@@ -88,6 +89,9 @@ public class ModelEventWorks extends Model {
 				JSONArray array = jsonObject.getJSONArray("attachs");
 				this.setAttachs(JsonUtils.parseJsonArray(array,
 						new ModelCommonAttach()));
+			}
+			if (jsonObject.has("video_image")) {
+				this.setVideo_image(jsonObject.getString("video_image"));
 			}
 
 		} catch (JSONException e) {
@@ -187,6 +191,14 @@ public class ModelEventWorks extends Model {
 
 	public void setAttachs(List<Model> attachs) {
 		this.attachs = attachs;
+	}
+
+	public String getVideo_image() {
+		return video_image;
+	}
+
+	public void setVideo_image(String video_image) {
+		this.video_image = video_image;
 	}
 
 }

@@ -84,8 +84,7 @@ public class AssociationNewAdapter extends BAdapter {
 			holder.imageView3.setVisibility(View.GONE);
 			if (photos != null) {
 				for (int i = 0; i < photos.size(); i++) {
-					ModelCommonAttach photo = (ModelCommonAttach) photos
-							.get(i);
+					ModelCommonAttach photo = (ModelCommonAttach) photos.get(i);
 					if (i == 0) {
 						holder.imageView1.setVisibility(View.VISIBLE);
 						mApp.displayImage(photo.getUrl(), holder.imageView1);
@@ -168,6 +167,16 @@ public class AssociationNewAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshNew() {
+		List<Model> items = getNews();
+		return items;
+	}
+
+	/**
+	 * 获取新鲜事
+	 * 
+	 * @return
+	 */
+	private List<Model> getNews() {
 		List<Model> items = new ArrayList<Model>();
 		LeagueImpl leagueImpl = new LeagueImpl();
 		items = leagueImpl.topicList(mLeague);
@@ -176,7 +185,7 @@ public class AssociationNewAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
+		List<Model> items = getNews();
 		return items;
 	}
 
@@ -184,6 +193,11 @@ public class AssociationNewAdapter extends BAdapter {
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
 	}
 
 	@Override

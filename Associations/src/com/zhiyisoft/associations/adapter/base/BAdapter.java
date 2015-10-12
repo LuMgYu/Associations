@@ -195,6 +195,7 @@ public abstract class BAdapter extends BaseAdapter {
 				}
 				mList.addAll(list);
 				this.notifyDataSetChanged();
+				p = 1;// 刷新后把分页标志设置为一
 			}
 		}
 		dismissTheProgress();
@@ -218,6 +219,7 @@ public abstract class BAdapter extends BaseAdapter {
 				mList.add(model);
 				mList.addAll(list);
 				this.notifyDataSetChanged();
+				p = 1; // 刷新后把分页标志设置为一
 			}
 		}
 		dismissTheProgress();

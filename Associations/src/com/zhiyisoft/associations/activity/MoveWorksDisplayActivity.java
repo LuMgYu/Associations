@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -80,22 +81,26 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 			break;
 		// --------------------------PopupWindow的界面控件监听器------------------
 		case R.id.ll_essay:
+			mPopupWindow.dismiss();
 			Bundle data = bindDataToModel(1);
-			mApp.startActivity(this, AssociationSendTopicActivity.class, data);
+			mApp.startActivityForResult(this, AssociationSendTopicActivity.class, data);
 			break;
 		case R.id.ll_pic:
+			mPopupWindow.dismiss();
 			Bundle picdata = bindDataToModel(2);
-			mApp.startActivity(this, AssociationSendTopicActivity.class,
+			mApp.startActivityForResult(this, AssociationSendTopicActivity.class,
 					picdata);
 			break;
 		case R.id.ll_music:
+			mPopupWindow.dismiss();
 			Bundle micdata = bindDataToModel(4);
-			mApp.startActivity(this, AssociationSendTopicActivity.class,
+			mApp.startActivityForResult(this, AssociationSendTopicActivity.class,
 					micdata);
 			break;
 		case R.id.ll_vedio:
+			mPopupWindow.dismiss();
 			Bundle veddata = bindDataToModel(3);
-			mApp.startActivity(this, AssociationSendTopicActivity.class,
+			mApp.startActivityForResult(this, AssociationSendTopicActivity.class,
 					veddata);
 			break;
 		}
@@ -112,6 +117,20 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 		}
 		data.putSerializable(Config.SEND_ACTIVITY_DATA, works);
 		return data;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
+			if (data != null) {
+				Bundle bundle = data.getExtras();
+				Object object=bundle.get(Config.GET_ACTIVITY_DATA);
+				if(object!=null){
+					mAdapter.doRefreshHeader();
+				}
+			}
+		}
 	}
 
 	// --------------------------PopupWindow的界面控件-----------------------------------------

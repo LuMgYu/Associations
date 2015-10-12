@@ -283,6 +283,11 @@ public class AssociationMainNewAdapter extends BAdapter {
 	// -------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
+		List<Model> items = getNews();
+		return items;
+	}
+
+	private List<Model> getNews() {
 		List<Model> items = new ArrayList<Model>();
 		LeagueImpl leagueImpl = mApp.getLeagueIm();
 		Model model = leagueImpl.viewIn(mLeague);
@@ -296,7 +301,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
+		List<Model> items = getNews();
 		return items;
 	}
 
@@ -308,7 +313,6 @@ public class AssociationMainNewAdapter extends BAdapter {
 		// items.add(new Model());
 		return items;
 	}
-
 
 	@Override
 	public int getViewTypeCount() {

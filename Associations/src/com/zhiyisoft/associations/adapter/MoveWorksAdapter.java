@@ -157,7 +157,7 @@ public class MoveWorksAdapter extends BAdapter {
 				break;
 			case TYPE_VEDIO:
 				mApp.displayImage(works.getFaceurl(), holder.iv_vedio_user_icon);
-				// holder.iv_photo_user_icon.setImageUrl(works.getFaceurl());
+				mApp.displayImage(works.getVideo_image(), holder.iv_vedio);
 				holder.tv_user_name.setText(works.getUname());
 				holder.tv_vedio_title.setText(works.getTitle());
 				holder.tv_vedio_commit.setText(DateUtil.strTodate(works
@@ -167,7 +167,6 @@ public class MoveWorksAdapter extends BAdapter {
 			}
 		}
 	}
-
 
 	/**
 	 * 初始化缓存converView
@@ -364,6 +363,16 @@ public class MoveWorksAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshNew() {
+		List<Model> items = getWorks();
+		return items;
+	}
+
+	/**
+	 * 获取作品
+	 * 
+	 * @return
+	 */
+	private List<Model> getWorks() {
 		List<Model> items = new ArrayList<Model>();
 		EventImpl eventImpl = mApp.getEventFIm();
 		items = eventImpl.workList(mdataEvent);
@@ -372,7 +381,7 @@ public class MoveWorksAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
+		List<Model> items = getWorks();
 		return items;
 	}
 
@@ -380,6 +389,11 @@ public class MoveWorksAdapter extends BAdapter {
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
 	}
 
 	@Override

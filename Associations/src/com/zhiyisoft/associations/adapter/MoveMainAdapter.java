@@ -41,7 +41,6 @@ public class MoveMainAdapter extends BAdapter {
 	private int TYPE_FIRST = 0;
 	private int TYPE_SECOND = 1;
 
-	private ViewHolder mViewHolder;
 	private View mFirstView;
 	private View mOtherView; // 真正的item
 	private int[] mImageArray;
@@ -50,23 +49,23 @@ public class MoveMainAdapter extends BAdapter {
 
 	public MoveMainAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
-		mViewHolder = new ViewHolder();
 	}
 
 	public MoveMainAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
-		mViewHolder = new ViewHolder();
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		int type = judgeTheViewType(position);
+		ViewHolder holder = null;
 		if (convertView == null) {
-			convertView = initConvertView(convertView, type);
+			holder = new ViewHolder();
+			convertView = initConvertView(convertView, type, holder);
 		} else {
-			mViewHolder = (ViewHolder) convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
-		bundledataToView(position, mViewHolder);
+		bundledataToView(position, holder);
 		return convertView;
 	}
 
@@ -81,6 +80,7 @@ public class MoveMainAdapter extends BAdapter {
 		if (position > 0) {
 			ModelEvent event = (ModelEvent) mList.get(position);
 			if (event != null) {
+				resetView(holder);
 				mApp.displayImage(event.getLogourl(), holder.move_smiv_icon);
 				// holder.move_smiv_icon.setImageUrl(event.getLogourl());
 				int isover = event.getIsover();
@@ -109,6 +109,10 @@ public class MoveMainAdapter extends BAdapter {
 
 	}
 
+	private void resetView(ViewHolder holder) {
+
+	}
+
 	/**
 	 * 判断item view类型
 	 * 
@@ -129,66 +133,64 @@ public class MoveMainAdapter extends BAdapter {
 	 * @param type
 	 * @return
 	 */
-	public View initConvertView(View view, int type) {
+	public View initConvertView(View view, int type, ViewHolder holder) {
 		if (type == TYPE_FIRST) {
 			mFirstView = mInflater.inflate(R.layout.copyoffragment_move, null);
-			initFirstView();
-			addHotSorting();
-			initListener();
+			initFirstView(holder);
+			addHotSorting(holder);
+			initListener(holder);
 			view = mFirstView;
 		} else if (type == TYPE_SECOND) {
 			mOtherView = mInflater.inflate(R.layout.move_item, null);
-			initOtherView();
+			initOtherView(holder);
 			view = mOtherView;
 		}
-		view.setTag(mViewHolder);
+		view.setTag(holder);
 		return view;
 	}
 
-	private void initOtherView() {
+	private void initOtherView(ViewHolder holder) {
 		if (mOtherView != null) {
-			mViewHolder.move_smiv_icon = (SmartImageView) mOtherView
+			holder.move_smiv_icon = (SmartImageView) mOtherView
 					.findViewById(R.id.move_smiv_icon);
-			mViewHolder.move_tv_end = (TextView) mOtherView
+			holder.move_tv_end = (TextView) mOtherView
 					.findViewById(R.id.move_tv_end);
-			mViewHolder.move_tv_title = (TextView) mOtherView
+			holder.move_tv_title = (TextView) mOtherView
 					.findViewById(R.id.move_tv_title);
-			mViewHolder.move_btn_online = (Button) mOtherView
+			holder.move_btn_online = (Button) mOtherView
 					.findViewById(R.id.move_btn_online);
-			mViewHolder.move_btn_event = (Button) mOtherView
+			holder.move_btn_event = (Button) mOtherView
 					.findViewById(R.id.move_btn_event);
 
-			mViewHolder.move_tv_deadline = (TextView) mOtherView
+			holder.move_tv_deadline = (TextView) mOtherView
 					.findViewById(R.id.move_tv_deadline);
-			mViewHolder.move_tv_allmove = (TextView) mOtherView
+			holder.move_tv_allmove = (TextView) mOtherView
 					.findViewById(R.id.move_tv_allmove);
-			mViewHolder.move_tv_content = (TextView) mOtherView
+			holder.move_tv_content = (TextView) mOtherView
 					.findViewById(R.id.move_tv_content);
 		}
 	}
 
-	private void initFirstView() {
-		mViewHolder.move_ll = (LinearLayout) mFirstView
-				.findViewById(R.id.move_ll);
-		mViewHolder.move_iv_zoom = (ImageView) mFirstView
+	private void initFirstView(ViewHolder holder) {
+		holder.move_ll = (LinearLayout) mFirstView.findViewById(R.id.move_ll);
+		holder.move_iv_zoom = (ImageView) mFirstView
 				.findViewById(R.id.move_iv_zoom);
-		mViewHolder.move_et_zoom = (EditText) mFirstView
+		holder.move_et_zoom = (EditText) mFirstView
 				.findViewById(R.id.move_et_zoom);
-		mViewHolder.move_arround_tv = (TextView) mFirstView
+		holder.move_arround_tv = (TextView) mFirstView
 				.findViewById(R.id.move_arround_tv);
-		mViewHolder.move_my_tv = (TextView) mFirstView
-				.findViewById(R.id.move_my_tv);
-		mViewHolder.tv_bottom_line = (TextView) mFirstView
+		holder.move_my_tv = (TextView) mFirstView.findViewById(R.id.move_my_tv);
+		holder.tv_bottom_line = (TextView) mFirstView
 				.findViewById(R.id.tv_bottom_line);
 		mItemWidth = UIUtils.getWindowWidth(mBaseActivity) / 2;
-		mViewHolder.tv_bottom_line.setWidth(mItemWidth);
+		holder.tv_bottom_line.setWidth(mItemWidth);
 	}
 
 	/**
 	 * 添加热热门分类
 	 */
-	private void addHotSorting() {
-		mViewHolder.move_ll.removeAllViews();
+	private void addHotSorting(ViewHolder holder) {
+		holder.move_ll.removeAllViews();
 		mImageArray = new int[] { R.drawable.qb, R.drawable.ss, R.drawable.hz,
 				R.drawable.yc, R.drawable.jh, R.drawable.jl, R.drawable.ty,
 				R.drawable.lx, R.drawable.gy, R.drawable.qt };
@@ -226,18 +228,24 @@ public class MoveMainAdapter extends BAdapter {
 					}
 				}
 			});
-			mViewHolder.move_ll.addView(itemView);
+			holder.move_ll.addView(itemView);
 		}
 	}
 
-	private void initListener() {
-		mViewHolder.move_my_tv.setOnClickListener(new MyOnClickListener());
-		mViewHolder.move_arround_tv.setOnClickListener(new MyOnClickListener());
+	private void initListener(ViewHolder holder) {
+		holder.move_my_tv.setOnClickListener(new MyOnClickListener(holder));
+		holder.move_arround_tv
+				.setOnClickListener(new MyOnClickListener(holder));
 	}
 
 	private int mCurrentDes = 0;
 
 	private class MyOnClickListener implements OnClickListener {
+		private ViewHolder holder;
+
+		public MyOnClickListener(ViewHolder holder) {
+			this.holder = holder;
+		}
 
 		@Override
 		public void onClick(View v) {
@@ -256,7 +264,7 @@ public class MoveMainAdapter extends BAdapter {
 			}
 			animation.setFillAfter(true);
 			animation.setDuration(300);
-			mViewHolder.tv_bottom_line.startAnimation(animation);
+			holder.tv_bottom_line.startAnimation(animation);
 		}
 	}
 

@@ -106,7 +106,6 @@ public class AssociationSingleActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		single_lv = (BaseListView) findViewById(R.id.single_lv);
-		single_lv.setPullRefreshEnable(false);
 		mAdapter = new AssociationMainNewAdapter(this, mlist, mLeague);
 		single_lv.setAdapter(mAdapter);
 		initPopWindow();
@@ -183,9 +182,7 @@ public class AssociationSingleActivity extends BaseActivity {
 				Bundle bundle = data.getExtras();
 				Object object = bundle.get(Config.GET_ACTIVITY_DATA);
 				if (object != null) {
-					mAdapter = new AssociationMainNewAdapter(this, mlist,
-							mLeague);
-					single_lv.setAdapter(mAdapter);
+					mAdapter.doRefreshHeader();
 				}
 			}
 		}
