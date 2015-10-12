@@ -31,30 +31,20 @@
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small" />
 
-        <FrameLayout
-            android:id="@+id/fl_music_progress"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="10dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_marginRight="@dimen/margin_right_small"
             android:layout_toLeftOf="@id/detail_tv_time"
-            android:layout_toRightOf="@id/detail_iv_start" >
-
-            <TextView
-                android:id="@+id/tv_progress_bg"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="@drawable/tv_gray_50"
-                android:gravity="center" />
-
-            <TextView
-                android:id="@+id/tv_progress"
-                android:layout_width="0dp"
-                android:layout_height="10dp"
-                android:background="@drawable/tv_red_50"
-                android:gravity="center" />
-        </FrameLayout>
+            android:layout_toRightOf="@id/detail_iv_start"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/progressbar_color_style"
+            android:visibility="visible" />
     </RelativeLayout>
 
 </RelativeLayout>

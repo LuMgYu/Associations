@@ -11,17 +11,15 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 public class MusicPlayer implements OnBufferingUpdateListener,
 		OnCompletionListener, MediaPlayer.OnPreparedListener {
 	public MediaPlayer mediaPlayer;
 	private SeekBar skbProgress;
-	private TextView mTvProgress;
-	private int mTotal;
+	private ProgressBar mProgressBar;
 	private Timer mTimer = new Timer();
 
 	/**
@@ -38,9 +36,8 @@ public class MusicPlayer implements OnBufferingUpdateListener,
 		mTimer.schedule(mTimerTask, 0, 1000);
 	}
 
-	public MusicPlayer(TextView TvProgress, int total) {
-		this.mTvProgress = TvProgress;
-		this.mTotal = total;
+	public MusicPlayer(ProgressBar TvProgress) {
+		this.mProgressBar = TvProgress;
 		initMediaPlay();
 		mTimer.schedule(mTimerTask, 0, 1000);
 	}
@@ -65,7 +62,7 @@ public class MusicPlayer implements OnBufferingUpdateListener,
 					handleProgress.sendEmptyMessage(0);
 				}
 			}
-			if (mTvProgress != null) {
+			if (mProgressBar != null) {
 				handleProgress.sendEmptyMessage(0);
 			}
 		}
@@ -76,18 +73,16 @@ public class MusicPlayer implements OnBufferingUpdateListener,
 
 			int position = mediaPlayer.getCurrentPosition();
 			int duration = mediaPlayer.getDuration();
+			Log.i("duration", duration + "");
 
 			if (duration > 0) {
 				if (skbProgress != null) {
 					long pos = skbProgress.getMax() * position / duration;
 					skbProgress.setProgress((int) pos);
 				}
-				if (mTvProgress != null) {
-					int pos = mTotal * position / duration;
-					LayoutParams params = new LayoutParams(
-							mTvProgress.getLayoutParams());
-					params.width = pos;
-					mTvProgress.setLayoutParams(params);
+				if (mProgressBar != null) {
+					int pos = (int) ((float) position / (float) duration * 100);
+					mProgressBar.setProgress(pos);
 				}
 			}
 		};

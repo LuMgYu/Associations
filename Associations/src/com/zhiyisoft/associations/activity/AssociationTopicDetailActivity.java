@@ -11,6 +11,7 @@ import org.apache.http.Header;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -33,11 +34,11 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -620,13 +621,15 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			settings.setUseWideViewPort(true);
 			settings.setLoadWithOverviewMode(true);
 			webView.setVisibility(View.VISIBLE);
-			webView.loadUrl("http://daxs.zhiyicx.com/attachment/uploads/2015/1008/17/56163282a48b1.mp4");
+			// webView.loadUrl("http://daxs.zhiyicx.com/attachment/uploads/2015/1008/17/56163282a48b1.mp4");
+			webView.loadUrl(videourl);
 		}
 
 	}
 
 	private MusicPlayer mPlayer;
 	boolean isStart = false; // 是否播放
+	boolean isFirst = true; // 是否第一次播放
 
 	private void initMusic(final ModelCommonAttach data) {
 		mNeedView = addViewToContent(content_ll_main,
@@ -635,16 +638,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				.findViewById(R.id.detail_iv_start);
 		TextView detail_tv_time = (TextView) mNeedView
 				.findViewById(R.id.detail_tv_time);
-		TextView tv_progress_bg = (TextView) mNeedView
-				.findViewById(R.id.tv_progress_bg);
-		TextView tv_progress = (TextView) mNeedView
-				.findViewById(R.id.tv_progress);
-		int TotalWidth = tv_progress_bg.getMeasuredWidth();
-		Log.i("tv_width",
-				tv_progress_bg.getMeasuredWidth() + " dsf ==="
-						+ tv_progress_bg.getWidth() + "fdsaf======"
-						+ tv_progress_bg.getLayoutParams().width);
-		mPlayer = new MusicPlayer(tv_progress, 508);
+		ProgressBar progressBar = (ProgressBar) mNeedView
+				.findViewById(R.id.progressBar);
+		mPlayer = new MusicPlayer(progressBar);
 		detail_iv_start.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -652,7 +648,12 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				if (!isStart) {
 					isStart = true;
 					detail_iv_start.setImageResource(R.drawable.zt);
-					mPlayer.setplayUrl(data.getUrl());
+					if (isFirst) {
+						isFirst = false;
+						mPlayer.setplayUrl(data.getUrl());
+					} else {
+						mPlayer.play();
+					}
 				} else {
 					isStart = false;
 					detail_iv_start.setImageResource(R.drawable.bf);
