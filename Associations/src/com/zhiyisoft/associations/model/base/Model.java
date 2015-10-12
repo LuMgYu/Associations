@@ -8,10 +8,23 @@ import java.io.Serializable;
  */
 
 public class Model implements Serializable {
+	private int p; // 这个p用于数据分页
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	public int getP() {
+		return p;
+	}
+
+	public void setP(int p) {
+		this.p = p;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 }

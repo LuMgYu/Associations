@@ -1,6 +1,5 @@
 package com.zhiyisoft.associations.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.view.View;

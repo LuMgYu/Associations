@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -20,6 +21,7 @@ import com.zhiyisoft.associations.util.ToastUtils;
 public class RegisterPhoneActivity extends BaseActivity implements
 		OnClickListener {
 	private EditText et_number;
+	private TextView tv_have_account;
 	private Button bt_next;
 	private ModelUser mUser;
 
@@ -46,12 +48,13 @@ public class RegisterPhoneActivity extends BaseActivity implements
 	public void initView() {
 		et_number = (EditText) findViewById(R.id.et_number);
 		bt_next = (Button) findViewById(R.id.bt_next);
-
+		tv_have_account = (TextView) findViewById(R.id.tv_have_account);
 	}
 
 	@Override
 	public void initListener() {
 		bt_next.setOnClickListener(this);
+		tv_have_account.setOnClickListener(this);
 	}
 
 	@Override
@@ -71,6 +74,16 @@ public class RegisterPhoneActivity extends BaseActivity implements
 			} else {
 				ToastUtils.showToast("手机号码为空或不合法");
 			}
+		case R.id.tv_have_account:
+			Bundle data2 = new Bundle();
+			if (mUser != null) {
+				data2.putSerializable(Config.SEND_ACTIVITY_DATA, mUser);
+				mApp.startActivity(this, BindAccountActivity.class, data2);
+				finish();
+			} else {
+				ToastUtils.showToast("你没有登陆第三方账号");
+			}
+			break;
 		}
 	}
 

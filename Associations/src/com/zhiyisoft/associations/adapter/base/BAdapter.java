@@ -45,6 +45,7 @@ public abstract class BAdapter extends BaseAdapter {
 	private final static int REFRESH_NEW = 1;
 	private final static int REFRESH_HEADER = 2;
 	private final static int REFRESH_FOOTER = 3;
+	public int p = 1; // 这个用于数据分页，默认为1；
 	public BaseListView mListView;
 
 	public LayoutInflater mInflater;

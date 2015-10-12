@@ -46,6 +46,7 @@ public class Api {
 	public static final String API = "api";
 	public static final String oauth_token = "oauth_token";
 	public static final String oauth_token_secret = "oauth_token_secret";
+	public static final String P = "p"; // 用于数据分页
 	public static ModelUser mUser;
 
 	public static final class RegisterImpl implements RegisterIm {
@@ -282,36 +283,36 @@ public class Api {
 				}
 			}
 			AsyncHttpClient client = new AsyncHttpClient();
-//			client.post(
-//					"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
-//					params, new AsyncHttpResponseHandler() {
-//						@Override
-//						public void onStart() {
-//							// TODO Auto-generated method stub
-//							super.onStart();
-//						}
-//
-//						@Override
-//						public void onFailure(Throwable arg0, String arg1) {
-//							super.onFailure(arg0, arg1);
-//						}
-//
-//						@Override
-//						public void onSuccess(String arg0) {
-//							// TODO Auto-generated method stub
-//							super.onSuccess(arg0);
-//						}
-//
-//						@Override
-//						public void onSuccess(int arg0, String arg1) {
-//							super.onSuccess(arg0, arg1);
-//							Log.i("upload", arg0 + "ddfasdfadf  " + arg1);
-//							if (arg0 == 0) {
-//
-//							}
-//						}
-//
-//					});
+			// client.post(
+			// "http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
+			// params, new AsyncHttpResponseHandler() {
+			// @Override
+			// public void onStart() {
+			// // TODO Auto-generated method stub
+			// super.onStart();
+			// }
+			//
+			// @Override
+			// public void onFailure(Throwable arg0, String arg1) {
+			// super.onFailure(arg0, arg1);
+			// }
+			//
+			// @Override
+			// public void onSuccess(String arg0) {
+			// // TODO Auto-generated method stub
+			// super.onSuccess(arg0);
+			// }
+			//
+			// @Override
+			// public void onSuccess(int arg0, String arg1) {
+			// super.onSuccess(arg0, arg1);
+			// Log.i("upload", arg0 + "ddfasdfadf  " + arg1);
+			// if (arg0 == 0) {
+			//
+			// }
+			// }
+			//
+			// });
 			return null;
 		}
 	}
@@ -430,6 +431,7 @@ public class Api {
 				get.addBodyParam(CATEGORYID, league.getCategoryId());
 			if (league.getName() != null && league.getName().length() > 1)
 				get.addBodyParam(NAME, league.getName());
+			get.addBodyParam(P, league.getP());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeague());
 		}
@@ -631,6 +633,7 @@ public class Api {
 				get.addBodyParam(TYPE, event.getType());
 				get.addBodyParam(OP, event.getOp());
 				get.addBodyParam(GID, event.getGid());
+				get.addBodyParam(P, event.getP());
 				Object object = get.run();
 				return parseOriginalJsonArray(object, new ModelEvent());
 			}

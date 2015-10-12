@@ -73,6 +73,7 @@ public abstract class BaseListView extends XListView implements
 		this.setPullRefreshEnable(true);
 		this.setPullLoadEnable(true);
 		this.setAutoLoadEnable(true);
+		this.setFooterGone();
 		this.setRefreshTime(getTime());
 		this.setXListViewListener(this);
 	}

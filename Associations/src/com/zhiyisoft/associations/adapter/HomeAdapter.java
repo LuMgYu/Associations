@@ -182,6 +182,9 @@ public class HomeAdapter extends BAdapter {
 	private void initNewsView(List<Model> list) {
 		if (list != null) {
 			mNewsItemViewArray = new View[NEWSCOUNT];
+			if (mViewHolder.ll_news.getChildCount() > 0) {
+				mViewHolder.ll_news.removeAllViews();
+			}
 			for (int i = 0; i < list.size(); i++) {
 				ModelLeagueTopic topic = (ModelLeagueTopic) list.get(i);
 				mNewsItemViewArray[i] = mInflater.inflate(
@@ -219,6 +222,9 @@ public class HomeAdapter extends BAdapter {
 	private void initHotView(List<Model> list) {
 		if (list != null) {
 			mHotItemViewArray = new View[HOTMOVECOUNT];
+			if (mViewHolder.ll_hotMove.getChildCount() > 0) {
+				mViewHolder.ll_hotMove.removeAllViews();
+			}
 			for (int i = 0; i < list.size(); i++) {
 				mHotItemViewArray[i] = mInflater.inflate(R.layout.move_item,
 						null);

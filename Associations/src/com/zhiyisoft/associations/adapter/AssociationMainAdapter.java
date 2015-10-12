@@ -242,24 +242,34 @@ public class AssociationMainAdapter extends BAdapter {
 	// ----------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		ModelLeague league = new ModelLeague();
-		LeagueImpl leagueImpl = mApp.getLeagueIm();
-		List<Model> list = leagueImpl.groupIndex(league);
+		List<Model> list = getAssociation(1);
 		return list;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		ModelLeague league = new ModelLeague();
-		LeagueImpl leagueImpl = mApp.getLeagueIm();
-		List<Model> items = leagueImpl.groupIndex(league);
+		List<Model> items = getAssociation(1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
+		p++;
+		List<Model> items = getAssociation(p);
 		return items;
+	}
+
+	/**
+	 * 获取社团信息
+	 * 
+	 * @return
+	 */
+	private List<Model> getAssociation(int p) {
+		ModelLeague league = new ModelLeague();
+		league.setP(p);
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		List<Model> list = leagueImpl.groupIndex(league);
+		return list;
 	}
 
 	@Override

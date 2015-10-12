@@ -148,6 +148,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.util.localMusic.LocalMusicListActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.BindAccountActivity" >
+        </activity>
 
         <meta-data
             android:name="UMENG_APPKEY"

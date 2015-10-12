@@ -5,11 +5,13 @@ import java.util.List;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
@@ -26,13 +28,12 @@ import com.zhiyisoft.associations.util.ViewHolder;
 public class AssociationJoinAdapter extends BAdapter {
 	private View mView;
 
-	public AssociationJoinAdapter(BaseActivity activity, List<Model> list) {
-		super(activity, list);
+	public AssociationJoinAdapter(BaseActivity activity, ImageView defaultImage) {
+		super(activity, null);
 	}
 
-	public AssociationJoinAdapter(BaseFragment fragment, List<Model> list,
-			ModelLeague league) {
-		super(fragment, list);
+	public AssociationJoinAdapter(BaseFragment fragment) {
+		super(fragment, null);
 	}
 
 	@Override
@@ -73,8 +74,9 @@ public class AssociationJoinAdapter extends BAdapter {
 			if (holder.association_iv_icon.getTag() != null
 					&& (holder.association_iv_icon.getTag()).equals(league
 							.getLogourl())) {
-//				holder.association_iv_icon.setImageUrl(league.getLogourl());
-				mApp.displayImage(league.getLogourl(), holder.association_iv_icon);
+				// holder.association_iv_icon.setImageUrl(league.getLogourl());
+				mApp.displayImage(league.getLogourl(),
+						holder.association_iv_icon);
 			}
 			holder.association_tv_title.setText(league.getName() + "");
 			holder.association_tv_member.setText(league.getMembers() + "");
@@ -107,16 +109,18 @@ public class AssociationJoinAdapter extends BAdapter {
 	// -----------------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		return null;
+		List<Model> joinLeagues = new ArrayList<Model>();
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		joinLeagues = leagueImpl.joinedGroup();
+		return joinLeagues;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		return items;
+		List<Model> joinLeagues = new ArrayList<Model>();
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		joinLeagues = leagueImpl.joinedGroup();
+		return joinLeagues;
 	}
 
 	@Override
@@ -126,6 +130,11 @@ public class AssociationJoinAdapter extends BAdapter {
 		items.add(new ModelLeague());
 		items.add(new ModelLeague());
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
 	}
 
 	@Override

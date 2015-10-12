@@ -157,9 +157,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginRight="@dimen/margin_right_small"
-        android:layout_marginTop="@dimen/margin_top" >
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_white_pure_color" >
 
         <ImageView
             android:id="@+id/me_iv_default"
@@ -171,7 +170,10 @@
         <com.zhiyisoft.associations.listview.AssociationListview
             android:id="@+id/me_lv_association"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/main_white_bg_color"
+            android:paddingLeft="@dimen/margin_left_small"
+            android:paddingRight="@dimen/margin_right_small" />
     </FrameLayout>
 
 </LinearLayout>
