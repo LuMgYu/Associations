@@ -11,7 +11,6 @@ import org.apache.http.Header;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -53,6 +52,7 @@ import com.zhiyisoft.associations.model.ModelChildComment;
 import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.ModelCommonAttach;
 import com.zhiyisoft.associations.model.ModelEventWorks;
+import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
@@ -92,7 +92,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	private Model mModel; // 当前上一个actitivy传过来的信息，更加不同的需求判断解析成相应的子类
 	private ModelLeagueTopic mModelTopic;
-
+	private ModelLeagueAlbum mPhotoModel; // 社团相册照片详情
 	private ModelEventWorks mWorks;
 	private ModelComment mComment; // 获取的评论列表以及评论的model
 	/************ 回复的内容时两个重要参数 ************/
@@ -107,7 +107,6 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private static final int WORKVIEW = 5; // 作品详情
 	private static final int COMMENTLIST = 6; // 44.【评论列表】：Comment/commentList
 	private static final int COMMENT = 7; // 45.【添加评论】：Comment/comment
-
 	@SuppressWarnings("unused")
 	private Handler mHandle = new Handler() {
 		public void handleMessage(Message msg) {
@@ -139,6 +138,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				if (isSuccess) {
 					ToastUtils.showToast("评论成功");
 					fill_content.setText("");
+					manId = null;
 					getTopicPosts(mModelTopic);
 				} else {
 					ToastUtils.showToast("评论成功");
@@ -223,7 +223,6 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				} else {
 					ToastUtils.showToast("评论失败");
 				}
-				break;
 			}
 
 		};
@@ -721,15 +720,12 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					replyPost(mModelTopic);
 
 				}
-			} else if (mWorks != null) {
+			} else if (mWorks != null || mPhotoModel != null) {
 				String content = fill_content.getText().toString();
 				mComment.setContent(content);
-				if (manId == null || manId.length() < 1) {
-					comment(mComment);
-				} else {
-					mComment.setReplyCommentId(manId);
-					comment(mComment);
-				}
+				mComment.setReplyCommentId(manId);
+				comment(mComment);
+
 			}
 			break;
 		}
@@ -756,6 +752,14 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			mComment.setType("event_work");
 			commentList(mComment);
 			// TODO
+		} else if (model instanceof ModelLeagueAlbum) {
+			mPhotoModel = (ModelLeagueAlbum) model;
+			groupPhotoView(mPhotoModel);
+			mComment = new ModelComment();
+			mComment.setSourceId(mPhotoModel.getId());
+			mComment.setCommentApp("group");
+			mComment.setType("group_work");
+			commentList(mComment);
 		}
 	}
 
@@ -900,6 +904,30 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				Message message = Message.obtain();
 				message.what = WORKVIEW;
 				message.obj = model;
+				mHandle.sendMessage(message);
+			}
+		});
+	}
+
+	/**
+	 * 49.【社团相册图片详情】：Group/groupPhotoView
+	 * 
+	 * @param photoModel
+	 */
+	private void groupPhotoView(final ModelLeagueAlbum photoModel) {
+		final LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				ModelEventWorks works = (ModelEventWorks) leagueImpl
+						.groupPhotoView(photoModel);
+				Message message = Message.obtain();
+				message.what = WORKVIEW;
+				if (works != null) {
+					works.setType("2");
+				}
+				message.obj = works;
 				mHandle.sendMessage(message);
 			}
 		});

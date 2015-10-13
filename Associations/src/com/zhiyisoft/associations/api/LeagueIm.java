@@ -2,9 +2,11 @@ package com.zhiyisoft.associations.api;
 
 import java.util.List;
 
+import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -33,6 +35,7 @@ public interface LeagueIm {
 	public static final String JOINEDGROUP = "joinedGroup";// 30.【已加入社团】：Group/joinedGroup
 	public static final String GETGROUPBASEINFO = "getGroupBaseInfo";// 31.Group/getGroupBaseInfo
 	public static final String GROUPWORKS = "groupWorks";// 48.【社团作品】：Group/groupWorks
+	public static final String GROUPPHOTOVIEW = "groupPhotoView";// 49.【社团图片详情】：Group/groupPhotoView
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -52,6 +55,7 @@ public interface LeagueIm {
 	public static final String PID = "pid"; //
 	public static final String CONTENT = "content";// 【回复帖子】内容
 	public static final String TYPE = "type"; // 社团作品的类型
+	public static final String ID = "id"; // 社团里面的照片id
 
 	/**
 	 * 13.【创建社团】：Group/createGroup 演示地址：
@@ -255,7 +259,7 @@ public interface LeagueIm {
 	 * @param topic
 	 * @return
 	 */
-	List<Model> joinedGroup();
+	List<Model> joinedGroup(ModelUser user);
 
 	/**
 	 * 31.【社团基本信息】：Group/getGroupBaseInfo
@@ -285,6 +289,17 @@ public interface LeagueIm {
 	 */
 	List<Model> groupWorks(ModelLeague league);
 
+	/**
+	 * 49.【社团图片详情】：Group/groupPhotoView
+	 * 
+	 * 接口描述： 社团图片详情
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=groupPhotoView
+	 * 
+	 * @param works
+	 * @return
+	 */
+	Model groupPhotoView(ModelLeagueAlbum photoModel);
 	// /**
 	// * 获取社团的分类
 	// *

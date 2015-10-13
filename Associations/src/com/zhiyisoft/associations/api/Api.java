@@ -599,12 +599,15 @@ public class Api {
 		}
 
 		@Override
-		public List<Model> joinedGroup() {
+		public List<Model> joinedGroup(ModelUser user) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
 			get.addBodyParam(ACT, JOINEDGROUP);
 			judgeTheUser(get);
+			if (user != null) {
+				get.addBodyParam(P, user.getP());
+			}
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeague());
 		}
@@ -623,7 +626,6 @@ public class Api {
 
 		@Override
 		public List<Model> groupWorks(ModelLeague league) {
-			// TODO Auto-generated method stub
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -633,6 +635,19 @@ public class Api {
 			get.addBodyParam(TYPE, league.getType());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelEventWorks());
+		}
+
+		@Override
+		public Model groupPhotoView(ModelLeagueAlbum photoModel) {
+			// TODO Auto-generated method stub
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, GROUPPHOTOVIEW);
+			judgeTheUser(get);
+			get.addBodyParam(ID, photoModel.getId());
+			Object object = get.run();
+			return parseOriginalJsonObject(object, new ModelEventWorks());
 		}
 	}
 

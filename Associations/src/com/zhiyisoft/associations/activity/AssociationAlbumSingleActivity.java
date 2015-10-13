@@ -33,6 +33,7 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 
 	private ModelLeagueAlbum mAlbum;
 	private static final int SUCCESS = 1;
+	private List<ModelLeagueAlbum> mResultLeagueAlbum;
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
@@ -40,11 +41,11 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			switch (msg.what) {
 
 			case SUCCESS:
-				List<ModelLeagueAlbum> list = (List<ModelLeagueAlbum>) msg.obj;
-				if (list != null) {
+				mResultLeagueAlbum = (List<ModelLeagueAlbum>) msg.obj;
+				if (mResultLeagueAlbum != null) {
 					ToastUtils.showToast("获取照片成功，正在加载");
 					List<String> photoUrllist = new ArrayList<String>();
-					for (ModelLeagueAlbum album : list) {
+					for (ModelLeagueAlbum album : mResultLeagueAlbum) {
 						photoUrllist.add(album.getPhotoUrl());
 					}
 					mAdapter = new MyPhotoGridViewAdapter(
@@ -118,10 +119,14 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Bundle data = new Bundle();
-				// data.putIntArray("photolist", resArray);
-				mApp.startActivity(AssociationAlbumSingleActivity.this,
-						AssociationTopicDetailActivity.class, data);
+				if (mResultLeagueAlbum != null) {
+					ModelLeagueAlbum photoModel = mResultLeagueAlbum
+							.get(position);
+					Bundle data = new Bundle();
+					data.putSerializable(Config.SEND_ACTIVITY_DATA, photoModel);
+					mApp.startActivity(AssociationAlbumSingleActivity.this,
+							AssociationTopicDetailActivity.class, data);
+				}
 
 			}
 		});

@@ -15,6 +15,7 @@ import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
 
@@ -109,27 +110,30 @@ public class AssociationJoinAdapter extends BAdapter {
 	// -----------------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> joinLeagues = new ArrayList<Model>();
-		final LeagueImpl leagueImpl = mApp.getLeagueIm();
-		joinLeagues = leagueImpl.joinedGroup();
+		List<Model> joinLeagues = getJoinGroup(1);
 		return joinLeagues;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> joinLeagues = new ArrayList<Model>();
-		final LeagueImpl leagueImpl = mApp.getLeagueIm();
-		joinLeagues = leagueImpl.joinedGroup();
+		List<Model> joinLeagues = getJoinGroup(1);
 		return joinLeagues;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		return items;
+		p++;
+		List<Model> joinLeagues = getJoinGroup(p);
+		return joinLeagues;
+	}
+
+	private List<Model> getJoinGroup(int index) {
+		List<Model> joinLeagues = new ArrayList<Model>();
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		ModelUser user = new ModelUser();
+		user.setP(index);
+		joinLeagues = leagueImpl.joinedGroup(user);
+		return joinLeagues;
 	}
 
 	@Override

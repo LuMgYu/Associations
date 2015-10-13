@@ -67,15 +67,24 @@ public class ModelEventWorks extends Model {
 			if (jsonObject.has("title")) {
 				this.setTitle(jsonObject.getString("title"));
 			}
+			if (jsonObject.has("albumName")) {
+				this.setTitle(jsonObject.getString("albumName"));
+			}
 			if (jsonObject.has("uname")) {
 				this.setUname(jsonObject.getString("uname"));
 			}
 			if (jsonObject.has("intro")) {
 				this.setIntro(jsonObject.getString("intro"));
 			}
+			if (jsonObject.has("info")) {
+				this.setIntro(jsonObject.getString("info"));
+			}
 
 			if (jsonObject.has("ctime")) {
 				this.setCtime(jsonObject.getString("ctime"));
+			}
+			if (jsonObject.has("cTime")) {
+				this.setCtime(jsonObject.getString("cTime"));
 			}
 
 			if (jsonObject.has("type")) {
