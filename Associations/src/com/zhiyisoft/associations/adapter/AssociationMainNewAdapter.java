@@ -307,11 +307,23 @@ public class AssociationMainNewAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		// items.add(new Model());
-		// items.add(new Model());
-		// items.add(new Model());
+		p++;
+		List<Model> items = getNewsFooter(p);
 		return items;
+	}
+
+	private List<Model> getNewsFooter(int index) {
+		if (mLeague != null) {
+			mLeague.setP(index);
+			List<Model> items = new ArrayList<Model>();
+			LeagueImpl leagueImpl = mApp.getLeagueIm();
+			List<Model> topicModels = leagueImpl.topicList(mLeague);
+			if (topicModels != null) {
+				items.addAll(topicModels);
+			}
+			return items;
+		}
+		return null;
 	}
 
 	@Override

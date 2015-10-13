@@ -69,24 +69,21 @@
             <com.zhiyisoft.associations.img.SmartImageView
                 android:id="@+id/iv_photo1"
                 android:layout_width="90dp"
-                android:layout_height="80dp"
-                android:background="@drawable/default_image_small" />
+                android:layout_height="80dp" />
 
             <com.zhiyisoft.associations.img.SmartImageView
                 android:id="@+id/iv_photo2"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/iv_photo1"
-                android:background="@drawable/default_image_small" />
+                android:layout_toRightOf="@id/iv_photo1" />
 
             <com.zhiyisoft.associations.img.SmartImageView
                 android:id="@+id/iv_photo3"
                 android:layout_width="90dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/iv_photo2"
-                android:background="@drawable/default_image_small" />
+                android:layout_toRightOf="@id/iv_photo2" />
         </LinearLayout>
     </RelativeLayout>
 

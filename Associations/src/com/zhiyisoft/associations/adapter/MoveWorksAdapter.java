@@ -363,7 +363,7 @@ public class MoveWorksAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = getWorks();
+		List<Model> items = getWorks(1);
 		return items;
 	}
 
@@ -372,22 +372,27 @@ public class MoveWorksAdapter extends BAdapter {
 	 * 
 	 * @return
 	 */
-	private List<Model> getWorks() {
-		List<Model> items = new ArrayList<Model>();
-		EventImpl eventImpl = mApp.getEventFIm();
-		items = eventImpl.workList(mdataEvent);
-		return items;
+	private List<Model> getWorks(int index) {
+		if (mdataEvent != null) {
+			List<Model> items = new ArrayList<Model>();
+			EventImpl eventImpl = mApp.getEventFIm();
+			mdataEvent.setP(index);
+			items = eventImpl.workList(mdataEvent);
+			return items;
+		}
+		return null;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = getWorks();
+		List<Model> items = getWorks(1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
+		p++;
+		List<Model> items = getWorks(p);
 		return items;
 	}
 

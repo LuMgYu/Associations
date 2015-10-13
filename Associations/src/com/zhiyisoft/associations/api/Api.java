@@ -741,6 +741,7 @@ public class Api {
 			get.addBodyParam(ACT, WORKLIST);
 			judgeTheUser(get);
 			get.addBodyParam(ID, event.getId());
+			get.addBodyParam(P, event.getP());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelEventWorks());
 		}

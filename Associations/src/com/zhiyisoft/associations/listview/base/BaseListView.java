@@ -29,6 +29,7 @@ import com.zhiyisoft.associations.widget.xlistview.XListView;
 /** listview的基类 ，任何listview都可以继承它，减少代码的冗余 */
 public abstract class BaseListView extends XListView implements
 		XListView.IXListViewListener {
+	private static final int MAX_COUNT = 12; // 小于这个就隐藏footer或者显示出来
 
 	public BaseListView(Context context) {
 		super(context, null);
@@ -100,6 +101,21 @@ public abstract class BaseListView extends XListView implements
 			}
 		});
 
+	}
+
+	@Override
+	public int getCount() {
+		int count = super.getCount();
+		isSetFooterGone(count);
+		return count;
+	}
+
+	public void isSetFooterGone(int count) {
+		if (count < MAX_COUNT) {
+			this.setFooterGone();
+		} else {
+			this.setFooterVisable();
+		}
 	}
 
 	/** 重新每一個item的點擊事件 */

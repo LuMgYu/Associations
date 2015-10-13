@@ -142,9 +142,4 @@
         android:layout_marginTop="5dp"
         android:background="@color/main_gray_color" />
 
-    <com.zhiyisoft.associations.listview.AssociationNewListview
-        android:id="@+id/single_lv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
 </LinearLayout>

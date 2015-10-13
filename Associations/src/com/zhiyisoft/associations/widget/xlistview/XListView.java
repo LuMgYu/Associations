@@ -346,6 +346,11 @@ public class XListView extends ListView implements OnScrollListener {
 		mFooterView.setVisibility(View.GONE);
 	}
 
+	public void setFooterVisable() {
+		mFooterLayout.setVisibility(View.VISIBLE);
+		mFooterView.setVisibility(View.VISIBLE);
+	}
+
 	// 核心方法
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {

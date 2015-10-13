@@ -239,12 +239,24 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 把数据加载到底部
 	 */
 	private void addFooterList(List<Model> list) {
+//		judgeSuccessRefreshFooter(list);
 		if (mList != null && list != null) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list
 			this.notifyDataSetChanged();
 		}
 		dismissTheProgress();
+	}
+
+	/**
+	 * 判断底部是否刷新成功，如果不成功就设置为2
+	 * 
+	 * @param list
+	 */
+	public void judgeSuccessRefreshFooter(List<Model> list) {
+		if (list == null) {
+			p = 1;
+		}
 	}
 
 	/** 獲取緩存，通常是調用mapp里面的緩存 */
