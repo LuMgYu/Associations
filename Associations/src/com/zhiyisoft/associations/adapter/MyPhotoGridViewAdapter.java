@@ -52,9 +52,10 @@ public class MyPhotoGridViewAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		SmartImageView imageView = new SmartImageView(mContext);
 		imageView.setScaleType(ScaleType.CENTER_CROP);
-		int width = UIUtils.getWindowWidth(mContext) - 30;
-		imageView.setLayoutParams(new AbsListView.LayoutParams(width / 3,
-				width / 3));
+		int width = UIUtils.getWindowWidth(mContext) - 20;
+		int itemWidth = width / 3;
+		imageView.setLayoutParams(new AbsListView.LayoutParams(itemWidth,
+				itemWidth));
 		if (mApp != null) {
 			mApp.displayImage(photoUrls.get(position), imageView);
 		} else {

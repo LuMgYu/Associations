@@ -198,8 +198,7 @@ public class Association extends Application {
 	public ImageLoader initImageLoader() {
 		// 创建默认的ImageLoader配置参数
 		if (mImageLoader == null) {
-			File cacheDir = StorageUtils.getOwnCacheDirectory(
-					getApplicationContext(), "association/image");
+			File cacheDir = getImagePath();
 			Log.i("cache", cacheDir.getPath() + "");
 			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
 					this)
@@ -230,6 +229,17 @@ public class Association extends Application {
 			mImageLoader = ImageLoader.getInstance();
 		}
 		return mImageLoader;
+	}
+
+	/**
+	 * 获取保存图片的路径
+	 * 
+	 * @return
+	 */
+	public File getImagePath() {
+		File cacheDir = StorageUtils.getOwnCacheDirectory(
+				getApplicationContext(), "association/image");
+		return cacheDir;
 	}
 
 	public void displayImage(String path, ImageView imageView) {

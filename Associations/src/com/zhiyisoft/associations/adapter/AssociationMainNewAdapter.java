@@ -315,6 +315,11 @@ public class AssociationMainNewAdapter extends BAdapter {
 	}
 
 	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
+	}
+
+	@Override
 	public int getViewTypeCount() {
 		return TYPE_COUNT;
 	}

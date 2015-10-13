@@ -25,19 +25,19 @@ public class MoveDisplayActivity extends BaseActivity {
 	private BaseListView move_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
-	private String mName;
+	private ModelEvent mEvent;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("", mName, "");
+		setAlltitle("", mEvent.getTypeName(), "");
 	}
 
 	@Override
 	public void initIntent() {
 		mBundle = getIntent().getExtras();
 		if (mBundle != null) {
-			mName = mBundle.getString(Config.HOTCATEGORY);
+			mEvent = (ModelEvent) mBundle.get(Config.SEND_ACTIVITY_DATA);
 		}
 	}
 
@@ -49,9 +49,11 @@ public class MoveDisplayActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		move_lv = (MoveListview) findViewById(R.id.move_lv);
-		ModelEvent event = new ModelEvent();
+		if (mEvent == null) {
+			mEvent = new ModelEvent(); // 基本不会出现这个情况
+		}
 		// event.setType("12");
-		mAdapter = new MoveAdapter(this, event);
+		mAdapter = new MoveAdapter(this, mEvent);
 		move_lv.setAdapter(mAdapter);
 	}
 

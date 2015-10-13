@@ -71,6 +71,8 @@ public class ModelLeague extends Model {
 
 	private List<Model> albums; // 社团详情需要的相册展示
 
+	private int type;
+
 	public ModelLeague() {
 
 	}
@@ -327,6 +329,18 @@ public class ModelLeague extends Model {
 
 	public void setAlbums(List<Model> albums) {
 		this.albums = albums;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

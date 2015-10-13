@@ -32,6 +32,7 @@ public interface LeagueIm {
 	public static final String GETTOPICPOSTS = "getTopicPosts";// 29.【获取某个话题下的帖子】：Group/getTopicPosts
 	public static final String JOINEDGROUP = "joinedGroup";// 30.【已加入社团】：Group/joinedGroup
 	public static final String GETGROUPBASEINFO = "getGroupBaseInfo";// 31.Group/getGroupBaseInfo
+	public static final String GROUPWORKS = "groupWorks";// 48.【社团作品】：Group/groupWorks
 
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
@@ -50,6 +51,7 @@ public interface LeagueIm {
 	public static final String TID = "tid"; //
 	public static final String PID = "pid"; //
 	public static final String CONTENT = "content";// 【回复帖子】内容
+	public static final String TYPE = "type"; // 社团作品的类型
 
 	/**
 	 * 13.【创建社团】：Group/createGroup 演示地址：
@@ -269,6 +271,19 @@ public interface LeagueIm {
 	 * @return
 	 */
 	Model getGroupBaseInfo(ModelLeague league);
+
+	/**
+	 * 48.【社团作品】：Group/groupWorks
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=groupWorks
+	 * 
+	 * 
+	 * 输入参数： (int) gid 社团id (int) type 作品类型（1：文章 2：图片 3：视频 4：音频）
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> groupWorks(ModelLeague league);
 
 	// /**
 	// * 获取社团的分类

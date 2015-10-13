@@ -1,6 +1,5 @@
 package com.zhiyisoft.associations.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.view.View;
@@ -11,9 +10,14 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.model.ModelCommonAttach;
+import com.zhiyisoft.associations.model.ModelEventWorks;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -25,13 +29,16 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 public class AssociationWordAdapter extends BAdapter {
 	private View mView;
+	private ModelLeague mLeague;
 
-	public AssociationWordAdapter(BaseActivity activity, List<Model> list) {
-		super(activity, list);
+	public AssociationWordAdapter(BaseActivity activity, ModelLeague league) {
+		super(activity, null);
+		this.mLeague = league;
 	}
 
-	public AssociationWordAdapter(BaseFragment fragment, List<Model> list) {
-		super(fragment, list);
+	public AssociationWordAdapter(BaseFragment fragment, ModelLeague league) {
+		super(fragment, null);
+		this.mLeague = mLeague;
 	}
 
 	@Override
@@ -57,8 +64,29 @@ public class AssociationWordAdapter extends BAdapter {
 	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		Model model = mList.get(position);
+		ModelEventWorks works = (ModelEventWorks) mList.get(position);
 		// TODO 把数据绑定到界面
+		if (works != null && holder != null) {
+			mApp.displayImage(works.getFaceurl(), holder.iv_file_user_icon);
+			holder.tv_user_name.setText(works.getUname());
+			holder.tv_file_title.setText(works.getTitle());
+			if (works.getAttachs() != null) {
+				ModelCommonAttach attach = (ModelCommonAttach) works
+						.getAttachs().get(0);
+				String fileName = attach.getName();
+				holder.tv_file_name.setText(fileName);
+				if (fileName.contains("doc")) {
+					holder.iv_file.setImageResource(R.drawable.doc);
+				} else if (fileName.contains("pdf")) {
+					holder.iv_file.setImageResource(R.drawable.pdf);
+				} else if (fileName.contains("txt")) {
+					holder.iv_file.setImageResource(R.drawable.text);
+				}
+
+			}
+			holder.tv_file_date.setText(DateUtil.strTodate(works.getCtime()));
+			holder.tv_file_commit.setText(works.getCommentCount());
+		}
 
 	}
 
@@ -86,29 +114,36 @@ public class AssociationWordAdapter extends BAdapter {
 	// ---------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		List<Model> items = getFiles();
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		List<Model> items = getFiles();
+		return items;
+	}
+
+	/**
+	 * 获取视频
+	 * 
+	 * @return
+	 */
+	private List<Model> getFiles() {
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mLeague.setType(1);
+		List<Model> items = leagueImpl.groupWorks(mLeague);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		return null;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
 	}
 
 	@Override

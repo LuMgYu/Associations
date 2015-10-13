@@ -1,5 +1,8 @@
 package com.zhiyisoft.associations.activity;
 
+import java.io.File;
+
+import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -10,7 +13,9 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：下午3:22:28 类描述：这个类是实现
@@ -26,16 +31,19 @@ public class AssociationTopicDetailPhotoActivity extends BaseActivity {
 	private Button btn_cancle;
 	private LinearLayout ll_fill_twobutton;
 
+	private String mPhotoUrl;
+
 	@Override
 	public String setCenterTitle() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void initIntent() {
-		// TODO Auto-generated method stub
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mPhotoUrl = (String) bundle.get(Config.PHOTOURL);
+		}
 	}
 
 	@Override
@@ -53,6 +61,7 @@ public class AssociationTopicDetailPhotoActivity extends BaseActivity {
 		btn_cancle = (Button) findViewById(R.id.btn_cancle);
 		ll_fill_twobutton = (LinearLayout) findViewById(R.id.ll_fill_twobutton);
 		ll_fill_twobutton.setVisibility(View.GONE);
+		mApp.displayImage(mPhotoUrl, iv_photo);
 	}
 
 	@Override
@@ -76,6 +85,10 @@ public class AssociationTopicDetailPhotoActivity extends BaseActivity {
 			break;
 		case R.id.btn_save_to_phone:
 			// TODO
+			File file = mApp.getFilesDir();
+			if (file != null) {
+				ToastUtils.showToast("保存成功到" + file.toString());
+			}
 			break;
 		case R.id.btn_cancle:
 			changeViewStatus(ll_fill_twobutton);

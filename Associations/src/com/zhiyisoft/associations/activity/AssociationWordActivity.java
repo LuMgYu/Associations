@@ -11,8 +11,10 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationWordAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.AssociationWordListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -25,6 +27,7 @@ public class AssociationWordActivity extends BaseActivity {
 	private TextView next;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
+	private ModelLeague mLeague;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -39,7 +42,13 @@ public class AssociationWordActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+			if (mLeague != null) {
+				setAlltitle(mLeague.getName(), null, null);
+			}
+		}
 	}
 
 	@Override
@@ -53,7 +62,7 @@ public class AssociationWordActivity extends BaseActivity {
 	public void initView() {
 		word_lv = (AssociationWordListview) findViewById(R.id.word_lv);
 		next = (TextView) findViewById(R.id.next);
-		mAdapter = new AssociationWordAdapter(this, mlist);
+		mAdapter = new AssociationWordAdapter(this, mLeague);
 		word_lv.setAdapter(mAdapter);
 	}
 

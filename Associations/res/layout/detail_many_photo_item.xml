@@ -7,9 +7,10 @@
         android:id="@+id/detail_gv_many_photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:horizontalSpacing="3dp"
+        android:layout_marginLeft="3dp"
         android:numColumns="3"
-        android:paddingBottom="@dimen/margin_bottom" >
+        android:paddingBottom="@dimen/margin_bottom"
+        android:verticalSpacing="3dp" >
     </com.zhiyisoft.associations.widget.MyGridView>
 
 </RelativeLayout>

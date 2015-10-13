@@ -415,19 +415,22 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private void initSinglePhoto(String photoUrl) {
 		SmartImageView imageView = new SmartImageView(this);
 		LinearLayout.LayoutParams params = new LayoutParams(
-				UIUtils.getWindowWidth(mApp), 300);
+				UIUtils.getWindowWidth(mApp) - 20, 400);
 		params.setMargins(10, 0, 10, 0);
 		imageView.setLayoutParams(params);
 		mApp.displayImage(photoUrl, imageView);
-		// imageView.setImageUrl(photoUrl);
 		imageView.setScaleType(ScaleType.CENTER_CROP);
 		content_ll_main.addView(imageView);
+		imageView.setTag(photoUrl);
 		imageView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				String url = (String) v.getTag();
+				Bundle bundle = new Bundle();
+				bundle.putString(Config.PHOTOURL, url);
 				mApp.startActivity(AssociationTopicDetailActivity.this,
-						AssociationTopicDetailPhotoActivity.class, null);
+						AssociationTopicDetailPhotoActivity.class, bundle);
 			}
 		});
 	}
@@ -448,8 +451,11 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				String url = (String) parent.getItemAtPosition(position);
+				Bundle bundle = new Bundle();
+				bundle.putString(Config.PHOTOURL, url);
 				mApp.startActivity(AssociationTopicDetailActivity.this,
-						AssociationTopicDetailPhotoActivity.class, null);
+						AssociationTopicDetailPhotoActivity.class, bundle);
 			}
 
 		});

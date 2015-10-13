@@ -160,9 +160,9 @@ public class MoveWorksAdapter extends BAdapter {
 				mApp.displayImage(works.getVideo_image(), holder.iv_vedio);
 				holder.tv_user_name.setText(works.getUname());
 				holder.tv_vedio_title.setText(works.getTitle());
-				holder.tv_vedio_commit.setText(DateUtil.strTodate(works
+				holder.tv_vedio_commit.setText(works.getCommentCount());
+				holder.tv_vedio_date.setText(DateUtil.strTodate(works
 						.getCtime()));
-				holder.tv_vedio_date.setText(works.getCommentCount());
 				break;
 			}
 		}

@@ -11,10 +11,14 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelEventWorks;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -26,14 +30,16 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 public class AssociationVedioAdapter extends BAdapter {
 	private View mVedioView; // 视频view
+	private ModelLeague mLeague;
 
-	public AssociationVedioAdapter(BaseActivity activity, List<Model> list) {
-		super(activity, list);
-
+	public AssociationVedioAdapter(BaseActivity activity, ModelLeague league) {
+		super(activity, null);
+		this.mLeague = league;
 	}
 
-	public AssociationVedioAdapter(BaseFragment fragment, List<Model> list) {
-		super(fragment, list);
+	public AssociationVedioAdapter(BaseFragment fragment, ModelLeague league) {
+		super(fragment, null);
+		this.mLeague = league;
 	}
 
 	@Override
@@ -60,8 +66,16 @@ public class AssociationVedioAdapter extends BAdapter {
 	 * @param holder
 	 */
 	private void bundledataToView(int position, ViewHolder holder) {
-		Model model = mList.get(position);
+		ModelEventWorks works = (ModelEventWorks) mList.get(position);
 		// TODO 把数据绑定到界面
+		if (holder != null && works != null) {
+			mApp.displayImage(works.getFaceurl(), holder.iv_vedio_user_icon);
+			mApp.displayImage(works.getVideo_image(), holder.iv_vedio);
+			holder.tv_user_name.setText(works.getUname());
+			holder.tv_vedio_title.setText(works.getTitle());
+			holder.tv_vedio_commit.setText(works.getCommentCount());
+			holder.tv_vedio_date.setText(DateUtil.strTodate(works.getCtime()));
+		}
 
 	}
 
@@ -77,7 +91,7 @@ public class AssociationVedioAdapter extends BAdapter {
 			holder.tv_user_send = (TextView) mVedioView
 					.findViewById(R.id.tv_user_send);
 			holder.tv_vedio_title = (TextView) mVedioView
-					.findViewById(R.id.tv_music_name);
+					.findViewById(R.id.tv_vedio_title);
 			holder.iv_vedio = (SmartImageView) mVedioView
 					.findViewById(R.id.iv_vedio);
 			holder.iv_vedio_click = (ImageView) mVedioView
@@ -92,35 +106,37 @@ public class AssociationVedioAdapter extends BAdapter {
 
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		List<Model> items = getVideo();
+		return items;
+	}
+
+	/**
+	 * 获取视频
+	 * 
+	 * @return
+	 */
+	private List<Model> getVideo() {
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		mLeague.setType(3);
+		List<Model> items = leagueImpl.groupWorks(mLeague);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
+		List<Model> items = getVideo();
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
-		items.add(new Model());
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
 	}
 
 	@Override

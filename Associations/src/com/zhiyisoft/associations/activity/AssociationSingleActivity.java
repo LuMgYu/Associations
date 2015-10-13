@@ -153,15 +153,19 @@ public class AssociationSingleActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationAlbumActivity.class, albumdata);
 			break;
 		case R.id.file:
-			mApp.startActivity(this, AssociationWordActivity.class, null);
+			Bundle filedata = new Bundle();
+			filedata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationWordActivity.class, filedata);
 			break;
 		case R.id.share:
 			// mApp.startActivity(this, AssociationWordActivity.class, null);
 			preformShare();
 			break;
 		case R.id.vedio:
+			Bundle vediodata = new Bundle();
+			vediodata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
 			mApp.startActivity(this, AssociationVedioDisplayActivity.class,
-					null);
+					vediodata);
 			break;
 		case R.id.btn_quit:
 			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();

@@ -45,6 +45,7 @@ public class MoveMainAdapter extends BAdapter {
 	private View mOtherView; // 真正的item
 	private int[] mImageArray;
 	private String[] mStringName;
+	private String[] mType;
 	private int mItemWidth = 0;
 
 	public MoveMainAdapter(BaseActivity activity, List<Model> list) {
@@ -196,6 +197,8 @@ public class MoveMainAdapter extends BAdapter {
 				R.drawable.lx, R.drawable.gy, R.drawable.qt };
 		mStringName = new String[] { "全部", "赛事", "会展", "演出", "聚会", "交流", "体育",
 				"旅行", "公益", "其它" };
+		mType = new String[] { null, "12", "13", "14", "15", "16", "17", "18",
+				"19", "20" };
 		View itemView = null;
 		ImageView imageView = null;
 		TextView textView;
@@ -206,15 +209,18 @@ public class MoveMainAdapter extends BAdapter {
 			textView = (TextView) itemView.findViewById(R.id.school_scv_tv);
 			imageView.setImageResource(mImageArray[i]);
 			textView.setText(mStringName[i] + "");
-			itemView.setTag(mStringName[i]);
+			ModelEvent event = new ModelEvent();
+			event.setType(mType[i]);
+			event.setTypeName(mStringName[i]);
+			itemView.setTag(event);
 			itemView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String data = (String) v.getTag();
+					ModelEvent event = (ModelEvent) v.getTag();
 					resetBackground();
 					// textView.setBackgroundResource(R.drawable.tv_gray);
 					Bundle bundle = new Bundle();
-					bundle.putString(Config.HOTCATEGORY, data);
+					bundle.putSerializable(Config.SEND_ACTIVITY_DATA, event);
 					mApp.startActivity(mBaseActivity,
 							MoveDisplayActivity.class, bundle);
 				}

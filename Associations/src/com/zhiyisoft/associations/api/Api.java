@@ -619,6 +619,20 @@ public class Api {
 			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelLeague());
 		}
+
+		@Override
+		public List<Model> groupWorks(ModelLeague league) {
+			// TODO Auto-generated method stub
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, GROUPWORKS);
+			judgeTheUser(get);
+			get.addBodyParam(GID, league.getGid());
+			get.addBodyParam(TYPE, league.getType());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelEventWorks());
+		}
 	}
 
 	public static final class EventImpl implements EventIm {

@@ -17,8 +17,10 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationVedioAdapter;
 import com.zhiyisoft.associations.adapter.MoveWorksAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.MoveWorksListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -30,6 +32,7 @@ public class AssociationVedioDisplayActivity extends BaseActivity {
 	private BaseListView works_display_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
+	private ModelLeague mLeague;
 
 	@Override
 	public String setCenterTitle() {
@@ -38,7 +41,13 @@ public class AssociationVedioDisplayActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mLeague = (ModelLeague) bundle.get(Config.SEND_ACTIVITY_DATA);
+			if (mLeague != null) {
+				setAlltitle(mLeague.getName(), null, null);
+			}
+		}
 	}
 
 	@Override
@@ -49,7 +58,7 @@ public class AssociationVedioDisplayActivity extends BaseActivity {
 	@Override
 	public void initView() {
 		works_display_lv = (MoveWorksListview) findViewById(R.id.works_display_lv);
-		mAdapter = new AssociationVedioAdapter(this, mlist);
+		mAdapter = new AssociationVedioAdapter(this, mLeague);
 		works_display_lv.setAdapter(mAdapter);
 	}
 

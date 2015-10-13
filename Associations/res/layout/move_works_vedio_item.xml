@@ -78,7 +78,8 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/item_height"
                 android:layout_marginRight="@dimen/item_height"
-                android:background="@drawable/vedio_bg" />
+                android:background="@drawable/vedio_bg"
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/iv_vedio_click"
@@ -119,6 +120,7 @@
             android:textColor="@color/text_more_gray"
             android:textSize="@dimen/text_verysmall" />
     </RelativeLayout>
+
     <include layout="@layout/view_line_vertical" />
 
 </LinearLayout>

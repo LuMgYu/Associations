@@ -13,7 +13,7 @@ public class Config {
 	public static final String MAIN_ACTIVITY = "main_activity"; // 跳转到主activity
 	public static final String LOCALVIDEO = "localvideo";
 	public static final String LOCALMUSIC = "LocalMusic";
-
+	public static final String PHOTOURL = "photourl";
 
 	// -----------------------------访问shareprefrence用到-------------------------------------------------
 	public static final String USER_DATA = "user_data";

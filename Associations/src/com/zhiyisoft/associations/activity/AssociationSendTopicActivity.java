@@ -100,6 +100,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		super.onCreate(arg0);
 		if (mLeague != null) {
 			setAlltitle("发表话题", null, "发表");
+			hsvScrollView.setVisibility(View.VISIBLE);
 			return;
 		}
 		if (mWorks != null) {
@@ -325,7 +326,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		params.put("content", topic.getContent());
 		Log.i("param", params.toString());
 		if (mPhotoList != null) {
-			for (int i = 0; i < mPhotoList.size() - 1; i++) {
+			for (int i = 0; i < mPhotoList.size(); i++) {
 				try {
 					File file = new File(mPhotoList.get(i));
 					params.put("file" + i, file);
@@ -391,7 +392,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		Log.i("param", params.toString());
 		// 上传图片
 		if (mPhotoList != null) {
-			for (int i = 0; i < mPhotoList.size() - 1; i++) {
+			for (int i = 0; i < mPhotoList.size(); i++) {
 				try {
 					File file = new File(mPhotoList.get(i));
 					params.put("file" + i, file);

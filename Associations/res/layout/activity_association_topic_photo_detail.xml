@@ -34,7 +34,8 @@
                 android:layout_centerVertical="true"
                 android:text="1/32"
                 android:textColor="@color/text_white"
-                android:textSize="@dimen/text_big" />
+                android:textSize="@dimen/text_big"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_more"
@@ -50,7 +51,8 @@
         android:id="@+id/iv_photo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@drawable/default_image_small" />
+        android:background="@drawable/default_image_small"
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:id="@+id/rl_footer"
