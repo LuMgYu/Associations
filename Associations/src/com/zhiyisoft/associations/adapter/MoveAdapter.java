@@ -113,21 +113,40 @@ public class MoveAdapter extends BAdapter {
 	// ------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		EventImpl eventImpl = mApp.getEventFIm();
-		List<Model> items = eventImpl.eventList(mEvent);
+		List<Model> items = getMove(1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		EventImpl eventImpl = mApp.getEventFIm();
-		List<Model> items = eventImpl.eventList(mEvent);
+		List<Model> items = getMove(1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		// TODO Auto-generated method stub
+		p++;
+		List<Model> items = getMove(p);
+		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
+	}
+
+	/**
+	 * 获取社团
+	 * 
+	 * @return
+	 */
+	private List<Model> getMove(int index) {
+		if (mEvent != null) {
+			mEvent.setP(index);
+			EventImpl eventImpl = mApp.getEventFIm();
+			List<Model> items = eventImpl.eventList(mEvent);
+			return items;
+		}
 		return null;
 	}
 

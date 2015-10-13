@@ -130,10 +130,13 @@ public class AssociationWordAdapter extends BAdapter {
 	 * @return
 	 */
 	private List<Model> getFiles() {
-		LeagueImpl leagueImpl = mApp.getLeagueIm();
-		mLeague.setType(1);
-		List<Model> items = leagueImpl.groupWorks(mLeague);
-		return items;
+		if (mLeague != null) {
+			LeagueImpl leagueImpl = mApp.getLeagueIm();
+			mLeague.setType(1);
+			List<Model> items = leagueImpl.groupWorks(mLeague);
+			return items;
+		}
+		return null;
 	}
 
 	@Override

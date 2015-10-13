@@ -93,7 +93,7 @@ public class AssociationMainActivity extends BaseActivity {
 
 	@Override
 	public String setCenterTitle() {
-		return "北京大学轮滑社";
+		return "";
 	}
 
 	@Override
@@ -212,7 +212,9 @@ public class AssociationMainActivity extends BaseActivity {
 			preformShare();
 			break;
 		case R.id.main_ll_join:
-			applyJoinAssociation(mLeague);
+			if (checkTheUser()) {
+				applyJoinAssociation(mLeague);
+			}
 			break;
 		case R.id.iv_title:
 			break;
@@ -222,8 +224,9 @@ public class AssociationMainActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationAlbumActivity.class, albumdata);
 			break;
 		case R.id.rl_file_share:
-			Bundle data3 = new Bundle();
-			mApp.startActivity(this, AssociationWordActivity.class, data3);
+			Bundle fileData = new Bundle();
+			fileData.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationWordActivity.class, fileData);
 			break;
 		case R.id.rl_phone:
 			break;

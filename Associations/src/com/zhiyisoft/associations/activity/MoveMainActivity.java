@@ -360,12 +360,12 @@ public class MoveMainActivity extends BaseActivity {
 			preformShare();
 			break;
 		case R.id.main_ll_watch:
-			if (!isWatch) {
+			if (!isWatch && checkTheUser()) {
 				WatchMove(mEvent);
 			}
 			break;
 		case R.id.main_ll_join:
-			if (!isJoin) {
+			if (!isJoin && checkTheUser()) {
 				JoinMove(mEvent);
 			}
 

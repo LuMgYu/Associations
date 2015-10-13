@@ -356,14 +356,21 @@ public class HomeAdapter extends BAdapter {
 	 * 设置监听器
 	 */
 	private void setListener() {
-		String[] strArray = new String[] { "全国活动", "周边活动" };
 		for (int i = 0; i < mTwoButton.length; i++) {
-			mTwoButton[i].setTag(strArray[i]);
+			ModelEvent event = new ModelEvent();
+			if (i == 0) {
+				event.setTypeName("全国活动");
+			} else if (i == 1) {
+				event.setTypeName("周边活动");
+			}
+			mTwoButton[i].setTag(event);
 			mTwoButton[i].setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					// TODO 这里以后需要添加 周边活动之类的
+					ModelEvent event = (ModelEvent) v.getTag();
 					Bundle bundle = new Bundle();
-					bundle.putString(Config.HOTCATEGORY, (String) v.getTag());
+					bundle.putSerializable(Config.SEND_ACTIVITY_DATA, event);
 					mApp.startActivity(mBaseActivity,
 							MoveDisplayActivity.class, bundle);
 
@@ -462,7 +469,7 @@ public class HomeAdapter extends BAdapter {
 
 	public boolean IsLogin() {
 		ModelUser user = mApp.getUser();
-		if (user != null && user.getMobile() != null) {
+		if (user != null && user.getOauth_token() != null) {
 			return true;
 		}
 		return false;

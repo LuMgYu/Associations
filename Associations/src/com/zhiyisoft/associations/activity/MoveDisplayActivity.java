@@ -52,7 +52,6 @@ public class MoveDisplayActivity extends BaseActivity {
 		if (mEvent == null) {
 			mEvent = new ModelEvent(); // 基本不会出现这个情况
 		}
-		// event.setType("12");
 		mAdapter = new MoveAdapter(this, mEvent);
 		move_lv.setAdapter(mAdapter);
 	}

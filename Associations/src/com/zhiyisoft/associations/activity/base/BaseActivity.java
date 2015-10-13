@@ -157,9 +157,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public boolean checkTheUser() {
 		ModelUser user = mApp.getUser();
 		user.toString();
-		if (user != null && user.getMobile() != null) {
+		if (user != null && user.getOauth_token() != null) {
 			return true;
 		}
+		ToastUtils.showToast("请先登录");
 		return false;
 	}
 
@@ -616,7 +617,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		return bitmap;
 	}
-
 
 	// ----------------------------------我是本区域邪恶的分界线------------------------------------------------------
 

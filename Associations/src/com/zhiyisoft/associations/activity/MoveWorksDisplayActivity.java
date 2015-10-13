@@ -76,32 +76,35 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
-			initPopWindow();
-			showPop(tv_title_right, 0, 10);
+			if (checkTheUser()) {
+				initPopWindow();
+				showPop(tv_title_right, 0, 10);
+			}
 			break;
 		// --------------------------PopupWindow的界面控件监听器------------------
 		case R.id.ll_essay:
 			mPopupWindow.dismiss();
 			Bundle data = bindDataToModel(1);
-			mApp.startActivityForResult(this, AssociationSendTopicActivity.class, data);
+			mApp.startActivityForResult(this,
+					AssociationSendTopicActivity.class, data);
 			break;
 		case R.id.ll_pic:
 			mPopupWindow.dismiss();
 			Bundle picdata = bindDataToModel(2);
-			mApp.startActivityForResult(this, AssociationSendTopicActivity.class,
-					picdata);
+			mApp.startActivityForResult(this,
+					AssociationSendTopicActivity.class, picdata);
 			break;
 		case R.id.ll_music:
 			mPopupWindow.dismiss();
 			Bundle micdata = bindDataToModel(4);
-			mApp.startActivityForResult(this, AssociationSendTopicActivity.class,
-					micdata);
+			mApp.startActivityForResult(this,
+					AssociationSendTopicActivity.class, micdata);
 			break;
 		case R.id.ll_vedio:
 			mPopupWindow.dismiss();
 			Bundle veddata = bindDataToModel(3);
-			mApp.startActivityForResult(this, AssociationSendTopicActivity.class,
-					veddata);
+			mApp.startActivityForResult(this,
+					AssociationSendTopicActivity.class, veddata);
 			break;
 		}
 
@@ -125,8 +128,8 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 		if (requestCode == this.GET_DATA_FROM_ACTIVITY) {
 			if (data != null) {
 				Bundle bundle = data.getExtras();
-				Object object=bundle.get(Config.GET_ACTIVITY_DATA);
-				if(object!=null){
+				Object object = bundle.get(Config.GET_ACTIVITY_DATA);
+				if (object != null) {
 					mAdapter.doRefreshHeader();
 				}
 			}

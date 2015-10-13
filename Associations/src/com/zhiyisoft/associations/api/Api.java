@@ -543,6 +543,7 @@ public class Api {
 			get.addBodyParam(ACT, TOPICLIST);
 			judgeTheUser(get);
 			get.addBodyParam(GID, league.getGid());
+			get.addBodyParam(P, league.getP());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeagueTopic());
 		}

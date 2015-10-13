@@ -686,11 +686,6 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	public void initListener() {
 		iv_title_right2.setOnClickListener(this);
 		btn_return.setOnClickListener(this);
-		// rl_gender.setOnClickListener(this);
-		// rl_school.setOnClickListener(this);
-		// rl_homeland.setOnClickListener(this);
-		// rl_email.setOnClickListener(this);
-		// rl_phone.setOnClickListener(this);
 
 	}
 
@@ -713,6 +708,9 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		case R.id.rl_phone:
 			break;
 		case R.id.btn_return:
+			if (!checkTheUser()) {
+				return;
+			}
 			if (mModelTopic != null) {
 				String content = fill_content.getText().toString();
 				mModelTopic.setReplyContent(content);

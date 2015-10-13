@@ -32,7 +32,6 @@ public class AssociationWordActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle(null, null, "文件");
 	}
 
 	@Override
@@ -56,8 +55,6 @@ public class AssociationWordActivity extends BaseActivity {
 		return R.layout.activity_association_word;
 	}
 
-	// private BaseListView word_lv;
-	// private TextView next;
 	@Override
 	public void initView() {
 		word_lv = (AssociationWordListview) findViewById(R.id.word_lv);
