@@ -113,28 +113,30 @@ public class AssociationAdapter extends BAdapter {
 	// -----------------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		LeagueImpl leagueImpl = mApp.getLeagueIm();
-		List<Model> list = leagueImpl.groupIndex(mLeague);
-		System.out.println(mLeague.toString());
+		List<Model> list = getAssociation(1);
 		return list;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		return items;
+		List<Model> list = getAssociation(1);
+		return list;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		items.add(new ModelLeague());
-		return items;
+		p++;
+		List<Model> list = getAssociation(1);
+		return list;
+	}
+
+	private List<Model> getAssociation(int index) {
+		if (mLeague != null) {
+			LeagueImpl leagueImpl = mApp.getLeagueIm();
+			List<Model> list = leagueImpl.groupIndex(mLeague);
+			return list;
+		}
+		return null;
 	}
 
 	@Override

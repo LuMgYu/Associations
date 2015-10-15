@@ -86,7 +86,7 @@ public interface EventIm {
 	 * 
 	 * 输入参数： (string) oauth_token必填 (string) oauth_token_secret 必填 (int) id 活动id
 	 */
-	boolean join(ModelEvent event);
+	Model join(ModelEvent event);
 
 	/**
 	 * 活动关注/取消关注】：Event/sub

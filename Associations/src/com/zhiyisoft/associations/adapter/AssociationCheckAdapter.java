@@ -9,10 +9,9 @@ import android.widget.TextView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
-import com.zhiyisoft.associations.api.Api;
-import com.zhiyisoft.associations.api.SchoolIm;
+import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -22,20 +21,14 @@ import com.zhiyisoft.associations.model.base.Model;
  *
  */
 
-public class MeSettingSchoolAdapter extends BAdapter {
-	private ModelSchool school; // 需要刷新的学校的地址
+public class AssociationCheckAdapter extends BAdapter {
 
-	public MeSettingSchoolAdapter(BaseActivity activity, List<Model> list,
-			ModelSchool modelSchool) {
-		super(activity, list);
-		// TODO 存在明显的bug，以后来调，先做一个标记
-		this.school = modelSchool;
+	public AssociationCheckAdapter(BaseActivity activity) {
+		super(activity, null);
 	}
 
-	public MeSettingSchoolAdapter(BaseFragment fragment, List<Model> list,
-			ModelSchool modelSchool) {
-		super(fragment, list);
-		this.school = modelSchool;
+	public AssociationCheckAdapter(BaseFragment fragment) {
+		super(fragment, null);
 
 	}
 
@@ -52,38 +45,36 @@ public class MeSettingSchoolAdapter extends BAdapter {
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
-		holder.tv_school.setText(((ModelSchool) mList.get(position)).getName()
+		holder.tv_school.setText(((ModelLeague) mList.get(position)).getName()
 				+ "");
 		return convertView;
 	}
 
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> items = getSchool();
-		return items;
+		List<Model> list = getAssociation(1);
+		return list;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = getSchool();
-		return items;
+		List<Model> list = getAssociation(1);
+		return list;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		return null;
+		p++;
+		List<Model> list = getAssociation(p);
+		return list;
 	}
 
-	private List<Model> getSchool() {
-		List<Model> items;
-		SchoolIm schoolIm = new Api.SchoolImpl();
-		items = schoolIm.getSchools(school);
-		return items;
-	}
-
-	@Override
-	public void addHeadList(List<Model> list) {
-		addHeadListWay2(list);
+	private List<Model> getAssociation(int index) {
+		ModelLeague league = new ModelLeague();
+		league.setP(index);
+		LeagueImpl leagueImpl = mApp.getLeagueIm();
+		List<Model> list = leagueImpl.groupIndex(league);
+		return list;
 	}
 
 	@Override

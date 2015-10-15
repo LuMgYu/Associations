@@ -113,6 +113,15 @@ public class ModelEvent extends Model {
 
 				this.seteTime(jsonObject.getString("eTime"));
 			}
+			//
+			if (jsonObject.has("workStime")) {
+
+				this.setWorkStime(jsonObject.getString("workStime"));
+			}
+			if (jsonObject.has("workEtime")) {
+
+				this.setWorkEtime(jsonObject.getString("workEtime"));
+			}
 
 			if (jsonObject.has("joinCount")) {
 

@@ -42,8 +42,8 @@ public interface LoginIm {
 	public static final String UNAME = "uname";
 	public static final String SEX = "sex";
 	public static final String SCHOOL_ID = "school_id";
-	public static final String AUTOGRAPH  = "autograph";
-	public static final String EMAIL  = "email";
+	public static final String AUTOGRAPH = "autograph";
+	public static final String EMAIL = "email";
 
 	//
 	public static final String TYPE = "type";
@@ -115,7 +115,7 @@ public interface LoginIm {
 	 * @param user
 	 * @return
 	 */
-	boolean sendRegisterCode(ModelUser user);
+	Model sendRegisterCode(ModelUser user);
 
 	/**
 	 * 6.【注册】：Login/register

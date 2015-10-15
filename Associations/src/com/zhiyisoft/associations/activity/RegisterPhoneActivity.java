@@ -74,6 +74,7 @@ public class RegisterPhoneActivity extends BaseActivity implements
 			} else {
 				ToastUtils.showToast("手机号码为空或不合法");
 			}
+			break;
 		case R.id.tv_have_account:
 			Bundle data2 = new Bundle();
 			if (mUser != null) {

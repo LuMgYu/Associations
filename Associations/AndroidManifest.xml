@@ -104,6 +104,8 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.AssociationVedioDisplayActivity" >
         </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.AssociationCheckActivity" >
+        </activity>
         <activity
             android:name="com.zhiyisoft.associations.activity.MoveCreateActivity"
             android:windowSoftInputMode="stateHidden|stateUnchanged" >
@@ -149,6 +151,17 @@
         <activity android:name="com.zhiyisoft.associations.util.localMusic.LocalMusicListActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.BindAccountActivity" >
+        </activity>
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.zhiyisoft.associations.activity.VideoViewDemo"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:label="Media/VideoView" >
         </activity>
 
         <meta-data

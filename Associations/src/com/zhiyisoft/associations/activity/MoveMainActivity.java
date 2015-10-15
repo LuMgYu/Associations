@@ -28,6 +28,7 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.img.WebImageCache;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeague;
@@ -82,6 +83,7 @@ public class MoveMainActivity extends BaseActivity {
 	private boolean isJoin = false;
 	private static final int SUCCESS_DETAIL = 1;
 	private static final int SUCCESS_WATCH = 2;
+	private static final int SUCCESS_CANCLE_WATCH = 4;
 	private static final int SUCCESS_JOIN = 3;
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
@@ -108,12 +110,25 @@ public class MoveMainActivity extends BaseActivity {
 				}
 				break;
 			case SUCCESS_JOIN:
-				boolean isJOIN = (Boolean) msg.obj;
-				if (isJOIN) {
-					ToastUtils.showToast("加入成功");
-					isJoin(1);
+				ModelError model = (ModelError) msg.obj;
+				if (model != null) {
+					if (model.getStatus() == 1) {
+						ToastUtils.showToast("加入成功");
+						isJoin(1);
+					} else {
+						ToastUtils.showToast(model.getMsg());
+					}
 				} else {
 					ToastUtils.showToast("加入失败");
+				}
+				break;
+			case SUCCESS_CANCLE_WATCH:
+				boolean flag = (Boolean) msg.obj;
+				if (flag) {
+					ToastUtils.showToast("取消关注成功");
+					isWatch(0);
+				} else {
+					ToastUtils.showToast("取消关注成功");
 				}
 				break;
 			}
@@ -346,11 +361,11 @@ public class MoveMainActivity extends BaseActivity {
 			break;
 		case R.id.rl_works_display:
 			Bundle workdata = new Bundle();
-			workdata.putSerializable(Config.SEND_ACTIVITY_DATA, mEvent);
+			workdata.putSerializable(Config.SEND_ACTIVITY_DATA, mEventResult);
 			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
-			getLocalFile();
+			// getLocalFile();
 			// mApp.startActivity(this, LocalVideoActivity.class, null);
 			// Bundle data2 = new Bundle();
 			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
@@ -361,7 +376,13 @@ public class MoveMainActivity extends BaseActivity {
 			break;
 		case R.id.main_ll_watch:
 			if (!isWatch && checkTheUser()) {
-				WatchMove(mEvent);
+				WatchMove(mEvent, SUCCESS_WATCH);
+			}
+			if (isWatch && checkTheUser()) {
+				if (mEvent != null) {
+					mEvent.setStub(1);
+					WatchMove(mEvent, SUCCESS_CANCLE_WATCH);
+				}
 			}
 			break;
 		case R.id.main_ll_join:
@@ -413,10 +434,10 @@ public class MoveMainActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				Boolean isSuccess = eventImpl.join(event);
+				Model model = eventImpl.join(event);
 				Message message = Message.obtain();
 				message.what = SUCCESS_JOIN;
-				message.obj = isSuccess;
+				message.obj = model;
 				mHandle.sendMessage(message);
 			}
 		});
@@ -427,7 +448,7 @@ public class MoveMainActivity extends BaseActivity {
 	 * 
 	 * @param event
 	 */
-	private void WatchMove(final ModelEvent event) {
+	private void WatchMove(final ModelEvent event, final int Type) {
 		final EventImpl eventImpl = mApp.getEventFIm();
 		mApp.getExecutor().execute(new Runnable() {
 
@@ -435,7 +456,7 @@ public class MoveMainActivity extends BaseActivity {
 			public void run() {
 				Boolean isSuccess = eventImpl.sub(event);
 				Message message = Message.obtain();
-				message.what = SUCCESS_WATCH;
+				message.what = Type;
 				message.obj = isSuccess;
 				mHandle.sendMessage(message);
 			}

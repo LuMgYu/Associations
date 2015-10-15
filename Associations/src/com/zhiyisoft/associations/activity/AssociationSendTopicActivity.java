@@ -318,6 +318,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	 * @param user
 	 */
 	private void sendTopicToNet(ModelLeagueTopic topic) {
+		fl_progress.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, mUser.getOauth_token());
 		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
@@ -343,8 +344,13 @@ public class AssociationSendTopicActivity extends BaseActivity {
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						// TODO Auto-generated method stub
 
+					}
+
+					@Override
+					public void onProgress(long bytesWritten, long totalSize) {
+						super.onProgress(bytesWritten, totalSize);
+						culcuteProgress(bytesWritten, totalSize);
 					}
 
 					@Override
@@ -359,7 +365,12 @@ public class AssociationSendTopicActivity extends BaseActivity {
 									onReturnResult(new Model());
 									onBackPressed();
 								} else {
-									ToastUtils.showToast("发表话题失败！");
+									if (jsonObject.has("msg")) {
+										ToastUtils.showToast(jsonObject
+												.getString("msg"));
+									} else {
+										ToastUtils.showToast("发表话题失败！");
+									}
 								}
 							}
 						} catch (JSONException e) {
@@ -450,10 +461,7 @@ public class AssociationSendTopicActivity extends BaseActivity {
 					@Override
 					public void onProgress(long bytesWritten, long totalSize) {
 						super.onProgress(bytesWritten, totalSize);
-						float progress = ((float) bytesWritten / (float) totalSize) * 100;
-						DecimalFormat df = new DecimalFormat("0");// 格式化小数
-						String s = df.format(progress);// 返回的是String类型
-						tv_progress.setText(s + "%");
+						culcuteProgress(bytesWritten, totalSize);
 					}
 
 					@Override
@@ -469,7 +477,12 @@ public class AssociationSendTopicActivity extends BaseActivity {
 									onReturnResult(new Model());
 									onBackPressed();
 								} else {
-									ToastUtils.showToast("上传作品失败！");
+									if (jsonObject.has("msg")) {
+										ToastUtils.showToast(jsonObject
+												.getString("msg"));
+									} else {
+										ToastUtils.showToast("上传作品失败！");
+									}
 								}
 							}
 						} catch (JSONException e) {
@@ -480,6 +493,16 @@ public class AssociationSendTopicActivity extends BaseActivity {
 					}
 
 				});
+	}
+
+	private void culcuteProgress(long bytesWritten, long totalSize) {
+		float progress = ((float) bytesWritten / (float) totalSize) * 100;
+		DecimalFormat df = new DecimalFormat("0");// 格式化小数
+		String s = df.format(progress);// 返回的是String类型
+		tv_progress.setText(s + "%");
+		if (s.equals("100")) {
+			fl_progress.setVisibility(View.GONE);
+		}
 	}
 
 	// -------------------------------------------------------------------------

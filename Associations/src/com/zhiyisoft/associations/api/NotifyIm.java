@@ -1,7 +1,9 @@
 package com.zhiyisoft.associations.api;
 
+import java.lang.reflect.Modifier;
 import java.util.List;
 
+import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -26,7 +28,7 @@ public interface NotifyIm {
 	 * 
 	 * @return
 	 */
-	List<Model> notifyList();
+	List<Model> notifyList(ModelNotify notify);
 
 	/**
 	 * 47.【消息设置已读】：Notify/setRead
@@ -39,6 +41,6 @@ public interface NotifyIm {
 	 * 
 	 * @return
 	 */
-	boolean setRead();
+	boolean setRead(ModelNotify notify);
 
 }

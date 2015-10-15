@@ -1,5 +1,11 @@
 package com.zhiyisoft.associations.activity;
 
+import io.vov.vitamio.LibsChecker;
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.MediaPlayer.OnPreparedListener;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,8 +29,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -192,8 +196,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 					} else if (type.equals("3")) {
 						bindDataToView(works.getTitle(), works.getFaceurl(),
 								works.getUname(), works.getCtime(),
-								works.getIntro(), null, null, null,
-								photoUrls.get(0));
+								works.getIntro(), null, null, null, works);
 					} else if (type.equals("4")) {
 						bindDataToView(works.getTitle(), works.getFaceurl(),
 								works.getUname(), works.getCtime(),
@@ -252,6 +255,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	@Override
 	public int getLayoutId() {
+		if (!LibsChecker.checkVitamioLibs(this))
+			return 0;
 		return R.layout.activity_association_topic_detail;
 	}
 
@@ -578,60 +583,76 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 		});
 	}
 
-	private void initVedio(String videoUrl) {
+	private void initVedio(ModelEventWorks works) {
+		if (works == null)
+			return;
+		String video_image = works.getVideo_image();
+		String path = null;
+		List<Model> list = works.getAttachs();
+		if (list != null) {
+			ModelCommonAttach attach = (ModelCommonAttach) list.get(0);
+			path = attach.getUrl();
+		}
 		mNeedView = addViewToContent(content_ll_main,
 				R.layout.detail_vedio_item);
-		SmartImageView iv_vedio = (SmartImageView) mNeedView
-				.findViewById(R.id.iv_vedio);
-		ImageView iv_vedio_click = (ImageView) mNeedView
-				.findViewById(R.id.iv_vedio_click);
-		WebView webView = (WebView) mNeedView.findViewById(R.id.wv_video);
-		iv_vedio_click.setTag(videoUrl);
-		iv_vedio_click.setTag(R.id.album, webView);
-		iv_vedio_click.setOnClickListener(new OnClickListener() {
-
+		ImageView iv_vedio = (ImageView) mNeedView.findViewById(R.id.iv_vedio);
+		mApp.displayImage(video_image, iv_vedio);
+		mPlayButton = (ImageView) mNeedView.findViewById(R.id.iv_vedio_click);
+		mPlayButton.setImageResource(R.drawable.video03);
+		mPlayButton.setTag(path);
+		mPlayButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String path = (String) v.getTag();
-				WebView webView = (WebView) v.getTag(R.id.album);
-				playTheVideo(webView, path);
-				v.setVisibility(View.GONE);
+				Bundle bundle = new Bundle();
+				bundle.putString(Config.SEND_ACTIVITY_DATA, path);
+				mApp.startActivity(AssociationTopicDetailActivity.this,
+						VideoViewDemo.class, bundle);
 			}
 		});
 	}
 
-	/**
-	 * 播放视频
-	 * 
-	 * @param videourl
-	 */
-	public void playTheVideo(WebView webView, String videourl) {
-		if (webView != null && videourl != null) {
-			WebSettings settings = webView.getSettings();
-			// settings.setJavaScriptEnabled(true);
-			// settings.setPluginState(PluginState.ON);
-			// settings.setJavaScriptCanOpenWindowsAutomatically(true);
-			// settings.setAllowFileAccess(true);
-			// settings.setDefaultTextEncodingName("UTF-8");
-			// settings.setLoadWithOverviewMode(true);
-			// settings.setUseWideViewPort(true);
-			settings.setBuiltInZoomControls(true);// 隐藏缩放按钮
-			// ws.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);//
-			// 排版适应屏幕
-			settings.setUseWideViewPort(true);// 可任意比例缩放
-			settings.setLoadWithOverviewMode(true);// setUseWideViewPort方法设置webview推荐使用的窗口。setLoadWithOverviewMode方法是设置webview加载的页面的模式。
-			settings.setSavePassword(true);
-			settings.setSaveFormData(true);// 保存表单数据
-			settings.setJavaScriptEnabled(true);
-			settings.setUseWideViewPort(true);
-			settings.setLoadWithOverviewMode(true);
-			webView.setVisibility(View.VISIBLE);
-			// webView.loadUrl("http://daxs.zhiyicx.com/attachment/uploads/2015/1008/17/56163282a48b1.mp4");
-			webView.loadUrl(videourl);
-		}
+	private ImageView mPlayButton;
+	// private boolean IsFirst = true;
 
-	}
+	/******************************* 播放视频 ********************************************/
+	// private void playVideo(String videoUrl) {
+	// if (iv_video_view != null) {
+	// iv_video_view.setVideoPath(videoUrl);
+	// iv_video_view.requestFocus();
+	// iv_video_view.setOnPreparedListener(new OnPreparedListener() {
+	//
+	// public void onPrepared(MediaPlayer mediaPlayer) {
+	// mediaPlayer.setPlaybackSpeed(1.0f);
+	// }
+	// });
+	// // iv_video_view
+	// // .setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+	// // @Override
+	// // public void onPrepared(MediaPlayer mediaPlayer) {
+	// // mediaPlayer.setPlaybackSpeed(1.0f);
+	// // }
+	// // });
+	// // iv_video_view.setOnPreparedListener(new OnPreparedListener() {
+	// // @Override
+	// // public void onPrepared(MediaPlayer mp) {
+	// // iv_video_view.start();
+	// // IsFirst = false;
+	// // }
+	// // });
+	// // iv_video_view.setOnCompletionListener(new OnCompletionListener()
+	// // {
+	// // @Override
+	// // public void onCompletion(MediaPlayer mp) {
+	// // mPlayButton.setImageResource(R.drawable.video03);
+	// // mPlayButton.setVisibility(View.VISIBLE);
+	// // IsFirst = false;
+	// // }
+	// // });
+	// }
+	// }
 
+	/****************************** 播放音乐 **************************************/
 	private MusicPlayer mPlayer;
 	boolean isStart = false; // 是否播放
 	boolean isFirst = true; // 是否第一次播放
@@ -766,7 +787,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 	private void bindDataToView(String title, String faceUrl, String username,
 			String date, String content, List<String> photoUrls,
 			List<ModelCommonAttach> filelist,
-			List<ModelCommonAttach> musiclist, String videourl) {
+			List<ModelCommonAttach> musiclist, ModelEventWorks works) {
 		if (title != null) {
 			content_tv_title.setText(title);
 		}
@@ -802,8 +823,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 			}
 		}
-		if (videourl != null) {
-			initVedio(videourl);
+		if (works != null) {
+			initVedio(works);
 		}
 
 	}

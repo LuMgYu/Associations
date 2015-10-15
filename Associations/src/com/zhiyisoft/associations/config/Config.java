@@ -14,6 +14,7 @@ public class Config {
 	public static final String LOCALVIDEO = "localvideo";
 	public static final String LOCALMUSIC = "LocalMusic";
 	public static final String PHOTOURL = "photourl";
+	public static final String CHECKED_ASSOCITION = "checked_Assocition";
 
 	// -----------------------------访问shareprefrence用到-------------------------------------------------
 	public static final String USER_DATA = "user_data";

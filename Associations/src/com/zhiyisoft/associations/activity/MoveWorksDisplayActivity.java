@@ -1,6 +1,7 @@
 package com.zhiyisoft.associations.activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Intent;
@@ -24,6 +25,8 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
+import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -72,11 +75,30 @@ public class MoveWorksDisplayActivity extends BaseActivity {
 		tv_title_right.setOnClickListener(this);
 	}
 
+	private boolean JudgeTheUploadTime(ModelEvent event) {
+		if (event != null) {
+			String startTime = event.getWorkStime();
+			String endTime = event.getWorkEtime();
+			Date endDate = DateUtil.stampToDate(endTime);
+			Date date = new Date();
+			// if (!DateUtil.compareDate(date, startDate)) {
+			// ToastUtils.showToast("还没有到上传作品的时间");
+			// return false;
+			// }
+			if (DateUtil.compareDate(date, endDate)) {
+				ToastUtils.showToast("作品上传截止时间已过！");
+				return false;
+			}
+			return true;
+		}
+		return true;
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
-			if (checkTheUser()) {
+			if (checkTheUser() && JudgeTheUploadTime(mEvent)) {
 				initPopWindow();
 				showPop(tv_title_right, 0, 10);
 			}

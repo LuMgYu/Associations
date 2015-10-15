@@ -6,6 +6,8 @@ package com.zhiyisoft.associations.activity.base;
  * Purpose: Defines the Class BaseActivity
  ***********************************************************************/
 
+import io.vov.vitamio.LibsChecker;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

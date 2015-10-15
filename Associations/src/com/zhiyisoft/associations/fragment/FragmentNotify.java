@@ -16,7 +16,6 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.NotifyNfyListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
-import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -118,23 +117,5 @@ public class FragmentNotify extends BaseFragment {
 		// TODO Auto-generated method stub
 
 	}
-
-	//
-	// @Override
-	// public void onDetach() {
-	// super.onDetach();
-	//
-	// try {
-	// Field childFragmentManager = Fragment.class
-	// .getDeclaredField("mChildFragmentManager");
-	// childFragmentManager.setAccessible(true);
-	// childFragmentManager.set(this, null);
-	//
-	// } catch (NoSuchFieldException e) {
-	// throw new RuntimeException(e);
-	// } catch (IllegalAccessException e) {
-	// throw new RuntimeException(e);
-	// }
-	// }
 
 }

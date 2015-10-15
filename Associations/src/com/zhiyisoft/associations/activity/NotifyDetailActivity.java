@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelNotify;
+import com.zhiyisoft.associations.util.DateUtil;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -18,6 +21,7 @@ public class NotifyDetailActivity extends BaseActivity {
 	private TextView tv_notify_date;
 	private TextView tv_notify_content;
 	private TextView tv_notify_detail;
+	private ModelNotify mNotify;
 
 	@Override
 	public String setCenterTitle() {
@@ -26,7 +30,10 @@ public class NotifyDetailActivity extends BaseActivity {
 
 	@Override
 	public void initIntent() {
-		// TODO Auto-generated method stub
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			mNotify = (ModelNotify) bundle.get(Config.SEND_ACTIVITY_DATA);
+		}
 
 	}
 
@@ -35,17 +42,20 @@ public class NotifyDetailActivity extends BaseActivity {
 		return R.layout.activity_notify_detail;
 	}
 
-	// private ImageView iv_notify;
-	// private TextView tv_notify_date;
-	// private TextView tv_notify_content;
-	// private TextView tv_notify_detail;
-
 	@Override
 	public void initView() {
 		iv_notify = (ImageView) findViewById(R.id.iv_notify);
 		tv_notify_date = (TextView) findViewById(R.id.tv_notify_date);
 		tv_notify_content = (TextView) findViewById(R.id.tv_notify_content);
 		tv_notify_detail = (TextView) findViewById(R.id.tv_notify_detail);
+		initData();
+	}
+
+	private void initData() {
+		if (mNotify != null) {
+			tv_notify_date.setText(DateUtil.strTodate(mNotify.getcTime()));
+			tv_notify_content.setText(mNotify.getContent());
+		}
 	}
 
 	@Override
@@ -58,6 +68,7 @@ public class NotifyDetailActivity extends BaseActivity {
 		switch (v.getId()) {
 		case R.id.tv_notify_detail:
 			Bundle data = new Bundle();
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, mNotify);
 			mApp.startActivity(this, NotifyDetailContentActivity.class, data);
 			break;
 		}

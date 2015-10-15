@@ -39,9 +39,9 @@ import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelEvent;
+import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
-import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
@@ -132,7 +132,7 @@ public class MoveCreateActivity extends BaseActivity {
 			case SUCCESS_ONLINE:
 				boolean isSuccess = (Boolean) msg.obj;
 				if (isSuccess) {
-					ToastUtils.showToast("创建活动成功！");
+					ToastUtils.showToast("创建活动成功！等待审核");
 				} else {
 					ToastUtils.showToast("创建活动失败！");
 				}
@@ -274,6 +274,7 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_music_yes.setOnClickListener(this);
 		move_rl_scope.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
+		move_rl_association.setOnClickListener(this);
 
 	}
 
@@ -304,6 +305,10 @@ public class MoveCreateActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		// ----------------------------------时间选择部分------------------------------------------
+		case R.id.move_rl_association:
+			mApp.startActivityForResult(this, AssociationCheckActivity.class,
+					null);
+			break;
 		case R.id.move_rl_main:
 			showPop(move_rl_welfare, 0, 0);
 			mFlag[0] = true;
@@ -469,6 +474,12 @@ public class MoveCreateActivity extends BaseActivity {
 					.get(Config.GET_ACTIVITY_DATA);
 			if (model != null) {
 				move_tv_scope_name.setText(model.getName() + "");
+			}
+			ModelLeague league = (ModelLeague) bundle
+					.get(Config.CHECKED_ASSOCITION);
+			if (league != null) {
+				gid = league.getGid();
+				move_tv_association_name.setText(league.getName());
 			}
 		}
 	}

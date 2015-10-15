@@ -54,4 +54,37 @@ public class DateUtil {
 		}
 		return null;
 	}
+
+	/**
+	 * 把时间戳转化为date
+	 * 
+	 * @param time
+	 * @return
+	 */
+	public static Date stampToDate(String time) {
+		if (time != null) {
+			Long timestamp = Long.valueOf(time) * 1000;
+			Timestamp unixTime = new Timestamp(timestamp);
+			return unixTime;
+		}
+		return null;
+	}
+
+	/**
+	 * 比较两个时间的大小
+	 * 
+	 * @param first
+	 * @param second
+	 * @return
+	 */
+	public static boolean compareDate(Date first, Date second) {
+		if (first != null && second != null) {
+			if (first.getTime() > second.getTime()) {
+				return true;
+			}
+			return false;
+		}
+		return false;
+
+	}
 }

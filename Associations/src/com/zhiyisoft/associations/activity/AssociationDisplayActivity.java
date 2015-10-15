@@ -55,12 +55,6 @@ public class AssociationDisplayActivity extends BaseActivity {
 
 	@Override
 	public void initListener() {
-		// rl_nick.setOnClickListener(this);
-		// rl_gender.setOnClickListener(this);
-		// rl_school.setOnClickListener(this);
-		// rl_homeland.setOnClickListener(this);
-		// rl_email.setOnClickListener(this);
-		// rl_phone.setOnClickListener(this);
 
 	}
 

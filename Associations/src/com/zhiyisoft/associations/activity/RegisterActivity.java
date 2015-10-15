@@ -11,6 +11,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -42,11 +43,18 @@ public class RegisterActivity extends BaseActivity {
 			// TODO
 			switch (msg.what) {
 			case SEND_SUCCESS:
-				boolean isSuccess = (Boolean) msg.obj;
-				if (isSuccess) {
+				ModelError error = (ModelError) msg.obj;
+				if (error != null) {
 					// TODO 把获取的信息，保存到shareprefrence类中
-					ToastUtils.showToast("发送验证码成功");
-					countTime();
+					if (error.getStatus() == 1) {
+						ToastUtils.showToast("发送验证码成功");
+						countTime();
+					} else {
+						ToastUtils.showToast(error.getMsg());
+						isRed = true;
+						btn_reset.setBackgroundResource(R.drawable.btn_red);
+						btn_reset.setText("获取验证码");
+					}
 				} else {
 					ToastUtils.showToast("发送验证码失败，请稍后重试");
 					isRed = true;
@@ -152,10 +160,10 @@ public class RegisterActivity extends BaseActivity {
 
 					@Override
 					public void run() {
-						boolean isSuccess = loginIm.sendRegisterCode(mUser);
+						Model Model = loginIm.sendRegisterCode(mUser);
 						Message message = Message.obtain();
 						message.what = SEND_SUCCESS;
-						message.obj = isSuccess;
+						message.obj = Model;
 						mHandle.sendMessage(message);
 					}
 				});

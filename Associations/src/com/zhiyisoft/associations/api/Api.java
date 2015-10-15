@@ -16,6 +16,7 @@ import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelComment;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelHome;
@@ -141,15 +142,15 @@ public class Api {
 		}
 
 		@Override
-		public boolean sendRegisterCode(ModelUser user) {
+		public Model sendRegisterCode(ModelUser user) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, LOGIN);
 			get.addBodyParam(ACT, SEND_REGISTER_CODE);
 			get.addBodyParam(MOBILE, user.getMobile());
 			Object object = get.run();
-			boolean flag = isCodeOk(object);
-			return flag;
+			getModelError(object);
+			return getModelError(object);
 		}
 
 		@Override
@@ -713,7 +714,7 @@ public class Api {
 		}
 
 		@Override
-		public boolean join(ModelEvent event) {
+		public Model join(ModelEvent event) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, EVENT);
@@ -721,7 +722,8 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(ID, event.getId());
 			Object object = get.run();
-			return isCodeOk(object);
+			Model model = getModelError(object);
+			return model;
 		}
 
 		@Override
@@ -862,20 +864,31 @@ public class Api {
 	public static final class NotifyImpl implements NotifyIm {
 
 		@Override
-		public List<Model> notifyList() {
+		public List<Model> notifyList(ModelNotify notify) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, NOTIFY);
 			get.addBodyParam(ACT, NOTIFYLIST);
 			judgeTheUser(get);
+			if (notify != null) {
+				get.addBodyParam(P, notify.getP());
+			}
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelNotify());
 		}
 
 		@Override
-		public boolean setRead() {
-			// TODO Auto-generated method stub
-			return false;
+		public boolean setRead(ModelNotify notify) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, NOTIFY);
+			get.addBodyParam(ACT, SETREAD);
+			judgeTheUser(get);
+			if (notify != null) {
+				get.addBodyParam(ID, notify);
+			}
+			Object object = get.run();
+			return isCodeOk(object);
 		}
 
 	}
@@ -932,6 +945,21 @@ public class Api {
 			}
 		}
 		return false;
+	}
+
+	public static Model getModelError(Object json) {
+		if (json != null) {
+			try {
+				JSONObject jsonObject = new JSONObject(json.toString());
+				Model model = JsonUtils.parseJsonObject(jsonObject,
+						new ModelError());
+				return model;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	/**
