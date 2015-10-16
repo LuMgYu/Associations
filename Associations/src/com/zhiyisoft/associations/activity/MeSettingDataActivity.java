@@ -4,15 +4,18 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.Api.LoginImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
 
 /**
@@ -189,11 +192,25 @@ public class MeSettingDataActivity extends BaseActivity {
 						.get(Config.GET_ACTIVITY_DATA);
 				if (school != null) {
 					tv_school_name.setText(school.getName() + "");
+					ModelUser user = new ModelUser();
+					user.setSchool_id(school.getId());
+					updateSchool(user);
 				}
 			} else {
 				// onBackPressed();
 			}
 		}
+	}
+
+	private void updateSchool(final ModelUser user) {
+		final LoginImpl loginImpl = mApp.getLoginIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				loginImpl.updateProfile(user);
+			}
+		});
 	}
 
 }

@@ -50,6 +50,7 @@ import com.zhiyisoft.associations.cache.base.DiskLruCache;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.Anim;
+import com.zhiyisoft.associations.util.FileSizeUtil;
 
 /**
  * author：qiuchunjia time：下午2:16:14 类描述：
@@ -131,11 +132,9 @@ public class Association extends Application {
 	 * 
 	 * @return
 	 */
-	public float getUsedCache() {
-		mDiskCache = getCache();
-		float count = mDiskCache.size();
-		float mCountM = count / (1024 * 1024);
-		float b = (float) (Math.round(mCountM * 100)) / 100; // 取两位小数
+	public double getUsedCache() {
+		File file = getImagePath();
+		double b = FileSizeUtil.getFileOrFilesSize(file.getPath(), 3);
 		return b;
 	}
 
@@ -145,14 +144,11 @@ public class Association extends Application {
 	 * @return
 	 */
 	public boolean cleanCache() {
-		mDiskCache = getCache();
-		try {
-			mDiskCache.delete();
-			mDiskCache = null;
+		ImageLoader loader = initImageLoader();
+		if (loader != null) {
+			loader.clearDiskCache();
+			loader.clearMemoryCache();
 			return true;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return false;
 	}

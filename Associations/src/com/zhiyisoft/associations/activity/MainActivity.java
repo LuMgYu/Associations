@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -25,6 +26,7 @@ import com.zhiyisoft.associations.fragment.FragmentMove;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
 public class MainActivity extends BaseActivity {
@@ -416,6 +418,27 @@ public class MainActivity extends BaseActivity {
 		tv_association.setTextColor(getResources().getColor(R.color.text_gray));
 		tv_notify.setTextColor(getResources().getColor(R.color.text_gray));
 		tv_me.setTextColor(getResources().getColor(R.color.text_gray));
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (KeyEvent.KEYCODE_BACK == keyCode) {
+			// 判断是否在两秒之内连续点击返回键，是则退出，否则不退出
+			ExitApp();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private long exitTime = 0;
+
+	public void ExitApp() {
+		if ((System.currentTimeMillis() - exitTime) > 2000) {
+			ToastUtils.showToast("双击退出程序");
+			exitTime = System.currentTimeMillis();
+		} else {
+			finish();
+		}
 	}
 
 	// --------------------------PopupWindow的界面控件-----------------------------------------

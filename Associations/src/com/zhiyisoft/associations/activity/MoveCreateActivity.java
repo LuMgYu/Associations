@@ -397,7 +397,6 @@ public class MoveCreateActivity extends BaseActivity {
 
 			break;
 		case R.id.tv_title_right:
-			ToastUtils.showToast("提交了！呵呵哒");
 			// TODO
 			view2data();
 			if (judgeTheOnlineData()) {
@@ -406,7 +405,6 @@ public class MoveCreateActivity extends BaseActivity {
 			}
 			break;
 		case R.id.btn_move_commit:
-			ToastUtils.showToast("提交了！呵呵哒");
 			view2data();
 			if (judgeTheNotOnlineData()) {
 				ModelEvent event = bindDataToModel();
@@ -537,7 +535,7 @@ public class MoveCreateActivity extends BaseActivity {
 			online = "1";
 		}
 		// logo;// 接口37中返回的id必填
-		gid = "15293";// 所属社团 必填
+		// gid = "15293";// 所属社团 必填
 		title = move_et_name.getText().toString();// 活动标题 必填
 		address = move_et_location.getText().toString();// 活动地点 选填
 		// type = "12"; 在选择的时候就已经赋值了
