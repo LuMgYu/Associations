@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.MapView;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.widget.CircleFlowIndicator;
@@ -195,6 +196,7 @@ public class ViewHolder {
 
 	/******************************** 通知模块 end ********************************************/
 	/******************************** 活动 item ********************************************/
+	public MapView mapView;
 	public SmartImageView move_smiv_icon;
 	public TextView move_tv_end;
 	public TextView move_tv_title;

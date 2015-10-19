@@ -441,7 +441,7 @@ public class HomeAdapter extends BAdapter {
 	private void setAds() {
 		if (mViewHolder != null) {
 			mViewHolder.mhome_viewflow.setAdapter(new ImageAdapter(
-					mBaseActivity));
+					mBaseActivity), 0);
 			mViewHolder.mhome_viewflow
 					.setFlowIndicator(mViewHolder.mhome_viewflowindicator);
 			mViewHolder.mhome_viewflow.setTimeSpan(1000 * 3);

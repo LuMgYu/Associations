@@ -40,6 +40,7 @@ import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelLeague;
+import com.zhiyisoft.associations.model.ModelLocation;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.DateUtil;
@@ -62,7 +63,7 @@ public class MoveCreateActivity extends BaseActivity {
 	private RelativeLayout move_rl_welfare;
 	private RelativeLayout move_rl_main;
 	private RelativeLayout move_rl_location;
-	private EditText move_et_location;
+	private TextView move_tv_location_name;
 
 	private TextView move_tv_start_time;
 	private RelativeLayout move_rl_end;
@@ -195,7 +196,7 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_enter_end = (RelativeLayout) findViewById(R.id.move_rl_enter_end);
 		move_rl_commmit_work = (RelativeLayout) findViewById(R.id.move_rl_commmit_work);
 		move_rl_location = (RelativeLayout) findViewById(R.id.move_rl_location);
-		move_et_location = (EditText) findViewById(R.id.move_et_location);
+		move_tv_location_name = (TextView) findViewById(R.id.move_tv_location_name);
 		// 新增控件
 
 		move_rl_main_master = (RelativeLayout) findViewById(R.id.move_rl_main_master);
@@ -230,7 +231,7 @@ public class MoveCreateActivity extends BaseActivity {
 	 * 判断是否是创建线上内容，否则就是线下内容
 	 */
 	private void judgeIsOnline() {
-		// TODO 隐藏部分控件
+		// 隐藏部分控件
 		if (!isOnline) {
 			move_tv_enter.setVisibility(View.GONE);
 			move_rl_public.setVisibility(View.GONE);
@@ -275,6 +276,7 @@ public class MoveCreateActivity extends BaseActivity {
 		move_rl_scope.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
 		move_rl_association.setOnClickListener(this);
+		move_rl_location.setOnClickListener(this);
 
 	}
 
@@ -287,7 +289,6 @@ public class MoveCreateActivity extends BaseActivity {
 
 	@Override
 	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
-		// TODO Auto-generated method stub
 		mBitmap = super.compressOutStream2Bitmap(bitmap, stream);
 		move_icon.setImageBitmap(mBitmap);
 		return mBitmap;
@@ -305,6 +306,10 @@ public class MoveCreateActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		// ----------------------------------时间选择部分------------------------------------------
+		case R.id.move_rl_location:
+			// TODO
+			mApp.startActivityForResult(this, BaiDuLocateActivity.class, null);
+			break;
 		case R.id.move_rl_association:
 			mApp.startActivityForResult(this, AssociationCheckActivity.class,
 					null);
@@ -397,7 +402,6 @@ public class MoveCreateActivity extends BaseActivity {
 
 			break;
 		case R.id.tv_title_right:
-			// TODO
 			view2data();
 			if (judgeTheOnlineData()) {
 				ModelEvent event = bindDataToModel();
@@ -479,6 +483,14 @@ public class MoveCreateActivity extends BaseActivity {
 				gid = league.getGid();
 				move_tv_association_name.setText(league.getName());
 			}
+			ModelLocation location = (ModelLocation) bundle
+					.get(Config.LOCATION);
+			if (location != null) {
+				ToastUtils.showToast(location.toString());
+				move_tv_location_name.setText(location.getAddress());
+				longtitude = location.getLongtitude();
+				latitude = location.getLatitude();
+			}
 		}
 	}
 
@@ -502,6 +514,8 @@ public class MoveCreateActivity extends BaseActivity {
 	private String workEtime;// 作品提交结束时间 必填
 	private String explainType; // 作品类型
 	private String rangeDes;// 指定学校id 选填explainType
+	private double latitude; // 纬度
+	private double longtitude; // 经度
 
 	private int count1 = 0; // 来记录选择作品次数，然后用于拼接
 	private int count2 = 0;
@@ -524,7 +538,6 @@ public class MoveCreateActivity extends BaseActivity {
 		}
 	}
 
-	// TODO
 	/**
 	 * 把界面的数据映射到这些变量里面
 	 */
@@ -537,7 +550,7 @@ public class MoveCreateActivity extends BaseActivity {
 		// logo;// 接口37中返回的id必填
 		// gid = "15293";// 所属社团 必填
 		title = move_et_name.getText().toString();// 活动标题 必填
-		address = move_et_location.getText().toString();// 活动地点 选填
+		address = move_tv_location_name.getText().toString();// 活动地点 选填
 		// type = "12"; 在选择的时候就已经赋值了
 		host = move_et_main_master.getText().toString();
 		explain = move_et_about.getText().toString();// 活动内容 必填
@@ -727,6 +740,8 @@ public class MoveCreateActivity extends BaseActivity {
 		event.setWorkEtime(workEtime);
 		event.setRangeDes(rangeDes);
 		event.setExplainType(explainType);
+		event.setLatitude(latitude);
+		event.setLongtitude(longtitude);
 		return event;
 	}
 

@@ -78,6 +78,9 @@ public class ModelEvent extends Model {
 	private List<Model> members;
 	private List<Model> works;
 
+	private double latitude; // 2015-10-19
+	private double longtitude;
+
 	/**************** 获取活动需要的数据end *************************/
 
 	public ModelEvent() {
@@ -440,6 +443,22 @@ public class ModelEvent extends Model {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getLongtitude() {
+		return longtitude;
+	}
+
+	public void setLongtitude(double longtitude) {
+		this.longtitude = longtitude;
 	}
 
 	@Override

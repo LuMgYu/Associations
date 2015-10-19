@@ -20,7 +20,7 @@ public interface LoginIm {
 	// public static final String USERAUTH = "userauth";
 	public static final String LOGIN = "Login";
 	public static final String USER = "User";
-
+	public static final String LOGIN1 = "login";
 	public static final String MOBILE = "mobile";
 	public static final String PWD = "password";
 	public static final String UID = "uid";

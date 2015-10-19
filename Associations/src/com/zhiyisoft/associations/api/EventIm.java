@@ -44,6 +44,8 @@ public interface EventIm {
 	public static final String WORKETIME = "workEtime";// 作品提交结束时间 必填
 	public static final String EXPLAINTYPE = "explainType";// 作品提交结束时间 必填
 	public static final String RANGEDES = "rangeDes";// 指定学校id 选填
+	public static final String LATITUDE = "latitude";// 纬度
+	public static final String LONGTITUDE = "longitude";// 经度
 
 	public static final String OP = "op";// 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的)
 	public static final String ID = "id";// 活动id

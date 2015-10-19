@@ -26,7 +26,6 @@ import android.widget.Toast;
 
 import com.zhiyisoft.associations.R;
 
-
 /**
  * @author qcj
  *
@@ -46,7 +45,7 @@ public class ImageAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		return Integer.MAX_VALUE;// 返回很大的�?使得getView中的position不断增大来实现循�?
+		return ids.length;// 返回很大的�?使得getView中的position不断增大来实现循�?
 	}
 
 	@Override
@@ -64,8 +63,10 @@ public class ImageAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.viewflow_item, null);
 		}
+		// ((ImageView) convertView.findViewById(R.id.iv_viewflow_item))
+		// .setImageResource(ids[position % ids.length]);
 		((ImageView) convertView.findViewById(R.id.iv_viewflow_item))
-				.setImageResource(ids[position % ids.length]);
+				.setImageResource(ids[position]);
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

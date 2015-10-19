@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -86,6 +87,14 @@ public class Association extends Application {
 		super.onCreate();
 		mApp = this;
 		initImageLoader();
+		initBaidu();
+	}
+
+	/**
+	 * 初始化百度定位
+	 */
+	private void initBaidu() {
+		SDKInitializer.initialize(getApplicationContext());
 	}
 
 	/**

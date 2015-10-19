@@ -1,11 +1,9 @@
 package com.zhiyisoft.associations.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -14,7 +12,6 @@ import android.widget.ListView;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.localImageHelper.LocalImage;
 import com.zhiyisoft.associations.util.localImageHelper.PhotoDirInfo;
 import com.zhiyisoft.associations.util.localImageHelper.adapter.ImageListAdapter;
@@ -29,6 +26,7 @@ public class LocalImagListActivity extends BaseActivity {
 	private ListView imageListView;
 	private ArrayList<PhotoDirInfo> mDirInfos;
 	private ImageListAdapter adapter;
+	ArrayList<String> mPhotoPathlist;
 
 	@Override
 	public void onClick(View v) {
@@ -88,12 +86,22 @@ public class LocalImagListActivity extends BaseActivity {
 				return;
 			}
 			Bundle bundle = data.getExtras();
-			ArrayList<String> list = (ArrayList<String>) bundle
+			mPhotoPathlist = (ArrayList<String>) bundle
 					.get(Config.GET_ACTIVITY_DATA);
-			if (list != null) {
-				onReturnResult(list);
-				onBackPressed();
+			if (mPhotoPathlist != null) {
+				// onReturnResult(list);
+				// // onBackPressed();
 			}
 		}
 	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (mPhotoPathlist != null) {
+			onReturnResult(mPhotoPathlist);
+			onBackPressed();
+		}
+	}
+
 }

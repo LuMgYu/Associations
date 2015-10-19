@@ -1,10 +1,8 @@
 package com.zhiyisoft.associations.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,9 +14,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyStringGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
-import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.base.Model;
-import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现
@@ -42,6 +38,7 @@ public class MeSettingProvinceActivity extends BaseActivity {
 
 	private RelativeLayout rl_current_province;
 	private TextView tv_current_province;
+	private Model mResultModel;
 
 	@Override
 	public String setCenterTitle() {
@@ -106,12 +103,17 @@ public class MeSettingProvinceActivity extends BaseActivity {
 				return;
 			}
 			Bundle bundle = data.getExtras();
-			Model model = (Model) bundle.get(Config.GET_ACTIVITY_DATA);
-			if (model != null) {
-				onReturnResult(model);
-				onBackPressed();
-			}
+			mResultModel = (Model) bundle.get(Config.GET_ACTIVITY_DATA);
 		}
+	}
+
+	@Override
+	protected void onResume() {
+		if (mResultModel != null) {
+			onReturnResult(mResultModel);
+			onBackPressed();
+		}
+		super.onResume();
 	}
 
 	@Override

@@ -94,7 +94,7 @@ public class Api {
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, LOGIN);
 			get.addBodyParam(ACT, AUTHORIZE);
-			get.addBodyParam(MOBILE, model.getMobile());
+			get.addBodyParam(LOGIN1, model.getMobile());
 			get.addBodyParam(PWD, model.getPwd());
 			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelUser());
@@ -697,6 +697,8 @@ public class Api {
 			get.addBodyParam(WORKETIME, event.getWorkEtime());
 			get.addBodyParam(RANGEDES, event.getRangeDes());
 			get.addBodyParam(EXPLAINTYPE, event.getExplainType());
+			get.addBodyParam(LONGTITUDE, event.getLongtitude());
+			get.addBodyParam(LATITUDE, event.getLatitude());
 			Object object = get.run();
 			return isCodeOk(object);
 		}
