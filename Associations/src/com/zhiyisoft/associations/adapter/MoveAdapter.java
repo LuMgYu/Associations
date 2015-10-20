@@ -5,11 +5,10 @@ import java.util.List;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.MapView;
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.MoveLocationDisplayActivity.LocationResultListener;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api.EventImpl;
@@ -18,7 +17,6 @@ import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.DateUtil;
-import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -30,9 +28,7 @@ import com.zhiyisoft.associations.util.ViewHolder;
 
 public class MoveAdapter extends BAdapter {
 	private ModelEvent mEvent;
-	private static final int TYPE_COUNT = 2;
-	private static final int TYPE_MAP = 1;
-	private static final int TYPE_MAIN = 2;
+	LocationResultListener mListener;
 
 	public MoveAdapter(BaseActivity activity, ModelEvent event) {
 		super(activity, null);
@@ -44,26 +40,25 @@ public class MoveAdapter extends BAdapter {
 		this.mEvent = event;
 	}
 
+	public MoveAdapter(BaseActivity activity, ModelEvent event,
+			LocationResultListener listener) {
+		super(activity, null);
+		this.mEvent = event;
+		this.mListener = listener;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		int type = judgeTheViewType(position);
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = initView(holder, convertView, type);
+			convertView = initView(holder, convertView);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		bundledataToView(position, holder);
 		return convertView;
-	}
-
-	public int judgeTheViewType(int pos) {
-		if (pos == 0) {
-			return TYPE_MAP;
-		}
-		return TYPE_MAIN;
 	}
 
 	/**
@@ -102,34 +97,24 @@ public class MoveAdapter extends BAdapter {
 
 	}
 
-	private View initView(ViewHolder holder, View parent, int type) {
-		if (type == TYPE_MAP) {
-			parent = mInflater.inflate(R.layout.move_location, null);
-			holder.mapView = new MapView(mBaseActivity);
-			holder.mapView.setLayoutParams(new LinearLayout.LayoutParams(
-					UIUtils.getWindowWidth(mBaseActivity), UIUtils
-							.getWindowHeight(mBaseActivity) / 3 * 2));
-			((ViewGroup) parent).addView(holder.mapView);
-		} else if (type == TYPE_MAIN) {
-			parent = mInflater.inflate(R.layout.move_item, null);
-			holder.move_smiv_icon = (SmartImageView) parent
-					.findViewById(R.id.move_smiv_icon);
-			holder.move_tv_end = (TextView) parent
-					.findViewById(R.id.move_tv_end);
-			holder.move_tv_title = (TextView) parent
-					.findViewById(R.id.move_tv_title);
-			holder.move_btn_online = (Button) parent
-					.findViewById(R.id.move_btn_online);
-			holder.move_btn_event = (Button) parent
-					.findViewById(R.id.move_btn_event);
+	private View initView(ViewHolder holder, View parent) {
+		parent = mInflater.inflate(R.layout.move_item, null);
+		holder.move_smiv_icon = (SmartImageView) parent
+				.findViewById(R.id.move_smiv_icon);
+		holder.move_tv_end = (TextView) parent.findViewById(R.id.move_tv_end);
+		holder.move_tv_title = (TextView) parent
+				.findViewById(R.id.move_tv_title);
+		holder.move_btn_online = (Button) parent
+				.findViewById(R.id.move_btn_online);
+		holder.move_btn_event = (Button) parent
+				.findViewById(R.id.move_btn_event);
 
-			holder.move_tv_deadline = (TextView) parent
-					.findViewById(R.id.move_tv_deadline);
-			holder.move_tv_allmove = (TextView) parent
-					.findViewById(R.id.move_tv_allmove);
-			holder.move_tv_content = (TextView) parent
-					.findViewById(R.id.move_tv_content);
-		}
+		holder.move_tv_deadline = (TextView) parent
+				.findViewById(R.id.move_tv_deadline);
+		holder.move_tv_allmove = (TextView) parent
+				.findViewById(R.id.move_tv_allmove);
+		holder.move_tv_content = (TextView) parent
+				.findViewById(R.id.move_tv_content);
 		return parent;
 	}
 
@@ -155,6 +140,9 @@ public class MoveAdapter extends BAdapter {
 
 	@Override
 	public void addHeadList(List<Model> list) {
+		if (mListener != null) {
+			mListener.result(list);
+		}
 		addHeadListWay2(list);
 	}
 
@@ -167,19 +155,15 @@ public class MoveAdapter extends BAdapter {
 		if (mEvent != null) {
 			mEvent.setP(index);
 			EventImpl eventImpl = mApp.getEventFIm();
-			List<Model> items = eventImpl.eventList(mEvent);
+			List<Model> items = null;
+			if (mEvent.getTypeName().equals("周边活动")) {
+				items = eventImpl.getNearbyEvents(mEvent);
+			} else {
+				items = eventImpl.eventList(mEvent);
+			}
 			return items;
 		}
 		return null;
-	}
-
-	@Override
-	public int getItemViewType(int position) {
-		return judgeTheViewType(position);
-	}
-
-	public static int getTypeCount() {
-		return TYPE_COUNT;
 	}
 
 	@Override

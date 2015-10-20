@@ -11,21 +11,13 @@
         android:id="@+id/home_rl_ads"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="#898"
+        android:background="@color/main_white_bg_color"
         android:visibility="visible" >
 
-        <com.zhiyisoft.associations.widget.ViewFlow
-            android:id="@+id/home_viewflow"
+        <com.zhiyisoft.associations.widget.ads.MyADView
+            android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <com.zhiyisoft.associations.widget.CircleFlowIndicator
-            android:id="@+id/home_viewflowindicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:padding="10dip" />
     </RelativeLayout>
     <!-- 我的社团 -->
 

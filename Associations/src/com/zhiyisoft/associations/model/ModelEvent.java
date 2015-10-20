@@ -81,6 +81,9 @@ public class ModelEvent extends Model {
 	private double latitude; // 2015-10-19
 	private double longtitude;
 
+	private String city; // 2015-10-20
+	private String province;
+
 	/**************** 获取活动需要的数据end *************************/
 
 	public ModelEvent() {
@@ -166,6 +169,18 @@ public class ModelEvent extends Model {
 
 				this.setGid(jsonObject.getString("gid"));
 			}
+			/**************** 经纬度 *********************/
+			if (jsonObject.has("latitude")) {
+
+				this.setLatitude((Double.valueOf(jsonObject
+						.getString("latitude"))));
+			}
+			if (jsonObject.has("longitude")) {
+
+				this.setLongtitude((Double.valueOf(jsonObject
+						.getString("longitude"))));
+			}
+			/**************** 经纬度 *********************/
 			if (jsonObject.has("host")) {
 
 				this.setHost(jsonObject.getString("host"));
@@ -461,6 +476,22 @@ public class ModelEvent extends Model {
 		this.longtitude = longtitude;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
 	@Override
 	public String toString() {
 		return "ModelEvent [online=" + online + ", logo=" + logo + ", gid="
@@ -475,7 +506,9 @@ public class ModelEvent extends Model {
 				+ ", joinCount=" + joinCount + ", typeName=" + typeName
 				+ ", logourl=" + logourl + ", isover=" + isover + ", gname="
 				+ gname + ", glogo=" + glogo + ", isin=" + isin + ", issub="
-				+ issub + ", members=" + members + ", works=" + works + "]";
+				+ issub + ", members=" + members + ", works=" + works
+				+ ", latitude=" + latitude + ", longtitude=" + longtitude
+				+ ", city=" + city + ", province=" + province + "]";
 	}
 
 }

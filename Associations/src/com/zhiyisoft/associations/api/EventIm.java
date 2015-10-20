@@ -23,6 +23,7 @@ public interface EventIm {
 	public static final String WORKLIST = "workList";// 42.【作品列表】：Event/workList
 	public static final String WORKVIEW = "workView";// 43.【作品详情】：Event/workView
 	public static final String COMMENT = "comment";// 44.【作品评论】：Event/comment
+	public static final String GETNEARBYEVENTS = "getNearbyEvents";// 50.【周边活动】：Event/getNearbyEvents
 
 	// 需要执行的操作的参数
 	public static final String ONLINE = "online"; // 0线上活动，1线下活动 必填
@@ -46,6 +47,8 @@ public interface EventIm {
 	public static final String RANGEDES = "rangeDes";// 指定学校id 选填
 	public static final String LATITUDE = "latitude";// 纬度
 	public static final String LONGTITUDE = "longitude";// 经度
+	public static final String CITY = "city";// 城市
+	public static final String PROVINCE = "province";// 省份
 
 	public static final String OP = "op";// 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的)
 	public static final String ID = "id";// 活动id
@@ -157,4 +160,16 @@ public interface EventIm {
 	 * @return
 	 */
 	boolean comment(ModelEventWorks works);
+
+	/**
+	 * 50.【周边活动】：Event/getNearbyEvents
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Event&act=getNearbyEvents
+	 * 
+	 * 输入参数： (string) city 城市名 (string) province 省份名
+	 * 
+	 * @param event
+	 * @return
+	 */
+	List<Model> getNearbyEvents(ModelEvent event);
 }

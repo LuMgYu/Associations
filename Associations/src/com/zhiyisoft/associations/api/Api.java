@@ -8,10 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
@@ -640,7 +637,6 @@ public class Api {
 
 		@Override
 		public Model groupPhotoView(ModelLeagueAlbum photoModel) {
-			// TODO Auto-generated method stub
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -781,6 +777,21 @@ public class Api {
 		@Override
 		public boolean comment(ModelEventWorks event) {
 			return false;
+		}
+
+		@Override
+		public List<Model> getNearbyEvents(ModelEvent event) {
+			// TODO Auto-generated method stub
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, EVENT);
+			get.addBodyParam(ACT, GETNEARBYEVENTS);
+			judgeTheUser(get);
+			get.addBodyParam(CITY, event.getCity());
+			get.addBodyParam(PROVINCE, event.getProvince());
+			get.addBodyParam(P, event.getP());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelEvent());
 		}
 	}
 
@@ -957,7 +968,6 @@ public class Api {
 						new ModelError());
 				return model;
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

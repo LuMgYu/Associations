@@ -13,8 +13,7 @@ import android.widget.TextView;
 import com.baidu.mapapi.map.MapView;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
-import com.zhiyisoft.associations.widget.CircleFlowIndicator;
-import com.zhiyisoft.associations.widget.ViewFlow;
+import com.zhiyisoft.associations.widget.ads.MyADView;
 
 /**
  * author：qiuchunjia time：下午2:49:17 类描述：这个类是实现
@@ -54,8 +53,7 @@ public class ViewHolder {
 	// 新鲜事的item
 	public View mNewsViewItem;
 	// 广告栏
-	public ViewFlow mhome_viewflow;
-	public CircleFlowIndicator mhome_viewflowindicator;
+	public MyADView adView;
 	/******************************** home item的各种控件 ********************************************/
 	/******************************** 社团一级页面的控件 ********************************************/
 	public LinearLayout school_ll;
