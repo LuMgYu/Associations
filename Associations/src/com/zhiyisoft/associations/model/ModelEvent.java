@@ -171,14 +171,26 @@ public class ModelEvent extends Model {
 			}
 			/**************** 经纬度 *********************/
 			if (jsonObject.has("latitude")) {
-
-				this.setLatitude((Double.valueOf(jsonObject
-						.getString("latitude"))));
+				String lat = jsonObject.getString("latitude");
+				if (!lat.equals("")) {
+					this.setLatitude((Double.valueOf(jsonObject
+							.getString("latitude"))));
+				} else {
+					this.setLatitude(0);
+				}
 			}
 			if (jsonObject.has("longitude")) {
+				String longs = jsonObject.getString("longitude");
+				if (!longs.equals("")) {
+					this.setLongtitude((Double.valueOf(jsonObject
+							.getString("longitude"))));
+				} else {
+					this.setLongtitude(0);
+				}
+			}
+			if (jsonObject.has("address")) {
 
-				this.setLongtitude((Double.valueOf(jsonObject
-						.getString("longitude"))));
+				this.setAddress(jsonObject.getString("address"));
 			}
 			/**************** 经纬度 *********************/
 			if (jsonObject.has("host")) {

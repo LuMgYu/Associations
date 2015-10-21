@@ -701,14 +701,17 @@ public class Api {
 
 		@Override
 		public Model eventView(ModelEvent event) {
-			Request get = new Get();
-			get.addBodyParam(APP, API);
-			get.addBodyParam(MOD, EVENT);
-			get.addBodyParam(ACT, EVENTVIEW);
-			judgeTheUser(get);
-			get.addBodyParam(ID, event.getId());
-			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelEvent());
+			if (event != null) {
+				Request get = new Get();
+				get.addBodyParam(APP, API);
+				get.addBodyParam(MOD, EVENT);
+				get.addBodyParam(ACT, EVENTVIEW);
+				judgeTheUser(get);
+				get.addBodyParam(ID, event.getId());
+				Object object = get.run();
+				return parseOriginalJsonObject(object, new ModelEvent());
+			}
+			return null;
 		}
 
 		@Override

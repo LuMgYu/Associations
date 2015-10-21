@@ -169,10 +169,10 @@ public class MoveMainActivity extends BaseActivity {
 			String online = event.getOnline();
 			if (online.equals("1")) {
 				move_btn_online.setText("线上");
-				move_tv_onlineMove.setText("线上活动");
+				move_tv_onlineMove.setText(event.getAddress());
 			} else {
 				move_btn_online.setText("线下");
-				move_tv_onlineMove.setText("线下活动");
+				move_tv_onlineMove.setText(event.getAddress());
 			}
 			String typeName = event.getTypeName();
 			if (typeName != null) {
