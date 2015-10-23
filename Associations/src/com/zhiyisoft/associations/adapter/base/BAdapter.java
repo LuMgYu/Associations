@@ -161,19 +161,21 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 下拉刷新后把数据加载到头部
 	 */
 	public void addHeadList(List<Model> list) {
-		if (mList != null && list.size() > 0) {
-			List<Model> cacheList = new ArrayList<Model>();
-			if (mList.size() > 0) {
-				for (int i = 0; i < cacheList.size(); i++) {
-					cacheList.add(mList.remove(i));
-					this.notifyDataSetChanged(); // 修复了这里的bug，卧槽
+		if (list != null) {
+			if (mList != null && list.size() > 0) {
+				List<Model> cacheList = new ArrayList<Model>();
+				if (mList.size() > 0) {
+					for (int i = 0; i < mList.size(); i++) {
+						Model model = mList.get(i);
+						cacheList.add(model);
+					}
 				}
+				mList.removeAll(mList); // 清除掉以前的list数据
+				mList.addAll(list);
+				mList.addAll(cacheList);
+				// 加了数据后就要通知adapter 更新list
+				this.notifyDataSetChanged();
 			}
-			mList.addAll(list);
-			this.notifyDataSetChanged();
-			mList.addAll(cacheList);
-			// 加了数据后就要通知adapter 更新list
-			this.notifyDataSetChanged();
 		}
 		dismissTheProgress();
 	}
@@ -239,7 +241,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @pdOid 把数据加载到底部
 	 */
 	private void addFooterList(List<Model> list) {
-//		judgeSuccessRefreshFooter(list);
+		// judgeSuccessRefreshFooter(list);
 		if (mList != null && list != null) {
 			mList.addAll(list);
 			// 加了数据后就要通知adapter 更新list

@@ -23,6 +23,7 @@ import com.zhiyisoft.associations.fragment.FragmentHome;
 import com.zhiyisoft.associations.fragment.FragmentLogin;
 import com.zhiyisoft.associations.fragment.FragmentMe;
 import com.zhiyisoft.associations.fragment.FragmentMove;
+import com.zhiyisoft.associations.fragment.FragmentMsg;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity {
 	private FragmentMove mMoveFragment;
 	private FragmentAssociation mAssociationFragment;
 	private FragmentNotify mNotifyFragment;
+	private FragmentMsg mMsgFragment;
 	private FragmentMe mMeFragment;
 	private FragmentLogin mLoginFragment;
 
@@ -204,6 +206,7 @@ public class MainActivity extends BaseActivity {
 	public void onClick(View v) {
 		iv_title_right2.setVisibility(View.GONE);
 		iv_title_right3.setVisibility(View.GONE);
+		getRl_twoButton().setVisibility(View.GONE);
 		setAlltitle(null, null, "");
 		resetTheColor();
 		switch (v.getId()) {
@@ -337,8 +340,36 @@ public class MainActivity extends BaseActivity {
 			mNotifyFragment = new FragmentNotify();
 		}
 		replaceFragment(mNotifyFragment);
-		changeTheTitle("通知");
+		// changeTheTitle("通知");
+		getRl_twoButton().setVisibility(View.VISIBLE);
+		getTv_1().setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				v.setBackgroundResource(R.drawable.view_border_left_red_10);
+				getTv_2().setBackgroundResource(
+						R.drawable.view_border_right_white_10);
+				replaceFragment(mNotifyFragment);
+			}
+		});
+		getTv_2().setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				v.setBackgroundResource(R.drawable.view_border_right_red_10);
+				getTv_1().setBackgroundResource(
+						R.drawable.view_border_left_white_10);
+				initMsgFragment();
+				replaceFragment(mMsgFragment);
+			}
+		});
 		changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
+	}
+
+	private void initMsgFragment() {
+		if (mMsgFragment == null) {
+			mMsgFragment = new FragmentMsg();
+		}
 	}
 
 	/**

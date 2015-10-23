@@ -21,6 +21,7 @@ import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelMask;
+import com.zhiyisoft.associations.model.ModelMsg;
 import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
@@ -281,36 +282,6 @@ public class Api {
 				}
 			}
 			AsyncHttpClient client = new AsyncHttpClient();
-			// client.post(
-			// "http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
-			// params, new AsyncHttpResponseHandler() {
-			// @Override
-			// public void onStart() {
-			// // TODO Auto-generated method stub
-			// super.onStart();
-			// }
-			//
-			// @Override
-			// public void onFailure(Throwable arg0, String arg1) {
-			// super.onFailure(arg0, arg1);
-			// }
-			//
-			// @Override
-			// public void onSuccess(String arg0) {
-			// // TODO Auto-generated method stub
-			// super.onSuccess(arg0);
-			// }
-			//
-			// @Override
-			// public void onSuccess(int arg0, String arg1) {
-			// super.onSuccess(arg0, arg1);
-			// Log.i("upload", arg0 + "ddfasdfadf  " + arg1);
-			// if (arg0 == 0) {
-			//
-			// }
-			// }
-			//
-			// });
 			return null;
 		}
 	}
@@ -784,7 +755,6 @@ public class Api {
 
 		@Override
 		public List<Model> getNearbyEvents(ModelEvent event) {
-			// TODO Auto-generated method stub
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, EVENT);
@@ -905,6 +875,56 @@ public class Api {
 			}
 			Object object = get.run();
 			return isCodeOk(object);
+		}
+
+		@Override
+		public Model sendMsg(ModelMsg msg) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, WALL);
+			get.addBodyParam(ACT, PUBLISH);
+			judgeTheUser(get);
+			get.addBodyParam(TUID, msg.getUid());
+			get.addBodyParam(CONTENT, msg.getContent());
+			Object object = get.run();
+			return getModelError(object);
+		}
+
+		@Override
+		public List<Model> wallList(ModelMsg msg) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, WALL);
+			get.addBodyParam(ACT, WALLLIST);
+			judgeTheUser(get);
+			get.addBodyParam(P, msg.getP());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelMsg());
+		}
+
+		@Override
+		public List<Model> notifyList(ModelMsg msg) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, WALL);
+			get.addBodyParam(ACT, NOTIFYLISTMSG);
+			judgeTheUser(get);
+			get.addBodyParam(UID, msg.getUid());
+			get.addBodyParam(P, msg.getP());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelMsg());
+		}
+
+		@Override
+		public Model delNotify(ModelMsg msg) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, WALL);
+			get.addBodyParam(ACT, DELNOTIFY);
+			judgeTheUser(get);
+			get.addBodyParam(WITHMASKID, msg.getWithMaskId());
+			Object object = get.run();
+			return getModelError(object);
 		}
 
 	}

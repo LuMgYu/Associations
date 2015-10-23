@@ -71,6 +71,20 @@ public class DateUtil {
 	}
 
 	/**
+	 * 把最原始的date转换为字符串时间戳
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String DateToStamp(Date date) {
+		if (date != null) {
+			long unixTimestamp = date.getTime() / 1000;
+			return String.valueOf(unixTimestamp);
+		}
+		return null;
+	}
+
+	/**
 	 * 比较两个时间的大小
 	 * 
 	 * @param first

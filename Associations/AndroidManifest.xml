@@ -21,7 +21,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="mZm2t0gCd6bWW8gagDGf70hg" />
-  //key:开发者申请的key
+  //key:开发者申请的key
         <!-- 百度需要用 -->
 
         <activity
@@ -48,7 +48,13 @@
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailActivity" >
         </activity>
+        <activity
+            android:name="com.zhiyisoft.associations.activity.NotifyMsgDetailActivity"
+            android:windowSoftInputMode="stateHidden|stateUnchanged" >
+        </activity>
         <activity android:name="com.zhiyisoft.associations.activity.NotifyDetailContentActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.activity.NotifyMsgUserInforActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.MeSettingDataActivity" >
         </activity>

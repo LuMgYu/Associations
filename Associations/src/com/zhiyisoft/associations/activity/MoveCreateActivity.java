@@ -30,6 +30,13 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -43,6 +50,7 @@ import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLocation;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.BaiduUtil;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
@@ -83,7 +91,6 @@ public class MoveCreateActivity extends BaseActivity {
 	private TextView move_tv_photo;
 	private ImageView move_iv_photo_yes;
 	private ImageView move_iv_music_yes;
-	private RelativeLayout move_rl_scope;
 	private RelativeLayout move_rl_work_end;
 	private RelativeLayout move_rl_commmit_work;
 	// 新添加的的控件
@@ -188,7 +195,6 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_photo_yes = (ImageView) findViewById(R.id.move_iv_photo_yes);
 		move_tv_photo = (TextView) findViewById(R.id.move_tv_photo);
 		move_iv_music_yes = (ImageView) findViewById(R.id.move_iv_music_yes);
-		move_rl_scope = (RelativeLayout) findViewById(R.id.move_rl_scope);
 		move_tv_commmit_work_Start_time = (TextView) findViewById(R.id.move_tv_commmit_work_Start_time);
 		move_tv_workr_end_time = (TextView) findViewById(R.id.move_tv_workr_end_time);
 		move_tv_enter_time = (TextView) findViewById(R.id.move_tv_enter_time);
@@ -225,6 +231,44 @@ public class MoveCreateActivity extends BaseActivity {
 		initPopWindow();
 		initCameraPopWindow();
 		initCategoryPopWindow();
+		if (isOnline) {
+			getLatLngBySchool();
+		}
+	}
+
+	/**
+	 * 更加学校获取经纬度
+	 */
+	private void getLatLngBySchool() {
+		String str = mApp.getUser().getSchool_name();
+		if (str != null) {
+			move_tv_scope_name.setText(str);
+			GeoCoder geoCoder = GeoCoder.newInstance();
+			GeoCodeOption option = new GeoCodeOption().address(str).city("");
+			BaiduUtil.PoiAddress(geoCoder, option,
+					new OnGetGeoCoderResultListener() {
+
+						@Override
+						public void onGetReverseGeoCodeResult(
+								ReverseGeoCodeResult result) {
+						}
+
+						@Override
+						public void onGetGeoCodeResult(GeoCodeResult result) {
+							if (result == null
+									|| result.error != SearchResult.ERRORNO.NO_ERROR) {
+								// 没有检索到结果
+								ToastUtils.showToast("没有检索到结果");
+							}
+							// 获取地理编码结果
+							LatLng latLng = result.getLocation();
+							if (latLng != null) {
+								latitude = latLng.latitude;
+								longtitude = latLng.longitude;
+							}
+						}
+					});
+		}
 	}
 
 	/**
@@ -273,7 +317,6 @@ public class MoveCreateActivity extends BaseActivity {
 		move_iv_photo_yes.setOnClickListener(this);
 		move_iv_vedio_yes.setOnClickListener(this);
 		move_iv_music_yes.setOnClickListener(this);
-		move_rl_scope.setOnClickListener(this);
 		tv_title_right.setOnClickListener(this);
 		move_rl_association.setOnClickListener(this);
 		move_rl_location.setOnClickListener(this);
@@ -396,11 +439,6 @@ public class MoveCreateActivity extends BaseActivity {
 			mIsChoose4 = (mIsChoose4 == true) ? false : true;
 			count4++;
 			break;
-		case R.id.move_rl_scope:
-			mApp.startActivityForResult(this, MeSettingProvinceActivity.class,
-					null);
-
-			break;
 		case R.id.tv_title_right:
 			view2data();
 			if (judgeTheOnlineData()) {
@@ -475,7 +513,7 @@ public class MoveCreateActivity extends BaseActivity {
 			ModelSchool model = (ModelSchool) bundle
 					.get(Config.GET_ACTIVITY_DATA);
 			if (model != null) {
-				move_tv_scope_name.setText(model.getName() + "");
+				// move_tv_scope_name.setText(model.getName() + "");
 			}
 			ModelLeague league = (ModelLeague) bundle
 					.get(Config.CHECKED_ASSOCITION);

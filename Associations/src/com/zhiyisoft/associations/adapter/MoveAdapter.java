@@ -76,7 +76,7 @@ public class MoveAdapter extends BAdapter {
 			if (isover == 0) {
 				holder.move_tv_end.setVisibility(View.GONE);
 			} else {
-				holder.move_tv_end.setVisibility(View.GONE);
+				holder.move_tv_end.setVisibility(View.VISIBLE);
 			}
 			holder.move_tv_title.setText(event.getTitle());
 			String isonline = event.getOnline();
@@ -156,8 +156,12 @@ public class MoveAdapter extends BAdapter {
 			mEvent.setP(index);
 			EventImpl eventImpl = mApp.getEventFIm();
 			List<Model> items = null;
-			if (mEvent.getTypeName().equals("周边活动")) {
-				items = eventImpl.getNearbyEvents(mEvent);
+			if (mEvent.getTypeName() != null) {
+				if (mEvent.getTypeName().equals("周边活动")) {
+					items = eventImpl.getNearbyEvents(mEvent);
+				} else {
+					items = eventImpl.eventList(mEvent);
+				}
 			} else {
 				items = eventImpl.eventList(mEvent);
 			}

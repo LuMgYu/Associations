@@ -27,6 +27,11 @@ public class NotifyMsgListview extends BaseListView {
 	}
 
 	@Override
+	public void isSetFooterGone(int count) {
+		// 重新她然后就不需要加载更多这四个字了
+	}
+
+	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
 		Toast.makeText(mContext, "点击了这个按钮" + position, Toast.LENGTH_LONG)
 				.show();

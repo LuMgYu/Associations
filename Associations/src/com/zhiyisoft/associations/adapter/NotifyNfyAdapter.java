@@ -3,7 +3,6 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -16,6 +15,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api.NotifyImpl;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -71,7 +71,7 @@ public class NotifyNfyAdapter extends BAdapter {
 			holder.rl_notify = (RelativeLayout) view
 					.findViewById(R.id.rl_notify);
 			holder.fl_icon = (FrameLayout) view.findViewById(R.id.fl_icon);
-			holder.iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
+			holder.iv_icon = (RoundImageView) view.findViewById(R.id.iv_icon);
 			holder.iv_remind = (ImageView) view.findViewById(R.id.iv_remind);
 			holder.tv_nick = (TextView) view.findViewById(R.id.tv_nick);
 			holder.tv_msg = (TextView) view.findViewById(R.id.tv_msg);

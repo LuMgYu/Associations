@@ -3,7 +3,6 @@ package com.zhiyisoft.associations.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -18,7 +17,7 @@ import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
- * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
+ * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现系统通知消息的
  *
  */
 
@@ -45,7 +44,6 @@ public class FragmentNotify extends BaseFragment {
 
 	@Override
 	public void initView() {
-		Log.i("notify", "-----------------------调用了initview");
 		if (mListView == null) {
 			mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
 			mAdapter = new NotifyNfyAdapter(this, mlist);
@@ -62,46 +60,6 @@ public class FragmentNotify extends BaseFragment {
 			});
 		}
 	}
-
-	// private void initViewPager() {
-	// mViewPager = (ViewPager) findViewById(R.id.notify_vp_content);
-	// mFragments.add(new FragmentNotifyMsg());
-	// // mFragments.add(new FragmentNotifyNotify()); //存在bug 需要修改
-	// mViewPager.setAdapter(new MyViewPagerAdapter(getChildFragmentManager(),
-	// mFragments));
-	// mViewPager.setCurrentItem(0);
-	// mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-	//
-	// @Override
-	// public void onPageSelected(int pos) {
-	// mViewPager.setCurrentItem(pos);
-	// Animation animation = null;
-	// switch (pos) {
-	// case 0:
-	// animation = new TranslateAnimation(150, 0, 0, 0);
-	// break;
-	// case 1:
-	// animation = new TranslateAnimation(0, 150, 0, 0);
-	// break;
-	// }
-	// animation.setFillAfter(true);
-	// animation.setDuration(300);
-	// mTextBottemLine.startAnimation(animation);
-	// }
-	//
-	// @Override
-	// public void onPageScrolled(int arg0, float arg1, int arg2) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void onPageScrollStateChanged(int arg0) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	// });
-	// }
 
 	@Override
 	public void initListener() {

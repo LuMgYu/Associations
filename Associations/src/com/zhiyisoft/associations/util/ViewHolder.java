@@ -185,7 +185,7 @@ public class ViewHolder {
 	/******************************** 通知模块 ********************************************/
 	public RelativeLayout rl_notify;
 	public FrameLayout fl_icon;
-	public ImageView iv_icon;
+	public RoundImageView iv_icon;
 	public ImageView iv_remind;
 	public TextView tv_nick;
 	public TextView tv_msg;
@@ -204,4 +204,20 @@ public class ViewHolder {
 	public TextView move_tv_allmove;
 	public TextView move_tv_content;
 	/******************************** 活动 item end ********************************************/
+	/******************************** 私信详情界面 ********************************************/
+	// 左边聊天界面
+	public RelativeLayout rl_left_chat;
+	public RoundImageView iv_left_icon;
+	public TextView tv_left_name;
+	public TextView tv_left_time;
+	public TextView tv_left_content;
+
+	// 右边边聊天界面
+	public RelativeLayout rl_right_chat;
+	public RoundImageView iv_right_icon;
+	public TextView tv_right_time;
+	public TextView tv_right_name;
+	public TextView tv_right_content;
+
+	/******************************** 私信详情界面end ********************************************/
 }

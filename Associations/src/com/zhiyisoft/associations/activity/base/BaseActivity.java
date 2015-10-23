@@ -6,8 +6,6 @@ package com.zhiyisoft.associations.activity.base;
  * Purpose: Defines the Class BaseActivity
  ***********************************************************************/
 
-import io.vov.vitamio.LibsChecker;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,8 +14,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-
-import org.apache.http.Header;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -53,8 +49,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.BinaryHttpResponseHandler;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
@@ -119,6 +113,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public ImageView iv_title_right2;
 	public ImageView iv_title_right1;
 	public ImageView iv_title_right3;
+	// 2015-10-21 新添加控件
+	private RelativeLayout rl_twoButton;
+	private TextView tv_1;
+	private TextView tv_2;
 	/**
 	 * 方便子类替换content部分
 	 */
@@ -175,6 +173,18 @@ public abstract class BaseActivity extends FragmentActivity implements
 		mBottomll = (LinearLayout) mLayout.findViewById(R.id.ll_bottom);
 	}
 
+	public RelativeLayout getRl_twoButton() {
+		return rl_twoButton;
+	}
+
+	public TextView getTv_1() {
+		return tv_1;
+	}
+
+	public TextView getTv_2() {
+		return tv_2;
+	}
+
 	/** 设置title的布局 */
 	private void setTitleLayout() {
 		// 当需改变的时候就imgeid时就从重新这个方法，这样可以增加扩张性
@@ -197,6 +207,13 @@ public abstract class BaseActivity extends FragmentActivity implements
 					.findViewById(R.id.iv_title_right1);
 			iv_title_right3 = (ImageView) mTitleLayout
 					.findViewById(R.id.iv_title_right3);
+			/****************** 通知部分新添加布局 ********************/
+			// 2015-10-21
+			rl_twoButton = (RelativeLayout) mTitleLayout
+					.findViewById(R.id.rl_twoButton);
+			tv_1 = (TextView) mTitleLayout.findViewById(R.id.tv_1);
+			tv_2 = (TextView) mTitleLayout.findViewById(R.id.tv_2);
+			/****************** 通知部分新添加布局 ********************/
 			if (mTitleLeftImageId != 0) {
 				iv_title_left.setImageResource(mTitleLeftImageId);
 			}
