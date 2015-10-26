@@ -339,6 +339,7 @@ public class MainActivity extends BaseActivity {
 		if (mNotifyFragment == null) {
 			mNotifyFragment = new FragmentNotify();
 		}
+		initChooseNotify();
 		replaceFragment(mNotifyFragment);
 		// changeTheTitle("通知");
 		getRl_twoButton().setVisibility(View.VISIBLE);
@@ -346,9 +347,13 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				v.setBackgroundResource(R.drawable.view_border_left_red_10);
+				v.setBackgroundResource(R.drawable.view_border_left_red_5);
+				getTv_1().setTextColor(
+						getResources().getColor(R.color.text_white));
+				getTv_2().setTextColor(
+						getResources().getColor(R.color.main_color));
 				getTv_2().setBackgroundResource(
-						R.drawable.view_border_right_white_10);
+						R.drawable.view_border_right_white_5);
 				replaceFragment(mNotifyFragment);
 			}
 		});
@@ -356,14 +361,28 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				v.setBackgroundResource(R.drawable.view_border_right_red_10);
+				v.setBackgroundResource(R.drawable.view_border_right_red_5);
+				getTv_2().setTextColor(
+						getResources().getColor(R.color.text_white));
+				getTv_1().setTextColor(
+						getResources().getColor(R.color.main_color));
 				getTv_1().setBackgroundResource(
-						R.drawable.view_border_left_white_10);
+						R.drawable.view_border_left_white_5);
 				initMsgFragment();
 				replaceFragment(mMsgFragment);
 			}
 		});
 		changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
+	}
+
+	/**
+	 * 初始化通知
+	 */
+	private void initChooseNotify() {
+		getTv_1().setBackgroundResource(R.drawable.view_border_left_red_5);
+		getTv_1().setTextColor(getResources().getColor(R.color.text_white));
+		getTv_2().setTextColor(getResources().getColor(R.color.main_color));
+		getTv_2().setBackgroundResource(R.drawable.view_border_right_white_5);
 	}
 
 	private void initMsgFragment() {

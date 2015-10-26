@@ -25,6 +25,7 @@ import com.zhiyisoft.associations.model.ModelMsg;
 import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.ModelRegister;
 import com.zhiyisoft.associations.model.ModelSchool;
+import com.zhiyisoft.associations.model.ModelTiding;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.request.Get;
@@ -616,6 +617,25 @@ public class Api {
 			get.addBodyParam(ID, photoModel.getId());
 			Object object = get.run();
 			return parseOriginalJsonObject(object, new ModelEventWorks());
+		}
+
+		@Override
+		public List<Model> groupNewsList(ModelTiding tiding) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, GROUPNEWSLIST);
+			judgeTheUser(get);
+			get.addBodyParam(GIDID, tiding.getGid());
+			Object object = get.run();
+			return parseOriginalJsonArray(object, new ModelTiding());
+		}
+
+		@Override
+		public Model groupNewsDetail(ModelTiding tiding) {
+			// TODO Auto-generated method stub
+			// 突然发现不需要这个接口 卧槽
+			return null;
 		}
 	}
 

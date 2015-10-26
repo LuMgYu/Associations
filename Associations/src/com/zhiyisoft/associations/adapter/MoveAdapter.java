@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.adapter;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MoveLocationDisplayActivity.LocationResultListener;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -92,6 +95,18 @@ public class MoveAdapter extends BAdapter {
 							+ DateUtil.strTodate(event.geteTime()));
 			holder.move_tv_allmove.setText(event.getJoinCount());
 			holder.move_tv_content.setText(event.getExplain());
+			if (event.getLatitude() > 0 && event.getLongtitude() > 0) {
+				LatLng latLng = new LatLng(event.getLatitude(),
+						event.getLongtitude());
+				LatLng latLng2 = new LatLng(mEvent.getLatitude(),
+						mEvent.getLongtitude());
+				double distance = DistanceUtil.getDistance(latLng2, latLng);
+				double hh = distance / 1000;
+				DecimalFormat df = new DecimalFormat("0.00");// 格式化小数，不足的补0
+				String dis = df.format(hh);// 返回的是String类型的
+				holder.move_tv_distance.setVisibility(View.VISIBLE);
+				holder.move_tv_distance.setText(dis + "km");
+			}
 		}
 		// TODO 把数据绑定到界面
 
@@ -108,13 +123,14 @@ public class MoveAdapter extends BAdapter {
 				.findViewById(R.id.move_btn_online);
 		holder.move_btn_event = (Button) parent
 				.findViewById(R.id.move_btn_event);
-
 		holder.move_tv_deadline = (TextView) parent
 				.findViewById(R.id.move_tv_deadline);
 		holder.move_tv_allmove = (TextView) parent
 				.findViewById(R.id.move_tv_allmove);
 		holder.move_tv_content = (TextView) parent
 				.findViewById(R.id.move_tv_content);
+		holder.move_tv_distance = (TextView) parent
+				.findViewById(R.id.move_tv_distance);
 		return parent;
 	}
 

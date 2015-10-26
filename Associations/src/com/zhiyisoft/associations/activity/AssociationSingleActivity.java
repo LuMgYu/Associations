@@ -50,6 +50,7 @@ public class AssociationSingleActivity extends BaseActivity {
 	private TextView file;
 	private TextView share;
 	private TextView vedio;
+	private TextView news;
 	private Button btn_quit;
 
 	private static final int SUCCESS_QUIT = 1;
@@ -167,6 +168,12 @@ public class AssociationSingleActivity extends BaseActivity {
 			mApp.startActivity(this, AssociationVedioDisplayActivity.class,
 					vediodata);
 			break;
+		case R.id.news:
+			Bundle newsdata = new Bundle();
+			newsdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationTidingsDisplayActivity.class,
+					newsdata);
+			break;
 		case R.id.btn_quit:
 			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();
 			applyQuitAssociation(mLeague);
@@ -245,6 +252,7 @@ public class AssociationSingleActivity extends BaseActivity {
 		file.setOnClickListener(this);
 		share.setOnClickListener(this);
 		vedio.setOnClickListener(this);
+		news.setOnClickListener(this);
 		btn_quit.setOnClickListener(this);
 	}
 
@@ -264,6 +272,7 @@ public class AssociationSingleActivity extends BaseActivity {
 		file = (TextView) popView.findViewById(R.id.file);
 		share = (TextView) popView.findViewById(R.id.share);
 		vedio = (TextView) popView.findViewById(R.id.vedio);
+		news = (TextView) popView.findViewById(R.id.news);
 		btn_quit = (Button) popView.findViewById(R.id.btn_quit);
 	}
 

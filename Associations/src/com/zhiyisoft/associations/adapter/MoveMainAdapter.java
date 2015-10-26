@@ -111,18 +111,20 @@ public class MoveMainAdapter extends BAdapter {
 						+ DateUtil.strTodate(event.geteTime()));
 				holder.move_tv_allmove.setText(event.getJoinCount());
 				holder.move_tv_content.setText(event.getExplain());
+				holder.move_tv_distance.setVisibility(View.GONE);
 				/************ 根据经纬度来判断距离 *****************/
-				if (event.getLatitude() > 0 && event.getLongtitude() > 0) {
-					LatLng latLng = new LatLng(event.getLatitude(),
-							event.getLongtitude());
-					double distance = DistanceUtil.getDistance(mCurrentLatlng,
-							latLng);
-					double hh = distance / 1000;
-					DecimalFormat df = new DecimalFormat("0.00");// 格式化小数，不足的补0
-					String dis = df.format(hh);// 返回的是String类型的
-					holder.move_tv_distance.setText(dis + "km");
-				} else {
-					holder.move_tv_distance.setVisibility(View.GONE);
+				if (mCurrrentMoveType == TYPE_FIRST) {
+					if (event.getLatitude() > 0 && event.getLongtitude() > 0) {
+						LatLng latLng = new LatLng(event.getLatitude(),
+								event.getLongtitude());
+						double distance = DistanceUtil.getDistance(
+								mCurrentLatlng, latLng);
+						double hh = distance / 1000;
+						DecimalFormat df = new DecimalFormat("0.00");// 格式化小数，不足的补0
+						String dis = df.format(hh);// 返回的是String类型的
+						holder.move_tv_distance.setVisibility(View.VISIBLE);
+						holder.move_tv_distance.setText(dis + "km");
+					}
 				}
 			}
 		}
@@ -347,7 +349,7 @@ public class MoveMainAdapter extends BAdapter {
 		if (mCity != null) {
 			event.setCity(mCity);
 			event.setProvince(mProvince);
-			event.setP(p);
+			event.setP(index);
 			items = eventImpl.getNearbyEvents(event);
 			return items;
 		}

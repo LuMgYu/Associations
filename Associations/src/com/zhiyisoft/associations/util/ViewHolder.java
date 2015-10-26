@@ -131,6 +131,13 @@ public class ViewHolder {
 	public TextView tv_file_commit;
 
 	/**************** association文件item end ********************************************/
+	/**************** association 新闻item ********************************************/
+	public RoundImageView riv_icon;
+	public TextView tv_name;
+	public TextView tv_time;
+	public TextView tv_title;
+
+	/**************** association 新闻item end ********************************************/
 	/**************** association local__item ********************************************/
 	public ImageView word_iv;
 	public TextView word_tv;

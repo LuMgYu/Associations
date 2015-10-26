@@ -6,6 +6,9 @@ import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
+import com.zhiyisoft.associations.model.ModelMsg;
+import com.zhiyisoft.associations.model.ModelNotify;
+import com.zhiyisoft.associations.model.ModelTiding;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 
@@ -37,6 +40,9 @@ public interface LeagueIm {
 	public static final String GROUPWORKS = "groupWorks";// 48.【社团作品】：Group/groupWorks
 	public static final String GROUPPHOTOVIEW = "groupPhotoView";// 49.【社团图片详情】：Group/groupPhotoView
 
+	public static final String GROUPNEWSLIST = "groupNewsList";// 55.【社团新闻列表】：Group/groupNewsList
+	public static final String GROUPNEWSDETAIL = "groupNewsDetail";// 56.【社团新闻详情】：Group/groupNewsDetail
+
 	public static final String NAME = "name";
 	public static final String CATEGORYID = "categoryId";
 	public static final String LOGO = "logo";
@@ -56,6 +62,9 @@ public interface LeagueIm {
 	public static final String CONTENT = "content";// 【回复帖子】内容
 	public static final String TYPE = "type"; // 社团作品的类型
 	public static final String ID = "id"; // 社团里面的照片id
+
+	public static final String GIDID = "id"; // 社团id
+	public static final String TINDINGID = "id"; // 新闻id
 
 	/**
 	 * 13.【创建社团】：Group/createGroup 演示地址：
@@ -300,81 +309,30 @@ public interface LeagueIm {
 	 * @return
 	 */
 	Model groupPhotoView(ModelLeagueAlbum photoModel);
-	// /**
-	// * 获取社团的分类
-	// *
-	// * @param mItem
-	// * @return
-	// */
-	// List<Model> getGroupCommonList(Model mItem);
-	//
-	// /**
-	// * 加入社团
-	// *
-	// * @param model
-	// * 需要传的参数
-	// * @return
-	// */
-	// boolean addLeague(Model model);
-	//
-	// /**
-	// * 获取社团的成员
-	// *
-	// * @param model
-	// * @return
-	// */
-	// List<Model> getLeagueMember(Model model);
-	//
-	// /**
-	// * 退出社团
-	// *
-	// * @param model
-	// * @return
-	// */
-	// boolean quitLeague(Model model);
-	//
-	// /**
-	// * 获取社团列表 act=index 传参schooled:学校ID； name:社团名（可选）
-	// *
-	// * @param model
-	// * @return
-	// */
-	// List<Model> getLeagueList(Model model);
-	//
-	// /**
-	// * 获取社团详情
-	// *
-	// * 传参 mod=group&act=setmask
-	// *
-	// * @param model
-	// * @return
-	// */
-	// Model getLeagueDetail(Model model);
-	//
-	// /**
-	// * 根据社团id获取相册列表
-	// *
-	// * @param model
-	// * @return
-	// */
-	// Model getAlbumByLeagueID(Model model);
-	//
-	// /**
-	// * 根据相册ID获取相片列表
-	// *
-	// * @param model
-	// * @return
-	// */
-	// Model getPhotoListByAlbumId(Model model);
-	//
-	// /**
-	// * 创建相册 mod=opus&act=createalbum
-	// *
-	// * 传参gid :社团ID name:相册名
-	// *
-	// * @param model
-	// * @return
-	// */
-	// Model createAlbum(Model model);
+
+	/**
+	 * 
+	 * 55.【社团新闻列表】：Group/groupNewsList
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=groupNewsList
+	 * 
+	 * 输入参数： (int) id 必填 社团id
+	 * 
+	 * @param league
+	 * @return
+	 */
+	List<Model> groupNewsList(ModelTiding tiding);
+
+	/**
+	 * 56.【社团新闻详情】：Group/groupNewsDetail
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=groupNewsDetail
+	 * 
+	 * 输入参数： (int) id 必填 新闻id
+	 * 
+	 * @param tiding
+	 * @return
+	 */
+	Model groupNewsDetail(ModelTiding tiding);
 
 }
