@@ -21,7 +21,7 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="mZm2t0gCd6bWW8gagDGf70hg" />
-  //key:开发者申请的key
+  //key:开发者申请的key
         <!-- 百度需要用 -->
 
         <activity
@@ -167,6 +167,8 @@
         <activity android:name="com.zhiyisoft.associations.util.localMusic.LocalMusicListActivity" >
         </activity>
         <activity android:name="com.zhiyisoft.associations.activity.BindAccountActivity" >
+        </activity>
+        <activity android:name="com.zhiyisoft.associations.util.swipelistview.SimpleActivity" >
         </activity>
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"

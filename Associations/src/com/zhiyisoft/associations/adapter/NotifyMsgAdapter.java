@@ -64,7 +64,6 @@ public class NotifyMsgAdapter extends BAdapter {
 			holder.tv_nick = (TextView) view.findViewById(R.id.tv_nick);
 			holder.tv_msg = (TextView) view.findViewById(R.id.tv_msg);
 			holder.tv_date = (TextView) view.findViewById(R.id.tv_date);
-			holder.tv_del = (TextView) view.findViewById(R.id.tv_del);
 		}
 		return view;
 	}
@@ -83,7 +82,8 @@ public class NotifyMsgAdapter extends BAdapter {
 				// }
 				holder.tv_nick.setText(msg.getmUser().getUname());
 				holder.tv_msg.setText(msg.getContent());
-				holder.tv_date.setText(DateUtil.strTodate(msg.getcTime()));
+				holder.tv_date
+						.setText(DateUtil.stamp2humanDate(msg.getcTime()));
 			}
 		}
 	}

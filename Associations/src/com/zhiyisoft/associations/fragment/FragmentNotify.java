@@ -53,8 +53,6 @@ public class FragmentNotify extends BaseFragment {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> parent,
 						View view, int position, long id) {
-					TextView tv = (TextView) view.findViewById(R.id.tv_del);
-					tv.setVisibility(View.VISIBLE);
 					return true;
 				}
 			});

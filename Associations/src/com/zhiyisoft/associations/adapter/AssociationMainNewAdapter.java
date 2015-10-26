@@ -104,7 +104,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 				holder.new_item_tv_nick.setText(topic.getUname() + "发表了话题");
 				holder.new_item_tv_title.setText(topic.getTitle());
 				holder.new_item_tv_content.setText(topic.getContent());
-				holder.new_item_tv_date.setText(DateUtil.strTodate(topic
+				holder.new_item_tv_date.setText(DateUtil.stamp2humanDate(topic
 						.getCtime()));
 				holder.new_item_tv_number.setText(topic.getReplyCount());
 				List<Model> photos = topic.getAttachs();

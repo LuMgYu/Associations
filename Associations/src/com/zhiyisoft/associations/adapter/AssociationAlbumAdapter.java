@@ -72,7 +72,8 @@ public class AssociationAlbumAdapter extends BAdapter {
 		mApp.displayImage(album.getImgsrcL(), holder.album_iv);
 		holder.album_tv_name.setText(album.getName());
 		holder.album_tv_count.setText(album.getPhotoCount());
-		holder.album_tv_date.setText(DateUtil.strTodate(album.getcTime()));
+		holder.album_tv_date
+				.setText(DateUtil.stamp2humanDate(album.getcTime()));
 
 	}
 

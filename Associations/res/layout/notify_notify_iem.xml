@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_notify"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:background="@color/main_white_bg_color"
-    android:minHeight="60dp" >
+    android:paddingBottom="@dimen/margin_bottom"
+    android:paddingTop="@dimen/margin_top" >
 
     <!-- 通知布局 -->
 
@@ -76,15 +77,4 @@
         android:textColor="@color/text_more_gray"
         android:textSize="10sp" />
 
-    <TextView
-        android:id="@+id/tv_del"
-        android:layout_width="70dp"
-        android:layout_height="60dp"
-        android:layout_alignParentRight="true"
-        android:background="@color/main_color"
-        android:gravity="center"
-        android:text="删除"
-        android:visibility="gone" />
-
 </RelativeLayout>
-

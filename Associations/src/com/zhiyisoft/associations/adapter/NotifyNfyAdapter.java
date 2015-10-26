@@ -76,7 +76,6 @@ public class NotifyNfyAdapter extends BAdapter {
 			holder.tv_nick = (TextView) view.findViewById(R.id.tv_nick);
 			holder.tv_msg = (TextView) view.findViewById(R.id.tv_msg);
 			holder.tv_date = (TextView) view.findViewById(R.id.tv_date);
-			holder.tv_del = (TextView) view.findViewById(R.id.tv_del);
 		}
 	}
 

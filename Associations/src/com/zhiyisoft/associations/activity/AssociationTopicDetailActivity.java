@@ -313,7 +313,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				// item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());
 				// item_user_tv_a.sette
-				item_user_tv_date.setText(DateUtil.strTodate(reply.getCtime()));
+				item_user_tv_date.setText(DateUtil.stamp2humanDate(reply
+						.getCtime()));
 				replay_content_tv.setText(reply.getContent());
 				// other_more
 
@@ -357,7 +358,8 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				// TODO 以后这些数据就是从网上获取
 				String username = comment.getMaskName() + ":";
 				String content = comment.getContent() + "";
-				String time = "  " + DateUtil.strTodate(comment.getCtime());
+				String time = "  "
+						+ DateUtil.stamp2humanDate(comment.getCtime());
 				TextView textView = (TextView) view
 						.findViewById(R.id.other_tv_content);
 				SpannableString ssName = new SpannableString(username);
@@ -799,7 +801,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			content_tv_user.setText(username + "发表于");
 		}
 		if (date != null) {
-			content_tv_date.setText(DateUtil.strTodate(date));
+			content_tv_date.setText(DateUtil.stamp2humanDate(date));
 		}
 		if (content != null) {
 			content_tv_content.setText(content);

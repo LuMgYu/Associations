@@ -3,6 +3,7 @@ package com.zhiyisoft.associations.util;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -48,6 +49,37 @@ public class DateUtil {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy年M月d号");
 			String d = format.format(unixTime);
 			return d;
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String stamp2humanDate(String time) {
+		try {
+			Long timestamp = Long.valueOf(time) * 1000;
+			Timestamp unixTime = new Timestamp(timestamp);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy年M月d号");
+			SimpleDateFormat simpformat = new SimpleDateFormat("HH:mm"); // 转换为小时和时间
+			SimpleDateFormat complexFormat = new SimpleDateFormat("M月d号  HH:mm");
+			/********* 当前时间与当前时间的参数获取 *****************/
+			Date dNow = new Date(); // 当前时间
+			Date dBefore = new Date();
+			Calendar calendar = Calendar.getInstance(); // 得到日历
+			calendar.setTime(dNow);// 把当前时间赋给日历
+			calendar.add(Calendar.DAY_OF_MONTH, -1); // 设置为前一天
+			dBefore = calendar.getTime(); // 得到前一天的时间
+			String dbeforeStr = format.format(dBefore);
+			/***********************************/
+			String dCurrent = format.format(unixTime);
+			if (dbeforeStr.compareTo(dCurrent) > 0) {
+				return complexFormat.format(unixTime);
+			} else if (dbeforeStr.compareTo(dCurrent) == 0) {
+				return "昨天" + simpformat.format(unixTime);
+			} else if (dbeforeStr.compareTo(dCurrent) < 0) {
+				return simpformat.format(unixTime);
+			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

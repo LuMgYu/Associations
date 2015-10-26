@@ -27,6 +27,7 @@ public interface NotifyIm {
 	public static final String UID = "uid";
 	public static final String CONTENT = "content";
 	public static final String WITHMASKID = "withMaskId";
+	public static final String LAST_ID = "last_id";
 
 	/**
 	 * 46.【消息列表】：Notify/notifyList

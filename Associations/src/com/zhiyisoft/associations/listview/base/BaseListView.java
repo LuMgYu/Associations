@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import android.R.menu;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,6 +25,7 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.swipelistview.SwipeMenuAdapter;
 import com.zhiyisoft.associations.widget.xlistview.XListView;
 
 /** listview的基类 ，任何listview都可以继承它，减少代码的冗余 */
@@ -52,6 +54,8 @@ public abstract class BaseListView extends XListView implements
 	/** activity */
 	private BaseActivity mActivity;
 	private BAdapter mAdapter;
+
+	private SwipeMenuAdapter menuAdapter;
 	/**
 	 * 最后可见的位置
 	 */
@@ -82,24 +86,33 @@ public abstract class BaseListView extends XListView implements
 	@Override
 	public void setAdapter(ListAdapter adapter) {
 		super.setAdapter(adapter);
-		this.mAdapter = (BAdapter) adapter;
-		mAdapter.setListView(this);
-		this.mList = ((BAdapter) adapter).getList();
-		Log.i("hhh", "---------------走到这里没有？setAdapter(ListAdapter adapter)");
-		this.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// 点击加载更多
-				if (view.getId() == R.id.footer_content) {
-					Toast.makeText(mContext, "点击了加載更多", Toast.LENGTH_LONG)
-							.show();
-					return;
+		if (adapter instanceof BAdapter) {
+			this.mAdapter = (BAdapter) adapter;
+			mAdapter.setListView(this);
+			this.mList = ((BAdapter) adapter).getList();
+			Log.i("hhh",
+					"---------------走到这里没有？setAdapter(ListAdapter adapter)");
+			this.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					// 点击加载更多
+					if (view.getId() == R.id.footer_content) {
+						Toast.makeText(mContext, "点击了加載更多", Toast.LENGTH_LONG)
+								.show();
+						return;
+					}
+					// 子类去实现他
+					onClick(parent, view, position, id);
 				}
-				// 子类去实现他
-				onClick(parent, view, position, id);
-			}
-		});
+			});
+		}
+		if (adapter instanceof SwipeMenuAdapter) {
+			menuAdapter = (SwipeMenuAdapter) adapter;
+			menuAdapter.mAdapter.setListView(this);
+			this.mList = menuAdapter.mAdapter.getList();
+			Log.i("hhh", "adapter instanceof SwipeMenuAdapter");
+		}
 
 	}
 
@@ -127,12 +140,18 @@ public abstract class BaseListView extends XListView implements
 		if (mAdapter != null) {
 			mAdapter.doRefreshHeader();
 		}
+		if (menuAdapter != null) {
+			menuAdapter.doRefreshHeader();
+		}
 	}
 
 	@Override
 	public void onLoadMore() {
 		if (mAdapter != null) {
 			mAdapter.doRefreshFooter();
+		}
+		if (menuAdapter != null) {
+			menuAdapter.doRefreshFooter();
 		}
 
 	}

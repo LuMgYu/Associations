@@ -38,6 +38,7 @@ import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
+import com.zhiyisoft.associations.util.swipelistview.SimpleActivity;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -231,7 +232,10 @@ public class FragmentMe extends BaseFragment {
 		switch (v.getId()) {
 		case R.id.me_rl_find:
 			Bundle data = new Bundle();
-			mApp.startActivity(getActivity(), MeSettingDataActivity.class, data);
+			// mApp.startActivity(getActivity(), MeSettingDataActivity.class,
+			// data);
+			mApp.startActivity(getActivity(), SimpleActivity.class, data);
+
 			break;
 
 		case R.id.me_iv_icon:

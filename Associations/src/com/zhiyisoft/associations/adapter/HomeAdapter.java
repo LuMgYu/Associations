@@ -285,7 +285,7 @@ public class HomeAdapter extends BAdapter {
 					viewHolder.move_btn_event.setText(event.getTypeName());
 
 					viewHolder.move_tv_deadline.setText(DateUtil
-							.strTodate(event.geteTime()));
+							.stamp2humanDate(event.geteTime()));
 					viewHolder.move_tv_allmove.setText(event.getJoinCount());
 					viewHolder.move_tv_content.setText(event.getExplain());
 

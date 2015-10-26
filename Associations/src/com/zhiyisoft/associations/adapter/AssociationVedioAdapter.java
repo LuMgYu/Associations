@@ -74,7 +74,7 @@ public class AssociationVedioAdapter extends BAdapter {
 			holder.tv_user_name.setText(works.getUname());
 			holder.tv_vedio_title.setText(works.getTitle());
 			holder.tv_vedio_commit.setText(works.getCommentCount());
-			holder.tv_vedio_date.setText(DateUtil.strTodate(works.getCtime()));
+			holder.tv_vedio_date.setText(DateUtil.stamp2humanDate(works.getCtime()));
 		}
 
 	}

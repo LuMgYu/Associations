@@ -1,5 +1,6 @@
 package com.zhiyisoft.associations.adapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.utils.DistanceUtil;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.MoveDisplayActivity;
-import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.config.Config;
@@ -25,6 +30,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.BaiduUtil;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.util.ViewHolder;
@@ -47,13 +53,14 @@ public class MoveMainAdapter extends BAdapter {
 	private String[] mStringName;
 	private String[] mType;
 	private int mItemWidth = 0;
-
-	public MoveMainAdapter(BaseActivity activity, List<Model> list) {
-		super(activity, list);
-	}
+	/********* 活动类型 ***************/
+	public static final int ARROUNTMOVE = 0; // 周边活动
+	public static final int MYMOVE = 1; // 我的活动
+	private int mCurrrentMoveType = 0; // 当前的选中的活动类型
 
 	public MoveMainAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
+		startLocation();
 	}
 
 	@Override
@@ -81,7 +88,6 @@ public class MoveMainAdapter extends BAdapter {
 		if (position > 0) {
 			ModelEvent event = (ModelEvent) mList.get(position);
 			if (event != null) {
-				resetView(holder);
 				mApp.displayImage(event.getLogourl(), holder.move_smiv_icon);
 				// holder.move_smiv_icon.setImageUrl(event.getLogourl());
 				int isover = event.getIsover();
@@ -105,12 +111,21 @@ public class MoveMainAdapter extends BAdapter {
 						+ DateUtil.strTodate(event.geteTime()));
 				holder.move_tv_allmove.setText(event.getJoinCount());
 				holder.move_tv_content.setText(event.getExplain());
+				/************ 根据经纬度来判断距离 *****************/
+				if (event.getLatitude() > 0 && event.getLongtitude() > 0) {
+					LatLng latLng = new LatLng(event.getLatitude(),
+							event.getLongtitude());
+					double distance = DistanceUtil.getDistance(mCurrentLatlng,
+							latLng);
+					double hh = distance / 1000;
+					DecimalFormat df = new DecimalFormat("0.00");// 格式化小数，不足的补0
+					String dis = df.format(hh);// 返回的是String类型的
+					holder.move_tv_distance.setText(dis + "km");
+				} else {
+					holder.move_tv_distance.setVisibility(View.GONE);
+				}
 			}
 		}
-
-	}
-
-	private void resetView(ViewHolder holder) {
 
 	}
 
@@ -169,6 +184,8 @@ public class MoveMainAdapter extends BAdapter {
 					.findViewById(R.id.move_tv_allmove);
 			holder.move_tv_content = (TextView) mOtherView
 					.findViewById(R.id.move_tv_content);
+			holder.move_tv_distance = (TextView) mOtherView
+					.findViewById(R.id.move_tv_distance);
 		}
 	}
 
@@ -260,12 +277,16 @@ public class MoveMainAdapter extends BAdapter {
 			case R.id.move_arround_tv:
 				animation = new TranslateAnimation(mCurrentDes, 0, 0, 0);
 				mCurrentDes = 0 * mItemWidth;
+				mCurrrentMoveType = ARROUNTMOVE;
+				doRefreshNew();
 				break;
 
 			case R.id.move_my_tv:
 				animation = new TranslateAnimation(mCurrentDes, mItemWidth, 0,
 						0);
 				mCurrentDes = 1 * mItemWidth;
+				mCurrrentMoveType = MYMOVE;
+				doRefreshNew();
 				break;
 			}
 			animation.setFillAfter(true);
@@ -278,37 +299,59 @@ public class MoveMainAdapter extends BAdapter {
 	@Override
 	public List<Model> refreshNew() {
 		List<Model> items = new ArrayList<Model>();
-		items = getMove(1);
+		items = getMove(mCurrrentMoveType, 1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
 		List<Model> items = new ArrayList<Model>();
-		items = getMove(1);
+		items = getMove(mCurrrentMoveType, 1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		p++; // 记录分页
-		List<Model> items = getMove(p);
+		List<Model> items = getMove(mCurrrentMoveType, p);
 		return items;
 	}
 
+	public List<Model> getMove(int moveType, int index) {
+		if (moveType == ARROUNTMOVE) {
+			return getArroundMove(index);
+		} else {
+			return getMyMove(index);
+		}
+	}
+
 	/**
-	 * 获取社团
+	 * 获取活动
 	 * 
 	 * @return
 	 */
-	private List<Model> getMove(int p) {
+	private List<Model> getMyMove(int index) {
 		List<Model> items;
 		EventImpl eventImpl = mApp.getEventFIm();
 		ModelEvent event = new ModelEvent();
 		event.setOp(4);
-		event.setP(p);
+		event.setP(index);
 		items = eventImpl.eventList(event);
 		return items;
+	}
+
+	private List<Model> getArroundMove(int index) {
+		List<Model> items;
+		EventImpl eventImpl = mApp.getEventFIm();
+		ModelEvent event = new ModelEvent();
+		if (mCity != null) {
+			event.setCity(mCity);
+			event.setProvince(mProvince);
+			event.setP(p);
+			items = eventImpl.getNearbyEvents(event);
+			return items;
+		}
+		return null;
 	}
 
 	@Override
@@ -331,5 +374,33 @@ public class MoveMainAdapter extends BAdapter {
 	public int getViewTypeCount() {
 		// TODO Auto-generated method stub
 		return TYPE_COUNT;
+	}
+
+	/****************** 地图相关部分-------地图定位 ******************************************/
+	private String mCity;
+	private String mProvince;
+	private LocationClient mClient;
+	private LatLng mCurrentLatlng;
+
+	/**
+	 * 开启定位功能
+	 */
+	public void startLocation() {
+		if (mClient == null) {
+			mClient = new LocationClient(mBaseActivity);
+		}
+		BaiduUtil.startLocation(mClient, 60 * 1000, new BDLocationListener() {
+
+			@Override
+			public void onReceiveLocation(BDLocation location) {
+				if (location != null) {
+					mCity = location.getCity();
+					mProvince = location.getProvince();
+					mCurrentLatlng = new LatLng(location.getLatitude(),
+							location.getLongitude());
+					doRefreshNew();
+				}
+			}
+		});
 	}
 }

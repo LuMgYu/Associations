@@ -910,7 +910,7 @@ public class Api {
 			get.addBodyParam(ACT, NOTIFYLISTMSG);
 			judgeTheUser(get);
 			get.addBodyParam(UID, msg.getUid());
-			get.addBodyParam(P, msg.getP());
+			get.addBodyParam(LAST_ID, msg.getNotifyId());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelMsg());
 		}

@@ -84,7 +84,7 @@ public class AssociationWordAdapter extends BAdapter {
 				}
 
 			}
-			holder.tv_file_date.setText(DateUtil.strTodate(works.getCtime()));
+			holder.tv_file_date.setText(DateUtil.stamp2humanDate(works.getCtime()));
 			holder.tv_file_commit.setText(works.getCommentCount());
 		}
 

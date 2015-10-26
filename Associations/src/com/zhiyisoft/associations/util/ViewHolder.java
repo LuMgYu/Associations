@@ -203,6 +203,7 @@ public class ViewHolder {
 	public TextView move_tv_deadline;
 	public TextView move_tv_allmove;
 	public TextView move_tv_content;
+	public TextView move_tv_distance;
 	/******************************** 活动 item end ********************************************/
 	/******************************** 私信详情界面 ********************************************/
 	// 左边聊天界面

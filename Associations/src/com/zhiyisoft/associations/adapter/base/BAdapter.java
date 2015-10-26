@@ -64,7 +64,6 @@ public abstract class BAdapter extends BaseAdapter {
 	public BAdapter(BaseFragment fragment, List<Model> list) {
 		this.mBaseFragment = fragment;
 		mBaseActivity = (BaseActivity) mBaseFragment.getActivity();
-		mBaseActivity.setAdapter(this);
 		mInflater = LayoutInflater.from(mBaseActivity);
 		mApp = (Association) mBaseFragment.getActivity().getApplication();
 		mExecutor = mApp.getExecutor();
@@ -240,7 +239,7 @@ public abstract class BAdapter extends BaseAdapter {
 	 * @param list
 	 * @pdOid 把数据加载到底部
 	 */
-	private void addFooterList(List<Model> list) {
+	public void addFooterList(List<Model> list) {
 		// judgeSuccessRefreshFooter(list);
 		if (mList != null && list != null) {
 			mList.addAll(list);
