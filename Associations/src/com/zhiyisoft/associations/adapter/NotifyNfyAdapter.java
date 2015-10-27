@@ -66,7 +66,7 @@ public class NotifyNfyAdapter extends BAdapter {
 				if (type.equals("0")) {
 					holder.iv_remind.setVisibility(View.VISIBLE);
 				}
-				holder.tv_msg.setText(notify.getContent());
+				holder.tv_msg.setText(notify.getTitle());
 				holder.tv_date.setText(DateUtil.stamp2humanDate(notify
 						.getcTime()));
 			}

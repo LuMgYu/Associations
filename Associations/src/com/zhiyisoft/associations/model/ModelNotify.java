@@ -31,6 +31,7 @@ public class ModelNotify extends Model {
 	private String content;
 	private String cTime;
 	private String isRead;
+	private String title;
 
 	public ModelNotify() {
 
@@ -60,11 +61,17 @@ public class ModelNotify extends Model {
 			if (jsonObject.has("content")) {
 				this.setContent(jsonObject.getString("content"));
 			}
+			if (jsonObject.has("info")) {
+				this.setContent(jsonObject.getString("info"));
+			}
 			if (jsonObject.has("cTime")) {
 				this.setcTime(jsonObject.getString("cTime"));
 			}
 			if (jsonObject.has("isRead")) {
 				this.setIsRead(jsonObject.getString("isRead"));
+			}
+			if (jsonObject.has("title")) {
+				this.setTitle(jsonObject.getString("title"));
 			}
 
 		} catch (JSONException e) {
@@ -143,6 +150,14 @@ public class ModelNotify extends Model {
 
 	public void setIsRead(String isRead) {
 		this.isRead = isRead;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }

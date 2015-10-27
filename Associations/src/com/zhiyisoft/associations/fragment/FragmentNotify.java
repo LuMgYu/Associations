@@ -7,19 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.NotifyDetailActivity;
 import com.zhiyisoft.associations.adapter.NotifyNfyAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
-import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.api.NotifyIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.model.ModelMsg;
+import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.swipelistview.SwipeMenu;
 import com.zhiyisoft.associations.util.swipelistview.SwipeMenuListView;
+import com.zhiyisoft.associations.util.swipelistview.SwipeMenuListView.OnMenuItemClickListener;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现系统通知消息的
@@ -65,6 +65,22 @@ public class FragmentNotify extends BaseFragment {
 							NotifyDetailActivity.class, bundle);
 				}
 			});
+			mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+				@Override
+				public boolean onMenuItemClick(int position, SwipeMenu menu,
+						int index) {
+					switch (index) {
+					case 0:
+						ModelNotify notify = (ModelNotify) mAdapter.mList
+								.get(position);
+						deleNotify(notify);
+						mAdapter.mList.remove(position);
+						mAdapter.notifyDataSetChanged();
+						break;
+					}
+					return false;
+				}
+			});
 		}
 	}
 
@@ -82,13 +98,13 @@ public class FragmentNotify extends BaseFragment {
 
 	}
 
-	private void deleNotify(final ModelMsg msg) {
+	private void deleNotify(final ModelNotify notify) {
 		final NotifyIm notifyIm = mApp.getNotifyIm();
 		mApp.getExecutor().execute(new Runnable() {
 
 			@Override
 			public void run() {
-				notifyIm.delNotify(msg);
+				notifyIm.delNotify(notify);
 			}
 		});
 	}

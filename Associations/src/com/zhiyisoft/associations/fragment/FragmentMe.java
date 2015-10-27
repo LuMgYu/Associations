@@ -232,16 +232,10 @@ public class FragmentMe extends BaseFragment {
 		switch (v.getId()) {
 		case R.id.me_rl_find:
 			Bundle data = new Bundle();
-			// mApp.startActivity(getActivity(), MeSettingDataActivity.class,
-			// data);
-			mApp.startActivity(getActivity(), SimpleActivity.class, data);
-
+			mApp.startActivity(getActivity(), MeSettingDataActivity.class, data);
 			break;
 
 		case R.id.me_iv_icon:
-			// mApp.startActivity(getActivity(), YouKuGetCodeActivity.class,
-			// null);
-			// // openTheGalley();
 			showPop(me_iv_icon, 0, 0);
 			break;
 		case R.id.me_iv_photo:

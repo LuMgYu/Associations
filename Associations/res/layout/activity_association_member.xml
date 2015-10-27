@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_white_bg_color" >
 
-    <com.zhiyisoft.associations.listview.AssociationMemberListview
+    <com.zhiyisoft.associations.util.swipelistview.SwipeMenuListView
         android:id="@+id/member_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -103,4 +103,16 @@ public interface NotifyIm {
 	 */
 	Model delNotify(ModelMsg msg);
 
+	/**
+	 * 58.【删除系统通知】：Notify/delNotify
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Notify&act=delNotify
+	 * 
+	 * (int) id 必填 通知id (string) oauth_token 必填 (string) oauth_token_secret 必填
+	 * 
+	 * @param notify
+	 * @return
+	 */
+	Model delNotify(ModelNotify notify);
+
 }

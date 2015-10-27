@@ -5,6 +5,7 @@ import java.util.List;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
+import com.zhiyisoft.associations.model.ModelMember;
 import com.zhiyisoft.associations.model.ModelTiding;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
@@ -36,6 +37,7 @@ public interface LeagueIm {
 	public static final String GETGROUPBASEINFO = "getGroupBaseInfo";// 31.Group/getGroupBaseInfo
 	public static final String GROUPWORKS = "groupWorks";// 48.【社团作品】：Group/groupWorks
 	public static final String GROUPPHOTOVIEW = "groupPhotoView";// 49.【社团图片详情】：Group/groupPhotoView
+	public static final String MEMBEROUT = "memberOut";// 57.【社团踢出成员】：Group/memberOut
 
 	public static final String GROUPNEWSLIST = "groupNewsList";// 55.【社团新闻列表】：Group/groupNewsList
 	public static final String GROUPNEWSDETAIL = "groupNewsDetail";// 56.【社团新闻详情】：Group/groupNewsDetail
@@ -331,5 +333,18 @@ public interface LeagueIm {
 	 * @return
 	 */
 	Model groupNewsDetail(ModelTiding tiding);
+
+	/**
+	 * 57.【社团踢出成员】：Group/memberOut
+	 * 
+	 * 演示地址： daxs.zhiyicx.com/index.php?app=api&mod=Group&act=memberOut
+	 * 
+	 * 输入参数： (int) uid 必填 用户id (int) gid 必填 社团id (string) oauth_token 必填
+	 * (string) oauth_token_secret 必填
+	 * 
+	 * @param member
+	 * @return
+	 */
+	Model memberOut(ModelMember member);
 
 }

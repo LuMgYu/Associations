@@ -638,6 +638,19 @@ public class Api {
 			// 突然发现不需要这个接口 卧槽
 			return null;
 		}
+
+		@Override
+		public Model memberOut(ModelMember member) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, GROUP);
+			get.addBodyParam(ACT, MEMBEROUT);
+			judgeTheUser(get);
+			get.addBodyParam(GID, member.getGid());
+			get.addBodyParam("uid", member.getUid());
+			Object object = get.run();
+			return getModelError(object);
+		}
 	}
 
 	public static final class EventImpl implements EventIm {
@@ -944,6 +957,18 @@ public class Api {
 			get.addBodyParam(ACT, DELNOTIFY);
 			judgeTheUser(get);
 			get.addBodyParam(UID, msg.getUid());
+			Object object = get.run();
+			return getModelError(object);
+		}
+
+		@Override
+		public Model delNotify(ModelNotify notify) {
+			Request get = new Get();
+			get.addBodyParam(APP, API);
+			get.addBodyParam(MOD, NOTIFY);
+			get.addBodyParam(ACT, DELNOTIFY);
+			judgeTheUser(get);
+			get.addBodyParam(ID, notify.getNotifyId());
 			Object object = get.run();
 			return getModelError(object);
 		}
