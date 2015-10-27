@@ -3,18 +3,23 @@ package com.zhiyisoft.associations.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.activity.NotifyDetailActivity;
 import com.zhiyisoft.associations.adapter.NotifyNfyAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
+import com.zhiyisoft.associations.api.LoginIm;
+import com.zhiyisoft.associations.api.NotifyIm;
+import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
-import com.zhiyisoft.associations.listview.NotifyNfyListview;
-import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelMsg;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.swipelistview.SwipeMenuListView;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现系统通知消息的
@@ -22,7 +27,7 @@ import com.zhiyisoft.associations.model.base.Model;
  */
 
 public class FragmentNotify extends BaseFragment {
-	private BaseListView mListView;
+	private SwipeMenuListView mListView;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
 
@@ -45,15 +50,19 @@ public class FragmentNotify extends BaseFragment {
 	@Override
 	public void initView() {
 		if (mListView == null) {
-			mListView = (NotifyNfyListview) findViewById(R.id.notify_lv);
+			mListView = (SwipeMenuListView) findViewById(R.id.notify_lv);
 			mAdapter = new NotifyNfyAdapter(this, mlist);
 			mListView.setAdapter(mAdapter);
-			mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+			mListView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
-				public boolean onItemLongClick(AdapterView<?> parent,
-						View view, int position, long id) {
-					return true;
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					Model model = (Model) parent.getItemAtPosition(position);
+					Bundle bundle = new Bundle();
+					bundle.putSerializable(Config.SEND_ACTIVITY_DATA, model);
+					mApp.startActivity(mApp.getActivity(),
+							NotifyDetailActivity.class, bundle);
 				}
 			});
 		}
@@ -70,8 +79,18 @@ public class FragmentNotify extends BaseFragment {
 
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 
+	}
+
+	private void deleNotify(final ModelMsg msg) {
+		final NotifyIm notifyIm = mApp.getNotifyIm();
+		mApp.getExecutor().execute(new Runnable() {
+
+			@Override
+			public void run() {
+				notifyIm.delNotify(msg);
+			}
+		});
 	}
 
 }

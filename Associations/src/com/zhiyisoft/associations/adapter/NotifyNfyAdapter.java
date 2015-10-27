@@ -18,6 +18,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ViewHolder;
 
 /**
@@ -60,7 +61,14 @@ public class NotifyNfyAdapter extends BAdapter {
 		if (holder != null) {
 			ModelNotify notify = (ModelNotify) mList.get(position);
 			if (notify != null) {
+				String type = notify.getIsRead();
+				holder.iv_remind.setVisibility(View.GONE);
+				if (type.equals("0")) {
+					holder.iv_remind.setVisibility(View.VISIBLE);
+				}
 				holder.tv_msg.setText(notify.getContent());
+				holder.tv_date.setText(DateUtil.stamp2humanDate(notify
+						.getcTime()));
 			}
 
 		}

@@ -1,16 +1,12 @@
 package com.zhiyisoft.associations.listview;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.zhiyisoft.associations.activity.AssociationMainActivity;
 import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;

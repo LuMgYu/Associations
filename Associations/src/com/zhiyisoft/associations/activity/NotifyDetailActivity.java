@@ -7,7 +7,9 @@ import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
+import com.zhiyisoft.associations.api.NotifyIm;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelMsg;
 import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.util.DateUtil;
 
@@ -48,6 +50,7 @@ public class NotifyDetailActivity extends BaseActivity {
 		tv_notify_date = (TextView) findViewById(R.id.tv_notify_date);
 		tv_notify_content = (TextView) findViewById(R.id.tv_notify_content);
 		tv_notify_detail = (TextView) findViewById(R.id.tv_notify_detail);
+		setIsRread(mNotify);
 		initData();
 	}
 
@@ -73,5 +76,23 @@ public class NotifyDetailActivity extends BaseActivity {
 			break;
 		}
 
+	}
+
+	/**
+	 * 设置已经读了
+	 * 
+	 * @param msg
+	 */
+	private void setIsRread(final ModelNotify notify) {
+		final NotifyIm notifyIm = mApp.getNotifyIm();
+		if (notify != null) {
+			mApp.getExecutor().execute(new Runnable() {
+
+				@Override
+				public void run() {
+					notifyIm.setRead(notify);
+				}
+			});
+		}
 	}
 }

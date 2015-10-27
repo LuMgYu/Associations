@@ -69,7 +69,8 @@ public abstract class BAdapter extends BaseAdapter {
 		mExecutor = mApp.getExecutor();
 		if (list != null)
 			mList = list;
-		doRefreshNew();
+		mBaseFragment.setAdapter(this);
+		// doRefreshNew(); //屏蔽了这句话 qcj 2015-10-27
 	}
 
 	/** 子类实现，用来第一次打开的时候获取新数据，当刷新到时候是调用refreshNew() */

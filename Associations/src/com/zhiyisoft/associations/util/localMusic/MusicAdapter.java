@@ -2,14 +2,14 @@ package com.zhiyisoft.associations.util.localMusic;
 
 import java.util.List;
 
-import com.zhiyisoft.associations.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.zhiyisoft.associations.R;
 
 /**
  * author：qiuchunjia time：上午11:18:40 类描述：这个类是实现

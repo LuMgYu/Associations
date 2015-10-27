@@ -1,12 +1,7 @@
 package com.zhiyisoft.associations.cache;
 
-import java.io.InputStream;
-
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.view.View;
 import android.widget.ImageView;
 
 /**

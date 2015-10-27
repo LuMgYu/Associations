@@ -74,12 +74,11 @@ public class NotifyMsgAdapter extends BAdapter {
 			if (msg != null) {
 				Log.i("msg", msg.toString());
 				mApp.displayImage(msg.getmUser().getFaceurl(), holder.iv_icon);
-				// String type = msg.getIsRead();
-				// if (type.equals("0")) {
-				// // holder.iv_remind
-				// } else {
-				// // holder.iv_remind
-				// }
+				String type = msg.getIsRead();
+				holder.iv_remind.setVisibility(View.GONE);
+				if (type.equals("0")) {
+					holder.iv_remind.setVisibility(View.VISIBLE);
+				}
 				holder.tv_nick.setText(msg.getmUser().getUname());
 				holder.tv_msg.setText(msg.getContent());
 				holder.tv_date

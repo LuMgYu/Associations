@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.http.Header;
 import org.json.JSONException;
@@ -18,13 +17,13 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Video.Thumbnails;
-import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,8 +38,6 @@ import com.loopj.android.http.RequestParams;
 import com.umeng.socialize.utils.Log;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.EmotionGridViewAdapter;
-import com.zhiyisoft.associations.adapter.ViewpagerCommonAdapter;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.LocalFile;
@@ -260,7 +257,11 @@ public class AssociationSendTopicActivity extends BaseActivity {
 			}
 			break;
 		case R.id.fl_upload_video:
-			mApp.startActivityForResult(this, LocalVideoActivity.class, null);
+			initPopWindow();
+			showPop(fl_upload_video, 0, 0);
+			// shootVideo();
+			// mApp.startActivityForResult(this, LocalVideoActivity.class,
+			// null);
 			break;
 		case R.id.topic_image:
 			Bundle data2 = new Bundle();
@@ -551,6 +552,23 @@ public class AssociationSendTopicActivity extends BaseActivity {
 				}
 			}
 		}
+		if (requestCode == SHOOT_VIDEO) {
+			Uri uri = data.getData();
+			if (uri != null) {
+				String filepath = getVideoPath(uri);
+				Bitmap bitmap = getVideoThumbnail(filepath, 120, 120,
+						Thumbnails.MINI_KIND);
+				vedio_iv_big_image.setImageBitmap(bitmap);
+				mVideo = new LocalVideo();
+				mVideo.setTitle("录制视频");
+				mVideo.setPath(filepath);
+				// mFile = filterThepath(filepath);
+				// if (mFile != null) {
+				// tv_music_name.setText(mFile.getFileName() + "");
+				// }
+				ToastUtils.showToast(filepath);
+			}
+		}
 	}
 
 	/**
@@ -596,33 +614,123 @@ public class AssociationSendTopicActivity extends BaseActivity {
 		return bitmap;
 	}
 
+	// //
+	// --------------------------PopupWindow的界面控件-----------------------------------------
+	// private PopupWindow mPopupWindow;
+	// private ViewPager emotionViewpager;
+	// private LinearLayout emotionflag;
+	// private ViewpagerCommonAdapter adapter;
+	// private List<View> views = new ArrayList<View>();
+	// private EmotionGridViewAdapter gridViewAdapter;
+	//
+	// /**
+	// * 初始化popWindow
+	// * */
+	// private void initPopWindow() {
+	// if (mPopupWindow == null) {
+	// View popView = mInflater.inflate(R.layout.emotion_framework, null);
+	// mPopupWindow = new PopupWindow(popView,
+	// android.widget.AbsListView.LayoutParams.MATCH_PARENT, 300);
+	// mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
+	// mPopupWindow.setOnDismissListener(new OnDismissListener() {
+	//
+	// @Override
+	// public void onDismiss() {
+	//
+	// }
+	// });
+	// // 设置popwindow出现和消失动画
+	// initPopWidge(popView);
+	// }
+	// }
+	//
+	// /**
+	// * 初始化popwindow里面的控件
+	// *
+	// * @param popView
+	// */
+	// private void initPopWidge(View popView) {
+	// emotionViewpager = (ViewPager) popView
+	// .findViewById(R.id.emotionViewpager);
+	// emotionflag = (LinearLayout) popView.findViewById(R.id.emotionflag);
+	// gridViewAdapter = new EmotionGridViewAdapter(this, 21);
+	// for (int i = 0; i < 7; i++) {
+	// View view = mInflater.inflate(
+	// R.layout.emotion_framework_gridview_item, null);
+	// GridView gridView = (GridView) view
+	// .findViewById(R.id.emotion_gridView);
+	// gridView.setAdapter(gridViewAdapter);
+	//
+	// views.add(gridView);
+	// }
+	// adapter = new ViewpagerCommonAdapter(views);
+	// emotionViewpager.setAdapter(adapter);
+	// }
+	//
+	// /**
+	// * 显示popWindow
+	// * */
+	// @SuppressLint("NewApi")
+	// public void showPop(View parent, int x, int y) {
+	// // 设置popwindow显示位置
+	// mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, x, y);
+	// mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
+	// // 获取popwindow焦点
+	// mPopupWindow.setFocusable(true);
+	// // 设置popwindow如果点击外面区域，便关闭。
+	// mPopupWindow.setOutsideTouchable(true);
+	// mPopupWindow.update();
+	// }
+
 	// --------------------------PopupWindow的界面控件-----------------------------------------
 	private PopupWindow mPopupWindow;
-	private ViewPager emotionViewpager;
-	private LinearLayout emotionflag;
-	private ViewpagerCommonAdapter adapter;
-	private List<View> views = new ArrayList<View>();
-	private EmotionGridViewAdapter gridViewAdapter;
+	private TextView btn_openTheCamera;
+	private TextView btn_openTheGallery;
+	private TextView btn_cancle;
 
 	/**
 	 * 初始化popWindow
 	 * */
 	private void initPopWindow() {
 		if (mPopupWindow == null) {
-			View popView = mInflater.inflate(R.layout.emotion_framework, null);
-			mPopupWindow = new PopupWindow(popView,
-					android.widget.AbsListView.LayoutParams.MATCH_PARENT, 300);
+			View popView = mInflater.inflate(R.layout.upload_icon_item, null);
+			mPopupWindow = new PopupWindow(popView, LayoutParams.MATCH_PARENT,
+					LayoutParams.WRAP_CONTENT);
 			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
 			mPopupWindow.setOnDismissListener(new OnDismissListener() {
 
 				@Override
 				public void onDismiss() {
+					setWindowAlpha(1.0f);
 
 				}
 			});
 			// 设置popwindow出现和消失动画
 			initPopWidge(popView);
+			setPopListener();
 		}
+	}
+
+	/**
+	 * 设置屏幕的透明度
+	 * 
+	 * @param alpha
+	 *            需要设置透明度
+	 */
+	private void setWindowAlpha(float alpha) {
+		WindowManager.LayoutParams params = this.getWindow().getAttributes();
+		params.alpha = alpha;
+		this.getWindow().setAttributes(params);
+	}
+
+	/**
+	 * 设置popWindow监听器
+	 */
+	private void setPopListener() {
+		PopWindowItemListener listener = new PopWindowItemListener();
+		btn_openTheCamera.setOnClickListener(listener);
+		btn_openTheGallery.setOnClickListener(listener);
+		btn_cancle.setOnClickListener(listener);
 	}
 
 	/**
@@ -631,21 +739,37 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	 * @param popView
 	 */
 	private void initPopWidge(View popView) {
-		emotionViewpager = (ViewPager) popView
-				.findViewById(R.id.emotionViewpager);
-		emotionflag = (LinearLayout) popView.findViewById(R.id.emotionflag);
-		gridViewAdapter = new EmotionGridViewAdapter(this, 21);
-		for (int i = 0; i < 7; i++) {
-			View view = mInflater.inflate(
-					R.layout.emotion_framework_gridview_item, null);
-			GridView gridView = (GridView) view
-					.findViewById(R.id.emotion_gridView);
-			gridView.setAdapter(gridViewAdapter);
+		btn_openTheCamera = (TextView) popView
+				.findViewById(R.id.btn_openTheCamera);
+		btn_openTheGallery = (TextView) popView
+				.findViewById(R.id.btn_openTheGallery);
+		btn_cancle = (TextView) popView.findViewById(R.id.btn_cancle);
+		btn_openTheCamera.setText("拍摄视频");
+		btn_openTheGallery.setText("本地视频");
+	}
 
-			views.add(gridView);
+	private class PopWindowItemListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btn_openTheCamera:
+				shootVideo();
+				mPopupWindow.dismiss();
+				break;
+
+			case R.id.btn_openTheGallery:
+				mApp.startActivityForResult(AssociationSendTopicActivity.this,
+						LocalVideoActivity.class, null);
+				mPopupWindow.dismiss();
+				break;
+			case R.id.btn_cancle:
+				mPopupWindow.dismiss();
+				break;
+
+			}
 		}
-		adapter = new ViewpagerCommonAdapter(views);
-		emotionViewpager.setAdapter(adapter);
+
 	}
 
 	/**
@@ -655,11 +779,12 @@ public class AssociationSendTopicActivity extends BaseActivity {
 	public void showPop(View parent, int x, int y) {
 		// 设置popwindow显示位置
 		mPopupWindow.showAtLocation(parent, Gravity.BOTTOM, x, y);
-		mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
 		// 获取popwindow焦点
 		mPopupWindow.setFocusable(true);
 		// 设置popwindow如果点击外面区域，便关闭。
 		mPopupWindow.setOutsideTouchable(true);
+		mPopupWindow.setAnimationStyle(R.style.popwin_anim_style);
 		mPopupWindow.update();
+		setWindowAlpha(0.7f);
 	}
 }

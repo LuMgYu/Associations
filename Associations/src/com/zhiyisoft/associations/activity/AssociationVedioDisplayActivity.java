@@ -15,7 +15,6 @@ import android.widget.PopupWindow.OnDismissListener;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.AssociationVedioAdapter;
-import com.zhiyisoft.associations.adapter.MoveWorksAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.MoveWorksListview;

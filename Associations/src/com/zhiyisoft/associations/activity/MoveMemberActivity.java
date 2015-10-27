@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.AssociationMemberAdapter;
 import com.zhiyisoft.associations.adapter.MoveMemberAdapter;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.config.Config;

@@ -16,7 +16,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
-import android.os.Environment;
 
 import com.zhiyisoft.associations.cache.base.DiskLruCache;
 import com.zhiyisoft.associations.util.BitmapUtil;

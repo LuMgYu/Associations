@@ -21,6 +21,7 @@ import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
 import com.zhiyisoft.associations.model.ModelMask;
+import com.zhiyisoft.associations.model.ModelMember;
 import com.zhiyisoft.associations.model.ModelMsg;
 import com.zhiyisoft.associations.model.ModelNotify;
 import com.zhiyisoft.associations.model.ModelRegister;
@@ -463,7 +464,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(GID, league.getGid());
 			Object object = get.run();
-			return parseOriginalJsonArray(object, new ModelUser());
+			return parseOriginalJsonArray(object, new ModelMember());
 		}
 
 		@Override
@@ -740,7 +741,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(ID, event.getId());
 			Object object = get.run();
-			return parseOriginalJsonArray(object, new ModelUser());
+			return parseOriginalJsonArray(object, new ModelMember());
 		}
 
 		@Override
@@ -942,7 +943,7 @@ public class Api {
 			get.addBodyParam(MOD, WALL);
 			get.addBodyParam(ACT, DELNOTIFY);
 			judgeTheUser(get);
-			get.addBodyParam(WITHMASKID, msg.getWithMaskId());
+			get.addBodyParam(UID, msg.getUid());
 			Object object = get.run();
 			return getModelError(object);
 		}

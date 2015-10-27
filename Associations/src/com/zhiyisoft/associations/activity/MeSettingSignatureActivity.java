@@ -9,7 +9,6 @@ import android.widget.EditText;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api.LoginImpl;
-import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;

@@ -457,8 +457,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 	// ----------------------------------调用本地的图片，摄像机，文件之类的操作------------------------------------------------------
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记
 	public static final int CAPTURE_CODE = 2; // 取照片的时做的标记
-	public static final int VEDIO_CODE = 3;
-	public static final int FILE_CODE = 4;
+	public static final int VEDIO_CODE = 3; // 获取本地视频
+	public static final int FILE_CODE = 4; // 本地文件
+	public static final int SHOOT_VIDEO = 5; // 拍摄视频
+
 	public static final int GET_DATA_FROM_ACTIVITY = 2;
 
 	/**
@@ -498,6 +500,17 @@ public abstract class BaseActivity extends FragmentActivity implements
 	public void openTheCamera() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(intent, CAPTURE_CODE);
+	}
+
+	/**
+	 * 打开摄像机拍摄视频
+	 */
+	public void shootVideo() {
+		Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+		// 设置视频大小
+		intent.putExtra(android.provider.MediaStore.EXTRA_SIZE_LIMIT,
+				20 * 1024 * 1024); // 设置为20M
+		startActivityForResult(intent, SHOOT_VIDEO);
 	}
 
 	@Override
@@ -810,4 +823,27 @@ public abstract class BaseActivity extends FragmentActivity implements
 		mPopupWindow.update();
 		setWindowAlpha(0.7f);
 	}
+
+	/**************************** uri 与 filepath互转 *********************************************/
+	/**
+	 * 通过视频uri获取视频文件路径
+	 * 
+	 * @param uri
+	 * @return
+	 */
+	public String getVideoPath(Uri uri) {
+		if (uri != null) {
+			String[] proj = { MediaStore.Video.Media.DATA };
+			Cursor videoCursor = managedQuery(uri, proj, null, null, null);
+			int actual_video_column_index = videoCursor
+					.getColumnIndexOrThrow(MediaStore.Video.Media.DATA);
+			videoCursor.moveToFirst();
+			String video_path = videoCursor
+					.getString(actual_video_column_index);
+			return video_path;
+		}
+		return null;
+
+	}
+
 }

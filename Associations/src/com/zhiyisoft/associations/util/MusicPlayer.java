@@ -11,7 +11,6 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.FrameLayout.LayoutParams;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 

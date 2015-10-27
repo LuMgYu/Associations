@@ -1,7 +1,6 @@
 package com.zhiyisoft.associations.listview;
 
 import android.content.Context;
-import android.graphics.AvoidXfermode.Mode;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;

@@ -78,6 +78,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 			initView();
 			initListener();
 			initData();
+			doRefreshNew();
 			// 新鲜事
 		} else {
 			// 当存在mview的时候就调用清零
@@ -156,6 +157,12 @@ public abstract class BaseFragment extends Fragment implements OnClickListener {
 	 */
 	public void setAdapter(BAdapter adapter) {
 		this.mAdapter = adapter;
+	}
+
+	public void doRefreshNew() {
+		if (mAdapter != null) {
+			mAdapter.doRefreshNew();
+		}
 	}
 
 	public static final int IMAGE_CODE = 1; // 取照片的时做的标记

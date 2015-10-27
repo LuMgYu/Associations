@@ -36,6 +36,19 @@
             android:text="北京大学青鸟学院"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_common" />
+
+        <TextView
+            android:id="@+id/member_tv_sendmessage"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@drawable/view_solid_red_5"
+            android:gravity="center"
+            android:text="发私信"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_small" />
     </RelativeLayout>
 
 </LinearLayout>

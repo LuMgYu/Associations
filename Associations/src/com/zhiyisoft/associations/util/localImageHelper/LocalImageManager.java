@@ -21,7 +21,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.zhiyisoft.associations.application.Association;
 

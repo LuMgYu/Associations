@@ -1,6 +1,5 @@
 package com.zhiyisoft.associations.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.view.View;
@@ -113,27 +112,33 @@ public class AssociationAdapter extends BAdapter {
 	// -----------------------------------------------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		List<Model> list = getAssociation(1);
+		List<Model> list = getAssociation(mLeague, 1);
 		return list;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> list = getAssociation(1);
+		List<Model> list = getAssociation(mLeague, 1);
 		return list;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
 		p++;
-		List<Model> list = getAssociation(1);
+		List<Model> list = getAssociation(mLeague, p);
 		return list;
 	}
 
-	private List<Model> getAssociation(int index) {
-		if (mLeague != null) {
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
+	}
+
+	private List<Model> getAssociation(ModelLeague league, int index) {
+		if (league != null) {
+			league.setP(index);
 			LeagueImpl leagueImpl = mApp.getLeagueIm();
-			List<Model> list = leagueImpl.groupIndex(mLeague);
+			List<Model> list = leagueImpl.groupIndex(league);
 			return list;
 		}
 		return null;

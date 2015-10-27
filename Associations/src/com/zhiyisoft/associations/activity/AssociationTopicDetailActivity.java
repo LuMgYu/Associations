@@ -1,10 +1,6 @@
 package com.zhiyisoft.associations.activity;
 
 import io.vov.vitamio.LibsChecker;
-import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.MediaPlayer.OnPreparedListener;
-import io.vov.vitamio.widget.MediaController;
-import io.vov.vitamio.widget.VideoView;
 
 import java.io.File;
 import java.io.FileNotFoundException;

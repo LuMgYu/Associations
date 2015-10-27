@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Images.ImageColumns;
-import android.widget.Toast;
 
 /**
  * author：qiuchunjia time：下午1:43:02

@@ -32,6 +32,7 @@ import com.zhiyisoft.associations.util.ViewHolder;
 public class MoveAdapter extends BAdapter {
 	private ModelEvent mEvent;
 	LocationResultListener mListener;
+	boolean isArround = false;
 
 	public MoveAdapter(BaseActivity activity, ModelEvent event) {
 		super(activity, null);
@@ -95,20 +96,23 @@ public class MoveAdapter extends BAdapter {
 							+ DateUtil.strTodate(event.geteTime()));
 			holder.move_tv_allmove.setText(event.getJoinCount());
 			holder.move_tv_content.setText(event.getExplain());
-			if (event.getLatitude() > 0 && event.getLongtitude() > 0) {
-				LatLng latLng = new LatLng(event.getLatitude(),
-						event.getLongtitude());
-				LatLng latLng2 = new LatLng(mEvent.getLatitude(),
-						mEvent.getLongtitude());
-				double distance = DistanceUtil.getDistance(latLng2, latLng);
-				double hh = distance / 1000;
-				DecimalFormat df = new DecimalFormat("0.00");// 格式化小数，不足的补0
-				String dis = df.format(hh);// 返回的是String类型的
+			holder.move_tv_distance.setVisibility(View.GONE);
+			if (isArround) {
 				holder.move_tv_distance.setVisibility(View.VISIBLE);
-				holder.move_tv_distance.setText(dis + "km");
+				if (event.getLatitude() > 0 && event.getLongtitude() > 0) {
+					LatLng latLng = new LatLng(event.getLatitude(),
+							event.getLongtitude());
+					LatLng latLng2 = new LatLng(mEvent.getLatitude(),
+							mEvent.getLongtitude());
+					double distance = DistanceUtil.getDistance(latLng2, latLng);
+					double hh = distance / 1000;
+					DecimalFormat df = new DecimalFormat("0.00");// 格式化小数，不足的补0
+					String dis = df.format(hh);// 返回的是String类型的
+					holder.move_tv_distance.setVisibility(View.VISIBLE);
+					holder.move_tv_distance.setText(dis + "km");
+				}
 			}
 		}
-		// TODO 把数据绑定到界面
 
 	}
 
@@ -174,6 +178,7 @@ public class MoveAdapter extends BAdapter {
 			List<Model> items = null;
 			if (mEvent.getTypeName() != null) {
 				if (mEvent.getTypeName().equals("周边活动")) {
+					isArround = true;
 					items = eventImpl.getNearbyEvents(mEvent);
 				} else {
 					items = eventImpl.eventList(mEvent);

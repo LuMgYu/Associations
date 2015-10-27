@@ -8,7 +8,6 @@ import android.widget.AbsListView.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import com.umeng.socialize.utils.Log;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.util.UIUtils;
 

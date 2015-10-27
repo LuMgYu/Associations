@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -15,7 +14,6 @@ import com.zhiyisoft.associations.api.Api.LoginImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
-import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
 
 /**

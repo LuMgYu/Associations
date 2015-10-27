@@ -248,7 +248,11 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.ll_notify:
 			mCurrentState = NOTIFY;
-			initFragmentNotify();
+			if (!isChooseMsg) {
+				initFragmentNotify();
+			} else {
+				initMsgFragment();
+			}
 			break;
 		case R.id.ll_me:
 			mCurrentState = ME;
@@ -256,18 +260,6 @@ public class MainActivity extends BaseActivity {
 			initFragmentMe();
 
 			break;
-		// case R.id.tv_title_right:
-		// tv_title_right.setVisibility(View.VISIBLE);
-		//
-		// switch (mCurrentState) {
-		// case 1:
-		// mApp.startActivity(this, MoveCreateActivity.class, null);
-		// break;
-		// case 2:
-		// mApp.startActivity(this, AssociationCreateActivity.class, null);
-		// break;
-		// }
-		// break;
 		}
 	}
 
@@ -334,6 +326,7 @@ public class MainActivity extends BaseActivity {
 	/**
 	 * 初始化FragmentNotify()
 	 */
+	private boolean isChooseMsg = false;
 
 	private void initFragmentNotify() {
 		if (mNotifyFragment == null) {
@@ -341,19 +334,15 @@ public class MainActivity extends BaseActivity {
 		}
 		initChooseNotify();
 		replaceFragment(mNotifyFragment);
+		changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 		// changeTheTitle("通知");
 		getRl_twoButton().setVisibility(View.VISIBLE);
 		getTv_1().setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				v.setBackgroundResource(R.drawable.view_border_left_red_5);
-				getTv_1().setTextColor(
-						getResources().getColor(R.color.text_white));
-				getTv_2().setTextColor(
-						getResources().getColor(R.color.main_color));
-				getTv_2().setBackgroundResource(
-						R.drawable.view_border_right_white_5);
+				initChooseNotify();
+				isChooseMsg = false;
 				replaceFragment(mNotifyFragment);
 			}
 		});
@@ -361,18 +350,12 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				v.setBackgroundResource(R.drawable.view_border_right_red_5);
-				getTv_2().setTextColor(
-						getResources().getColor(R.color.text_white));
-				getTv_1().setTextColor(
-						getResources().getColor(R.color.main_color));
-				getTv_1().setBackgroundResource(
-						R.drawable.view_border_left_white_5);
+				isChooseMsg = true;
+				initChooseMsg();
 				initMsgFragment();
 				replaceFragment(mMsgFragment);
 			}
 		});
-		changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 	}
 
 	/**
@@ -385,10 +368,23 @@ public class MainActivity extends BaseActivity {
 		getTv_2().setBackgroundResource(R.drawable.view_border_right_white_5);
 	}
 
+	/**
+	 * 初始化通知
+	 */
+	private void initChooseMsg() {
+		getTv_1().setBackgroundResource(R.drawable.view_border_left_white_5);
+		getTv_1().setTextColor(getResources().getColor(R.color.main_color));
+		getTv_2().setTextColor(getResources().getColor(R.color.text_white));
+		getTv_2().setBackgroundResource(R.drawable.view_border_right_red_5);
+	}
+
 	private void initMsgFragment() {
 		if (mMsgFragment == null) {
 			mMsgFragment = new FragmentMsg();
 		}
+		getRl_twoButton().setVisibility(View.VISIBLE);
+		replaceFragment(mMsgFragment);
+		changeTheColor(iv_notify, tv_notify, R.drawable.inform_);
 	}
 
 	/**

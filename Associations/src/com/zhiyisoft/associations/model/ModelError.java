@@ -1,11 +1,9 @@
 package com.zhiyisoft.associations.model;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zhiyisoft.associations.model.base.Model;
-import com.zhiyisoft.associations.util.JsonUtils;
 
 /**
  * author：qiuchunjia time：上午11:19:30 类描述：这个类是实现

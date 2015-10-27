@@ -18,7 +18,6 @@ import android.widget.GridView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
-import com.zhiyisoft.associations.adapter.MyPhotoGridViewAdapter;
 
 /**
  * author：qiuchunjia time：上午9:53:45 类描述：这个类是实现

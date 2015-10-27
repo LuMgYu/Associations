@@ -3,9 +3,7 @@
     android:id="@+id/rl_notify"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/main_white_bg_color"
-    android:paddingBottom="@dimen/margin_bottom"
-    android:paddingTop="@dimen/margin_top" >
+    android:background="@color/main_white_bg_color" >
 
     <!-- 通知布局 -->
 
@@ -20,8 +18,8 @@
 
         <com.zhiyisoft.associations.img.RoundImageView
             android:id="@+id/iv_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/sys" />
 

@@ -118,6 +118,7 @@ public class ViewHolder {
 	public RoundImageView member_iv;
 	public TextView member_tv_name;
 	public TextView member_tv_school;
+	public TextView member_tv_sendmessage;
 
 	/**************** association_member_item end ********************************************/
 	/**************** association文件item ********************************************/

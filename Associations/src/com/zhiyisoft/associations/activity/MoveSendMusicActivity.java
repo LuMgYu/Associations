@@ -2,7 +2,6 @@ package com.zhiyisoft.associations.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 
 import com.zhiyisoft.associations.R;

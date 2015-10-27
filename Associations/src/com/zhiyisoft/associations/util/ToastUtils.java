@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.application.Association;
 
 public class ToastUtils {

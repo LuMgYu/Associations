@@ -7,7 +7,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.zhiyisoft.associations.activity.AssociationAlbumSingleActivity;
 import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;

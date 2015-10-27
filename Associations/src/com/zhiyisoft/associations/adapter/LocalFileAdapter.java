@@ -3,7 +3,6 @@ package com.zhiyisoft.associations.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
