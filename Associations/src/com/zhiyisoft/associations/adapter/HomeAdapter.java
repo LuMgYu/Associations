@@ -390,63 +390,89 @@ public class HomeAdapter extends BAdapter {
 				}
 			});
 		}
-		for (int i = 0; i < mRefreAssos.length; i++) {
-			mRefreAssos[i].setOnClickListener(new OnClickListener() {
+		if (mRefreAssos != null) {
+			for (int i = 0; i < mRefreAssos.length; i++) {
+				if (mRefreAssos[i] != null) {
+					mRefreAssos[i].setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ModelLeague league = (ModelLeague) v.getTag();
-					Bundle bundle = new Bundle();
-					bundle.putSerializable(Config.SEND_ACTIVITY_DATA, league);
-					mApp.startActivity(mBaseActivity,
-							AssociationMainActivity.class, bundle);
+						@Override
+						public void onClick(View v) {
+							ModelLeague league = (ModelLeague) v.getTag();
+							Bundle bundle = new Bundle();
+							bundle.putSerializable(Config.SEND_ACTIVITY_DATA,
+									league);
+							mApp.startActivity(mBaseActivity,
+									AssociationMainActivity.class, bundle);
 
+						}
+					});
 				}
-			});
+			}
 		}
-		for (int i = 0; i < mWorksViews.length; i++) {
-			mWorksViews[i].setOnClickListener(new OnClickListener() {
+		if (mWorksViews != null) {
+			for (int i = 0; i < mWorksViews.length; i++) {
+				if (mWorksViews[i] != null) {
+					mWorksViews[i].setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ModelEventWorks work = (ModelEventWorks) v.getTag();
-					Bundle workdata = new Bundle();
-					workdata.putSerializable(Config.SEND_ACTIVITY_DATA, work);
-					mApp.startActivity(mBaseActivity,
-							AssociationTopicDetailActivity.class, workdata);
+						@Override
+						public void onClick(View v) {
+							ModelEventWorks work = (ModelEventWorks) v.getTag();
+							Bundle workdata = new Bundle();
+							workdata.putSerializable(Config.SEND_ACTIVITY_DATA,
+									work);
+							mApp.startActivity(mBaseActivity,
+									AssociationTopicDetailActivity.class,
+									workdata);
 
+						}
+					});
 				}
-			});
+			}
 		}
-		// 热门活动
-		for (int i = 0; i < mHotItemViewArray.length; i++) {
-			mHotItemViewArray[i].setOnClickListener(new OnClickListener() {
+		if (mHotItemViewArray != null) {
+			// 热门活动
+			for (int i = 0; i < mHotItemViewArray.length; i++) {
+				if (mHotItemViewArray[i] != null) {
+					mHotItemViewArray[i]
+							.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ModelEvent event = (ModelEvent) v.getTag();
-					Bundle eventdata = new Bundle();
-					eventdata.putSerializable(Config.SEND_ACTIVITY_DATA, event);
-					mApp.startActivity(mBaseActivity, MoveMainActivity.class,
-							eventdata);
+								@Override
+								public void onClick(View v) {
+									ModelEvent event = (ModelEvent) v.getTag();
+									Bundle eventdata = new Bundle();
+									eventdata.putSerializable(
+											Config.SEND_ACTIVITY_DATA, event);
+									mApp.startActivity(mBaseActivity,
+											MoveMainActivity.class, eventdata);
 
+								}
+							});
 				}
-			});
+			}
 		}
-		// 新鲜事
-		for (int i = 0; i < mNewsItemViewArray.length; i++) {
-			mNewsItemViewArray[i].setOnClickListener(new OnClickListener() {
+		if (mNewsItemViewArray != null) {
+			// 新鲜事
+			for (int i = 0; i < mNewsItemViewArray.length; i++) {
+				if (mNewsItemViewArray[i] != null) {
+					mNewsItemViewArray[i]
+							.setOnClickListener(new OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					ModelLeagueTopic topic = (ModelLeagueTopic) v.getTag();
-					Bundle topicdata = new Bundle();
-					topicdata.putSerializable(Config.SEND_ACTIVITY_DATA, topic);
-					mApp.startActivity(mBaseActivity,
-							AssociationTopicDetailActivity.class, topicdata);
+								@Override
+								public void onClick(View v) {
+									ModelLeagueTopic topic = (ModelLeagueTopic) v
+											.getTag();
+									Bundle topicdata = new Bundle();
+									topicdata.putSerializable(
+											Config.SEND_ACTIVITY_DATA, topic);
+									mApp.startActivity(
+											mBaseActivity,
+											AssociationTopicDetailActivity.class,
+											topicdata);
 
+								}
+							});
 				}
-			});
+			}
 		}
 	}
 
@@ -457,20 +483,10 @@ public class HomeAdapter extends BAdapter {
 		if (holder != null) {
 
 			List<MyADViewModel> data = new ArrayList<MyADViewModel>();
-			data.add(new MyADViewModel(
-					"http://img.taopic.com/uploads/allimg/130501/240451-13050106450911.jpg"));
-			data.add(new MyADViewModel(
-					"http://pic.nipic.com/2007-11-09/2007119122519868_2.jpg"));
-			data.add(new MyADViewModel(
-					"http://img3.imgtn.bdimg.com/it/u=3841157212,2135341815&fm=21&gp=0.jpg"));
-			// data.add(new MyADViewModel(
-			// "http://www.xxjxsj.cn/article/UploadPic/2009-10/2009101018545196251.jpg"));
-			// if (mAdAdapter == null) {
-			// mAdAdapter = new MyADAdapter(mBaseActivity, data);
-			// holder.adView.setAdapter(mAdAdapter);
-			// holder.adView.startAutoScroll();
-			// }
-			Log.i("setAds()", "---------setAds()");
+			data.add(new MyADViewModel(R.drawable.banner1));
+			data.add(new MyADViewModel(R.drawable.banner2));
+			data.add(new MyADViewModel(R.drawable.banner3));
+			data.add(new MyADViewModel(R.drawable.banner4));
 			if (isFirst) {
 				try {
 					holder.adView.setData(data);

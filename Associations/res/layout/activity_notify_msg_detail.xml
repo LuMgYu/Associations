@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- 输入框 -->
+
+    <RelativeLayout
+        android:id="@+id/rl_message"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/main_gray_color" >
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="50dp"
+            android:layout_height="@dimen/item_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:background="@drawable/btn_red"
+            android:text="发送"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_big" />
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_left_small"
+            android:layout_toLeftOf="@id/btn_send"
+            android:background="@drawable/view_border_white_5"
+            android:textColor="@color/text_black"
+            android:textCursorDrawable="@null" />
+    </RelativeLayout>
+
+    <com.zhiyisoft.associations.listview.NotifyMsgListview
+        android:id="@+id/lv_msg_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/rl_message" />
+
+</RelativeLayout>

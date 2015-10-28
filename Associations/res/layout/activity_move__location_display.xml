@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_pure_color"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_white_bg_color" >
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_arround"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_color"
+        android:text="附近共有0个活动"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_big" />
+
+    <com.zhiyisoft.associations.listview.MoveListview
+        android:id="@+id/move_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

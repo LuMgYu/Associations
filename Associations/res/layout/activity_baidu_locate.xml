@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_white_bg_color"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/fl_find"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/main_white_bg_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
+
+        <EditText
+            android:id="@+id/et_find"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/et_border"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/margin_left_small"
+            android:textColor="@color/text_black"
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_common" />
+
+        <ImageView
+            android:id="@+id/iv_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:src="@drawable/zoom" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/main_white_pure_color" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_location_choose"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/main_white_pure_color"
+        android:visibility="gone" >
+
+        <ListView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+    </RelativeLayout>
+
+</LinearLayout>
