@@ -70,7 +70,6 @@ public class AssociationMainActivity extends BaseActivity {
 			case SUCCESS:
 				ModelLeague league = (ModelLeague) msg.obj;
 				if (league != null) {
-					ToastUtils.showToast("获取资料成功");
 					bindleDataToView(league);
 				} else {
 					ToastUtils.showToast("获取资料失败");
@@ -149,17 +148,19 @@ public class AssociationMainActivity extends BaseActivity {
 	 */
 	private void getInformationFromNet(final ModelLeague league) {
 		final LeagueImpl leagueImpl = mApp.getLeagueIm();
-		mApp.getExecutor().execute(new Runnable() {
+		if (league != null) {
+			mApp.getExecutor().execute(new Runnable() {
 
-			@Override
-			public void run() {
-				ModelLeague result = (ModelLeague) leagueImpl.view(league);
-				Message message = Message.obtain();
-				message.what = SUCCESS;
-				message.obj = result;
-				mHandle.sendMessage(message);
-			}
-		});
+				@Override
+				public void run() {
+					ModelLeague result = (ModelLeague) leagueImpl.view(league);
+					Message message = Message.obtain();
+					message.what = SUCCESS;
+					message.obj = result;
+					mHandle.sendMessage(message);
+				}
+			});
+		}
 	}
 
 	private void applyJoinAssociation(final ModelLeague league) {
@@ -216,8 +217,6 @@ public class AssociationMainActivity extends BaseActivity {
 				applyJoinAssociation(mLeague);
 			}
 			break;
-		case R.id.iv_title:
-			break;
 		case R.id.rl_album:
 			Bundle albumdata = new Bundle();
 			albumdata.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
@@ -227,8 +226,6 @@ public class AssociationMainActivity extends BaseActivity {
 			Bundle fileData = new Bundle();
 			fileData.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
 			mApp.startActivity(this, AssociationWordActivity.class, fileData);
-			break;
-		case R.id.rl_phone:
 			break;
 		}
 

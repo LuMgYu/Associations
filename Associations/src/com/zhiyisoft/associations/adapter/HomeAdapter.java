@@ -68,9 +68,6 @@ public class HomeAdapter extends BAdapter {
 	private View[] mRefreAssos;
 	private View[] mWorksViews;
 
-	private boolean isFirstInit = true;
-	private boolean isRefresh = true;
-
 	public HomeAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
 	}
@@ -93,8 +90,6 @@ public class HomeAdapter extends BAdapter {
 		setAds(holder);
 		// if (isFirstInit || isRefresh) {
 		initData(position, holder);
-		isFirstInit = false;
-		isRefresh = false;
 		// }
 		return convertView;
 	}
@@ -109,8 +104,6 @@ public class HomeAdapter extends BAdapter {
 			addAdviceAssocition(home.getGroups(), holder);
 			addMyAssociation(home.getJoinedGroup(), holder);
 			adddataToWork(home.getWorks(), holder);
-			Log.i(TAG, "initHotView");
-			Log.i(TAG, home.getEvents().toString());
 			initHotView(home.getEvents(), holder);
 			initNewsView(home.getTopics(), holder);
 			setListener();
@@ -124,6 +117,7 @@ public class HomeAdapter extends BAdapter {
 	 */
 	private void adddataToWork(List<Model> works, ViewHolder holder) {
 		if (works != null && holder != null) {
+			holder.ll_works.setVisibility(View.VISIBLE);
 			for (int i = 0; i < works.size(); i++) {
 				ModelEventWorks work = (ModelEventWorks) works.get(i);
 				if (i == 0) {
@@ -154,6 +148,10 @@ public class HomeAdapter extends BAdapter {
 			for (int i = 0; i < groups.size(); i++) {
 				ModelLeague league = (ModelLeague) groups.get(i);
 				if (i == 0) {
+					if (league.getName() != null) {
+						holder.ll_allAssociations.setVisibility(View.VISIBLE);
+						holder.ll_association1.setVisibility(View.VISIBLE);
+					}
 					holder.iv_association1.setTag(league);
 					// holder.iv_association1
 					// .setImageUrl(league.getLogourl());
@@ -161,6 +159,9 @@ public class HomeAdapter extends BAdapter {
 							holder.iv_association1);
 					holder.tv_association1.setText(league.getName());
 				} else if (i == 1) {
+					if (league.getName() != null) {
+						holder.ll_association2.setVisibility(View.VISIBLE);
+					}
 					holder.iv_association2.setTag(league);
 					// holder.iv_association2
 					// .setImageUrl(league.getLogourl());
@@ -168,13 +169,17 @@ public class HomeAdapter extends BAdapter {
 							holder.iv_association2);
 					holder.tv_association2.setText(league.getName());
 				} else if (i == 2) {
+					if (league.getName() != null) {
+						holder.ll_association3.setVisibility(View.VISIBLE);
+					}
 					holder.iv_association3.setTag(league);
-					// holder.iv_association3
-					// .setImageUrl(league.getLogourl());
 					mApp.displayImage(league.getLogourl(),
 							holder.iv_association3);
 					holder.tv_association3.setText(league.getName());
 				} else if (i == 3) {
+					if (league.getName() != null) {
+						holder.ll_association4.setVisibility(View.VISIBLE);
+					}
 					holder.iv_association4.setTag(league);
 					mApp.displayImage(league.getLogourl(),
 							holder.iv_association4);
@@ -318,6 +323,8 @@ public class HomeAdapter extends BAdapter {
 			holder.btn_all_move = (Button) view.findViewById(R.id.btn_all_move);
 			holder.btn_around_move = (Button) view
 					.findViewById(R.id.btn_around_move);
+			holder.ll_allAssociations = (LinearLayout) view
+					.findViewById(R.id.ll_allAssociations);
 			holder.ll_association1 = (LinearLayout) view
 					.findViewById(R.id.ll_association1);
 			holder.iv_association1 = (RoundImageView) view
@@ -600,7 +607,6 @@ public class HomeAdapter extends BAdapter {
 	 */
 	@Override
 	public void addHeadList(List<Model> list) {
-		isRefresh = true;
 		addHeadListWay2(list);
 	}
 

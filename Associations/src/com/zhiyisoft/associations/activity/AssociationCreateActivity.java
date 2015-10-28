@@ -38,9 +38,11 @@ import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LeagueIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
@@ -90,10 +92,14 @@ public class AssociationCreateActivity extends BaseActivity {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
 			case SUCCESS:
-				boolean isSuccess = (Boolean) msg.obj;
-				if (isSuccess) {
-					ToastUtils.showToast("社团创建成功！");
-					onBackPressed();
+				ModelError error = (ModelError) msg.obj;
+				if (error != null) {
+					if (error.getStatus() == 1) {
+						ToastUtils.showToast("社团创建成功！等待审核");
+						onBackPressed();
+					} else {
+						ToastUtils.showToast(error.getMsg());
+					}
 					return;
 				} else {
 					ToastUtils.showToast("社团创建失败！");
@@ -143,12 +149,16 @@ public class AssociationCreateActivity extends BaseActivity {
 				.setFlags(Paint.UNDERLINE_TEXT_FLAG); // 下划线
 		initCameraPopWindow();
 		initPopWindow();
+		if (mApp.getUser() != null) {
+			schoolId = Integer.valueOf(mApp.getUser().getSchool_id());
+			association_tv_school_name.setText(mApp.getUser().getSchool_name()
+					+ "");
+		}
 	}
 
 	@Override
 	public void initListener() {
 		association_icon.setOnClickListener(this);
-		association_rl_school.setOnClickListener(this);
 		association_iv_welfare.setOnClickListener(this);
 		association_iv_yes.setOnClickListener(this);
 		association_iv_no.setOnClickListener(this);
@@ -291,9 +301,9 @@ public class AssociationCreateActivity extends BaseActivity {
 					@Override
 					public void run() {
 						LeagueIm leagueIm = mApp.getLeagueIm();
-						boolean isSuccess = leagueIm.createGroup(league);
+						Model model = leagueIm.createGroup(league);
 						Message message = Message.obtain();
-						message.obj = isSuccess;
+						message.obj = model;
 						message.what = SUCCESS;
 						mHandle.sendMessage(message);
 					}
@@ -317,14 +327,6 @@ public class AssociationCreateActivity extends BaseActivity {
 	 * 判断必填项是否填满
 	 */
 	private boolean judgeInformation() {
-		// private String name;
-		// private int categoryId;
-		// private int logo;
-		// private String description;
-		// private int schoolId;
-		// private int Private;
-		// private String openerName;
-		// private String contact;
 		if (name == null || name.length() < 1) {
 			ToastUtils.showToast("社团名不能为空！");
 			return false;
@@ -366,8 +368,6 @@ public class AssociationCreateActivity extends BaseActivity {
 			ModelSchool ModelSchool = (ModelSchool) bundle
 					.get(Config.GET_ACTIVITY_DATA);
 			if (ModelSchool != null) {
-				schoolId = Integer.valueOf(ModelSchool.getId());
-				association_tv_school_name.setText(ModelSchool.getName() + "");
 			}
 		}
 	}

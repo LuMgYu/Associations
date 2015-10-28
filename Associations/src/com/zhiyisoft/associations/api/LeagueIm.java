@@ -79,7 +79,7 @@ public interface LeagueIm {
 	 *            需要传递的社团model
 	 * @return
 	 */
-	boolean createGroup(ModelLeague league);
+	Model createGroup(ModelLeague league);
 
 	/**
 	 * 14.【社团列表】：Group/index 演示地址：
@@ -229,7 +229,7 @@ public interface LeagueIm {
 	 * @param league
 	 * @return
 	 */
-	boolean replyTopic(ModelLeagueTopic topic);
+	Model replyTopic(ModelLeagueTopic topic);
 
 	/**
 	 * 28.【回复帖子】：Group/replyPost
@@ -242,7 +242,7 @@ public interface LeagueIm {
 	 * @param league
 	 * @return
 	 */
-	boolean replyPost(ModelLeagueTopic topic);
+	Model replyPost(ModelLeagueTopic topic);
 
 	/**
 	 * 29.【获取某个话题下的帖子】：Group/getTopicPosts 演示地址：

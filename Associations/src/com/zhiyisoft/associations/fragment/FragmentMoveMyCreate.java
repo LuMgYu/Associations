@@ -44,46 +44,6 @@ public class FragmentMoveMyCreate extends BaseFragment {
 		mListView.setAdapter(mAdapter);
 	}
 
-	// private void initViewPager() {
-	// mViewPager = (ViewPager) findViewById(R.id.notify_vp_content);
-	// mFragments.add(new FragmentNotifyMsg());
-	// // mFragments.add(new FragmentNotifyNotify()); //存在bug 需要修改
-	// mViewPager.setAdapter(new MyViewPagerAdapter(getChildFragmentManager(),
-	// mFragments));
-	// mViewPager.setCurrentItem(0);
-	// mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-	//
-	// @Override
-	// public void onPageSelected(int pos) {
-	// mViewPager.setCurrentItem(pos);
-	// Animation animation = null;
-	// switch (pos) {
-	// case 0:
-	// animation = new TranslateAnimation(150, 0, 0, 0);
-	// break;
-	// case 1:
-	// animation = new TranslateAnimation(0, 150, 0, 0);
-	// break;
-	// }
-	// animation.setFillAfter(true);
-	// animation.setDuration(300);
-	// mTextBottemLine.startAnimation(animation);
-	// }
-	//
-	// @Override
-	// public void onPageScrolled(int arg0, float arg1, int arg2) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void onPageScrollStateChanged(int arg0) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	// });
-	// }
-
 	@Override
 	public void initListener() {
 	}

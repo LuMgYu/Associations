@@ -269,7 +269,6 @@ public abstract class BaseActivity extends FragmentActivity implements
 		if (id != 0) {
 			mBottomll.setVisibility(View.VISIBLE);
 			mBodyLayout = mInflater.inflate(R.layout.bottom_layout, mBottomll);
-			Log.i("bottom", "--------------------->mBodyLayout");
 		}
 	}
 

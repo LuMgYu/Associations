@@ -46,6 +46,6 @@ public interface CommentIm {
 	 * @param event
 	 * @return
 	 */
-	boolean comment(ModelComment event);
+	Model comment(ModelComment event);
 
 }

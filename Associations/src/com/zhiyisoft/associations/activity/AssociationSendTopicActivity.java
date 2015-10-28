@@ -454,9 +454,6 @@ public class AssociationSendTopicActivity extends BaseActivity {
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						String result = new String(arg2);
-						Log.i("progress", "arg0=" + arg0 + ",  result="
-								+ result);
 					}
 
 					@Override

@@ -12,6 +12,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +39,6 @@ import com.zhiyisoft.associations.listview.AssociationListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
-import com.zhiyisoft.associations.util.swipelistview.SimpleActivity;
 
 /**
  * author：qiuchunjia time：上午9:42:36 类描述：这个类是实现
@@ -138,6 +138,7 @@ public class FragmentMe extends BaseFragment {
 	@Override
 	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
 		mBitmap = super.compressPhotoAndDisplay(originBitmap);
+		Log.i("Bitmap", mBitmap == null ? "为空" : "不为空");
 		me_iv_icon.setImageBitmap(mBitmap);
 		return mBitmap;
 	}
@@ -153,6 +154,7 @@ public class FragmentMe extends BaseFragment {
 	public File getFile(String path) {
 		File file = super.getFile(path);
 		mUser.setUploadFile(file);
+		Log.i("file++", file.toString());
 		uploadIcon(mUser);
 		return file;
 	}
@@ -171,13 +173,13 @@ public class FragmentMe extends BaseFragment {
 			}
 		}
 		AsyncHttpClient client = new AsyncHttpClient();
+		Log.i("file++", "uploadIcon(ModelUser user)");
 		client.post(
 				"http://daxs.zhiyicx.com/index.php?app=api&mod=Attach&act=facepic",
 				params, new AsyncHttpResponseHandler() {
 					@Override
 					public void onFailure(int arg0, Header[] arg1, byte[] arg2,
 							Throwable arg3) {
-						// TODO Auto-generated method stub
 
 					}
 
@@ -206,26 +208,6 @@ public class FragmentMe extends BaseFragment {
 
 				});
 	}
-
-	// /**
-	// * 获取社团信息
-	// *
-	// * @param league
-	// */
-	// private void getJoinedAssocitionFromNet() {
-	// final LeagueImpl leagueImpl = mApp.getLeagueIm();
-	// mApp.getExecutor().execute(new Runnable() {
-	//
-	// @Override
-	// public void run() {
-	// List<Model> list = leagueImpl.joinedGroup();
-	// Message message = Message.obtain();
-	// message.what = SUCCESS;
-	// message.obj = list;
-	// mHandle.sendMessage(message);
-	// }
-	// });
-	// }
 
 	@Override
 	public void onClick(View v) {

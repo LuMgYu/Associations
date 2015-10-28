@@ -94,7 +94,6 @@ public class MoveMainActivity extends BaseActivity {
 			case SUCCESS_DETAIL:
 				mEventResult = (ModelEvent) msg.obj;
 				if (mEventResult != null) {
-					ToastUtils.showToast("获取资料成功");
 					bindDataToView(mEventResult);
 				} else {
 					ToastUtils.showToast("获取资料失败");
@@ -109,6 +108,15 @@ public class MoveMainActivity extends BaseActivity {
 					ToastUtils.showToast("关注失败");
 				}
 				break;
+			case SUCCESS_CANCLE_WATCH:
+				boolean flag = (Boolean) msg.obj;
+				if (flag) {
+					ToastUtils.showToast("取消关注成功");
+					isWatch(0);
+				} else {
+					ToastUtils.showToast("取消关注失败");
+				}
+				break;
 			case SUCCESS_JOIN:
 				ModelError model = (ModelError) msg.obj;
 				if (model != null) {
@@ -120,15 +128,6 @@ public class MoveMainActivity extends BaseActivity {
 					}
 				} else {
 					ToastUtils.showToast("加入失败");
-				}
-				break;
-			case SUCCESS_CANCLE_WATCH:
-				boolean flag = (Boolean) msg.obj;
-				if (flag) {
-					ToastUtils.showToast("取消关注成功");
-					isWatch(0);
-				} else {
-					ToastUtils.showToast("取消关注成功");
 				}
 				break;
 			}
@@ -376,6 +375,7 @@ public class MoveMainActivity extends BaseActivity {
 			break;
 		case R.id.main_ll_watch:
 			if (!isWatch && checkTheUser()) {
+				mEvent.setStub(0);
 				WatchMove(mEvent, SUCCESS_WATCH);
 			}
 			if (isWatch && checkTheUser()) {

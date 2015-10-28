@@ -30,6 +30,7 @@ public class ViewHolder {
 	public LinearLayout home_ll_move;
 	public Button btn_all_move;
 	public Button btn_around_move;
+	public LinearLayout ll_allAssociations;
 	public LinearLayout ll_association1;
 	public RoundImageView iv_association1;
 	public TextView tv_association1;

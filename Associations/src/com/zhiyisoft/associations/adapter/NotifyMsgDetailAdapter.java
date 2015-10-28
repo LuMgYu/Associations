@@ -94,7 +94,7 @@ public class NotifyMsgDetailAdapter extends BAdapter {
 					holder.rl_left_chat.setVisibility(View.GONE);
 					holder.rl_right_chat.setVisibility(View.VISIBLE);
 					mApp.displayImage(user.getFaceurl(), holder.iv_right_icon);
-					holder.tv_right_name.setText(user.getUname());
+					// holder.tv_right_name.setText(user.getUname());
 					holder.tv_right_time.setText(DateUtil.stamp2humanDate(msg
 							.getcTime()));
 					holder.tv_right_content.setText(msg.getContent());

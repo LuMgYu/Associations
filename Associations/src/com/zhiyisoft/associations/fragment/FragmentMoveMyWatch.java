@@ -42,7 +42,7 @@ public class FragmentMoveMyWatch extends BaseFragment {
 			mListView = (MoveListview) findViewById(R.id.my_watch_lv);
 			ModelEvent events = new ModelEvent();
 			events.setOp(3);
-			mAdapter = new MoveAdapter((BaseActivity) getActivity(), events);
+			mAdapter = new MoveAdapter(this, events);
 			mListView.setAdapter(mAdapter);
 
 		}

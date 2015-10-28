@@ -41,7 +41,6 @@ public class AssociationInformationActivity extends BaseActivity {
 			case SUCCESS:
 				ModelLeague league = (ModelLeague) msg.obj;
 				if (league != null) {
-					ToastUtils.showToast("获取社团信息成功");
 					bindDataToView(league);
 				} else {
 					ToastUtils.showToast("获取社团信息失败");

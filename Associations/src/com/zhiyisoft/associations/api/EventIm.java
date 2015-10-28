@@ -71,7 +71,7 @@ public interface EventIm {
 	 * 
 	 * @return
 	 */
-	boolean createEvent(ModelEvent event);
+	Model createEvent(ModelEvent event);
 
 	/**
 	 * 38.【活动详情】：Event/eventView

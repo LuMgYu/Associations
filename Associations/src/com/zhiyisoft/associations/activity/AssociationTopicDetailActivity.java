@@ -51,6 +51,7 @@ import com.zhiyisoft.associations.img.SmartImageView;
 import com.zhiyisoft.associations.model.ModelChildComment;
 import com.zhiyisoft.associations.model.ModelComment;
 import com.zhiyisoft.associations.model.ModelCommonAttach;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelEventWorks;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueTopic;
@@ -134,24 +135,30 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				}
 				break;
 			case REPLYTOPIC:
-				boolean isSuccess = (Boolean) msg.obj;
-				if (isSuccess) {
-					ToastUtils.showToast("评论成功");
-					fill_content.setText("");
-					manId = null;
-					getTopicPosts(mModelTopic);
+				ModelError replyError = (ModelError) msg.obj;
+				if (replyError != null) {
+					if (replyError.getStatus() == 1) {
+						fill_content.setText("");
+						manId = null;
+						getTopicPosts(mModelTopic);
+					} else {
+						ToastUtils.showToast(replyError.getMsg());
+					}
 				} else {
-					ToastUtils.showToast("评论成功");
+					ToastUtils.showToast("评论失败");
 				}
 				break;
 			case REPLYPOST:
-				Boolean postSuccess = (Boolean) msg.obj;
-				if (postSuccess) {
-					ToastUtils.showToast("评论成功");
-					getTopicPosts(mModelTopic);
-					fill_content.setHint("回复:");
-					manId = null;
-					fill_content.setText("");
+				ModelError postError = (ModelError) msg.obj;
+				if (postError != null) {
+					if (postError.getStatus() == 1) {
+						getTopicPosts(mModelTopic);
+						fill_content.setHint("回复:");
+						manId = null;
+						fill_content.setText("");
+					} else {
+						ToastUtils.showToast(postError.getMsg());
+					}
 				} else {
 					ToastUtils.showToast("评论失败");
 				}
@@ -160,15 +167,11 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 				List<ModelComment> replays = (List<ModelComment>) msg.obj;
 				if (replays != null) {
 					initReplayView(replays);
-					ToastUtils.showToast("获取评论成功");
-				} else {
-					ToastUtils.showToast("获取评论失败");
 				}
 				break;
 			case WORKVIEW:
 				ModelEventWorks works = (ModelEventWorks) msg.obj;
 				if (works != null) {
-					ToastUtils.showToast("获取详情成功");
 					List<Model> photos = works.getAttachs();
 					List<ModelCommonAttach> attachs = new ArrayList<ModelCommonAttach>();
 					List<String> photoUrls = new ArrayList<String>();
@@ -198,27 +201,25 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 								works.getUname(), works.getCtime(),
 								works.getIntro(), null, null, attachs, null);
 					}
-				} else {
-					ToastUtils.showToast("获取详情失败");
 				}
 				break;
 			case COMMENTLIST:
 				List<ModelComment> comment = (List<ModelComment>) msg.obj;
 				if (comment != null) {
 					initReplayView(comment);
-					ToastUtils.showToast("获取评论成功");
-				} else {
-					ToastUtils.showToast("获取评论失败");
 				}
 				break;
 			case COMMENT:
-				Boolean commentSuccess = (Boolean) msg.obj;
-				if (commentSuccess) {
-					ToastUtils.showToast("评论成功");
-					commentList(mComment);
-					fill_content.setText("");
-					fill_content.setHint("回复:");
-					manId = null;
+				ModelError commError = (ModelError) msg.obj;
+				if (commError != null) {
+					if (commError.getStatus() == 1) {
+						commentList(mComment);
+						fill_content.setText("");
+						fill_content.setHint("回复:");
+						manId = null;
+						return;
+					}
+					ToastUtils.showToast(commError.getMsg());
 				} else {
 					ToastUtils.showToast("评论失败");
 				}
@@ -859,10 +860,10 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				boolean isSuccess = leagueImpl.replyTopic(topic);
+				Model model = leagueImpl.replyTopic(topic);
 				Message message = Message.obtain();
 				message.what = REPLYTOPIC;
-				message.obj = isSuccess;
+				message.obj = model;
 				mHandle.sendMessage(message);
 			}
 		});
@@ -879,10 +880,10 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				boolean isSuccess = leagueImpl.replyPost(topic);
+				Model model = leagueImpl.replyPost(topic);
 				Message message = Message.obtain();
 				message.what = REPLYPOST;
-				message.obj = isSuccess;
+				message.obj = model;
 				mHandle.sendMessage(message);
 			}
 		});
@@ -983,10 +984,10 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				Object object = commentImpl.comment(comment);
+				Model model = commentImpl.comment(comment);
 				Message message = Message.obtain();
 				message.what = COMMENT;
-				message.obj = object;
+				message.obj = model;
 				mHandle.sendMessage(message);
 			}
 		});

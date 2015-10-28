@@ -31,7 +31,9 @@ import com.zhiyisoft.associations.activity.RegisterPhoneActivity;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -63,9 +65,14 @@ public class FragmentLogin extends BaseFragment {
 			// TODO
 			switch (msg.what) {
 			case LOGIN:
-				ModelUser user = (ModelUser) msg.obj;
-				if (user != null) {
-					isFillInformation(user);
+				Model result = (Model) msg.obj;
+				if (result != null) {
+					if (result instanceof ModelUser) {
+						isFillInformation((ModelUser) result);
+					} else {
+						ModelError error = (ModelError) result;
+						ToastUtils.showToast(error.getMsg());
+					}
 				} else {
 					ToastUtils.showToast("登录失败");
 				}
@@ -167,11 +174,10 @@ public class FragmentLogin extends BaseFragment {
 						user.setMobile(username);
 						user.setPwd(pwd);
 						LoginIm loginIm = mApp.getLoginIm();
-						ModelUser modelUser = (ModelUser) loginIm
-								.authorize(user);
+						Model result = loginIm.authorize(user);
 						Message message = Message.obtain();
 						message.what = LOGIN;
-						message.obj = modelUser;
+						message.obj = result;
 						mHandle.sendMessage(message);
 					}
 				});

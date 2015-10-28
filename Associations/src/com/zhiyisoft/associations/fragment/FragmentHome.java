@@ -11,6 +11,7 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.listview.HomeListview;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelHome;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -41,6 +42,8 @@ public class FragmentHome extends BaseFragment {
 	@Override
 	public void initView() {
 		mListView = (HomeListview) findViewById(R.id.homelistView);
+		ModelHome home = new ModelHome();
+		mlist.add(home);
 		mAdapter = new HomeAdapter(this, mlist);
 		mListView.setAdapter(mAdapter);
 	}

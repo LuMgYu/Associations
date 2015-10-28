@@ -33,7 +33,5 @@ public class NotifyMsgListview extends BaseListView {
 
 	@Override
 	public void onClick(AdapterView<?> parent, View view, int position, long id) {
-		Toast.makeText(mContext, "点击了这个按钮" + position, Toast.LENGTH_LONG)
-				.show();
 	}
 }

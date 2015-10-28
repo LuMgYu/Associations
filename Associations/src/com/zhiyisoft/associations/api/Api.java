@@ -97,7 +97,11 @@ public class Api {
 			get.addBodyParam(LOGIN1, model.getMobile());
 			get.addBodyParam(PWD, model.getPwd());
 			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelUser());
+			Model resultModel = parseOriginalJsonObject(object, new ModelUser());
+			if (resultModel != null) {
+				return resultModel;
+			}
+			return getModelError(object);
 		}
 
 		@Override
@@ -371,7 +375,7 @@ public class Api {
 	public static final class LeagueImpl implements LeagueIm {
 
 		@Override
-		public boolean createGroup(ModelLeague league) {
+		public Model createGroup(ModelLeague league) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -386,7 +390,7 @@ public class Api {
 			get.addBodyParam(OPENERNAME, league.getOpenerName());
 			get.addBodyParam(CONTACT, league.getContact());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 		@Override
@@ -532,7 +536,7 @@ public class Api {
 		}
 
 		@Override
-		public boolean replyTopic(ModelLeagueTopic topic) {
+		public Model replyTopic(ModelLeagueTopic topic) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -541,11 +545,11 @@ public class Api {
 			get.addBodyParam(TID, topic.getTid());
 			get.addBodyParam(CONTENT, topic.getReplyContent());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 		@Override
-		public boolean replyPost(ModelLeagueTopic topic) {
+		public Model replyPost(ModelLeagueTopic topic) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -554,7 +558,7 @@ public class Api {
 			get.addBodyParam(PID, topic.getPid());
 			get.addBodyParam(CONTENT, topic.getReplyContent());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 		@Override
@@ -673,7 +677,7 @@ public class Api {
 		}
 
 		@Override
-		public boolean createEvent(ModelEvent event) {
+		public Model createEvent(ModelEvent event) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, EVENT);
@@ -701,7 +705,7 @@ public class Api {
 			get.addBodyParam(LONGTITUDE, event.getLongtitude());
 			get.addBodyParam(LATITUDE, event.getLatitude());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 		@Override
@@ -864,7 +868,7 @@ public class Api {
 		}
 
 		@Override
-		public boolean comment(ModelComment comment) {
+		public Model comment(ModelComment comment) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, COMMENT);
@@ -876,7 +880,7 @@ public class Api {
 			get.addBodyParam(CONTENT, comment.getContent());
 			get.addBodyParam(REPLYCOMMENTID, comment.getReplyCommentId());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 	}

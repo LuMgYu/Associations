@@ -291,6 +291,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 		List<Model> items = new ArrayList<Model>();
 		LeagueImpl leagueImpl = mApp.getLeagueIm();
 		Model model = leagueImpl.viewIn(mLeague);
+		mLeague.setP(1);
 		List<Model> topicModels = leagueImpl.topicList(mLeague);
 		items.add(model);
 		if (topicModels != null) {

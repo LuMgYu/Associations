@@ -114,7 +114,11 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
-			uploadPhotos(mAlbum);
+			String infro = photo_detail.getText().toString();
+			if (infro != null && infro.length() > 0) {
+				mAlbum.setInfo(infro);
+				uploadPhotos(mAlbum);
+			}
 			break;
 
 		default:
@@ -133,7 +137,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
 		params.put("gid", album.getGid());
 		params.put("albumId", album.getId());
-		params.put("info", "试一试，呵呵哒，然并卵");
+		params.put("info", album.getInfo());
 		Log.i("param", params.toString() + "");
 		for (int i = 0; i < mPhotos.size() - 1; i++) {
 			Log.i("uploadpath", mPhotos.get(i) + "");

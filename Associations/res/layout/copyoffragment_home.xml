@@ -120,10 +120,12 @@
     <!-- 社团推荐4个 -->
 
     <LinearLayout
+        android:id="@+id/ll_allAssociations"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/main_white_pure_color"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <LinearLayout
             android:id="@+id/ll_association1"
@@ -131,7 +133,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <com.zhiyisoft.associations.img.RoundImageView
                 android:id="@+id/iv_association1"
@@ -155,7 +158,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <com.zhiyisoft.associations.img.RoundImageView
                 android:id="@+id/iv_association2"
@@ -179,7 +183,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <com.zhiyisoft.associations.img.RoundImageView
                 android:id="@+id/iv_association3"
@@ -203,7 +208,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <com.zhiyisoft.associations.img.RoundImageView
                 android:id="@+id/iv_association4"
@@ -284,7 +290,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/main_white_pure_color"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <com.zhiyisoft.associations.img.SmartImageView
             android:id="@+id/iv_work1"
@@ -311,6 +318,14 @@
             android:layout_weight="1"
             android:scaleType="centerCrop" />
     </LinearLayout>
+
+    <include layout="@layout/view_line_vertical" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/margin_top"
+        android:background="@color/main_gray_color" />
 
     <TextView
         android:layout_width="match_parent"

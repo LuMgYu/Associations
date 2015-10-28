@@ -27,8 +27,8 @@
 
             <com.zhiyisoft.associations.img.RoundImageView
                 android:id="@+id/me_iv_icon"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
                 android:src="@drawable/default_image_small" />
 
             <ImageView

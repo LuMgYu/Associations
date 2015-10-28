@@ -45,11 +45,13 @@ import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.Api.EventImpl;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelEvent;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLocation;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.BaiduUtil;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -138,9 +140,14 @@ public class MoveCreateActivity extends BaseActivity {
 			switch (msg.what) {
 
 			case SUCCESS_ONLINE:
-				boolean isSuccess = (Boolean) msg.obj;
-				if (isSuccess) {
-					ToastUtils.showToast("创建活动成功！等待审核");
+				ModelError error = (ModelError) msg.obj;
+				if (error != null) {
+					if (error.getStatus() == 1) {
+						ToastUtils.showToast("创建活动成功！等待审核");
+						onBackPressed();
+					} else {
+						ToastUtils.showToast(error.getMsg());
+					}
 				} else {
 					ToastUtils.showToast("创建活动失败！");
 				}
@@ -231,6 +238,8 @@ public class MoveCreateActivity extends BaseActivity {
 		initPopWindow();
 		initCameraPopWindow();
 		initCategoryPopWindow();
+		String str = mApp.getUser().getSchool_name();
+		move_tv_scope_name.setText(str);
 		if (isOnline) {
 			getLatLngBySchool();
 		}
@@ -788,10 +797,10 @@ public class MoveCreateActivity extends BaseActivity {
 		mApp.getExecutor().execute(new Runnable() {
 			@Override
 			public void run() {
-				Boolean isSuccess = eventImpl.createEvent(event);
+				Model model = eventImpl.createEvent(event);
 				Message message = Message.obtain();
 				message.what = SUCCESS_ONLINE;
-				message.obj = isSuccess;
+				message.obj = model;
 				mHandle.sendMessage(message);
 			}
 		});

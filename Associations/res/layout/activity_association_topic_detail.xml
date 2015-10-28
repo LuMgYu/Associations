@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
-            android:src="@drawable/face" />
+            android:src="@drawable/face"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_return"
@@ -36,7 +37,7 @@
 
         <EditText
             android:id="@+id/fill_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"

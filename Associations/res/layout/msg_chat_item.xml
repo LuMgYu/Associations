@@ -14,8 +14,8 @@
 
         <com.zhiyisoft.associations.img.RoundImageView
             android:id="@+id/iv_left_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:scaleType="centerCrop"
             android:src="@drawable/default_image_small" />
 
@@ -68,8 +68,8 @@
 
         <com.zhiyisoft.associations.img.RoundImageView
             android:id="@+id/iv_right_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_alignParentRight="true"
             android:scaleType="centerCrop"
             android:src="@drawable/default_image_small" />
@@ -92,7 +92,7 @@
             android:layout_alignTop="@id/iv_right_icon"
             android:layout_marginRight="5dp"
             android:layout_toLeftOf="@id/tv_right_time"
-            android:text="呵呵哒"
+            android:text="我"
             android:textColor="@color/text_more_gray"
             android:textSize="@dimen/text_small" />
 
@@ -108,7 +108,7 @@
             android:gravity="left"
             android:padding="@dimen/margin_left_small"
             android:text="别客气，往死里打"
-            android:textColor="@color/text_black"
+            android:textColor="@color/text_white"
             android:textSize="@dimen/text_big" />
     </RelativeLayout>
 
