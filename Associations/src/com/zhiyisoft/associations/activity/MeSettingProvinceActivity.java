@@ -14,6 +14,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.MyStringGridViewAdapter;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.base.Model;
 
 /**
@@ -111,10 +112,31 @@ public class MeSettingProvinceActivity extends BaseActivity {
 	protected void onResume() {
 		if (mResultModel != null) {
 			onReturnResult(mResultModel);
+			ModelSchool school = (ModelSchool) mResultModel;
+			saveToSharePreference(school.getId(), school.getName());
 			onBackPressed();
 		}
 		super.onResume();
 	}
+
+	/**
+	 * 
+	 * @param CurrentSchool_id
+	 * @param currentSchool
+	 */
+	private void saveToSharePreference(String CurrentSchool_id,
+			String currentSchool) {
+		SharedPreferences preferences = this.getSharedPreferences(
+				Config.USER_DATA, MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		if (CurrentSchool_id != null) {
+			editor.putString(Config.SCHOOL_ID_CHOOSE, CurrentSchool_id);
+		}
+		if (currentSchool != null) {
+			editor.putString(Config.SCHOOL_NAME_CHOOSE, currentSchool);
+		}
+		editor.commit();
+	};
 
 	@Override
 	protected void onRestart() {

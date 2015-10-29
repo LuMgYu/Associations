@@ -83,6 +83,15 @@ public class ModelEvent extends Model {
 
 	private String city; // 2015-10-20
 	private String province;
+	private String name; // 用于模糊查询
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**************** 获取活动需要的数据end *************************/
 

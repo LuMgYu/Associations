@@ -404,7 +404,7 @@ public class Api {
 				get.addBodyParam(SCHOOLID, league.getSchoolId());
 			if (league.getCategoryId() > 0)
 				get.addBodyParam(CATEGORYID, league.getCategoryId());
-			if (league.getName() != null && league.getName().length() > 1)
+			if (league.getName() != null && league.getName().length() > 0)
 				get.addBodyParam(NAME, league.getName());
 			get.addBodyParam(P, league.getP());
 			Object object = get.run();
@@ -670,6 +670,7 @@ public class Api {
 				get.addBodyParam(OP, event.getOp());
 				get.addBodyParam(GID, event.getGid());
 				get.addBodyParam(P, event.getP());
+				get.addBodyParam(NAME, event.getName());
 				Object object = get.run();
 				return parseOriginalJsonArray(object, new ModelEvent());
 			}

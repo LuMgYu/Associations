@@ -64,6 +64,16 @@ public class FragmentAssociation extends BaseFragment {
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		if (mListView != null) {
+			mAdapter = new AssociationMainAdapter(this, mlist);
+			mListView.setAdapter(mAdapter);
+			doRefreshNew();
+		}
+	}
+
+	@Override
 	public void initListener() {
 		// TODO Auto-generated method stub
 

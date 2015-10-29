@@ -285,7 +285,6 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			if (replayfirst_ll_main.getChildCount() > 0) {
 				replayfirst_ll_main.removeAllViews();
 			}
-			// replay_other_ll.removeAllViews();
 			for (int i = 0; i < list.size(); i++) {
 				int otherReplay = 2;
 				View view = mInflater

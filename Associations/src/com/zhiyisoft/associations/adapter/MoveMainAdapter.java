@@ -204,6 +204,13 @@ public class MoveMainAdapter extends BAdapter {
 				.findViewById(R.id.tv_bottom_line);
 		mItemWidth = UIUtils.getWindowWidth(mBaseActivity) / 2;
 		holder.tv_bottom_line.setWidth(mItemWidth);
+		holder.move_iv_zoom.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				doRefreshNew();
+			}
+		});
 	}
 
 	/**
@@ -320,6 +327,13 @@ public class MoveMainAdapter extends BAdapter {
 	}
 
 	public List<Model> getMove(int moveType, int index) {
+		if (mFirstView != null) {
+			findStr = ((EditText) mFirstView.findViewById(R.id.move_et_zoom))
+					.getText().toString();
+			if (findStr != null && findStr.length() > 0) {
+				return getFindMove(index);
+			}
+		}
 		if (moveType == ARROUNTMOVE) {
 			return getArroundMove(index);
 		} else {
@@ -328,7 +342,7 @@ public class MoveMainAdapter extends BAdapter {
 	}
 
 	/**
-	 * 获取活动
+	 * 获取我的活动
 	 * 
 	 * @return
 	 */
@@ -342,6 +356,29 @@ public class MoveMainAdapter extends BAdapter {
 		return items;
 	}
 
+	/**
+	 * 获取差选的活动
+	 * 
+	 * @param index
+	 * @return
+	 */
+	private String findStr;
+
+	private List<Model> getFindMove(int index) {
+		List<Model> items;
+		EventImpl eventImpl = mApp.getEventFIm();
+		ModelEvent event = new ModelEvent();
+		event.setName(findStr);
+		event.setP(index);
+		items = eventImpl.eventList(event);
+		return items;
+	}
+
+	/**
+	 * 获取周边活动
+	 * 
+	 * @return
+	 */
 	private List<Model> getArroundMove(int index) {
 		List<Model> items;
 		EventImpl eventImpl = mApp.getEventFIm();

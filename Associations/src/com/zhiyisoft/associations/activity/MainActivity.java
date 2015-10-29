@@ -148,13 +148,13 @@ public class MainActivity extends BaseActivity {
 		if (mCurrentState == ME) {
 			initFragmentMe();
 		}
-		if (mCurrentState == ASSOCIATION) {
-			mAssociationFragment = new FragmentAssociation();
-			replaceFragment(mAssociationFragment);
-			changeTheTitle("社团");
-			changeTheColor(iv_association, tv_association,
-					R.drawable.corporation_c);
-		}
+//		if (mCurrentState == ASSOCIATION) {
+//			mAssociationFragment = new FragmentAssociation();
+//			replaceFragment(mAssociationFragment);
+//			changeTheTitle("社团");
+//			changeTheColor(iv_association, tv_association,
+//					R.drawable.corporation_c);
+//		}
 		super.onResume();
 	}
 

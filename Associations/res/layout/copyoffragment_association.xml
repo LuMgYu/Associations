@@ -56,8 +56,9 @@
             android:id="@+id/school_iv_zoom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
             android:background="@drawable/zoom" />
 
         <EditText
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_toRightOf="@id/school_iv_zoom"
+            android:layout_toLeftOf="@id/school_iv_zoom"
             android:background="@null"
             android:hint="搜索你感兴趣的社团"
             android:textSize="@dimen/text_small" />

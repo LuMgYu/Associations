@@ -59,6 +59,8 @@ public class ViewHolder {
 	/******************************** 社团一级页面的控件 ********************************************/
 	public LinearLayout school_ll;
 	public RelativeLayout school_rl_change;
+	public ImageView school_iv_zoom;
+	public EditText school_et_zoom;
 	public ImageView school_iv_change;
 	public TextView school_tv;
 	/******************************** 社团一级页面的控件end ********************************************/

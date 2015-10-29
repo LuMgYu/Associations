@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -46,10 +47,12 @@ public class AssociationMainAdapter extends BAdapter {
 
 	public AssociationMainAdapter(BaseActivity activity, List<Model> list) {
 		super(activity, list);
+		getCurrentSchool();
 	}
 
 	public AssociationMainAdapter(BaseFragment fragment, List<Model> list) {
 		super(fragment, list);
+		getCurrentSchool();
 	}
 
 	@Override
@@ -80,7 +83,6 @@ public class AssociationMainAdapter extends BAdapter {
 		// TODO 把数据绑定到界面
 		if (holder != null) {
 			mApp.displayImage(league.getLogourl(), holder.association_iv_icon);
-			// holder.association_iv_icon.setImageUrl(league.getLogourl() + "");
 			holder.association_tv_title.setText(league.getName() + "");
 			holder.association_tv_member.setText(league.getMembers() + "");
 			holder.association_tv_content.setText(league.getDescription() + "");
@@ -128,12 +130,23 @@ public class AssociationMainAdapter extends BAdapter {
 	private void initmFirstView(ViewHolder holder) {
 		holder.school_ll = (LinearLayout) mFirstView
 				.findViewById(R.id.school_ll);
+		holder.school_iv_zoom = (ImageView) mFirstView
+				.findViewById(R.id.school_iv_zoom);
+		holder.school_et_zoom = (EditText) mFirstView
+				.findViewById(R.id.school_et_zoom);
 		holder.school_rl_change = (RelativeLayout) mFirstView
 				.findViewById(R.id.school_rl_change);
 		holder.school_iv_change = (ImageView) mFirstView
 				.findViewById(R.id.school_iv_change);
 		holder.school_tv = (TextView) mFirstView.findViewById(R.id.school_tv);
-		getCurrentSchool(holder.school_tv);
+		holder.school_tv.setText(schoolName);
+		holder.school_iv_zoom.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				doRefreshNew();
+			}
+		});
 	}
 
 	private void initOtherView(ViewHolder holder) {
@@ -227,16 +240,18 @@ public class AssociationMainAdapter extends BAdapter {
 	/**
 	 * 获取当前的学校
 	 */
-	private void getCurrentSchool(TextView tv) {
+	private String mSchoolId;
+	private String schoolName;
+
+	private void getCurrentSchool() {
 		SharedPreferences preferences = mBaseActivity.getSharedPreferences(
 				Config.USER_DATA, Activity.MODE_PRIVATE);
-		String province = preferences.getString(Config.CURRENT_SCHOOL, null);
-		if (province != null) {
-			tv.setVisibility(View.VISIBLE);
-			tv.setText(province + "");
-			return;
+		mSchoolId = preferences.getString(Config.SCHOOL_ID_CHOOSE, null);
+		schoolName = preferences.getString(Config.SCHOOL_NAME_CHOOSE, null);
+		if (mSchoolId == null) {
+			mSchoolId = preferences.getString(Config.SCHOOL_ID, null);
+			schoolName = preferences.getString(Config.SCHOOL_NAME, null);
 		}
-		tv.setVisibility(View.GONE);
 	}
 
 	// ----------------------------------------------------------------
@@ -264,8 +279,19 @@ public class AssociationMainAdapter extends BAdapter {
 	 * 
 	 * @return
 	 */
+	private String findStr;
+
 	private List<Model> getAssociation(int p) {
+		if (mFirstView != null) {
+			findStr = ((EditText) mFirstView.findViewById(R.id.school_et_zoom))
+					.getText().toString();
+		}
 		ModelLeague league = new ModelLeague();
+		if (findStr != null && findStr.length() > 0) {
+			league.setName(findStr);
+		} else if (mSchoolId != null && mSchoolId.length() > 0) {
+			league.setSchoolId(Integer.valueOf(mSchoolId));
+		}
 		league.setP(p);
 		LeagueImpl leagueImpl = mApp.getLeagueIm();
 		List<Model> list = leagueImpl.groupIndex(league);

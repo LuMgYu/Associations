@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -123,15 +124,12 @@ public class HomeAdapter extends BAdapter {
 				if (i == 0) {
 					holder.iv_work1.setTag(work);
 					mApp.displayImage(work.getFaceurl(), holder.iv_work1);
-					// holder.iv_work1.setImageUrl(work.getFaceurl());
 				} else if (i == 1) {
 					holder.iv_work2.setTag(work);
 					mApp.displayImage(work.getFaceurl(), holder.iv_work2);
-					// holder.iv_work2.setImageUrl(work.getFaceurl());
 				} else if (i == 2) {
 					mApp.displayImage(work.getFaceurl(), holder.iv_work3);
 					holder.iv_work3.setTag(work);
-					// holder.iv_work3.setImageUrl(work.getFaceurl());
 				}
 			}
 
@@ -145,31 +143,40 @@ public class HomeAdapter extends BAdapter {
 	 */
 	private void addAdviceAssocition(List<Model> groups, ViewHolder holder) {
 		if (groups != null && holder != null) {
+			int windowWidth = UIUtils.getWindowWidth(mBaseActivity);
 			for (int i = 0; i < groups.size(); i++) {
 				ModelLeague league = (ModelLeague) groups.get(i);
 				if (i == 0) {
 					if (league.getName() != null) {
 						holder.ll_allAssociations.setVisibility(View.VISIBLE);
+						holder.ll_association1
+								.setLayoutParams(new LinearLayout.LayoutParams(
+										windowWidth / 4,
+										LayoutParams.MATCH_PARENT));
 						holder.ll_association1.setVisibility(View.VISIBLE);
 					}
 					holder.iv_association1.setTag(league);
-					// holder.iv_association1
-					// .setImageUrl(league.getLogourl());
 					mApp.displayImage(league.getLogourl(),
 							holder.iv_association1);
 					holder.tv_association1.setText(league.getName());
 				} else if (i == 1) {
 					if (league.getName() != null) {
+						holder.ll_association2
+								.setLayoutParams(new LinearLayout.LayoutParams(
+										windowWidth / 4,
+										LayoutParams.MATCH_PARENT));
 						holder.ll_association2.setVisibility(View.VISIBLE);
 					}
 					holder.iv_association2.setTag(league);
-					// holder.iv_association2
-					// .setImageUrl(league.getLogourl());
 					mApp.displayImage(league.getLogourl(),
 							holder.iv_association2);
 					holder.tv_association2.setText(league.getName());
 				} else if (i == 2) {
 					if (league.getName() != null) {
+						holder.ll_association3
+								.setLayoutParams(new LinearLayout.LayoutParams(
+										windowWidth / 4,
+										LayoutParams.MATCH_PARENT));
 						holder.ll_association3.setVisibility(View.VISIBLE);
 					}
 					holder.iv_association3.setTag(league);
@@ -178,13 +185,15 @@ public class HomeAdapter extends BAdapter {
 					holder.tv_association3.setText(league.getName());
 				} else if (i == 3) {
 					if (league.getName() != null) {
+						holder.ll_association4
+								.setLayoutParams(new LinearLayout.LayoutParams(
+										windowWidth / 4,
+										LayoutParams.MATCH_PARENT));
 						holder.ll_association4.setVisibility(View.VISIBLE);
 					}
 					holder.iv_association4.setTag(league);
 					mApp.displayImage(league.getLogourl(),
 							holder.iv_association4);
-					// holder.iv_association4
-					// .setImageUrl(league.getLogourl());
 					holder.tv_association4.setText(league.getName());
 				}
 			}
@@ -424,12 +433,14 @@ public class HomeAdapter extends BAdapter {
 						@Override
 						public void onClick(View v) {
 							ModelEventWorks work = (ModelEventWorks) v.getTag();
-							Bundle workdata = new Bundle();
-							workdata.putSerializable(Config.SEND_ACTIVITY_DATA,
-									work);
-							mApp.startActivity(mBaseActivity,
-									AssociationTopicDetailActivity.class,
-									workdata);
+							if (work != null) {
+								Bundle workdata = new Bundle();
+								workdata.putSerializable(
+										Config.SEND_ACTIVITY_DATA, work);
+								mApp.startActivity(mBaseActivity,
+										AssociationTopicDetailActivity.class,
+										workdata);
+							}
 
 						}
 					});

@@ -364,10 +364,6 @@ public class MoveMainActivity extends BaseActivity {
 			mApp.startActivity(this, MoveWorksDisplayActivity.class, workdata);
 			break;
 		case R.id.rl_move_status:
-			// getLocalFile();
-			// mApp.startActivity(this, LocalVideoActivity.class, null);
-			// Bundle data2 = new Bundle();
-			// mApp.startActivity(this, AssociationMoveActivity.class, data2);
 
 			break;
 		case R.id.main_ll_share:

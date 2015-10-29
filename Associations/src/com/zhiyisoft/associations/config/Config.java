@@ -42,6 +42,9 @@ public class Config {
 	public static final String SCHOOL_NAME = "school_name";
 	public static final String AUTOGRAPH = "autograph";
 	public static final String EMAIL = "email";
+	/************** 用于线团学校选择用 *******************/
+	public static final String SCHOOL_NAME_CHOOSE = "school_name_choose";
+	public static final String SCHOOL_ID_CHOOSE = "school_id_choose";
 
 	public static final String OPEN_MESSAGE = "open_message";
 	public static final String CURRENT_PROVINCE = "current_province";

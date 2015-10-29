@@ -89,8 +89,6 @@ public abstract class BaseListView extends XListView implements
 			this.mAdapter = (BAdapter) adapter;
 			mAdapter.setListView(this);
 			this.mList = ((BAdapter) adapter).getList();
-			Log.i("hhh",
-					"---------------走到这里没有？setAdapter(ListAdapter adapter)");
 			this.setOnItemClickListener(new OnItemClickListener() {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
@@ -110,7 +108,6 @@ public abstract class BaseListView extends XListView implements
 			menuAdapter = (SwipeMenuAdapter) adapter;
 			menuAdapter.mAdapter.setListView(this);
 			this.mList = menuAdapter.mAdapter.getList();
-			Log.i("hhh", "adapter instanceof SwipeMenuAdapter");
 		}
 
 	}

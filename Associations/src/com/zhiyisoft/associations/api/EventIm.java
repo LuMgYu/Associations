@@ -49,6 +49,7 @@ public interface EventIm {
 	public static final String LONGTITUDE = "longitude";// 经度
 	public static final String CITY = "city";// 城市
 	public static final String PROVINCE = "province";// 省份
+	public static final String NAME = "name";// 省份
 
 	public static final String OP = "op";// 操作类型 选填 (1为我参与的，2我创建的，3我关注的，4我的)
 	public static final String ID = "id";// 活动id

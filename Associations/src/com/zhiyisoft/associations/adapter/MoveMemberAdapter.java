@@ -129,10 +129,16 @@ public class MoveMemberAdapter extends BAdapter {
 		return items;
 	}
 
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
+	}
+
 	private List<Model> getMoveMember(ModelEvent event, int index) {
 		if (event != null) {
 			List<Model> items = new ArrayList<Model>();
 			EventImpl eventImpl = mApp.getEventFIm();
+			event.setP(index);
 			items = eventImpl.memberList(event);
 			return items;
 		}

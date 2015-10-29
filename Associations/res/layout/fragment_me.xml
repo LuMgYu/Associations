@@ -157,7 +157,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_top"
         android:background="@color/main_white_pure_color" >
 
         <ImageView
