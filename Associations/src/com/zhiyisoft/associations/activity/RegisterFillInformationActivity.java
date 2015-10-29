@@ -230,7 +230,7 @@ public class RegisterFillInformationActivity extends BaseActivity {
 			break;
 		case R.id.bt_done:
 			mUname = fill_et_nick.getText().toString();
-			if (checkTheUploadMessage(mUname, mSchool_id, mSex)) {
+			if (checkTheUploadMessage(mUname, mSchool_id, mSex, mPhotoid)) {
 				final LoginIm loginIm2 = mApp.getLoginIm();
 
 				mUser.setUname(mUname);
@@ -263,14 +263,21 @@ public class RegisterFillInformationActivity extends BaseActivity {
 	 * @return
 	 */
 	private boolean checkTheUploadMessage(String uname, String school,
-			String sex) {
+			String sex, String photoid) {
 		if (uname == null | uname.length() < 1) {
+			ToastUtils.showToast("昵称不能为空");
 			return false;
 		}
 		if (school == null | school.length() < 1) {
+			ToastUtils.showToast("学校不能空");
 			return false;
 		}
 		if (sex == null | sex.length() < 1) {
+			ToastUtils.showToast("性别不能为空");
+			return false;
+		}
+		if (photoid == null | photoid.length() < 1) {
+			ToastUtils.showToast("请重新上传头像");
 			return false;
 		}
 		return true;

@@ -93,6 +93,7 @@ public class MeSettingActivity extends BaseActivity {
 			mApp.startActivity(this, MeUseAgreementActivity.class, data2);
 			break;
 		case R.id.setting_rl_edition:
+			ToastUtils.showToast("当前为最新版本");
 			break;
 		case R.id.btn_setting_quit:
 			quitLogin();

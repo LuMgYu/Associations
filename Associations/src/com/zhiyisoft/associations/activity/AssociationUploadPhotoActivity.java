@@ -2,6 +2,7 @@ package com.zhiyisoft.associations.activity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +49,9 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 	private GridView gv_fill_photo;
 	public final static String ADDPHOTO = "addphoto";
 	private UploadPhotoGridViewAdapter mAdapter;
+	private ProgressBar progressBar1;
+	private TextView tv_progress;
+	private FrameLayout fl_progress;
 
 	private List<String> mPhotos = new ArrayList<String>();
 	private ModelLeagueAlbum mAlbum;
@@ -85,6 +91,9 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 		gv_fill_photo = (GridView) findViewById(R.id.gv_fill_photo);
 		mAdapter = new UploadPhotoGridViewAdapter(mPhotos, this);
 		gv_fill_photo.setAdapter(mAdapter);
+		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
+		tv_progress = (TextView) findViewById(R.id.tv_progress);
+		fl_progress = (FrameLayout) findViewById(R.id.fl_progress);
 		mUser = mApp.getUser();
 	}
 
@@ -132,6 +141,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 	 * @param user
 	 */
 	private void uploadPhotos(ModelLeagueAlbum album) {
+		fl_progress.setVisibility(View.VISIBLE);
 		RequestParams params = new RequestParams();
 		params.put(Api.oauth_token, mUser.getOauth_token());
 		params.put(Api.oauth_token_secret, mUser.getOauth_token_secret());
@@ -162,6 +172,12 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 					}
 
 					@Override
+					public void onProgress(long bytesWritten, long totalSize) {
+						super.onProgress(bytesWritten, totalSize);
+						culcuteProgress(bytesWritten, totalSize);
+					}
+
+					@Override
 					public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 						String result = new String(arg2);
 						try {
@@ -170,18 +186,28 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {
 									ToastUtils.showToast("上传成功！");
+									onBackPressed();
 								} else {
 									ToastUtils.showToast("上传失败！请稍后再试");
 								}
 							}
 						} catch (JSONException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
 					}
 
 				});
+	}
+
+	private void culcuteProgress(long bytesWritten, long totalSize) {
+		float progress = ((float) bytesWritten / (float) totalSize) * 100;
+		DecimalFormat df = new DecimalFormat("0");// 格式化小数
+		String s = df.format(progress);// 返回的是String类型
+		tv_progress.setText(s + "%");
+		if (s.equals("100")) {
+			fl_progress.setVisibility(View.GONE);
+		}
 	}
 
 	// -------------------------------------------------------

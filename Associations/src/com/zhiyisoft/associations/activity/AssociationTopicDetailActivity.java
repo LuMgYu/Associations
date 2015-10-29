@@ -252,8 +252,6 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 
 	@Override
 	public int getLayoutId() {
-		if (!LibsChecker.checkVitamioLibs(this))
-			return 0;
 		return R.layout.activity_association_topic_detail;
 	}
 

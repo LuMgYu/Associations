@@ -264,8 +264,8 @@ public class MyADView extends LinearLayout {
 				this.datas = datas;
 				mRealCount = datas.size();
 				options = new DisplayImageOptions.Builder()
-						.showImageOnLoading(R.drawable.ic_launcher)// 加载中显示的图片
-						.showImageOnFail(R.drawable.ic_launcher)// 加载失败显示的图片
+						.showImageOnLoading(R.drawable.default_image_small)// 加载中显示的图片
+						.showImageOnFail(R.drawable.default_image_small)// 加载失败显示的图片
 						.cacheInMemory(true)// 缓存保存在内存中
 						.cacheOnDisk(true)// 缓存保存在硬盘中
 						.build();

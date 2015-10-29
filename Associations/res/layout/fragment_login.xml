@@ -4,13 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/main_white_bg_color" >
 
-    <com.zhiyisoft.associations.img.RoundImageView
+    <ImageView
         android:id="@+id/iv_login_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/default_image_small" />
+        android:scaleType="fitXY"
+        android:src="@drawable/logo_login" />
     <!-- 登录模块 -->
 
     <LinearLayout

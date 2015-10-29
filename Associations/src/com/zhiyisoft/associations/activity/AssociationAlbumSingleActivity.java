@@ -134,6 +134,14 @@ public class AssociationAlbumSingleActivity extends BaseActivity {
 	}
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		if (mResultLeagueAlbum != null) {
+			getPhotosFromNet(mAlbum);
+		}
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tv_title_right:
