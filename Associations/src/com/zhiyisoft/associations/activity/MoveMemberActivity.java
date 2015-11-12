@@ -66,22 +66,6 @@ public class MoveMemberActivity extends BaseActivity {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.rl_nick:
-			Bundle data = new Bundle();
-			mApp.startActivity(this, MeSettingNickActivity.class, data);
-			break;
-		case R.id.rl_gender:
-			break;
-		case R.id.rl_school:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
-			break;
-		case R.id.rl_homeland:
-			break;
-		case R.id.rl_email:
-			break;
-		case R.id.rl_phone:
-			break;
 		}
 
 	}

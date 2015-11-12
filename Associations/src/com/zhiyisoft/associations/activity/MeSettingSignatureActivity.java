@@ -29,15 +29,16 @@ public class MeSettingSignatureActivity extends BaseActivity {
 			switch (msg.what) {
 
 			case SUCCESS:
-				ModelUser user = (ModelUser) msg.obj;
-				if (user != null) {
-					ToastUtils.showToast("设置签名成功！");
-					ModelUser mainUser = mApp.getUser();
-					mainUser.setAutograph(user.getAutograph());
-					mApp.saveUser(mainUser);
-					onBackPressed();
-				} else {
-					ToastUtils.showToast("设置签名失败");
+				Object object = msg.obj;
+				if (judgeTheResponceMessage(object)) {
+					ModelUser user = (ModelUser) msg.obj;
+					if (user != null) {
+						ToastUtils.showToast("设置签名成功！");
+						ModelUser mainUser = mApp.getUser();
+						mainUser.setAutograph(user.getAutograph());
+						mApp.saveUser(mainUser);
+						onBackPressed();
+					}
 				}
 				break;
 			}

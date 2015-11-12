@@ -30,6 +30,7 @@ import com.zhiyisoft.associations.api.Api;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelSchool;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
@@ -68,13 +69,19 @@ public class RegisterFillInformationActivity extends BaseActivity {
 			switch (msg.what) {
 
 			case SUCCESS:
-				ModelUser user = (ModelUser) msg.obj;
-				if (user != null) {
-					ToastUtils.showToast("完善资料成功");
-					onBackPressed();
-				} else {
-					ToastUtils.showToast("完善资料失败");
+				Object object = msg.obj;
+				if (object instanceof ModelUser) {
+					ModelUser user = (ModelUser) object;
+					if (user != null) {
+						ToastUtils.showToast("完善资料成功");
+						onBackPressed();
+					}
+				} else if (object instanceof ModelError) {
+					ModelError error = (ModelError) object;
+					ToastUtils.showToast(error.getMsg() + "");
+					return;
 				}
+				ToastUtils.showToast("完善资料失败");
 				break;
 			}
 
@@ -241,10 +248,10 @@ public class RegisterFillInformationActivity extends BaseActivity {
 
 					@Override
 					public void run() {
-						Model model = loginIm2.updateProfile(mUser);
+						Object object = loginIm2.updateProfile(mUser);
 						Message message = Message.obtain();
 						message.what = SUCCESS;
-						message.obj = model;
+						message.obj = object;
 						mHandle.sendMessage(message);
 					}
 				});
@@ -264,20 +271,20 @@ public class RegisterFillInformationActivity extends BaseActivity {
 	 */
 	private boolean checkTheUploadMessage(String uname, String school,
 			String sex, String photoid) {
-		if (uname == null | uname.length() < 1) {
+		if (uname == null || uname.equals("")) {
 			ToastUtils.showToast("昵称不能为空");
 			return false;
 		}
-		if (school == null | school.length() < 1) {
+		if (school == null || school.equals("")) {
 			ToastUtils.showToast("学校不能空");
 			return false;
 		}
-		if (sex == null | sex.length() < 1) {
+		if (sex == null || sex.equals("")) {
 			ToastUtils.showToast("性别不能为空");
 			return false;
 		}
-		if (photoid == null | photoid.length() < 1) {
-			ToastUtils.showToast("请重新上传头像");
+		if (photoid == null || photoid.equals("")) {
+			ToastUtils.showToast("请上传头像");
 			return false;
 		}
 		return true;

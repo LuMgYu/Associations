@@ -167,18 +167,22 @@ public class Api {
 			get.addBodyParam(REGCODE, user.getRegCode());
 			get.addBodyParam(PWD, user.getPwd());
 			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelUser());
+			Model model = parseOriginalJsonObject(object, new ModelUser());
+			if (model == null) {
+				return getModelError(object);
+			}
+			return model;
 		}
 
 		@Override
-		public boolean sendCodeByPhone(ModelUser user) {
+		public Model sendCodeByPhone(ModelUser user) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, USER);
 			get.addBodyParam(ACT, SENDCODEBYPHONE);
 			get.addBodyParam(MOBILE, user.getMobile());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 		@Override
@@ -215,7 +219,11 @@ public class Api {
 			get.addBodyParam(AUTOGRAPH, user.getAutograph());
 			get.addBodyParam(EMAIL, user.getEmail());
 			Object object = get.run();
-			return parseOriginalJsonObject(object, new ModelUser());
+			Model model = parseOriginalJsonObject(object, new ModelUser());
+			if (model == null) {
+				model = getModelError(object);
+			}
+			return model;
 		}
 
 		@Override
@@ -412,7 +420,7 @@ public class Api {
 		}
 
 		@Override
-		public boolean join(ModelLeague league) {
+		public Model join(ModelLeague league) {
 			Request get = new Get();
 			get.addBodyParam(APP, API);
 			get.addBodyParam(MOD, GROUP);
@@ -420,7 +428,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(GID, league.getGid());
 			Object object = get.run();
-			return isCodeOk(object);
+			return getModelError(object);
 		}
 
 		@Override
@@ -479,6 +487,7 @@ public class Api {
 			get.addBodyParam(ACT, ALBUMLIST);
 			judgeTheUser(get);
 			get.addBodyParam(GID, league.getGid());
+			get.addBodyParam(P, league.getP());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelLeagueAlbum());
 		}
@@ -608,6 +617,7 @@ public class Api {
 			judgeTheUser(get);
 			get.addBodyParam(GID, league.getGid());
 			get.addBodyParam(TYPE, league.getType());
+			get.addBodyParam(P, league.getP());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelEventWorks());
 		}
@@ -758,6 +768,7 @@ public class Api {
 			get.addBodyParam(ACT, MEMBERLIST);
 			judgeTheUser(get);
 			get.addBodyParam(ID, event.getId());
+			get.addBodyParam(P, event.getP());
 			Object object = get.run();
 			return parseOriginalJsonArray(object, new ModelMember());
 		}

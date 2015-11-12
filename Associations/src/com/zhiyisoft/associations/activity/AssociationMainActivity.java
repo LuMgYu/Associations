@@ -17,6 +17,7 @@ import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
 import com.zhiyisoft.associations.img.SmartImageView;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.ModelLeagueAlbum;
 import com.zhiyisoft.associations.model.ModelLeagueMember;
@@ -76,10 +77,14 @@ public class AssociationMainActivity extends BaseActivity {
 				}
 				break;
 			case SUCCESS_JOIN:
-				boolean isSuccess = (Boolean) msg.obj;
-				if (isSuccess) {
-					ToastUtils.showToast("您已成功加入此社团,请等待圈主审核！");
-					onBackPressed();
+				ModelError Error = (ModelError) msg.obj;
+				if (Error != null) {
+					if (Error.getStatus() == 1) {
+						ToastUtils.showToast(Error.getMsg() + "");
+						onBackPressed();
+					} else {
+						ToastUtils.showToast(Error.getMsg() + "");
+					}
 				} else {
 					ToastUtils.showToast("加入社团失败");
 				}
@@ -169,10 +174,10 @@ public class AssociationMainActivity extends BaseActivity {
 
 			@Override
 			public void run() {
-				boolean isSuccess = leagueImpl.join(league);
+				Object object = leagueImpl.join(league);
 				Message message = Message.obtain();
 				message.what = SUCCESS_JOIN;
-				message.obj = isSuccess;
+				message.obj = object;
 				mHandle.sendMessage(message);
 			}
 		});

@@ -32,7 +32,6 @@ public class AssociationTidingsDisplayActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setAlltitle("", league.getCategoryName(), "");
 	}
 
 	@Override
@@ -79,6 +78,6 @@ public class AssociationTidingsDisplayActivity extends BaseActivity {
 
 	@Override
 	public String setCenterTitle() {
-		return "";
+		return "社团新闻";
 	}
 }

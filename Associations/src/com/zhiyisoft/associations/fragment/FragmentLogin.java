@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -34,6 +36,7 @@ import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DensityUtils;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -50,6 +53,8 @@ public class FragmentLogin extends BaseFragment {
 	private Button bt_register;
 	private ImageView iv_qq;
 	private ImageView iv_weibo;
+	private FrameLayout fl_progress;
+	private TextView tv_progress;
 
 	private ModelUser modelUser; // 绑定第三方登录的
 
@@ -76,6 +81,8 @@ public class FragmentLogin extends BaseFragment {
 				} else {
 					ToastUtils.showToast("登录失败");
 				}
+				fl_progress.setVisibility(View.GONE);
+				bt_login.setBackgroundResource(R.drawable.btn_red);
 				break;
 
 			case OTHER_LOGIN:
@@ -137,7 +144,8 @@ public class FragmentLogin extends BaseFragment {
 		bt_register = (Button) findViewById(R.id.bt_register);
 		iv_qq = (ImageView) findViewById(R.id.iv_qq);
 		iv_weibo = (ImageView) findViewById(R.id.iv_weibo);
-
+		fl_progress = (FrameLayout) findViewById(R.id.fl_progress);
+		tv_progress = (TextView) findViewById(R.id.tv_progress);
 	}
 
 	@Override
@@ -166,21 +174,28 @@ public class FragmentLogin extends BaseFragment {
 			final String username = et_loginName.getText().toString();
 			final String pwd = et_loginPwd.getText().toString();
 			if (checkTheUserAndPwd(username, pwd)) {
-				mApp.getExecutor().execute(new Runnable() {
+				if (fl_progress.getVisibility() != View.VISIBLE) {
+					bt_login.setBackgroundResource(R.drawable.btn_gray);
+					fl_progress.setVisibility(View.VISIBLE);
+					tv_progress.setTextSize(((float) DensityUtils.sp2px(
+							getActivity(), 8)));
+					tv_progress.setText("登陆中");
+					mApp.getExecutor().execute(new Runnable() {
 
-					@Override
-					public void run() {
-						ModelUser user = new ModelUser();
-						user.setMobile(username);
-						user.setPwd(pwd);
-						LoginIm loginIm = mApp.getLoginIm();
-						Model result = loginIm.authorize(user);
-						Message message = Message.obtain();
-						message.what = LOGIN;
-						message.obj = result;
-						mHandle.sendMessage(message);
-					}
-				});
+						@Override
+						public void run() {
+							ModelUser user = new ModelUser();
+							user.setMobile(username);
+							user.setPwd(pwd);
+							LoginIm loginIm = mApp.getLoginIm();
+							Model result = loginIm.authorize(user);
+							Message message = Message.obtain();
+							message.what = LOGIN;
+							message.obj = result;
+							mHandle.sendMessage(message);
+						}
+					});
+				}
 			}
 			break;
 		case R.id.bt_register:

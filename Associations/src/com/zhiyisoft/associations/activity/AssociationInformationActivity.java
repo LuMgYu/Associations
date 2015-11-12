@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class AssociationInformationActivity extends BaseActivity {
 	private TextView association_tv_theme_name;
 	private TextView association_tv_contact2;
 	private TextView association_tv_contact_way2;
+	private Button btn_join_associatoin;
 
 	private ModelLeague mLeague;
 	private static final int SUCCESS = 1;
@@ -80,6 +82,7 @@ public class AssociationInformationActivity extends BaseActivity {
 		association_tv_theme_name = (TextView) findViewById(R.id.association_tv_theme_name);
 		association_tv_contact2 = (TextView) findViewById(R.id.association_tv_contact2);
 		association_tv_contact_way2 = (TextView) findViewById(R.id.association_tv_contact_way2);
+		btn_join_associatoin = (Button) findViewById(R.id.btn_join_associatoin);
 		getInformatonFromNet(mLeague);
 	}
 
@@ -91,27 +94,17 @@ public class AssociationInformationActivity extends BaseActivity {
 		// rl_homeland.setOnClickListener(this);
 		// rl_email.setOnClickListener(this);
 		// rl_phone.setOnClickListener(this);
+		btn_join_associatoin.setOnClickListener(this);
 
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.rl_nick:
+		case R.id.btn_join_associatoin:
 			Bundle data = new Bundle();
-			mApp.startActivity(this, MeSettingNickActivity.class, data);
-			break;
-		case R.id.rl_gender:
-			break;
-		case R.id.rl_school:
-			Bundle data2 = new Bundle();
-			mApp.startActivity(this, MeSettingProvinceActivity.class, data2);
-			break;
-		case R.id.rl_homeland:
-			break;
-		case R.id.rl_email:
-			break;
-		case R.id.rl_phone:
+			data.putSerializable(Config.SEND_ACTIVITY_DATA, mLeague);
+			mApp.startActivity(this, AssociationMainActivity.class, data);
 			break;
 		}
 

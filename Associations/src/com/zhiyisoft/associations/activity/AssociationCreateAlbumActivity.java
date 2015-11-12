@@ -34,6 +34,8 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 	public static int mCurrentState = 0; // 公开
 
 	private static final int SUCCESS_CREATE = 1;
+
+	private boolean isCreate = false; // 是否点击创建，如果请求完毕再设置为false
 	private Handler mHandle = new Handler() {
 		@SuppressWarnings("unchecked")
 		public void handleMessage(Message msg) {
@@ -47,7 +49,9 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 					onBackPressed();
 				} else {
 					ToastUtils.showToast("创建相册失败！");
+
 				}
+				isCreate = false;
 				break;
 			}
 
@@ -115,7 +119,8 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 		case R.id.tv_title_right:
 			albumName = et_album.getText().toString();
 			albumInfo = et_album_des.getText().toString();
-			if (checkTheMessage()) {
+			if (checkTheMessage() && !isCreate) {
+				isCreate = true;
 				mLeague.setAlbumName(albumName);
 				mLeague.setAlbumInfo(albumInfo);
 				mLeague.setHide(String.valueOf(mCurrentState));

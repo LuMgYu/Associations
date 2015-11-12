@@ -135,7 +135,7 @@ public interface LoginIm {
 	 * @param user
 	 * @return
 	 */
-	boolean sendCodeByPhone(ModelUser user);
+	Model sendCodeByPhone(ModelUser user);
 
 	/**
 	 * 10.【修改密码】：User/saveUserPasswordByPhone

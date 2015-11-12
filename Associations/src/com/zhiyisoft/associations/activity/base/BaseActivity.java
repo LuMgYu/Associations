@@ -61,6 +61,7 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.application.Association;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
@@ -843,4 +844,21 @@ public abstract class BaseActivity extends FragmentActivity implements
 
 	}
 
+	/**
+	 * 判断服务器返回的数据
+	 * 
+	 * @param object
+	 * @return
+	 */
+	public boolean judgeTheResponceMessage(Object object) {
+		if (object instanceof ModelError) {
+			ModelError error = (ModelError) object;
+			ToastUtils.showToast(error.getMsg() + "");
+			return false;
+		}
+		if (object == null) {
+			ToastUtils.showToast("请求数据失败");
+		}
+		return true;
+	}
 }

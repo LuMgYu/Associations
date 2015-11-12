@@ -91,7 +91,9 @@ public class AssociationMainNewAdapter extends BAdapter {
 				holder.title_tv_topic_count
 						.setText(mainLeague.getTopic_count());
 				holder.title_tv_school.setText(mainLeague.getSchoolName());
-				holder.title_tv_type.setText(mainLeague.getCategoryName());
+				if (mainLeague.getCategoryName() != null) {
+					holder.title_tv_type.setText(mainLeague.getCategoryName());
+				}
 				holder.title_tv_move.setText("社团活动("
 						+ mainLeague.getEvent_count() + ")");
 				holder.title_rl_move.setTag(mainLeague); // 监听事件的时候就获取，跳转到社团界面

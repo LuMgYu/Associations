@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.Api.LoginImpl;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.ToastUtils;
@@ -29,17 +30,23 @@ public class MeSettingNickActivity extends BaseActivity {
 			switch (msg.what) {
 
 			case SUCCESS:
-				ModelUser user = (ModelUser) msg.obj;
-				if (user != null) {
-					ToastUtils.showToast("更新昵称成功！");
-					// 保存更新的数据
-					ModelUser mainUser = mApp.getUser();
-					mainUser.setUname(user.getUname());
-					mApp.saveUser(mainUser);
-					onBackPressed();
-				} else {
-					ToastUtils.showToast("更新昵称失败");
+				Object object = msg.obj;
+				if (object instanceof ModelUser) {
+					ModelUser user = (ModelUser) msg.obj;
+					if (user != null) {
+						ToastUtils.showToast("更新昵称成功！");
+						// 保存更新的数据
+						ModelUser mainUser = mApp.getUser();
+						mainUser.setUname(user.getUname());
+						mApp.saveUser(mainUser);
+						onBackPressed();
+					}
+				} else if (object instanceof ModelError) {
+					ModelError error = (ModelError) object;
+					ToastUtils.showToast(error.getMsg() + "");
+					return;
 				}
+				ToastUtils.showToast("更新昵称失败");
 				break;
 			}
 

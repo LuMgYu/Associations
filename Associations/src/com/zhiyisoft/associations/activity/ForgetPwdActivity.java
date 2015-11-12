@@ -11,6 +11,7 @@ import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.api.LoginIm;
 import com.zhiyisoft.associations.config.Config;
+import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.util.ToastUtils;
 
@@ -36,11 +37,19 @@ public class ForgetPwdActivity extends BaseActivity {
 			// TODO
 			switch (msg.what) {
 			case SEND_SUCCESS:
-				boolean isSuccess = (Boolean) msg.obj;
-				if (isSuccess) {
-					// TODO 把获取的信息，保存到shareprefrence类中
-					ToastUtils.showToast("发送验证码成功");
-					countTime();
+				Object object = msg.obj;
+				if (object instanceof ModelError) {
+					ModelError error = (ModelError) object;
+					boolean isSuccess = error.getStatus() == 1 ? true : false;
+					if (isSuccess) {
+						ToastUtils.showToast("发送验证码成功");
+						countTime();
+					} else {
+						ToastUtils.showToast(error.getMsg() + "");
+						isRed = true;
+						btn_reset.setBackgroundResource(R.drawable.btn_red);
+						btn_reset.setText("获取验证码");
+					}
 				} else {
 					ToastUtils.showToast("发送验证码失败，请稍后重试");
 					isRed = true;
@@ -51,13 +60,9 @@ public class ForgetPwdActivity extends BaseActivity {
 
 			case SUCCESS:
 				boolean modifySuccess = (Boolean) msg.obj;
-				// System.out.println("呵呵哒--------" + user.toString());
 				if (modifySuccess) {
 					ToastUtils.showToast("修改密码成功");
 					onBackPressed();
-					// 返回到登陆页面
-					// mApp.startActivity(ForgetPwdPhoneActivity.this,
-					// RegisterFillInformationActivity.class, null);
 				} else {
 					ToastUtils.showToast("修改密码失败，请稍后重试");
 				}
@@ -126,10 +131,10 @@ public class ForgetPwdActivity extends BaseActivity {
 
 					@Override
 					public void run() {
-						boolean isSuccess = loginIm.sendCodeByPhone(mUser);
+						Object object = loginIm.sendCodeByPhone(mUser);
 						Message message = Message.obtain();
 						message.what = SEND_SUCCESS;
-						message.obj = isSuccess;
+						message.obj = object;
 						mHandle.sendMessage(message);
 					}
 				});

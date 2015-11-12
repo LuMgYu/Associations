@@ -77,7 +77,7 @@ public class AssociationCreateActivity extends BaseActivity {
 	/*** 创建社团需要的数据 ****/
 	private String name;
 	private int categoryId = 30588;
-	private int logo;
+	private int logo = 0;
 	private String description;
 	private int schoolId = 0;
 	private int Private = 0;
@@ -166,6 +166,7 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_btn_commit.setOnClickListener(this);
 		association_tv_commit_yes.setOnClickListener(this);
 		association_rl_welfare.setOnClickListener(this);
+		association_iv_commit_yes.setOnClickListener(this);
 	}
 
 	@Override
@@ -243,9 +244,24 @@ public class AssociationCreateActivity extends BaseActivity {
 				});
 	}
 
+	private boolean isAgreen = true;
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.association_iv_commit_yes:
+			if (isAgreen) {
+				association_iv_commit_yes.setImageResource(R.drawable.no);
+				association_btn_commit
+						.setBackgroundResource(R.drawable.btn_gray);
+				isAgreen = false;
+			} else {
+				association_iv_commit_yes.setImageResource(R.drawable.yes);
+				association_btn_commit
+						.setBackgroundResource(R.drawable.btn_red);
+				isAgreen = true;
+			}
+			break;
 		case R.id.association_rl_welfare:
 			showPop(association_rl_welfare, 0, 0);
 			break;
@@ -286,7 +302,7 @@ public class AssociationCreateActivity extends BaseActivity {
 			description = association_et_about.getText().toString();
 			openerName = association_et_contact.getText().toString();
 			contact = association_et_contact_way.getText().toString();
-			if (judgeInformation()) {
+			if (isAgreen && judgeInformation()) {
 				final ModelLeague league = new ModelLeague();
 				league.setName(name);
 				league.setCategoryId(categoryId);
@@ -331,10 +347,11 @@ public class AssociationCreateActivity extends BaseActivity {
 			ToastUtils.showToast("社团名不能为空！");
 			return false;
 		}
-		// if (logo != 0) {
-		// ToastUtils.showToast("社团名不能为空！");
-		// }
-		if (description == null || description.length() < 1) {
+		if (logo == 0) {
+			ToastUtils.showToast("请上传社团头像！");
+			return false;
+		}
+		if (description == null || description.equals("")) {
 			ToastUtils.showToast("社团简介不能为空！");
 			return false;
 		}
@@ -346,11 +363,11 @@ public class AssociationCreateActivity extends BaseActivity {
 			ToastUtils.showToast("学校不能为空！");
 			return false;
 		}
-		if (openerName == null || openerName.length() < 1) {
+		if (openerName == null || openerName.equals("")) {
 			ToastUtils.showToast("社团联系人不能为空！");
 			return false;
 		}
-		if (contact == null || contact.length() < 1) {
+		if (contact == null || contact.equals("")) {
 			ToastUtils.showToast("社团联系方式方式不能为空！");
 			return false;
 		}
@@ -377,8 +394,8 @@ public class AssociationCreateActivity extends BaseActivity {
 	private TextView tv_date_cancle;
 	private TextView tv_date_sure;
 	private WheelView wv_category;
-	private String[] mCategory = new String[] { " 志愿公益  ", " 社会实践  ",
-			"  学术学习  ", " 就业创业 ", "  兴趣爱好  ", " 心理活动  ", "  其它  " };
+	private String[] mCategory = new String[] { "  志愿公益    ", "  社会实践   ",
+			"  学术学习   ", "  就业创业   ", "  兴趣爱好   ", "  心理活动   ", "    其它      " };
 	private int[] categorys = { 30588, 30589, 30590, 30591, 30592, 30593,
 			30594, 30595 };
 
@@ -455,7 +472,6 @@ public class AssociationCreateActivity extends BaseActivity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.tv_date_sure:
-				// TODO 把日期加载到textview里面
 				association_tv_welfare_name.setText(mCategory[wv_category
 						.getCurrentItem()] + "");
 				categoryId = categorys[wv_category.getCurrentItem()];

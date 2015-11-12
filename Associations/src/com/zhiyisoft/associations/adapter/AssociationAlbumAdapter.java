@@ -93,27 +93,36 @@ public class AssociationAlbumAdapter extends BAdapter {
 	// -------------------------------------------------
 	@Override
 	public List<Model> refreshNew() {
-		LeagueImpl leagueImpl = mApp.getLeagueIm();
-		List<Model> items = leagueImpl.albumList(mLeague);
+		List<Model> items = getAlbum(1);
 		return items;
+	}
+
+	private List<Model> getAlbum(int index) {
+		if (mLeague != null) {
+			mLeague.setP(index);
+			LeagueImpl leagueImpl = mApp.getLeagueIm();
+			List<Model> items = leagueImpl.albumList(mLeague);
+			return items;
+		}
+		return null;
 	}
 
 	@Override
 	public List<Model> refreshHeader(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		// items.add(new Model());
-		// items.add(new Model());
-		// items.add(new Model());
+		List<Model> items = getAlbum(1);
 		return items;
 	}
 
 	@Override
 	public List<Model> refreshFooter(Model item, int count) {
-		List<Model> items = new ArrayList<Model>();
-		// items.add(new Model());
-		// items.add(new Model());
-		// items.add(new Model());
+		p++;
+		List<Model> items = getAlbum(p);
 		return items;
+	}
+
+	@Override
+	public void addHeadList(List<Model> list) {
+		addHeadListWay2(list);
 	}
 
 	@Override

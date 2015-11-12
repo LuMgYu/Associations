@@ -493,7 +493,8 @@
                 android:id="@+id/rl_move_status"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/item_height"
-                android:background="@color/main_white_pure_color" >
+                android:background="@color/main_white_pure_color"
+                android:visibility="gone" >
 
                 <TextView
                     android:id="@+id/tv_move_status"

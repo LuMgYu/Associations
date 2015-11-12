@@ -6,6 +6,8 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -14,6 +16,7 @@ import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.model.ModelError;
 import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DensityUtils;
 import com.zhiyisoft.associations.util.ToastUtils;
 
 /**
@@ -27,6 +30,8 @@ public class RegisterActivity extends BaseActivity {
 	private EditText et_sure_pwd;
 	private Button btn_reset;
 	private Button btn_done_regster;
+	private FrameLayout fl_progress;
+	private TextView tv_progress;
 
 	private ModelUser mUser; // 上一个activity传过来的user
 	private ModelUser mRegisterUser;// 成功注册的用户！成功后，才给它赋值
@@ -64,8 +69,9 @@ public class RegisterActivity extends BaseActivity {
 				break;
 
 			case REGISTER_SUCCESS:
-				mRegisterUser = (ModelUser) msg.obj;
-				if (mRegisterUser != null) {
+				Object object = msg.obj;
+				if (object instanceof ModelUser) {
+					mRegisterUser = (ModelUser) object;
 					if (mUser.getType() != null) {
 						// 当时第三方登录的时候就执行这里
 						mUser.setUserid(mRegisterUser.getUserid());
@@ -73,9 +79,14 @@ public class RegisterActivity extends BaseActivity {
 					} else {
 						JumpTheNextActivity(mRegisterUser);
 					}
-				} else {
-					ToastUtils.showToast("注册失败，请稍后重试");
+				} else if (object instanceof ModelError) {
+					ModelError error2 = (ModelError) object;
+					ToastUtils.showToast(error2.getMsg() + "");
+				} else if (object == null) {
+					ToastUtils.showToast("注册失败！");
 				}
+				fl_progress.setVisibility(View.GONE);
+				btn_done_regster.setBackgroundResource(R.drawable.btn_red);
 				break;
 
 			case BIND_NEW_USER:
@@ -140,6 +151,8 @@ public class RegisterActivity extends BaseActivity {
 		et_sure_pwd = (EditText) findViewById(R.id.et_sure_pwd);
 		btn_reset = (Button) findViewById(R.id.btn_reset);
 		btn_done_regster = (Button) findViewById(R.id.btn_done_regster);
+		fl_progress = (FrameLayout) findViewById(R.id.fl_progress);
+		tv_progress = (TextView) findViewById(R.id.tv_progress);
 	}
 
 	@Override
@@ -176,21 +189,27 @@ public class RegisterActivity extends BaseActivity {
 			String pwd = et_new_pwd.getText().toString();
 			String surePwd = et_sure_pwd.getText().toString();
 			if (checkThePwdAndSms(smsCode, pwd, surePwd)) {
-				final LoginIm loginIm2 = mApp.getLoginIm();
+				if (fl_progress.getVisibility() != View.VISIBLE) {
+					btn_done_regster.setBackgroundResource(R.drawable.btn_gray);
+					fl_progress.setVisibility(View.VISIBLE);
+					tv_progress.setTextSize(((float) DensityUtils
+							.sp2px(this, 8)));
+					tv_progress.setText("注册中");
+					final LoginIm loginIm2 = mApp.getLoginIm();
+					mUser.setRegCode(smsCode);
+					mUser.setPwd(pwd);
+					mApp.getExecutor().execute(new Runnable() {
 
-				mUser.setRegCode(smsCode);
-				mUser.setPwd(pwd);
-				mApp.getExecutor().execute(new Runnable() {
-
-					@Override
-					public void run() {
-						Model model = loginIm2.register(mUser);
-						Message message = Message.obtain();
-						message.what = REGISTER_SUCCESS;
-						message.obj = model;
-						mHandle.sendMessage(message);
-					}
-				});
+						@Override
+						public void run() {
+							Object object = loginIm2.register(mUser);
+							Message message = Message.obtain();
+							message.what = REGISTER_SUCCESS;
+							message.obj = object;
+							mHandle.sendMessage(message);
+						}
+					});
+				}
 			}
 			break;
 

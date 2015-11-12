@@ -268,6 +268,19 @@
                 android:textColorHint="@color/text_black"
                 android:textSize="@dimen/text_small" />
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_join_associatoin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginRight="@dimen/margin_right_small"
+            android:layout_marginTop="@dimen/margin_top"
+            android:background="@drawable/btn_red"
+            android:text="社团详情"
+            android:textColor="@color/text_white"
+            android:textColorHint="@color/text_black"
+            android:textSize="@dimen/text_common" />
     </LinearLayout>
 
 </ScrollView>

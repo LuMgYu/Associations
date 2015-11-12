@@ -182,6 +182,7 @@ public class AssociationUploadPhotoActivity extends BaseActivity {
 						String result = new String(arg2);
 						try {
 							JSONObject jsonObject = new JSONObject(result);
+							Log.i("zhedu", jsonObject.toString());
 							if (jsonObject.has("status")) {
 								int status = jsonObject.getInt("status");
 								if (status == 1) {

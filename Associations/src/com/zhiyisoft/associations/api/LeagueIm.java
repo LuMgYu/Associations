@@ -105,7 +105,7 @@ public interface LeagueIm {
 	 * @param league
 	 * @return
 	 */
-	boolean join(ModelLeague league);
+	Model join(ModelLeague league);
 
 	/**
 	 * 16.【退出社团】：Group/leave 演示地址：
