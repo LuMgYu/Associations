@@ -15,7 +15,7 @@
             android:id="@+id/fill_iv_login_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/default_image_small" />
+            android:src="@drawable/ic_defalt" />
 
         <ImageView
             android:id="@+id/fill_iv_photo"
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/fill_tv_school_flag"
-            android:text="四川蓝翔技校"
+            android:text=""
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small" />
 

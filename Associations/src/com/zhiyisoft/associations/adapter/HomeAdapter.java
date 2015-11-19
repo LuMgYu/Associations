@@ -548,7 +548,7 @@ public class HomeAdapter extends BAdapter {
 	 * 添加我的社团
 	 */
 	private void addMyAssociation(List<Model> list, ViewHolder holder) {
-		if (!IsLogin()) {
+		if (!IsLogin() || list == null) {
 			holder.home_rl_my_association.setVisibility(View.GONE);
 			return;
 		}

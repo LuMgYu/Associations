@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="230dp"
     android:background="@drawable/bg"
     android:orientation="vertical" >
 
@@ -17,7 +17,12 @@
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_big" />
 
-    <include layout="@layout/view_line_vertical" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/main_gray_color" />
 
     <TextView
         android:id="@+id/me_create"
@@ -30,7 +35,12 @@
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_big" />
 
-    <include layout="@layout/view_line_vertical" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/main_gray_color" />
 
     <TextView
         android:id="@+id/me_watch"
@@ -43,7 +53,12 @@
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_big" />
 
-    <include layout="@layout/view_line_vertical" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/main_gray_color" />
 
     <TextView
         android:id="@+id/create_online_move"
@@ -56,7 +71,12 @@
         android:textColor="@color/text_black"
         android:textSize="@dimen/text_big" />
 
-    <include layout="@layout/view_line_vertical" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/main_gray_color" />
 
     <TextView
         android:id="@+id/create_notOnline_move"

@@ -175,7 +175,7 @@ public class FragmentLogin extends BaseFragment {
 			final String pwd = et_loginPwd.getText().toString();
 			if (checkTheUserAndPwd(username, pwd)) {
 				if (fl_progress.getVisibility() != View.VISIBLE) {
-					bt_login.setBackgroundResource(R.drawable.btn_gray);
+					bt_login.setBackgroundResource(R.drawable.view_border_solid_gray_5);
 					fl_progress.setVisibility(View.VISIBLE);
 					tv_progress.setTextSize(((float) DensityUtils.sp2px(
 							getActivity(), 8)));

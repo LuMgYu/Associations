@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@drawable/default_image_small"
+                android:background="@color/move_icon"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/move_btn_online"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:layout_toRightOf="@id/fl_move_iv"
             android:drawableLeft="@drawable/clock"
             android:drawablePadding="4dp"

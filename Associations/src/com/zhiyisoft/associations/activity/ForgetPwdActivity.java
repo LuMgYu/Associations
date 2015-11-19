@@ -139,7 +139,7 @@ public class ForgetPwdActivity extends BaseActivity {
 					}
 				});
 				isRed = false;
-				btn_reset.setBackgroundResource(R.drawable.btn_gray);
+				btn_reset.setBackgroundResource(R.drawable.view_border_solid_gray_5);
 			}
 			break;
 		case R.id.bt_sure_modify:

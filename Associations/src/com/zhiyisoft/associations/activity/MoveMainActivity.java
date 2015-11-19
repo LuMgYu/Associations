@@ -250,7 +250,7 @@ public class MoveMainActivity extends BaseActivity {
 
 	private void isJoin(int isin) {
 		if (isin == 1) {
-			move_tv_join.setText("已加入");
+			move_tv_join.setText("已报名");
 			isJoin = true;
 		} else {
 			isJoin = false;

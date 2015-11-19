@@ -73,7 +73,7 @@
         android:layout_marginLeft="@dimen/margin_left"
         android:layout_marginRight="@dimen/margin_right"
         android:layout_marginTop="15dp"
-        android:background="@drawable/btn_red"
+        android:background="@drawable/view_border_solid_red_5"
         android:text="修改密码"
         android:textColor="@color/main_white_pure_color" />
 

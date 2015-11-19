@@ -57,13 +57,15 @@ public class RegisterActivity extends BaseActivity {
 					} else {
 						ToastUtils.showToast(error.getMsg());
 						isRed = true;
-						btn_reset.setBackgroundResource(R.drawable.btn_red);
+						btn_reset
+								.setBackgroundResource(R.drawable.view_border_solid_red_5);
 						btn_reset.setText("获取验证码");
 					}
 				} else {
 					ToastUtils.showToast("发送验证码失败，请稍后重试");
 					isRed = true;
-					btn_reset.setBackgroundResource(R.drawable.btn_red);
+					btn_reset
+							.setBackgroundResource(R.drawable.view_border_solid_red_5);
 					btn_reset.setText("获取验证码");
 				}
 				break;
@@ -86,7 +88,8 @@ public class RegisterActivity extends BaseActivity {
 					ToastUtils.showToast("注册失败！");
 				}
 				fl_progress.setVisibility(View.GONE);
-				btn_done_regster.setBackgroundResource(R.drawable.btn_red);
+				btn_done_regster
+						.setBackgroundResource(R.drawable.view_border_solid_red_5);
 				break;
 
 			case BIND_NEW_USER:
@@ -102,7 +105,7 @@ public class RegisterActivity extends BaseActivity {
 				btn_reset.setText(lastTime + "s");
 				if (lastTime == 0) {
 					isRed = true;
-					btn_reset.setBackgroundResource(R.drawable.btn_red);
+					btn_reset.setBackgroundResource(R.drawable.view_border_solid_red_5);
 					btn_reset.setText("获取验证码");
 				}
 				break;
@@ -181,7 +184,8 @@ public class RegisterActivity extends BaseActivity {
 					}
 				});
 				isRed = false;
-				btn_reset.setBackgroundResource(R.drawable.btn_gray);
+				btn_reset
+						.setBackgroundResource(R.drawable.view_border_solid_gray_5);
 			}
 			break;
 		case R.id.btn_done_regster:
@@ -190,7 +194,8 @@ public class RegisterActivity extends BaseActivity {
 			String surePwd = et_sure_pwd.getText().toString();
 			if (checkThePwdAndSms(smsCode, pwd, surePwd)) {
 				if (fl_progress.getVisibility() != View.VISIBLE) {
-					btn_done_regster.setBackgroundResource(R.drawable.btn_gray);
+					btn_done_regster
+							.setBackgroundResource(R.drawable.view_border_solid_gray_5);
 					fl_progress.setVisibility(View.VISIBLE);
 					tv_progress.setTextSize(((float) DensityUtils
 							.sp2px(this, 8)));

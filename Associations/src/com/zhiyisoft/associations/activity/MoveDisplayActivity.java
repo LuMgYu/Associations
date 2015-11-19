@@ -53,6 +53,7 @@ public class MoveDisplayActivity extends BaseActivity {
 			mEvent = new ModelEvent(); // 基本不会出现这个情况
 		}
 		mAdapter = new MoveAdapter(this, mEvent);
+		move_lv.setDividerHeight(1);
 		move_lv.setAdapter(mAdapter);
 	}
 

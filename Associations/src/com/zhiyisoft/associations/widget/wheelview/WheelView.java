@@ -44,6 +44,7 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 import com.zhiyisoft.associations.R;
+import com.zhiyisoft.associations.util.DisplayUtils;
 
 /**
  * Numeric wheel view.
@@ -73,7 +74,7 @@ public class WheelView extends View {
 	private static final int ADDITIONAL_ITEM_HEIGHT = 15;
 
 	/** Text size */
-	private static final int TEXT_SIZE = 24;
+	private static int TEXT_SIZE = 24;
 
 	/** Top and bottom items offset (to hide that) */
 	private static final int ITEM_OFFSET = TEXT_SIZE / 5;
@@ -170,7 +171,7 @@ public class WheelView extends View {
 	private void initData(Context context) {
 		gestureDetector = new GestureDetector(context, gestureListener);
 		gestureDetector.setIsLongpressEnabled(false);
-
+		this.TEXT_SIZE = DisplayUtils.dp2px(context, 12);
 		scroller = new Scroller(context);
 	}
 

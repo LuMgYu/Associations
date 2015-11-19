@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -65,7 +66,6 @@ public abstract class BaseListView extends XListView implements
 	/** 初始化设置 */
 	public void initSet(Context context) {
 		this.setScrollbarFadingEnabled(true);
-		this.setCacheColorHint(0);
 		this.setDividerHeight(1);
 		this.setVerticalScrollBarEnabled(false);
 		mApp = (Association) context.getApplicationContext();

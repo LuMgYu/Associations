@@ -11,7 +11,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="@dimen/margin_top"
-        android:background="@drawable/ll_border"
+        android:background="@drawable/view_border_gray_white_5"
         android:orientation="vertical" >
 
         <RelativeLayout

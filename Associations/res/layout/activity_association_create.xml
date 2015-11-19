@@ -17,7 +17,7 @@
                 android:layout_width="92dp"
                 android:layout_height="92dp"
                 android:layout_gravity="center"
-                android:src="@drawable/default_image_small" />
+                android:src="@drawable/association_create" />
 
             <TextView
                 android:id="@+id/association_tv_point"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="点击上传社团头像"
-                android:textColor="@color/text_gray"
+                android:textColor="@color/move_icon_txt"
                 android:textSize="@dimen/text_small" />
         </FrameLayout>
 
@@ -93,7 +93,6 @@
                 android:hint="请选择学校"
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/text_small" />
-
         </RelativeLayout>
 
         <include layout="@layout/view_line_vertical" />

@@ -253,7 +253,7 @@ public class AssociationCreateActivity extends BaseActivity {
 			if (isAgreen) {
 				association_iv_commit_yes.setImageResource(R.drawable.no);
 				association_btn_commit
-						.setBackgroundResource(R.drawable.btn_gray);
+						.setBackgroundResource(R.drawable.view_border_solid_gray_5);
 				isAgreen = false;
 			} else {
 				association_iv_commit_yes.setImageResource(R.drawable.yes);

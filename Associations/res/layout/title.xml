@@ -6,10 +6,10 @@
 
     <ImageView
         android:id="@+id/iv_title_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="12dp"
+        android:layout_height="21dp"
         android:layout_centerVertical="true"
-        android:padding="10dp"
+        android:layout_marginLeft="@dimen/margin_left_small"
         android:src="@drawable/x_whirt" />
 
     <TextView
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="title"
+            android:text="标题"
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_big"
             android:visibility="visible" />
@@ -88,8 +88,8 @@
 
         <ImageView
             android:id="@+id/iv_title_right2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="42dp"
             android:layout_gravity="center_vertical|right"
             android:layout_marginRight="10dp"
             android:src="@drawable/set"

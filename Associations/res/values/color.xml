@@ -22,6 +22,8 @@
     <color name="main_white_bg_color">#f9f9f9</color>
     <!-- 特殊链接色 -->
     <color name="main_href_color">#2f7dff</color>
+    <color name="move_icon">#e8e8e8</color>
+    <color name="move_icon_txt">#7f7f7f</color>
 
     <!-- 字体颜色 -->
     <color name="text_white">#fff</color>

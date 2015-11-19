@@ -96,7 +96,7 @@ public class AssociationMainAdapter extends BAdapter {
 	 */
 	private void resetView(ViewHolder holder) {
 		holder.association_iv_icon
-				.setImageResource(R.drawable.default_image_small);
+				.setImageResource(R.drawable.associatino_default);
 		holder.association_tv_title.setText("unknow");
 		holder.association_tv_member.setText("unknow");
 		holder.association_tv_content.setText("unknow");

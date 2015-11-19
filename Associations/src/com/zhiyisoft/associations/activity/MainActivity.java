@@ -27,6 +27,7 @@ import com.zhiyisoft.associations.fragment.FragmentMsg;
 import com.zhiyisoft.associations.fragment.FragmentNotify;
 import com.zhiyisoft.associations.fragment.base.BaseFragment;
 import com.zhiyisoft.associations.model.ModelUser;
+import com.zhiyisoft.associations.util.DisplayUtils;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
@@ -148,13 +149,13 @@ public class MainActivity extends BaseActivity {
 		if (mCurrentState == ME) {
 			initFragmentMe();
 		}
-//		if (mCurrentState == ASSOCIATION) {
-//			mAssociationFragment = new FragmentAssociation();
-//			replaceFragment(mAssociationFragment);
-//			changeTheTitle("社团");
-//			changeTheColor(iv_association, tv_association,
-//					R.drawable.corporation_c);
-//		}
+		// if (mCurrentState == ASSOCIATION) {
+		// mAssociationFragment = new FragmentAssociation();
+		// replaceFragment(mAssociationFragment);
+		// changeTheTitle("社团");
+		// changeTheColor(iv_association, tv_association,
+		// R.drawable.corporation_c);
+		// }
 		super.onResume();
 	}
 
@@ -503,7 +504,7 @@ public class MainActivity extends BaseActivity {
 			View popView = mInflater.inflate(R.layout.move_menu, null);
 			mPopupWindow = new PopupWindow(popView,
 					UIUtils.getWindowWidth(getApplicationContext()) / 10 * 4,
-					LayoutParams.WRAP_CONTENT);
+					DisplayUtils.dp2px(getApplicationContext(), 230));
 			mPopupWindow.setBackgroundDrawable(new ColorDrawable(0));
 			mPopupWindow.setOnDismissListener(new OnDismissListener() {
 

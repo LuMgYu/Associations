@@ -12,7 +12,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/default_image_small" />
+            android:src="@drawable/associatino_default" />
 
         <TextView
             android:id="@+id/association_tv_title"

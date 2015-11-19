@@ -39,7 +39,7 @@ public class MeSettingDataActivity extends BaseActivity {
 
 	@Override
 	public String setCenterTitle() {
-		return "更新资料";
+		return "资料修改";
 	}
 
 	@Override

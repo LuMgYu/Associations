@@ -303,6 +303,7 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 						.findViewById(R.id.other_more);
 				/********************** 添加回复的内容 ***********************************/
 				ModelComment reply = list.get(i);
+				item_user_tv_a.setText("#" + (i + 1));
 				mApp.displayImage(reply.getFaceurl(), item_user_icon);
 				// item_user_icon.setImageUrl(reply.getFaceurl());
 				item_user_tv.setText(reply.getUname());

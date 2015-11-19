@@ -27,7 +27,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="40dp"
-            android:background="@drawable/ll_border"
+            android:background="@drawable/view_border_gray_white_5"
             android:orientation="vertical" >
 
             <RelativeLayout
@@ -102,7 +102,7 @@
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginRight="@dimen/margin_right"
             android:layout_marginTop="20dp"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/view_border_solid_red_5"
             android:text="登 录"
             android:textColor="@color/main_white_pure_color" />
 
@@ -114,7 +114,7 @@
             android:layout_marginLeft="@dimen/margin_left"
             android:layout_marginRight="@dimen/margin_right"
             android:layout_marginTop="10dp"
-            android:background="@drawable/btn_gray"
+            android:background="@drawable/view_border_solid_gray_5"
             android:text="注 册"
             android:textColor="@color/text_gray" />
 
