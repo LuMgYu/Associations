@@ -41,6 +41,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.zhiyisoft.associations.R;
@@ -254,6 +255,25 @@ public class Association extends Application {
 				.showImageOnLoading(R.drawable.default_image_small)
 				.showImageOnFail(R.drawable.default_image_small)
 				.cacheInMemory(true).cacheOnDisk(true)
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		loader.displayImage(path, imageView, options);
+	}
+
+	public void displayImage(String path, ImageView imageView,
+			DisplayImageOptions options) {
+		ImageLoader loader = initImageLoader();
+		// 显示图片的配置
+		loader.displayImage(path, imageView, options);
+	}
+
+	public void displayImage10Radius(String path, ImageView imageView) {
+		ImageLoader loader = initImageLoader();
+		// 显示图片的配置
+		DisplayImageOptions options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.default_image_small)
+				.showImageOnFail(R.drawable.default_image_small)
+				.cacheInMemory(true).cacheOnDisk(true)
+				.displayer(new RoundedBitmapDisplayer(10))
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 		loader.displayImage(path, imageView, options);
 	}

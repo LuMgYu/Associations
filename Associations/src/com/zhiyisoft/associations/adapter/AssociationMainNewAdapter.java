@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -83,7 +85,9 @@ public class AssociationMainNewAdapter extends BAdapter {
 		if (position == 0) {
 			ModelLeague mainLeague = (ModelLeague) mList.get(position);
 			if (mainLeague != null) {
-				mApp.displayImage(mainLeague.getLogourl(), holder.title_iv);
+				mLeague.setUserlevel(mainLeague.getUserlevel());
+				mApp.displayImage10Radius(mainLeague.getLogourl(),
+						holder.title_iv);
 				// holder.title_iv.setImageUrl(mainLeague.getLogourl());
 				holder.title_tv.setText(mainLeague.getName());
 				holder.title_tv_member_count.setText(mainLeague
@@ -91,8 +95,11 @@ public class AssociationMainNewAdapter extends BAdapter {
 				holder.title_tv_topic_count
 						.setText(mainLeague.getTopic_count());
 				holder.title_tv_school.setText(mainLeague.getSchoolName());
-				if (mainLeague.getCategoryName() != null) {
+				if (mainLeague.getCategoryName() != null
+						&& !mainLeague.getCategoryName().equals("null")) {
 					holder.title_tv_type.setText(mainLeague.getCategoryName());
+				} else {
+					holder.title_tv_type.setText("其它");
 				}
 				holder.title_tv_move.setText("社团活动("
 						+ mainLeague.getEvent_count() + ")");
@@ -184,7 +191,7 @@ public class AssociationMainNewAdapter extends BAdapter {
 	 */
 	private void initFirstView(ViewHolder holder) {
 		if (mFirstView != null) {
-			holder.title_iv = (RoundImageView) mFirstView
+			holder.title_iv = (ImageView) mFirstView
 					.findViewById(R.id.title_iv);
 			holder.title_tv = (TextView) mFirstView.findViewById(R.id.title_tv);
 			holder.title_tv_member = (TextView) mFirstView

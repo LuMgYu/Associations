@@ -26,9 +26,10 @@ import com.zhiyisoft.associations.adapter.base.BAdapter;
 import com.zhiyisoft.associations.api.Api.LeagueImpl;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.img.RoundImageView;
-import com.zhiyisoft.associations.listview.base.BaseListView;
+import com.zhiyisoft.associations.listview.AssociationNewListview;
 import com.zhiyisoft.associations.model.ModelLeague;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DisplayUtils;
 import com.zhiyisoft.associations.util.ToastUtils;
 import com.zhiyisoft.associations.util.UIUtils;
 
@@ -38,7 +39,7 @@ import com.zhiyisoft.associations.util.UIUtils;
  */
 
 public class AssociationSingleActivity extends BaseActivity {
-	private BaseListView single_lv;
+	private AssociationNewListview single_lv;
 	private List<Model> mlist = new ArrayList<Model>();
 	private BAdapter mAdapter;
 	// ------------PopupWindow里面的控件--------------------------
@@ -106,9 +107,11 @@ public class AssociationSingleActivity extends BaseActivity {
 
 	@Override
 	public void initView() {
-		single_lv = (BaseListView) findViewById(R.id.single_lv);
+		single_lv = (AssociationNewListview) findViewById(R.id.single_lv);
 		mAdapter = new AssociationMainNewAdapter(this, mlist, mLeague);
 		single_lv.setAdapter(mAdapter);
+		single_lv.setDividerHeight(DisplayUtils.dp2px(getApplicationContext(),
+				10));
 		initPopWindow();
 	}
 
@@ -175,7 +178,10 @@ public class AssociationSingleActivity extends BaseActivity {
 					newsdata);
 			break;
 		case R.id.btn_quit:
-			Toast.makeText(this, "点击了退出哦", Toast.LENGTH_SHORT).show();
+			if (mLeague.getUserlevel().equals("3")) {
+				Toast.makeText(this, "自己创建的社团不能退出！", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			applyQuitAssociation(mLeague);
 			break;
 		case R.id.tv_title_left:

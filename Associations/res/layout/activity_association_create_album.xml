@@ -12,9 +12,9 @@
         android:id="@+id/rl_album"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
-        android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/main_white_pure_color" >
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
 
         <TextView
             android:id="@+id/tv_album"
@@ -33,7 +33,7 @@
             android:layout_marginLeft="@dimen/margin_left_small"
             android:layout_toRightOf="@id/tv_album"
             android:background="@null"
-            android:hint="相册名称"
+            android:hint="请输入相册名称"
             android:textColor="@color/text_black"
             android:textCursorDrawable="@null"
             android:textSize="@dimen/text_common" />
@@ -45,14 +45,15 @@
         android:id="@+id/rl_album_des"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/main_white_pure_color" >
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
 
         <TextView
             android:id="@+id/tv_album_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
             android:text="相册描述："
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_common" />
@@ -62,10 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_left_small"
+            android:layout_marginTop="@dimen/margin_top"
             android:layout_toRightOf="@id/tv_album_des"
             android:background="@null"
             android:gravity="left|top"
-            android:hint="呵呵哒，大家好才是真的好，你说呢？孩子们"
             android:maxLines="5"
             android:textColor="@color/text_black"
             android:textCursorDrawable="@null"
@@ -78,57 +79,68 @@
         android:id="@+id/rl_album"
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_height"
-        android:layout_marginLeft="@dimen/margin_left_small"
-        android:layout_marginRight="@dimen/margin_right_small"
-        android:background="@color/main_white_pure_color" >
+        android:background="@color/main_white_pure_color"
+        android:paddingLeft="@dimen/margin_left_small"
+        android:paddingRight="@dimen/margin_right_small" >
 
         <TextView
             android:id="@+id/tv_isvisable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="内容可见:"
+            android:text="内部可见:"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_common" />
 
-        <ImageView
-            android:id="@+id/iv_visable"
+        <RelativeLayout
+            android:id="@+id/rl_yes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_toRightOf="@id/tv_isvisable"
-            android:src="@drawable/yes" />
+            android:layout_toRightOf="@id/tv_isvisable" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_toRightOf="@id/iv_visable"
-            android:src="@drawable/no"
-            android:text="是"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            <ImageView
+                android:id="@+id/iv_visable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/yes" />
 
-        <ImageView
-            android:id="@+id/iv_gone"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/iv_visable"
+                android:src="@drawable/no"
+                android:text="是"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left"
-            android:src="@drawable/no" />
+            android:layout_centerVertical="true" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/margin_left_small"
-            android:layout_toRightOf="@id/iv_gone"
-            android:text="否"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/text_common" />
+            <ImageView
+                android:id="@+id/iv_gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/no" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_left_small"
+                android:layout_toRightOf="@id/iv_gone"
+                android:text="否"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_common" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </LinearLayout>

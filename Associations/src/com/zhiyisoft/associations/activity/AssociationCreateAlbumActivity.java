@@ -6,6 +6,7 @@ import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
@@ -24,6 +25,10 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 	private EditText et_album_des;
 	private ImageView iv_visable;
 	private ImageView iv_gone;
+
+	private RelativeLayout rl_yes;
+	private RelativeLayout rl_no;
+
 	private ModelLeague mLeague;
 
 	private String albumName;
@@ -89,25 +94,27 @@ public class AssociationCreateAlbumActivity extends BaseActivity {
 		et_album_des = (EditText) findViewById(R.id.et_album_des);
 		iv_visable = (ImageView) findViewById(R.id.iv_visable);
 		iv_gone = (ImageView) findViewById(R.id.iv_gone);
+		rl_yes = (RelativeLayout) findViewById(R.id.rl_yes);
+		rl_no = (RelativeLayout) findViewById(R.id.rl_no);
 	}
 
 	@Override
 	public void initListener() {
 		tv_title_right.setOnClickListener(this);
-		iv_visable.setOnClickListener(this);
-		iv_gone.setOnClickListener(this);
+		rl_yes.setOnClickListener(this);
+		rl_no.setOnClickListener(this);
 
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.iv_visable:
+		case R.id.rl_yes:
 			resetImage();
 			iv_visable.setImageResource(R.drawable.yes);
 			mCurrentState = PUB;
 			break;
-		case R.id.iv_gone:
+		case R.id.rl_no:
 			resetImage();
 			iv_gone.setImageResource(R.drawable.yes);
 			mCurrentState = PRI;

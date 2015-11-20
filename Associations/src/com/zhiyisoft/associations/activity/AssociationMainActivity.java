@@ -250,6 +250,11 @@ public class AssociationMainActivity extends BaseActivity {
 		tv_association_data_xiehui.setText(league.getCategoryName());
 		tv_association_data_school.setText(league.getSchoolName());
 		tv_activity_count.setText(league.getEvent_count() + "个");
+		if (league.getVerified() == 0) {
+			iv_v.setVisibility(View.GONE);
+		} else {
+			iv_v.setVisibility(View.VISIBLE);
+		}
 		List<Model> members = league.getMemberlist();
 		if (members != null) {
 			for (int i = 0; i < members.size(); i++) {

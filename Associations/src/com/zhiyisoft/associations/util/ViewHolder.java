@@ -73,7 +73,7 @@ public class ViewHolder {
 	public TextView tv_bottom_line;
 	/******************************** 活动一级页面的控件end ********************************************/
 	/******************************** 单个社团控件 ********************************************/
-	public RoundImageView title_iv;
+	public ImageView title_iv;
 	public TextView title_tv;
 	public TextView title_tv_member;
 	public TextView title_tv_member_count;

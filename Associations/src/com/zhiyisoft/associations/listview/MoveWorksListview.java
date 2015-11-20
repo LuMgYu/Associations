@@ -11,6 +11,7 @@ import com.zhiyisoft.associations.activity.AssociationTopicDetailActivity;
 import com.zhiyisoft.associations.config.Config;
 import com.zhiyisoft.associations.listview.base.BaseListView;
 import com.zhiyisoft.associations.model.base.Model;
+import com.zhiyisoft.associations.util.DisplayUtils;
 
 /**
  * author：qiuchunjia time：上午10:37:57 类描述：这个类是实现
@@ -29,7 +30,7 @@ public class MoveWorksListview extends BaseListView {
 		super(context, attrs);
 		this.mContext = context;
 		this.setDivider(new ColorDrawable(0xfff9f9f9));
-		this.setDividerHeight(20);
+		this.setDividerHeight(DisplayUtils.dp2px(mContext, 10));
 	}
 
 	@Override

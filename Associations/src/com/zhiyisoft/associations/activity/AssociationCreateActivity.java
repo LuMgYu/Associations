@@ -45,6 +45,7 @@ import com.zhiyisoft.associations.model.ModelUser;
 import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.Anim;
 import com.zhiyisoft.associations.util.ToastUtils;
+import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
 
@@ -71,6 +72,10 @@ public class AssociationCreateActivity extends BaseActivity {
 	private TextView association_tv_commit_yes;
 	private TextView association_tv_point;
 	private Button association_btn_commit;
+
+	private RelativeLayout rl_yes;
+	private RelativeLayout rl_no;
+
 	private Bitmap mBitmap;
 	private ModelUser mUser;
 
@@ -145,6 +150,8 @@ public class AssociationCreateActivity extends BaseActivity {
 		association_iv_commit_yes = (ImageView) findViewById(R.id.association_iv_commit_yes);
 		association_tv_commit_yes = (TextView) findViewById(R.id.association_tv_commit_yes);
 		association_btn_commit = (Button) findViewById(R.id.association_btn_commit);
+		rl_yes = (RelativeLayout) findViewById(R.id.rl_yes);
+		rl_no = (RelativeLayout) findViewById(R.id.rl_no);
 		association_tv_commit_yes.getPaint()
 				.setFlags(Paint.UNDERLINE_TEXT_FLAG); // 下划线
 		initCameraPopWindow();
@@ -160,8 +167,8 @@ public class AssociationCreateActivity extends BaseActivity {
 	public void initListener() {
 		association_icon.setOnClickListener(this);
 		association_iv_welfare.setOnClickListener(this);
-		association_iv_yes.setOnClickListener(this);
-		association_iv_no.setOnClickListener(this);
+		rl_yes.setOnClickListener(this);
+		rl_no.setOnClickListener(this);
 		association_rl_main.setOnClickListener(this);
 		association_btn_commit.setOnClickListener(this);
 		association_tv_commit_yes.setOnClickListener(this);
@@ -283,12 +290,12 @@ public class AssociationCreateActivity extends BaseActivity {
 			Bundle data2 = new Bundle();
 			mApp.startActivity(this, AssociationMoveActivity.class, data2);
 			break;
-		case R.id.association_iv_yes:
+		case R.id.rl_yes:
 			resetChoose();
 			association_iv_yes.setImageResource(R.drawable.yes);
 			Private = 0;
 			break;
-		case R.id.association_iv_no:
+		case R.id.rl_no:
 			resetChoose();
 			association_iv_no.setImageResource(R.drawable.yes);
 			Private = 1;

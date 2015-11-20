@@ -14,7 +14,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin_top"
             android:scaleType="centerCrop"
-            android:src="@drawable/default_image_small" />
+            android:src="@drawable/nophoto" />
 
         <TextView
             android:id="@+id/album_tv_name"

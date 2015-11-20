@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
@@ -55,6 +56,7 @@ import com.zhiyisoft.associations.model.base.Model;
 import com.zhiyisoft.associations.util.BaiduUtil;
 import com.zhiyisoft.associations.util.DateUtil;
 import com.zhiyisoft.associations.util.ToastUtils;
+import com.zhiyisoft.associations.util.UIUtils;
 import com.zhiyisoft.associations.widget.wheelview.ArrayWheelAdapter;
 import com.zhiyisoft.associations.widget.wheelview.WheelView;
 

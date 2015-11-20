@@ -73,6 +73,8 @@ public class ModelLeague extends Model {
 
 	private int type;
 
+	private int verified; // 是否认证 0为不认证，1为认证
+
 	public ModelLeague() {
 
 	}
@@ -127,6 +129,9 @@ public class ModelLeague extends Model {
 			}
 			if (jsonObject.has("contact")) {
 				this.setContact(jsonObject.getString("contact"));
+			}
+			if (jsonObject.has("verified")) {
+				this.setVerified(jsonObject.getInt("verified"));
 			}
 			if (jsonObject.has("members") && flag != true) {
 				JSONArray array = jsonObject.getJSONArray("members");
@@ -341,6 +346,14 @@ public class ModelLeague extends Model {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public int getVerified() {
+		return verified;
+	}
+
+	public void setVerified(int verified) {
+		this.verified = verified;
 	}
 
 }

@@ -171,7 +171,7 @@ public class WheelView extends View {
 	private void initData(Context context) {
 		gestureDetector = new GestureDetector(context, gestureListener);
 		gestureDetector.setIsLongpressEnabled(false);
-		this.TEXT_SIZE = DisplayUtils.dp2px(context, 12);
+		this.TEXT_SIZE = DisplayUtils.dp2px(context, 14);
 		scroller = new Scroller(context);
 	}
 

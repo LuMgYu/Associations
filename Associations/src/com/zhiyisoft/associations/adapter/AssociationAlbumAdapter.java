@@ -1,12 +1,14 @@
 package com.zhiyisoft.associations.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.zhiyisoft.associations.R;
 import com.zhiyisoft.associations.activity.base.BaseActivity;
 import com.zhiyisoft.associations.adapter.base.BAdapter;
@@ -69,7 +71,18 @@ public class AssociationAlbumAdapter extends BAdapter {
 		ModelLeagueAlbum album = (ModelLeagueAlbum) mList.get(position);
 		// TODO 把数据绑定到界面
 		// holder.album_iv.setImageUrl(album.getImgsrcL());
-		mApp.displayImage(album.getImgsrcL(), holder.album_iv);
+		Log.i("album", album.getImgsrcL() + "fddddddddd");
+		if (album.getImgsrcL() != null && !album.getImgsrcL().equals("")) {
+			DisplayImageOptions options = new DisplayImageOptions.Builder()
+					.showImageOnLoading(R.drawable.nophoto)
+					.showImageOnFail(R.drawable.nophoto).cacheInMemory(true)
+					.cacheOnDisk(true).bitmapConfig(Bitmap.Config.RGB_565)
+					.build();
+
+			mApp.displayImage(album.getImgsrcL(), holder.album_iv, options);
+		} else {
+			holder.album_iv.setImageResource(R.drawable.nophoto);
+		}
 		holder.album_tv_name.setText(album.getName());
 		holder.album_tv_count.setText(album.getPhotoCount());
 		holder.album_tv_date

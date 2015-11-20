@@ -192,45 +192,60 @@
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/text_small" />
 
-            <ImageView
-                android:id="@+id/association_iv_yes"
+            <RelativeLayout
+                android:id="@+id/rl_yes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/association_tv_public"
-                android:src="@drawable/no" />
+                android:layout_toRightOf="@id/association_tv_public" >
 
-            <TextView
-                android:id="@+id/association_et_yes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/association_iv_yes"
-                android:text="是"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
+                <ImageView
+                    android:id="@+id/association_iv_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/no" />
 
-            <ImageView
-                android:id="@+id/association_iv_no"
+                <TextView
+                    android:id="@+id/association_et_yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:layout_toRightOf="@id/association_iv_yes"
+                    android:text="是"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_small" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:src="@drawable/no" />
+                android:layout_marginLeft="@dimen/margin_left_small" >
 
-            <TextView
-                android:id="@+id/association_et_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/margin_left_small"
-                android:layout_toRightOf="@id/association_iv_no"
-                android:text="否"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_small" />
+                <ImageView
+                    android:id="@+id/association_iv_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:src="@drawable/no" />
+
+                <TextView
+                    android:id="@+id/association_et_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_left_small"
+                    android:layout_toRightOf="@id/association_iv_no"
+                    android:text="否"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_small" />
+            </RelativeLayout>
         </RelativeLayout>
         <!-- 主题 -->
 
