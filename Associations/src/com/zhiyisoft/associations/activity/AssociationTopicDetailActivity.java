@@ -1,7 +1,5 @@
 package com.zhiyisoft.associations.activity;
 
-import io.vov.vitamio.LibsChecker;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -117,7 +115,6 @@ public class AssociationTopicDetailActivity extends BaseActivity {
 			case TOPICVIEW:
 				ModelLeagueTopic topic = (ModelLeagueTopic) msg.obj;
 				if (topic != null) {
-					ToastUtils.showToast("获取详情成功");
 					List<Model> photos = topic.getAttachs();
 					List<String> photoUrls = new ArrayList<String>();
 					if (photos != null) {

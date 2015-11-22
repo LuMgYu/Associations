@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -218,12 +217,13 @@ public class MainActivity extends BaseActivity {
 
 		case R.id.ll_move:
 			mCurrentState = MOVE;
-			setAllImagetitle(0, 0, 0, R.drawable.more);
-			iv_title_right3.setOnClickListener(new OnClickListener() {
+			setAllImagetitle(0, 0, R.drawable.more, 0);
+			iv_title_right2.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					showPop(iv_title_right3, 0, 40);
+					showPop(iv_title_right2, 0,
+							DisplayUtils.dp2px(getApplicationContext(), 12));
 				}
 			});
 			initFragmentMove();
@@ -257,6 +257,7 @@ public class MainActivity extends BaseActivity {
 			break;
 		case R.id.ll_me:
 			mCurrentState = ME;
+			iv_title_right2.setImageResource(R.drawable.set);
 			iv_title_right2.setVisibility(View.VISIBLE);
 			initFragmentMe();
 

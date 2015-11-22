@@ -18,7 +18,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_right_small"
-            android:background="@drawable/btn_red"
+            android:background="@drawable/view_border_solid_red_5"
             android:text="发送"
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_big" />

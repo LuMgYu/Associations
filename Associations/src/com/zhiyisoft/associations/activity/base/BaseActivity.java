@@ -527,6 +527,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 					Bitmap bitmap = MediaStore.Images.Media.getBitmap(resolver,
 							originalUri);
 					compressPhotoAndDisplay(bitmap);
+					bitmap.recycle();
 					String filename = getFileByUri(originalUri);
 					getFile(filename);
 				}
@@ -641,8 +642,11 @@ public abstract class BaseActivity extends FragmentActivity implements
 	 */
 	public Bitmap compressPhotoAndDisplay(Bitmap originBitmap) {
 		// TODO 统统同比例压缩一倍， 这压缩太粗糙， 留在迭代开发做，现在如果做了，迭代开发干什么？
-		originBitmap = ThumbnailUtils.extractThumbnail(originBitmap, 51, 108);
-		return originBitmap;
+		Bitmap bitmap = null;
+		if (originBitmap != null) {
+			bitmap = ThumbnailUtils.extractThumbnail(originBitmap, 51, 108);
+		}
+		return bitmap;
 	}
 
 	public Bitmap compressOutStream2Bitmap(Bitmap bitmap, OutputStream stream) {
